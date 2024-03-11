@@ -2,10 +2,11 @@ import type { Metadata } from 'next';
 import { Noto_Sans_KR } from 'next/font/google';
 import './globalTheme.css';
 
-const notoSansKr = Noto_Sans_KR({
+export const notoSansKr = Noto_Sans_KR({
   weight: ['100', '300', '400', '500', '700', '900'],
   display: 'fallback',
   subsets: ['latin'],
+  variable: '--noto-sans-kr',
   fallback: [
     '-apple-system',
     'Malgun Gothic',
@@ -30,7 +31,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={notoSansKr.className}>{children}</body>
+      <body className={notoSansKr.className}>
+        <div
+          style={{
+            width: '90%',
+            maxWidth: '1240px',
+            height: 'fit-content',
+            padding: '42px 0px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '32px',
+          }}
+        >
+          {children}
+        </div>
+      </body>
     </html>
   );
 }

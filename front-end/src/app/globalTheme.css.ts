@@ -155,6 +155,19 @@ createGlobalTheme(':root', vars, {
 
 globalStyle('*', {
   boxSizing: 'border-box',
+  fontFamily: '--noto-sans-kr',
+  fontWeight: 500,
+});
+
+globalStyle('body', {
+  width: '100vw',
+  border: '1px solid black',
+  display: 'flex',
+  alignItems: 'center',
+  flexDirection: 'column',
+  margin: 0,
+  overflowY: 'scroll',
+  overflowX: 'hidden',
 });
 
 globalStyle('a', {
