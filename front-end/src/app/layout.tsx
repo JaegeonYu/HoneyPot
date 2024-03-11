@@ -31,7 +31,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={notoSansKr.className}>
+      <body className={`${notoSansKr.className}`}>
         <div
           style={{
             width: '90%',
@@ -40,6 +40,7 @@ export default function RootLayout({
             padding: '42px 0px',
             display: 'flex',
             flexDirection: 'column',
+            alignItems: 'center',
             gap: '32px',
           }}
         >
