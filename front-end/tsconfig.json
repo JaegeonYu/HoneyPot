@@ -22,6 +22,7 @@
       "@/*": ["*"],
       "@/components": ["_components/"],
       "@/apis": ["_apis/"],
+      "@/assets": ["_assets/"],
       "@/types": ["_types/"],
       "@/store": ["_store/"]
     }
