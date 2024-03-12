@@ -1,3 +1,4 @@
+import { vars } from '@/globalTheme.css';
 import { style } from '@vanilla-extract/css';
 
 export const headerContainer = style({
@@ -9,71 +10,75 @@ export const headerContainer = style({
   display: 'flex',
   alignItems: 'center',
   gap: 40,
-  paddingLeft: 112,
+  paddingLeft: '5vw',
+  position: 'sticky',
 });
 
 export const logo = style({
   width: 32,
   height: 32,
   backgroundColor: 'purple',
+  cursor: 'pointer',
 });
 
-export const nav = style({
+export const navWrapper = style({
+  height: '100%',
   display: 'flex',
   gap: 32,
 });
 
 export const title = style({
   height: '100%',
-  fontSize: '16px',
+  fontSize: '18px',
   fontWeight: 'bold',
+  cursor: 'pointer',
 });
 
-export const navItem = style({
+export const navTitle = style({
+  width: 64,
+  height: '100%',
+  lineHeight: '80px',
   position: 'relative',
-  textDecoration: 'none',
-  color: '#777777',
-  display: 'block',
-  selectors: {
-    '&:hover': {
-      color: '#222222',
-    },
-  },
+  color: vars.colors.service.MAIN_BLACK,
+  cursor: 'pointer',
+  fontWeight: 600,
 });
 
-export const subMenu = style({
-  display: 'none',
+export const dropBox = style({
+  visibility: 'hidden',
   position: 'absolute',
-  left: '50%',
-  top: '100%',
-  padding: '0',
-  transform: 'translateX(-50%)',
-
+  top: 72,
+  left: -32,
+  height: 'fit-content',
   overflow: 'hidden',
-  background: 'white',
-  boxShadow: '0 8px 16px rgba(0, 0, 0, 0.2)',
+  background: vars.colors.service.MAIN_WHITE,
+  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.16)',
   borderRadius: '12px',
   zIndex: 1000,
 
   selectors: {
-    [`${navItem}:hover &`]: {
-      display: 'block',
+    [`${navTitle}:hover &`]: {
+      visibility: 'visible',
     },
   },
 });
 
-export const subMenuItem = style({
+export const dropBoxItem = style({
   width: '120px',
+  height: '44px',
+  lineHeight: 'calc(44px - 20px)',
   padding: '10px 20px',
-  color: '#222222',
+  color: vars.colors.service.MAIN_BLACK,
   display: 'block',
-  borderBottom: '1px solid #DDDDDD',
+  borderBottom: `1px solid ${vars.colors.service.HOVER_BACKGROUND}`,
+  cursor: 'pointer',
+
   selectors: {
     '&:last-child': {
       borderBottom: 'none',
     },
     '&:hover': {
-      backgroundColor: '#DDDDDD',
+      backgroundColor: `${vars.colors.service.HOVER_BACKGROUND}`,
     },
   },
 });

@@ -9,6 +9,7 @@ export const wrapper = style({
   aspectRatio: aspectRatioProps,
   borderRadius: 16,
   boxShadow: `0 4px 16px 0 rgba(0,0,0,0.16)`,
+  position: 'relative',
 });
 
 export const imgHeight = createVar();
@@ -18,16 +19,16 @@ export const styledImage = style({
   borderBottom: '1px solid black',
 });
 
-export const svgWrapper = style({
-  width: 'fit-content',
-  height: 'fit-content',
-});
+// export const svgWrapper = style({
+//   width: 'fit-content',
+//   height: 'fit-content',
+// });
 
-export const styledSvg = style({
-  fill: `${vars.colors.service.MAIN_BLACK}`,
-  selectors: {
-    [`${svgWrapper}:hover > &`]: {
-      fill: vars.colors.service.MAIN_GOLD,
-    },
-  },
-});
+// export const styledSvg = style({
+//   fill: `${vars.colors.service.MAIN_BLACK}`,
+//   selectors: {
+//     [`${svgWrapper}:hover > &`]: {
+//       fill: vars.colors.service.MAIN_GOLD,
+//     },
+//   },
+// });
