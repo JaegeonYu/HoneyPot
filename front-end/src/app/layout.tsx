@@ -3,10 +3,11 @@ import { Noto_Sans_KR } from 'next/font/google';
 import './globalTheme.css';
 import Header from '@/_components/Header/Header';
 
-const notoSansKr = Noto_Sans_KR({
+export const notoSansKr = Noto_Sans_KR({
   weight: ['100', '300', '400', '500', '700', '900'],
   display: 'fallback',
   subsets: ['latin'],
+  variable: '--noto-sans-kr',
   fallback: [
     '-apple-system',
     'Malgun Gothic',
@@ -31,10 +32,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={notoSansKr.className}>
-        {children}
-
-        <Header />
+      <body className={`${notoSansKr.className}`}>
+        <Header></Header>
+        <div
+          style={{
+            width: '90%',
+            maxWidth: '1240px',
+            height: 'fit-content',
+            padding: '42px 0px',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '32px',
+          }}
+        >
+          {children}
+        </div>
       </body>
     </html>
   );

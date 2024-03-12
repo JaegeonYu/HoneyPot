@@ -1,6 +1,9 @@
 import { createGlobalTheme, createGlobalThemeContract, globalStyle } from '@vanilla-extract/css';
 
 export const vars = createGlobalThemeContract({
+  fontFamily: {
+    notoSansKR: 'noto-sans-kr',
+  },
   colors: {
     service: {
       MAIN_BLACK: 'main-black',
@@ -73,6 +76,9 @@ export const vars = createGlobalThemeContract({
 });
 
 createGlobalTheme(':root', vars, {
+  fontFamily: {
+    notoSansKR: `var(--noto-sans-kr)`,
+  },
   colors: {
     service: {
       MAIN_BLACK: '#222222',
@@ -90,13 +96,11 @@ createGlobalTheme(':root', vars, {
         SUB: 'rgba(230, 30, 43, 0.6)',
         LIGHT: 'rgba(230, 30, 43, 0.3)',
       },
-
       DEMOCRATIC_PARTY: {
         MAIN: 'rgba(21, 36, 132, 1)',
         SUB: 'rgba(21, 36, 132, 0.6)',
         LIGHT: 'rgba(21, 36, 132, 0.3)',
       },
-
       GREEN_JUSTICE_PARTY: {
         MAIN: 'rgba(0, 124, 54, 1)',
         SUB: 'rgba(0, 124, 54, 0.6)',
@@ -113,37 +117,31 @@ createGlobalTheme(':root', vars, {
         SUB: 'rgba(69, 186, 189, 0.6)',
         LIGHT: 'rgba(69, 186, 189, 0.3)',
       },
-
       LIBERTY_UNIFICATION_PARTY: {
         MAIN: 'rgba(9, 88, 167, 1)',
         SUB: 'rgba(9, 88, 167, 0.6)',
         LIGHT: 'rgba(9, 88, 167, 0.3)',
       },
-
       PROGRESSIVE_PARTY: {
         MAIN: 'rgba(214, 0, 28, 1)',
         SUB: 'rgba(214, 0, 28, 0.6)',
         LIGHT: 'rgba(214, 0, 28, 0.3)',
       },
-
       DEMOCRATIC_UNION: {
         MAIN: 'rgba(21, 36, 132, 1)',
         SUB: 'rgba(21, 36, 132, 0.6)',
         LIGHT: 'rgba(21, 36, 132, 0.3)',
       },
-
       NEW_PROGRESSIVE_UNION: {
         MAIN: 'rgba(0, 210, 195, 1)',
         SUB: 'rgba(0, 210, 195, 0.6)',
         LIGHT: 'rgba(0, 210, 195, 0.3)',
       },
-
       KOREA_INNOVATION_PARTY: {
         MAIN: 'rgba(0, 115, 207, 1)',
         SUB: 'rgba(0, 115, 207, 0.6)',
         LIGHT: 'rgba(0, 115, 207, 0.3)',
       },
-
       INDEPENDENT_GROUP: {
         MAIN: 'rgba(113, 113, 113, 1)',
         SUB: 'rgba(113, 113, 113, 0.6)',
@@ -155,6 +153,18 @@ createGlobalTheme(':root', vars, {
 
 globalStyle('*', {
   boxSizing: 'border-box',
+  fontFamily: 'var(--noto-sans-kr)',
+  fontWeight: 400,
+});
+
+globalStyle('body', {
+  width: '100vw',
+  display: 'flex',
+  alignItems: 'center',
+  flexDirection: 'column',
+  margin: 0,
+  overflowY: 'scroll',
+  overflowX: 'hidden',
 });
 
 globalStyle('a', {
@@ -164,4 +174,15 @@ globalStyle('a', {
 
 globalStyle('p', {
   margin: 0,
+});
+
+globalStyle('ul', {
+  listStyleType: 'none',
+  margin: 0,
+  padding: 0,
+});
+
+globalStyle('button', {
+  backgroundColor: 'inherit',
+  border: 'none',
 });
