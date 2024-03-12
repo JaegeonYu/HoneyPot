@@ -5,12 +5,12 @@ import { vars } from '@/globalTheme.css';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 
 /**
- * @tabTitleList: string[]
- * Tab의 Title로 들어갈 리스트
- * @selectedIdx: number
- * [선택된 Tab의 Index]
- * @selectedIdxHandler: ([...arg]: any) => void
- * [onClick에 들어갈 함수]
+ * @param tabTitleList
+ * Tab의 Title로 들어갈 리스트 [type: string[]]
+ * @param selectedIdx
+ * 선택된 Tab의 Index [type: number]
+ * @param selectedIdxHandler
+ * onClick에 들어갈 함수 [type: ([...arg]: any) => void]
  */
 export default function Tab({ tabTitleList, selectedIdx, selectedIdxHandler }: T.TabProps) {
   return (
