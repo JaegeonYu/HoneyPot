@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import * as Comp from '@/components';
-import * as S from './style.css';
 
 export default function SungjeUiTest() {
   const [isSelectedIdx, setIsSelectedIdx] = useState(0);
@@ -17,14 +16,13 @@ export default function SungjeUiTest() {
         selectedIdxHandler={handleIsSelectedIdx}
         tabTitleList={['공약', '약력', '관련 영상', '의안']}
       />
-      <div className={S.gridWrapper}>
-        <Comp.Card></Comp.Card>
-        <Comp.Card></Comp.Card>
-        <Comp.Card></Comp.Card>
-        <Comp.Card></Comp.Card>
-        <Comp.Card></Comp.Card>
-        <Comp.Card></Comp.Card>
-      </div>
+      <Comp.GridWrapper>
+        {Array.from({ length: 10 }).map((_, i) => (
+          <Comp.Card key={`card-${i}`} ratio="4 / 5" imgUrl={`/image/category/${i}.svg`}>
+            {i}
+          </Comp.Card>
+        ))}
+      </Comp.GridWrapper>
     </>
   );
 }
