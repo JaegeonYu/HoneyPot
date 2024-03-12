@@ -5,11 +5,12 @@ import * as S from './Header.css';
 function Header() {
   return (
     <header className={S.headerContainer}>
+      <div className={S.logo}></div>
+      <Link href="/">
+        <p className={S.title}>여의도 꿀통</p>
+      </Link>
       <nav>
         <ul className={S.nav}>
-          <Link href="/">
-            <p className={S.title}>여의도 꿀통</p>
-          </Link>
           <li className={S.navItem}>
             <div>21대 국회</div>
             <ul className={S.subMenu}>

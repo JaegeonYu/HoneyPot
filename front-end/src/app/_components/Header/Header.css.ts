@@ -2,21 +2,29 @@ import { style } from '@vanilla-extract/css';
 
 export const headerContainer = style({
   background: '#fff',
-  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
   fontSize: '14px',
   textAlign: 'center',
   height: '80px',
   width: '100vw',
   display: 'flex',
+  alignItems: 'center',
+  gap: 40,
+  paddingLeft: 112,
+});
+
+export const logo = style({
+  width: 32,
+  height: 32,
+  backgroundColor: 'purple',
 });
 
 export const nav = style({
-  // display: 'flex',
+  display: 'flex',
+  gap: 32,
 });
 
 export const title = style({
   height: '100%',
-  lineHeight: 'px',
   fontSize: '16px',
   fontWeight: 'bold',
 });
@@ -24,9 +32,7 @@ export const title = style({
 export const navItem = style({
   position: 'relative',
   textDecoration: 'none',
-  width: '100px',
   color: '#777777',
-  padding: '1rem',
   display: 'block',
   selectors: {
     '&:hover': {
