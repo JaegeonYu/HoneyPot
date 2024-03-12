@@ -1,8 +1,23 @@
-import { style } from '@vanilla-extract/css';
+import { createVar, style } from '@vanilla-extract/css';
+
 export const billCardWrapper = style({
-  width: 50,
-  height: 50,
-  margin: 'auto',
+  display: 'flex',
+  flexDirection: 'column',
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+
+  width: '80%',
+  padding: 15,
+  selectors: {
+    '&:hover': {
+      backgroundColor: '#ebebeb',
+    },
+  },
+  cursor: 'pointer',
+  outline: '2px solid #32a1ce',
+  borderRadius: 3,
+  overflow: 'hidden',
+  transition: 'all 0.3s ease-out',
 });
 
 export const fontName = style({
@@ -10,43 +25,128 @@ export const fontName = style({
   fontSize: 20,
   fontWeight: 900,
 });
-
-export const accordion = style({
-  backgroundColor: '#eee',
-  color: '#444',
-  cursor: 'pointer',
-  padding: 18,
-  width: '80%',
-  border: 'none',
-  textAlign: 'left',
-  outline: 'none',
-  fontSize: 15,
-  transition: 'all 0.3s ease',
-  // transition: 0.4s,
-  ':hover': {
-    color: 'pink',
-  },
-  ':active': {
-    backgroundColor: 'gray',
-  },
+export const fontContent = style({
+  //   height: 58,
+  fontSize: 12,
+  fontWeight: 500,
+});
+export const fontKeywordBold = style({
+  //   height: 58,
+  fontSize: 12,
+  fontWeight: 900,
+});
+export const fontKeyword = style({
+  //   height: 58,
+  fontSize: 12,
+  fontWeight: 500,
 });
 
-// export const active = style({
-//   backgroundColor: 'gray',
-// });
-export const panel = style({
-  paddingLeft: 33,
-  paddingRight: 33,
-  backgroundColor: 'black',
-  maxHeight: 0,
+export const billCardHeader = style({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  minHeight: 50,
+  paddingLeft: 26,
+  paddingRight: 12,
+  paddingTop: 10,
+  paddingBottom: 10,
+  justifyContent: 'space-between',
+});
+
+export const billTitle = style({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+  paddingTop: 6,
+  paddingBottom: 6,
+  rowGap: 8,
+
+  //   border: '1px solid red',
+});
+export const billTitlePerson = style({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'flex-start',
+  columnGap: 12,
+
+  //   border: '1px solid red',
+});
+
+export const billTitleCommittee = style({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  rowGap: 4,
+  padding: '10px 16px',
+
+  //   border: '1px solid red',
+});
+
+export const heightVar = createVar();
+export const bgccolor = createVar();
+export const panelHeight = createVar();
+
+export const billCardContents = style({
+  //   backgroundColor: 'gray',
   overflow: 'hidden',
-  transition: 'max-height 0.2s ease-out',
+  //   width: 50,
+  maxHeight: panelHeight,
 });
 
-//   .panel {
-//     padding: 0 18px;
-//     background-color: white;
-//     max-height: 0;
-//     overflow: hidden;
-//     transition: max-height 0.2s ease-out;
-//   }
+export const billCardContentsHeader = style({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  columnGap: 12,
+  padding: '10px 39px',
+  justifyContent: 'space-between',
+});
+export const billCardContentsHeaderSummary = style({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  columnGap: 30,
+});
+
+export const billCardContentsHeaderSummarytBtn = style({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  columnGap: 10,
+  padding: '0px 14px',
+  border: '1px solid #E61E2B',
+  borderRadius: 3,
+});
+
+export const billCardContentsHeaderLink = style({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  columnGap: 10,
+});
+////////////// MAIN CONTENTS START
+export const billCardContentsMain = style({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  columnGap: 4,
+  padding: '10px 16px',
+});
+
+export const billCardContentsProblem = style({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+  rowGap: 24,
+  padding: '20px 32px',
+  border: '1px solid red',
+});
+
+export const billCardContentsProblemText = style({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+  rowGap: 10,
+
+  //   border: '1px solid red',
+});
