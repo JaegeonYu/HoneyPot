@@ -1,3 +1,3 @@
 import Bill from './Bill/Bill';
-
-export { Bill };
+import Tab from './Tab/Tab';
+export { Bill, Tab };
