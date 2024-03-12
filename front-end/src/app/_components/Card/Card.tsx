@@ -3,6 +3,7 @@ import * as S from './Card.css';
 import * as T from '@/types';
 import Image from 'next/image';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
+import Badge from '../Badge/Badge';
 
 /**
  * @param children
@@ -25,11 +26,15 @@ export default function Card({ ratio, imgUrl, children }: T.CardProps) {
       <Image
         className={S.styledImage}
         style={assignInlineVars({ [S.imgHeight]: ratio === '4/5' || ratio === '4 / 5' ? '80%' : '70%' })}
-        src={imgUrl}
+        // src={imgUrl}
+        src={'/DUMMY_kim-tae-ho-profile.png'}
         width={100}
         height={100}
         alt={imgUrl}
       />
+      <Badge isPositionAbsolute={true} color={'red'}>
+        {'???????'}
+      </Badge>
       {children}
     </div>
   );
