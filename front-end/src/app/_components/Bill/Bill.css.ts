@@ -26,6 +26,18 @@ export const fontName = style({
   fontSize: 20,
   fontWeight: 900,
 });
+export const fontHeader = style({
+  //   height: 58,
+  fontSize: 17,
+  fontWeight: 700,
+});
+
+export const fontTitle = style({
+  //   height: 58,
+  fontSize: 15,
+  fontWeight: 700,
+});
+
 export const fontContent = style({
   //   height: 58,
   fontSize: 12,
@@ -49,8 +61,8 @@ export const billCardHeader = style({
   minHeight: 50,
   paddingLeft: 26,
   paddingRight: 12,
-  paddingTop: 10,
-  paddingBottom: 10,
+  paddingTop: 2,
+  paddingBottom: 2,
   justifyContent: 'space-between',
 });
 

@@ -39,10 +39,12 @@ export const textWrapper = style({
 export const postWrapper = style({
   display: 'flex',
   flexDirection: 'row',
+  flexWrap: 'wrap',
   //   alignItems:'center',
   justifyContent: 'center',
   width: '100%',
   //   justifyContent: 'space-between',
   columnGap: 16,
+  rowGap: 16,
   padding: '16px 16px',
 });

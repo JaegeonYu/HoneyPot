@@ -24,7 +24,7 @@ export default function Bill() {
       <div className={S.billCardHeader}>
         <ArrowBlack></ArrowBlack>
         <div className={S.billTitle}>
-          <p className={S.fontName}>고향사랑 기부금에 관한 법률안</p>
+          <p className={S.fontHeader}>고향사랑 기부금에 관한 법률안</p>
           <div className={S.billTitlePerson}>
             <p className={S.fontContent}>대표자 : 김태호</p>
             <p className={S.fontContent}>뱃지</p>
@@ -34,12 +34,12 @@ export default function Bill() {
           <HelpCircle></HelpCircle>
           <p className={S.fontContent}>국회운영위원회</p>
         </div>
-        <p className={S.fontName}>This is ProgressBar</p>
+        <p className={S.fontTitle}>This is ProgressBar</p>
       </div>
       <div className={S.billCardContents}>
         <div className={S.billCardContentsHeader}>
           <div className={S.billCardContentsHeaderSummary}>
-            <p className={S.fontName}>세부사항</p>
+            <p className={S.fontTitle}>세부사항</p>
             <div className={S.billCardContentsHeaderSummarytBtn}>
               <p className={S.fontContent}>요약하기</p>
               <p className={S.fontContent}>toggle btn here</p>
@@ -53,14 +53,14 @@ export default function Bill() {
         <div className={S.billCardContentsMain}>
           <div className={S.billCardContentsProblem}>
             <div className={S.billCardContentsProblemText}>
-              <p className={S.fontName}>문제상황</p>
+              <p className={S.fontTitle}>문제상황</p>
               <p className={S.fontContent}>
                 지방분권과 지방자치가 제대로 이루어지지 않고 중앙·지방정부 간의 재정 불균형이 심각하며, 도시·농촌 간의
                 세수 격차가 심화되는 문제가 있음.
               </p>
             </div>
             <div className={S.billCardContentsProblemText}>
-              <p className={S.fontName}>문제해결방안</p>
+              <p className={S.fontTitle}>문제해결방안</p>
               <p className={S.fontContent}>
                 지방재정의 확충을 통한 재정자립을 도모하기 위해 지방세에서 기부금을 받아 지방자치단체에 지원하고, 이를
                 통해 지방재정을 확충하고 국가 균형 발전을 도모하려는 것임. 또한, 고향사랑 기부제를 통해 고향에 대한
@@ -71,7 +71,7 @@ export default function Bill() {
           </div>
 
           <div className={S.billCardContentsProblem}>
-            <p className={S.fontName}>주요 키워드</p>
+            <p className={S.fontTitle}>주요 키워드</p>
             <div className={S.billCardContentsProblemText}>
               <p className={S.fontKeywordBold}>지방재정자립</p>
               <p className={S.fontKeyword}>
@@ -88,7 +88,7 @@ export default function Bill() {
           </div>
         </div>
 
-        {/* <p className={S.fontName}>
+        {/* <p className={S.fontTitle}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eu neque sollicitudin, mollis tortor at,
           scelerisque nisl. Nullam vel nisl ac mi ultricies feugiat. Donec consequat finibus bibendum. Maecenas
           hendrerit in ipsum id porttitor. Interdum et malesuada fames ac ante ipsum primis in faucibus. Curabitur ipsum
