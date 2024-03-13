@@ -5,7 +5,7 @@ export const chartWrapper = style({
   width: '100%',
   display: 'flex',
   flexDirection: 'column',
-  gap: 24,
+  gap: 12,
 });
 
 export const customLegendUlContainer = style({
@@ -21,6 +21,7 @@ export const customLegendLiItem = style({
   alignItems: 'center',
   justifyContent: 'center',
   width: '100%',
+  cursor: 'default',
 });
 
 export const colorBox = style({

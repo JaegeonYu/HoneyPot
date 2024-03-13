@@ -26,12 +26,22 @@ ChartJS.register(Legend, Tooltip, Title, CategoryScale, LinearScale, ArcElement)
  *
  * [[30, 70],[20, 80]]
  *
+ * @param UNIQUE_ID_FOR_LEGEND
+ * 커스텀 범례의 ID를 설정함. 꼭 UNIQUE 해야 함
+ * [type: 'assembly-member-attendance-rate']
+ *
+ * (ex. 'assembly-member-attendance-rate')
  * @description
  * 차트의 크기는 width: 100%로 설정이 되어 있어서 한 번 감싸서 사용해줘야 한다.
  * 또한 높이도 width의 크기를 따라간다. 즉, 크기는 width x width
  */
 
-export default function DoughnutChart({ chartTitle, legendList, datasetList }: T.DoughnutChartProps) {
+export default function DoughnutChart({
+  chartTitle,
+  legendList,
+  datasetList,
+  UNIQUE_ID_FOR_LEGEND,
+}: T.DoughnutChartProps) {
   const getOrCreateLegendList = (chart: any, id: any) => {
     const legendContainer = document.getElementById(id);
     let listContainer = legendContainer?.querySelector('ul');
@@ -81,8 +91,8 @@ export default function DoughnutChart({ chartTitle, legendList, datasetList }: T
     cutout: '80%',
     spacing: 0,
     plugins: {
-      legend: { position: 'bottom' as 'bottom', borderRadius: 12, display: false },
-      htmlLegend: { containerID: 'custom-legend' },
+      legend: { display: false },
+      htmlLegend: { containerID: UNIQUE_ID_FOR_LEGEND },
       title: { display: true, text: chartTitle },
       tooltip: {
         callbacks: {
@@ -110,8 +120,8 @@ export default function DoughnutChart({ chartTitle, legendList, datasetList }: T
             backgroundColor: [PALETTE.service.STROKE_OR_BLUR, legendList[i].color],
           })),
         }}
-      ></Doughnut>
-      <div id="custom-legend"></div>
+      />
+      <div id={UNIQUE_ID_FOR_LEGEND}></div>
     </div>
   );
 }
