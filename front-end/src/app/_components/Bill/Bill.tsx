@@ -17,7 +17,7 @@ export default function Bill() {
       className={S.billCardWrapper}
       style={assignInlineVars({
         // [S.bgccolor]: isActive ? 'red' : 'blue',
-        [S.panelHeight]: isActive ? '1' : '0',
+        [S.panelHeight]: isActive ? '100vh' : '0',
       })}
       onClick={toggleAccordion}
     >

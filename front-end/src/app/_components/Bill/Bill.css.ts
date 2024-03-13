@@ -1,3 +1,4 @@
+import { vars } from '@/globalTheme.css';
 import { createVar, style } from '@vanilla-extract/css';
 
 export const billCardWrapper = style({
@@ -5,19 +6,19 @@ export const billCardWrapper = style({
   flexDirection: 'column',
   //   justifyContent: 'center',
   //   alignItems: 'center',
-
+  //   maxHeight: '100vh',
   width: '80%',
   padding: 15,
   selectors: {
     '&:hover': {
-      backgroundColor: '#ebebeb',
+      backgroundColor: vars.colors.service.HOVER_BACKGROUND,
     },
   },
   cursor: 'pointer',
-  outline: '2px solid #32a1ce',
+  outline: `2px solid ${vars.colors.service.HOVER_STROKE}`,
   borderRadius: 3,
   overflow: 'hidden',
-  transition: 'all 0.3s ease-out',
+  //   transition: 'all 0.4s ease-out',
 });
 
 export const fontName = style({
@@ -91,6 +92,7 @@ export const billCardContents = style({
   overflow: 'hidden',
   //   width: 50,
   maxHeight: panelHeight,
+  transition: 'all 0.3s ease-out',
 });
 
 export const billCardContentsHeader = style({
@@ -113,7 +115,7 @@ export const billCardContentsHeaderSummarytBtn = style({
   flexDirection: 'row',
   alignItems: 'center',
   columnGap: 10,
-  padding: '0px 14px',
+  padding: '8px 14px',
   border: '1px solid #E61E2B',
   borderRadius: 3,
 });
