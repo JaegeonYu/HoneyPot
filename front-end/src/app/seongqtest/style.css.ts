@@ -1,4 +1,5 @@
 import { style } from '@vanilla-extract/css';
+import { vars } from '@/globalTheme.css';
 
 export const fontTitle = style({
   fontSize: 15,
@@ -12,6 +13,23 @@ export const fontContent = style({
   textAlign: 'center',
 });
 
+export const fontHead = style({
+  //   height: 58,
+  fontSize: 22,
+  fontWeight: 900,
+  // textAlign: 'center',
+});
+
+export const headWrapper = style({
+  display: 'flex',
+  flexDirection: 'column',
+  //   rowGap: 8,
+  padding: '8px 0px',
+  alignItems: 'flex-start',
+  width: '100%',
+  borderBottom: `2px solid ${vars.colors.service.HOVER_STROKE}`,
+});
+
 export const textWrapper = style({
   display: 'flex',
   flexDirection: 'column',
@@ -21,7 +39,10 @@ export const textWrapper = style({
 export const postWrapper = style({
   display: 'flex',
   flexDirection: 'row',
+  //   alignItems:'center',
+  justifyContent: 'center',
   width: '100%',
-  justifyContent: 'space-between',
+  //   justifyContent: 'space-between',
+  columnGap: 16,
   padding: '16px 16px',
 });

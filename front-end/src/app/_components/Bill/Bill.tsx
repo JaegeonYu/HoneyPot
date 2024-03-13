@@ -42,6 +42,7 @@ export default function Bill() {
             <p className={S.fontName}>세부사항</p>
             <div className={S.billCardContentsHeaderSummarytBtn}>
               <p className={S.fontContent}>요약하기</p>
+              <p className={S.fontContent}>toggle btn here</p>
             </div>
           </div>
           <div className={S.billCardContentsHeaderLink}>

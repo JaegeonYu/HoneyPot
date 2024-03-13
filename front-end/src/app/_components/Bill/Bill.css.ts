@@ -7,7 +7,7 @@ export const billCardWrapper = style({
   //   justifyContent: 'center',
   //   alignItems: 'center',
   //   maxHeight: '100vh',
-  width: '80%',
+  width: '100%',
   padding: 15,
   selectors: {
     '&:hover': {
@@ -116,7 +116,7 @@ export const billCardContentsHeaderSummarytBtn = style({
   alignItems: 'center',
   columnGap: 10,
   padding: '8px 14px',
-  border: '1px solid #E61E2B',
+  border: '1px solid #E61E2B', // 정당 코드색?
   borderRadius: 3,
 });
 
@@ -141,7 +141,7 @@ export const billCardContentsProblem = style({
   alignItems: 'flex-start',
   rowGap: 24,
   padding: '20px 32px',
-  border: '1px solid red',
+  //   border: '1px solid red',
 });
 
 export const billCardContentsProblemText = style({
@@ -149,6 +149,4 @@ export const billCardContentsProblemText = style({
   flexDirection: 'column',
   alignItems: 'flex-start',
   rowGap: 10,
-
-  //   border: '1px solid red',
 });
