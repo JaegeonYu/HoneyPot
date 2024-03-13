@@ -21,7 +21,6 @@ export const customLegendLiItem = style({
   alignItems: 'center',
   justifyContent: 'center',
   width: '100%',
-  cursor: 'pointer',
 });
 
 export const colorBox = style({

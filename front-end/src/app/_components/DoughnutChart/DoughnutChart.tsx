@@ -26,7 +26,9 @@ ChartJS.register(Legend, Tooltip, Title, CategoryScale, LinearScale, ArcElement)
  *
  * [[30, 70],[20, 80]]
  *
- * @returns
+ * @description
+ * 차트의 크기는 width: 100%로 설정이 되어 있어서 한 번 감싸서 사용해줘야 한다.
+ * 또한 높이도 width의 크기를 따라간다. 즉, 크기는 width x width
  */
 
 export default function DoughnutChart({ chartTitle, legendList, datasetList }: T.DoughnutChartProps) {

@@ -7,7 +7,7 @@ ChartJS.register(Legend, Tooltip);
 
 export default function PieChart() {
   const data = {
-    labels: [],
+    labels: ['이행', '진행중', '폐기'],
     datasets: [
       {
         data: [10, 20, 40],
