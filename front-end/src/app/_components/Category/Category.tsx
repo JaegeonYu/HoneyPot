@@ -45,6 +45,7 @@ export default function Category({ categoryId }: T.CategoryProps) {
     <Category17 className={S.styledSvg} />,
   ];
   return (
+    // 하나씩 뽑아올 때
     // <div className={S.wrapper}>
     //   {CATEGORY_LIST.map((category, i: number) => {
     //     return i === categoryId ? (
@@ -58,15 +59,17 @@ export default function Category({ categoryId }: T.CategoryProps) {
     //   })}호
     // </div>
 
-    <div className={S.wrapper}>
-      {CATEGORY_LIST.map((category, i: number) => {
-        return (
-          <div className={S.categoryCard}>
-            <div className={S.svgWrapper}>{svgList[i]}</div>
-            <p className={S.name}>{category.name}</p>
-          </div>
-        );
-      })}
+    <div className={S.listScrollWrapper}>
+      <div className={S.listContainer}>
+        {CATEGORY_LIST.map((category, i: number) => {
+          return (
+            <div className={S.categoryCard}>
+              <div className={S.styledSvg}>{svgList[i]}</div>
+              <p className={S.name}>{category.name}</p>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
