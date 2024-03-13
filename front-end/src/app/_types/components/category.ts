@@ -1,9 +1,6 @@
-import React from 'react';
-
 export interface CategoryProps {
   categoryId: number | string;
-}
-
-export interface CategoryListProps {
-  onClick: ([...arg]: any) => any;
+  color: { defaultColor: string; hoverColor: string };
+  width: string;
+  height: string;
 }

@@ -21,55 +21,105 @@ import {
   Category8,
   Category9,
 } from '@/_assets/category';
-import { CATEGORY_LIST } from '@/_constants';
+import { assignInlineVars } from '@vanilla-extract/dynamic';
 
-export default function Category({ categoryId }: T.CategoryProps) {
+export default function Category({ categoryId, color, width, height }: T.CategoryProps) {
+  const { defaultColor, hoverColor } = color;
   const svgList = [
-    <Category0 key={0} className={S.styledSvg} />,
-    <Category1 key={0} className={S.styledSvg} />,
-    <Category2 key={0} className={S.styledSvg} />,
-    <Category3 key={0} className={S.styledSvg} />,
-    <Category4 key={0} className={S.styledSvg} />,
-    <Category5 key={0} className={S.styledSvg} />,
-    <Category6 key={0} className={S.styledSvg} />,
-    <Category7 key={0} className={S.styledSvg} />,
-    <Category8 key={0} className={S.styledSvg} />,
-    <Category9 key={0} className={S.styledSvg} />,
-    <Category10 key={0} className={S.styledSvg} />,
-    <Category11 key={0} className={S.styledSvg} />,
-    <Category12 key={0} className={S.styledSvg} />,
-    <Category13 key={0} className={S.styledSvg} />,
-    <Category14 key={0} className={S.styledSvg} />,
-    <Category15 key={0} className={S.styledSvg} />,
-    <Category16 key={0} className={S.styledSvg} />,
-    <Category17 key={0} className={S.styledSvg} />,
+    <Category0
+      key={`category-${0}`}
+      className={S.styledSvg}
+      style={assignInlineVars({ [S.defaultColor]: defaultColor, [S.hoverColor]: hoverColor })}
+    />,
+    <Category1
+      key={`category-${1}`}
+      className={S.styledSvg}
+      style={assignInlineVars({ [S.defaultColor]: defaultColor, [S.hoverColor]: hoverColor })}
+    />,
+    <Category2
+      key={`category-${2}`}
+      className={S.styledSvg}
+      style={assignInlineVars({ [S.defaultColor]: defaultColor, [S.hoverColor]: hoverColor })}
+    />,
+    <Category3
+      key={`category-${3}`}
+      className={S.styledSvg}
+      style={assignInlineVars({ [S.defaultColor]: defaultColor, [S.hoverColor]: hoverColor })}
+    />,
+    <Category4
+      key={`category-${4}`}
+      className={S.styledSvg}
+      style={assignInlineVars({ [S.defaultColor]: defaultColor, [S.hoverColor]: hoverColor })}
+    />,
+    <Category5
+      key={`category-${5}`}
+      className={S.styledSvg}
+      style={assignInlineVars({ [S.defaultColor]: defaultColor, [S.hoverColor]: hoverColor })}
+    />,
+    <Category6
+      key={`category-${6}`}
+      className={S.styledSvg}
+      style={assignInlineVars({ [S.defaultColor]: defaultColor, [S.hoverColor]: hoverColor })}
+    />,
+    <Category7
+      key={`category-${7}`}
+      className={S.styledSvg}
+      style={assignInlineVars({ [S.defaultColor]: defaultColor, [S.hoverColor]: hoverColor })}
+    />,
+    <Category8
+      key={`category-${8}`}
+      className={S.styledSvg}
+      style={assignInlineVars({ [S.defaultColor]: defaultColor, [S.hoverColor]: hoverColor })}
+    />,
+    <Category9
+      key={`category-${9}`}
+      className={S.styledSvg}
+      style={assignInlineVars({ [S.defaultColor]: defaultColor, [S.hoverColor]: hoverColor })}
+    />,
+    <Category10
+      key={`category-${10}`}
+      className={S.styledSvg}
+      style={assignInlineVars({ [S.defaultColor]: defaultColor, [S.hoverColor]: hoverColor })}
+    />,
+    <Category11
+      key={`category-${11}`}
+      className={S.styledSvg}
+      style={assignInlineVars({ [S.defaultColor]: defaultColor, [S.hoverColor]: hoverColor })}
+    />,
+    <Category12
+      key={`category-${12}`}
+      className={S.styledSvg}
+      style={assignInlineVars({ [S.defaultColor]: defaultColor, [S.hoverColor]: hoverColor })}
+    />,
+    <Category13
+      key={`category-${13}`}
+      className={S.styledSvg}
+      style={assignInlineVars({ [S.defaultColor]: defaultColor, [S.hoverColor]: hoverColor })}
+    />,
+    <Category14
+      key={`category-${14}`}
+      className={S.styledSvg}
+      style={assignInlineVars({ [S.defaultColor]: defaultColor, [S.hoverColor]: hoverColor })}
+    />,
+    <Category15
+      key={`category-${15}`}
+      className={S.styledSvg}
+      style={assignInlineVars({ [S.defaultColor]: defaultColor, [S.hoverColor]: hoverColor })}
+    />,
+    <Category16
+      key={`category-${16}`}
+      className={S.styledSvg}
+      style={assignInlineVars({ [S.defaultColor]: defaultColor, [S.hoverColor]: hoverColor })}
+    />,
+    <Category17
+      key={`category-${17}`}
+      className={S.styledSvg}
+      style={assignInlineVars({ [S.defaultColor]: defaultColor, [S.hoverColor]: hoverColor })}
+    />,
   ];
   return (
-    // 하나씩 뽑아올 때
-    // <div className={S.wrapper}>
-    //   {CATEGORY_LIST.map((category, i: number) => {
-    //     return i === categoryId ? (
-    //       <div className={S.styledSvg}>
-    //         {svgList[i]}
-    //         <div className={S.name}>{category.name}</div>
-    //       </div>
-    //     ) : (
-    //       <></>
-    //     );
-    //   })}호
-    // </div>
-
-    <div className={S.listScrollWrapper}>
-      <div className={S.listContainer}>
-        {CATEGORY_LIST.map((category, i: number) => {
-          return (
-            <div className={S.categoryCard}>
-              <div className={S.styledSvg}>{svgList[i]}</div>
-              <p className={S.name}>{category.name}</p>
-            </div>
-          );
-        })}
-      </div>
+    <div className={S.svgWrapper} style={assignInlineVars({ [S.widthProps]: width, [S.heightProps]: height })}>
+      {svgList.map((category, i: number) => categoryId === i && category)}
     </div>
   );
 }
