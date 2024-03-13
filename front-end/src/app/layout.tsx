@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
 import { Noto_Sans_KR } from 'next/font/google';
 import './globalTheme.css';
-import Header from '@/_components/Header/Header';
-import Party from '@/_components/Category/Category';
+import * as Comp from '@/_components';
 
 export const notoSansKr = Noto_Sans_KR({
   weight: ['100', '300', '400', '500', '700', '900'],
@@ -34,8 +33,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={`${notoSansKr.className}`}>
-        <Header />
-
+        <Comp.Header />
         <div
           style={{
             width: '90%',
