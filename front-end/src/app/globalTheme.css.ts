@@ -186,3 +186,8 @@ globalStyle('button', {
   backgroundColor: 'inherit',
   border: 'none',
 });
+
+globalStyle('path', {
+  width: '100%',
+  height: '100%',
+});
