@@ -32,7 +32,7 @@ function Header() {
             </li>
           </ul>
         </div>
-        <p className={S.navTitle}>
+        <div className={S.navTitle}>
           22대 총선
           <ul className={S.dropBox}>
             <li className={S.dropBoxItem}>
@@ -42,7 +42,7 @@ function Header() {
               <Link href="/polling-places">투표소 확인</Link>
             </li>
           </ul>
-        </p>
+        </div>
       </nav>
     </header>
   );

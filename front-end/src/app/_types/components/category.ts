@@ -1,5 +1,6 @@
-import React from 'react';
-
 export interface CategoryProps {
-  categoryId: number;
+  categoryId: number | string;
+  color: { defaultColor: string; hoverColor: string };
+  width: string;
+  height: string;
 }
