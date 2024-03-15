@@ -8,5 +8,7 @@ import Badge from './Badge/Badge';
 import DoughnutChart from './DoughnutChart/DoughnutChart';
 import PieChart from './PieChart/PieChart';
 import Category from './Category/Category';
+import Poster from './Poster/Poster';
+import Bill from './Bill/Bill';
 
-export { Header, Tab, Card, GridWrapper, Badge, DoughnutChart, PieChart, Category };
+export { Header, Tab, Card, GridWrapper, Badge, DoughnutChart, PieChart, Category, Poster, Bill };
