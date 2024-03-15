@@ -3,6 +3,7 @@ import * as S from './Bill.css';
 
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 import { ArrowBlack, HelpCircle, LinkTo } from '@/_assets/icon';
+import ProgressBar from './Subs/ProgressBar/ProgressBar';
 
 export default function Bill() {
   const [isActive, setIsActive] = useState(true);
@@ -34,7 +35,8 @@ export default function Bill() {
           <HelpCircle></HelpCircle>
           <p className={S.fontContent}>국회운영위원회</p>
         </div>
-        <p className={S.fontTitle}>This is ProgressBar</p>
+        {/* <p className={S.fontTitle}>This is ProgressBar</p> */}
+        <ProgressBar step={2} date={['11', '22', '33']} partycolor="green"></ProgressBar>
       </div>
       <div className={S.billCardContents}>
         <div className={S.billCardContentsHeader}>
