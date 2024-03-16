@@ -9,6 +9,7 @@ export const svgWrapper = style({
 
 export const defaultColor = createVar();
 export const hoverColor = createVar();
+export const focusColor = createVar();
 export const styledSvg = style({
   width: '100%',
   height: '100%',
@@ -17,6 +18,9 @@ export const styledSvg = style({
   selectors: {
     [`${svgWrapper}:hover > &`]: {
       fill: hoverColor,
+    },
+    [`${svgWrapper}:focus > &`]: {
+      fill: focusColor,
     },
   },
 });
