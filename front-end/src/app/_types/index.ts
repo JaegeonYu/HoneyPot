@@ -8,6 +8,7 @@ import { PosterProps } from './components/poster';
 import { ProgressBarProps } from './components/progressbar';
 import { DotProps } from './components/dot';
 import { VideoCardProps } from './components/videoCard';
+import { SearchInputProps } from './components/searchInput';
 
 export type {
   TabProps,
@@ -21,4 +22,5 @@ export type {
   ProgressBarProps,
   DotProps,
   VideoCardProps,
+  SearchInputProps,
 };

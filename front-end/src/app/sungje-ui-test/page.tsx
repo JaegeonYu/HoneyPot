@@ -1,23 +1,20 @@
 'use client';
 
-import React from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import * as Comp from '@/components';
 import { PALETTE } from '@/_constants';
 import { vars } from '@/globalTheme.css';
 
 export default function SungjeUiTest() {
+  const [value, setValue] = useState('');
   return (
     <>
-      <Comp.Category
-        width="20px"
-        height="24px"
-        categoryId={0}
-        color={{
-          default: vars.colors.service.MAIN_BLACK,
-          hover: vars.colors.service.MAIN_GOLD,
-          focus: vars.colors.service.MAIN_GOLD,
-        }}
-      ></Comp.Category>
+      <Comp.SearchInput
+        inputId="search-input"
+        placeholder="?????"
+        value={value}
+        onChange={(e: ChangeEvent<HTMLInputElement>) => setValue(e.target.value)}
+      />
       <Comp.GridWrapper>
         {Array.from({ length: 10 }).map((el, i) => (
           <Comp.Card ratio="4 / 5" imgUrl="" onClick={() => console.log(`i :`, i)} key={i}>
