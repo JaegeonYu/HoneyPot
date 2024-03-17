@@ -32,6 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
+      <link rel="icon" href="/favicon.ico" sizes="any" />
       <body className={`${notoSansKr.className}`}>
         <Comp.Header />
         <div

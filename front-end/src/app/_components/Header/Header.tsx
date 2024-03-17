@@ -1,17 +1,17 @@
 import React from 'react';
 import Link from 'next/link';
 import * as S from './Header.css';
+import Image from 'next/image';
 
 function Header() {
   return (
     <header className={S.headerContainer}>
-      <div className={S.logo}></div>
       <Link href="/">
-        <p className={S.title}>여의도 꿀통</p>
+        <Image src={'/yeouido-honeypot-logo.png'} width={52} height={50} alt="여의도 꿀통 로고" />
       </Link>
       <nav className={S.navWrapper}>
         <div className={S.navTitle}>
-          21대 국회
+          <span className={S.title}>21대 국회</span>
           <ul className={S.dropBox}>
             <li className={S.dropBoxItem}>
               <Link href="/congressman">국회의원</Link>
@@ -22,7 +22,7 @@ function Header() {
           </ul>
         </div>
         <div className={S.navTitle}>
-          의안
+          <span className={S.title}>의안</span>
           <ul className={S.dropBox}>
             <li className={S.dropBoxItem}>
               <Link href="/hot-issues">핫이슈</Link>
@@ -33,7 +33,7 @@ function Header() {
           </ul>
         </div>
         <div className={S.navTitle}>
-          22대 총선
+          <span className={S.title}>22대 총선</span>
           <ul className={S.dropBox}>
             <li className={S.dropBoxItem}>
               <Link href="/candidates">후보자 확인</Link>
@@ -42,6 +42,11 @@ function Header() {
               <Link href="/polling-places">투표소 확인</Link>
             </li>
           </ul>
+        </div>
+        <div className={S.navTitle}>
+          <Link href="/candidates">
+            <span className={S.title}>여의도 입문서</span>
+          </Link>
         </div>
       </nav>
     </header>
