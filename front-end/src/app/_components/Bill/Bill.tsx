@@ -1,11 +1,27 @@
 import React, { useState } from 'react';
 import * as S from './Bill.css';
+import * as T from '@/types';
 
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 import { ArrowBlack, HelpCircle, LinkTo } from '@/_assets/icon';
 import ProgressBar from './Subs/ProgressBar/ProgressBar';
+import Badge from '../Badge/Badge';
 
-export default function Bill() {
+/**
+ *
+ * TBD
+ *
+ * 파라미터로 데이터 받아오기
+ */
+export default function Bill({
+  partycolor,
+  partyname,
+  represent,
+  committee,
+  billtitle,
+  progressbar,
+  panelsectiondata,
+}: T.BillProps) {
   const [isActive, setIsActive] = useState(true);
 
   const toggleAccordion = () => {
@@ -29,6 +45,9 @@ export default function Bill() {
           <div className={S.billTitlePerson}>
             <p className={S.fontContent}>대표자 : 김태호</p>
             <p className={S.fontContent}>뱃지</p>
+            <Badge color="green" isPositionAbsolute={false}>
+              dd
+            </Badge>
           </div>
         </div>
         <div className={S.billTitleCommittee}>

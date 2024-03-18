@@ -7,6 +7,7 @@ import { DoughnutChartProps, PieChartProps } from './components/chart';
 import { PosterProps } from './components/poster';
 import { ProgressBarProps } from './components/progressbar';
 import { DotProps } from './components/dot';
+import { BillProps } from './components/bill';
 
 export type {
   TabProps,
@@ -19,4 +20,5 @@ export type {
   PosterProps,
   ProgressBarProps,
   DotProps,
+  BillProps,
 };

@@ -10,6 +10,9 @@ export default function SeongqTest() {
   const handleIsSelectedIdx = (idx: number) => {
     setIsSelectedIdx(idx);
   };
+
+  const committee = ['국방위', '외교통일', '행정안전', '문화체육'];
+
   const data = {
     party: '더불어민주당',
     attendance: 88,
@@ -19,6 +22,16 @@ export default function SeongqTest() {
     bottom: ['김가빈', '권준구', '조성규'],
     bottomattendance: [30, 20, 10],
     mostlaw: ['김성제', '강건', '유잼건'],
+  };
+
+  const bill = {
+    partycolor: 'red',
+    partyname: '국민의힘',
+    represent: '김태호',
+    committee: 2,
+    billtitle: '고향사랑 기부금에 관한 법률안',
+    progressbar: ['TBD'],
+    panelsectiondata: ['TBD'],
   };
 
   return (
@@ -79,7 +92,15 @@ export default function SeongqTest() {
       <div className={S.headWrapper}>
         <p className={S.fontHead}>발의한 국회운영 의안</p>
       </div>
-      <Comp.Bill></Comp.Bill>
+      <Comp.Bill
+        partycolor={bill.partycolor}
+        partyname={bill.partyname}
+        represent={bill.represent}
+        committee={2}
+        billtitle={bill.billtitle}
+        progressbar={bill.progressbar}
+        panelsectiondata={bill.panelsectiondata}
+      ></Comp.Bill>
       <Comp.Bill></Comp.Bill>
       <Comp.Bill></Comp.Bill>
       <Comp.Bill></Comp.Bill>
