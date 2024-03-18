@@ -15,6 +15,7 @@ export default function SungjeUiTest() {
         value={value}
         onChange={(e: ChangeEvent<HTMLInputElement>) => setValue(e.target.value)}
       />
+      <Comp.AreaSelector></Comp.AreaSelector>
       <Comp.GridWrapper>
         {Array.from({ length: 10 }).map((el, i) => (
           <Comp.Card ratio="4 / 5" imgUrl="" onClick={() => console.log(`i :`, i)} key={i}>

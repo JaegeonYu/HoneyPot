@@ -244,6 +244,17 @@ globalStyle('button', {
   padding: 0,
 });
 
+globalStyle('button:focus', {
+  backgroundColor: 'inherit',
+  outline: 'none',
+  border: 'none',
+  padding: 0,
+});
+
+globalStyle('input:focus', {
+  outline: 'none',
+});
+
 globalStyle('path', {
   width: '100%',
   height: '100%',

@@ -22,9 +22,10 @@ export const logo = style({
 });
 
 export const navWrapper = style({
+  width: '422px',
   height: '100%',
   display: 'flex',
-  gap: 34,
+  justifyContent: 'space-between',
 });
 
 export const navTitle = style({
@@ -43,7 +44,8 @@ export const title = style({
   padding: '16px 12px',
 
   selectors: {
-    [`${navTitle}:hover > &`]: {
+    [`${navTitle}:hover > &, ${navTitle}:hover > a > &`]: {
+      fontWeight: 500,
       backgroundColor: vars.colors.service.HOVER_BACKGROUND,
     },
   },
