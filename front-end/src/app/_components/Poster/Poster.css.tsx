@@ -9,7 +9,7 @@ export const wrapper = style({
   rowGap: 24,
   padding: '24px 24px',
   width: 360,
-  height: '100%',
+  height: 360,
   minHeight: 360,
   borderRadius: 8,
   boxShadow: `0 1.5px 2px 0 rgba(0,0,0,0.16)`,

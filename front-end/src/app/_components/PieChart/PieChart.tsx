@@ -107,7 +107,13 @@ export default function PieChart({
       responsive: true,
       legend: { display: false },
       htmlLegend: { containerID: UNIQUE_ID_FOR_LEGEND },
-      title: { display: true, text: chartTitle },
+      title: {
+        display: true,
+        text: chartTitle,
+        font: {
+          size: 18,
+        },
+      },
     },
   };
   return (

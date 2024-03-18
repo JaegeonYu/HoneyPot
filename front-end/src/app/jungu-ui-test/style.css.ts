@@ -61,9 +61,46 @@ export const sectionTwoHeader = style({
 });
 
 export const textWrapper = style({
+  width: 312,
   display: 'flex',
   flexDirection: 'column',
-  rowGap: 2,
+  rowGap: 8,
+});
+
+export const listContainer = style({
+  display: 'flex',
+  justifyContent: 'space-between',
+  gap: 16,
+  width: '1240px',
+  height: '76px',
+  overflow: 'scroll',
+});
+
+export const categoryCard = style({
+  width: 'fit-content',
+  height: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: '10px 16px',
+  selectors: {
+    '&:hover': {
+      borderBottom: '1px solid #222222',
+    },
+  },
+});
+
+export const name = style({
+  width: 'fit-content',
+  whiteSpace: 'nowrap',
+  color: vars.colors.service.SUB_BLACK,
+  fontSize: '10px',
+  selectors: {
+    [`${categoryCard}:hover &`]: {
+      color: vars.colors.service.MAIN_BLACK,
+    },
+  },
 });
 
 export const sectionTwoContent = style({

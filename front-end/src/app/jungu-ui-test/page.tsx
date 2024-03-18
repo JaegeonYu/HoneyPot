@@ -5,6 +5,7 @@ import * as Comp from '@/components';
 import * as S from './style.css';
 import { Category } from '@/components';
 import { PieChart } from '@/components';
+import { CATEGORY_LIST } from '@/_constants';
 // import { fontName } from '@/_components/Bill/Bill.css';
 
 export default function JunguTest() {
@@ -29,21 +30,23 @@ export default function JunguTest() {
         <div className={S.partyImg}>더블어민주당</div>
         <div className={S.statistics}>
           <Comp.Poster>
-            <PieChart
-              chartTitle="의원 수"
-              legendList={[
-                { title: '참석', color: '#152484' },
-                { title: '불참', color: '#DDDDDD' },
-              ]}
-              datasetList={[53.2, 46.8]}
-              legendDisplay={false}
-              UNIQUE_ID_FOR_LEGEND="assembly-member-bill-current-situation"
-            />
-            This is Chart
+            <div style={{ width: 260 }}>
+              <PieChart
+                chartTitle="의원 수"
+                legendList={[
+                  { title: '참석', color: '#152484' },
+                  { title: '불참', color: '#DDDDDD' },
+                ]}
+                datasetList={[53.2, 46.8]}
+                legendDisplay={false}
+                UNIQUE_ID_FOR_LEGEND="assembly-member-bill-current-situation"
+              />
+              158 명 / 297 명
+            </div>
           </Comp.Poster>
 
           <Comp.Poster>
-            <div className={S.textWrapper}>
+            <div className={S.textWrapper} style={{ rowGap: 2 }}>
               <p className={S.fontTitle}>{data.party}평균 출석률</p>
               <p className={S.fontContent}>{data.attendance} %</p>
             </div>
@@ -99,17 +102,24 @@ export default function JunguTest() {
         <div className={S.sectionTwoHeader}>
           <p className={S.fontHead}>분야별 발의 현황</p>
         </div>
-        <div>
-          {Array.from({ length: 17 }).map((_, i) => (
-            <Category
-              key={`category-${i}`}
-              categoryId={i}
-              color={{ default: '#777777', hover: '#EEEEEE', focus: '#DDDDDD' }}
-              width="1240px"
-              height="76px"
-            />
+
+        <div className={S.listContainer}>
+          {CATEGORY_LIST.map((category, i) => (
+            <button>
+              <div className={S.categoryCard}>
+                <Category
+                  key={`category-${i}`}
+                  categoryId={i}
+                  color={{ default: '#717171', hover: '#000000', focus: '#000000' }}
+                  width="30px"
+                  height="34px"
+                />
+                <p className={S.name}>{category.name}</p>
+              </div>
+            </button>
           ))}
         </div>
+
         <div className={S.sectionTwoContent}>
           <Comp.Bill></Comp.Bill>
           <Comp.Bill></Comp.Bill>
