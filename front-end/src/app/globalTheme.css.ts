@@ -109,11 +109,11 @@ createGlobalTheme(':root', vars, {
   },
   colors: {
     service: {
-      MAIN_COLOR_100: 'rgba(232, 127, 34, 1)',
-      MAIN_COLOR_80: 'rgba(232, 127, 34, 0.8)',
-      MAIN_COLOR_60: 'rgba(232, 127, 34, 0.6)',
-      MAIN_COLOR_40: 'rgba(232, 127, 34, 0.4)',
-      MAIN_COLOR_20: 'rgba(232, 127, 34, 0.2)',
+      MAIN_COLOR_100: 'rgba(243, 185, 26, 1)',
+      MAIN_COLOR_80: 'rgba(243, 185, 26, 0.8)',
+      MAIN_COLOR_60: 'rgba(243, 185, 26, 0.6)',
+      MAIN_COLOR_40: 'rgba(243, 185, 26, 0.4)',
+      MAIN_COLOR_20: 'rgba(243, 185, 26, 0.2)',
 
       MAIN_BLACK: '#222222',
       SUB_BLACK: '#717171',
@@ -258,4 +258,14 @@ globalStyle('input:focus', {
 globalStyle('path', {
   width: '100%',
   height: '100%',
+});
+
+globalStyle('::-webkit-scrollbar', {
+  width: '10px',
+  backgroundColor: vars.colors.service.MAIN_COLOR_20,
+});
+
+globalStyle('body::-webkit-scrollbar-thumb', {
+  backgroundColor: vars.colors.service.MAIN_COLOR_100,
+  borderRadius: '12px',
 });
