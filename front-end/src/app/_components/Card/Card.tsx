@@ -29,8 +29,7 @@ export default function Card({ ratio, imgUrl, children, onClick }: T.CardProps) 
       <Image
         className={S.styledImage}
         style={assignInlineVars({ [S.imgHeight]: ratio === '4 / 5' ? '80%' : '70%' })}
-        // src={imgUrl}
-        src={'/DUMMY_kim-tae-ho-profile.png'}
+        src={imgUrl}
         width={100}
         height={100}
         alt={imgUrl}

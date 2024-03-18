@@ -9,6 +9,7 @@ import { ProgressBarProps } from './components/progressbar';
 import { DotProps } from './components/dot';
 import { VideoCardProps } from './components/videoCard';
 import { SearchInputProps } from './components/searchInput';
+import { AreaSelectorProps } from './components/areaSelector';
 
 export type {
   TabProps,
@@ -23,4 +24,5 @@ export type {
   DotProps,
   VideoCardProps,
   SearchInputProps,
+  AreaSelectorProps,
 };

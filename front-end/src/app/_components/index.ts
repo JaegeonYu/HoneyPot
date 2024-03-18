@@ -12,6 +12,7 @@ import Poster from './Poster/Poster';
 import Bill from './Bill/Bill';
 import VideoCard from './VideoCard/VideoCard';
 import SearchInput from './SearchInput/SearchInput';
+import AreaSelector from './AreaSelector/AreaSelector';
 
 export {
   Header,
@@ -26,4 +27,5 @@ export {
   Bill,
   VideoCard,
   SearchInput,
+  AreaSelector,
 };

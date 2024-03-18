@@ -10,6 +10,12 @@ export const styledLabel = style({
   border: `1px solid ${vars.colors.service.STROKE_OR_BLUR}`,
   borderRadius: '6px',
   overflow: 'hidden',
+
+  selectors: {
+    [`&:focus-within`]: {
+      border: `1px solid ${vars.colors.service.MAIN_COLOR_100}`,
+    },
+  },
 });
 
 export const styleInput = style({
