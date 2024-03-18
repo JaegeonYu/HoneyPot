@@ -1,3 +1,6 @@
 import axios from 'axios';
 
-const instance = axios.create();
+export const instance = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_END_POINT,
+  headers: { 'Content-Type': 'application/json' },
+});
