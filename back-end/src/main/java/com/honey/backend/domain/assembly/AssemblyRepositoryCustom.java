@@ -12,7 +12,7 @@ public interface AssemblyRepositoryCustom {
 
     Page<Assembly> findAllByPoly(Pageable pageable, String word, Long polyId);
 
-    Page<Assembly> findAllByCategory(Pageable pageable, String word, Long cmitId);
+    Page<Assembly> findAllByCommittee(Pageable pageable, String word, Long cmitId);
 
 
 }

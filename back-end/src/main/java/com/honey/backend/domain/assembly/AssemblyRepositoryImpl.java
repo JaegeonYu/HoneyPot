@@ -6,6 +6,8 @@ import com.honey.backend.domain.poly.QPoly;
 import com.honey.backend.domain.region.dong.QDong;
 import com.honey.backend.domain.region.sido.QSido;
 import com.honey.backend.domain.region.sigungu.QSigungu;
+import com.honey.backend.exception.AssemblyErrorCode;
+import com.honey.backend.exception.BaseException;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -53,6 +55,7 @@ public class AssemblyRepositoryImpl implements AssemblyRepositoryCustom {
 
     @Override
     public Page<Assembly> findAllByPoly(Pageable pageable, String word, Long polyId) {
+
         List<Assembly> assemblyList = queryFactory
                 .select(assembly)
                 .from(assembly)
@@ -69,7 +72,7 @@ public class AssemblyRepositoryImpl implements AssemblyRepositoryCustom {
     }
 
     @Override
-    public Page<Assembly> findAllByCategory(Pageable pageable, String word, Long cmitId) {
+    public Page<Assembly> findAllByCommittee(Pageable pageable, String word, Long cmitId) {
 
         List<Assembly> assemblyList = queryFactory
                 .select(assembly)
@@ -92,6 +95,9 @@ public class AssemblyRepositoryImpl implements AssemblyRepositoryCustom {
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
+
+        if(pageable.getOffset() >= assemblyList.size() || assemblyList.size() == 0 )
+            throw new BaseException(AssemblyErrorCode.ASSEMBLY_NO_MORE_LIST);
         return new PageImpl<>(assemblyList);
     }
 }
