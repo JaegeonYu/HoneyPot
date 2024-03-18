@@ -10,5 +10,22 @@ import PieChart from './PieChart/PieChart';
 import Category from './Category/Category';
 import Poster from './Poster/Poster';
 import Bill from './Bill/Bill';
+import VideoCard from './VideoCard/VideoCard';
+import SearchInput from './SearchInput/SearchInput';
+import AreaSelector from './AreaSelector/AreaSelector';
 
-export { Header, Tab, Card, GridWrapper, Badge, DoughnutChart, PieChart, Category, Poster, Bill };
+export {
+  Header,
+  Tab,
+  Card,
+  GridWrapper,
+  Badge,
+  DoughnutChart,
+  PieChart,
+  Category,
+  Poster,
+  Bill,
+  VideoCard,
+  SearchInput,
+  AreaSelector,
+};
