@@ -11,6 +11,7 @@ import { BillProps } from './components/bill';
 import { VideoCardProps } from './components/videoCard';
 import { SearchInputProps } from './components/searchInput';
 import { AreaSelectorProps } from './components/areaSelector';
+import { ToggleButtonProps } from './components/toggleButton';
 
 export type {
   TabProps,
@@ -27,4 +28,5 @@ export type {
   VideoCardProps,
   SearchInputProps,
   AreaSelectorProps,
+  ToggleButtonProps,
 };

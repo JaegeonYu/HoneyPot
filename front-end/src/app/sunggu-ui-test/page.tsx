@@ -1,6 +1,6 @@
-import React from 'react';
-import { Bill } from '../_components';
+// import React from 'react';
+// import { Bill } from '../_components';
 
-export default function SungguUiTest() {
-  return <Bill></Bill>;
-}
+// export default function SungguUiTest() {
+//   return <Bill></Bill>;
+// }

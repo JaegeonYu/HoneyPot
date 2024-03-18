@@ -19,13 +19,21 @@ export const fontHead = style({
   fontWeight: 900,
   // textAlign: 'center',
 });
+export const fontSub = style({
+  //   height: 58,
+  fontSize: 12,
+  fontWeight: 500,
+  // textAlign: 'center',
+});
 
 export const headWrapper = style({
   display: 'flex',
-  flexDirection: 'column',
+  flexDirection: 'row',
   //   rowGap: 8,
   padding: '8px 0px',
-  alignItems: 'flex-start',
+  justifyContent: 'space-between',
+  alignItems: 'flex-end',
+
   width: '100%',
   borderBottom: `2px solid ${vars.colors.service.HOVER_STROKE}`,
 });
