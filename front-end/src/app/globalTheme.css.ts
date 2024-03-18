@@ -211,6 +211,7 @@ globalStyle('*', {
   boxSizing: 'border-box',
   fontFamily: 'var(--noto-sans-kr)',
   fontWeight: 400,
+  color: vars.colors.service.MAIN_BLACK,
 });
 
 globalStyle('body', {

@@ -4,5 +4,6 @@ export interface CardProps {
   ratio: '1 / 1' | '4 / 5';
   imgUrl: string;
   children: React.ReactNode;
-  onClick: ([...args]: any) => any;
+  badge: { isBadgeNeed: boolean; text?: string };
+  onClick?: ([...args]: any) => any;
 }
