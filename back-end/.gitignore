@@ -223,7 +223,7 @@ $RECYCLE.BIN/
 *.msm
 *.msp
 
-application.yml
+application-security.yml
 # Windows shortcuts
 *.lnk
 
