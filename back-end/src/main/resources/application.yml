@@ -1,6 +1,5 @@
 spring:
-  config:
-    import:
-      classpath: application-security.yml
+  profiles:
+    active: security
 
 
