@@ -25,9 +25,7 @@ export default function ProgressBar({ step, date, partycolor }: T.ProgressBarPro
       {stepnameList.map((stepname, i) => (
         <div className={S.element}>
           {step !== 44 && step !== 99 ? <p className={S.fontContent}>{stepname}</p> : <p style={{ height: 22 }}></p>}
-          {step === 0 ? (
-            <Dot idx={4 - i} partycolor={partycolor} flag={true} barflag={false} lastdot={true}></Dot>
-          ) : step > 0 && step < 4 ? (
+          {step >= i && i < 4 ? (
             <Dot idx={4 - i} partycolor={partycolor} flag={true} barflag={true} lastdot={true}></Dot>
           ) : (
             <Dot idx={4 - i} partycolor={partycolor} flag={false} barflag={false} lastdot={true}></Dot>

@@ -15,25 +15,7 @@ export default function Dot({ partycolor, flag, barflag, lastdot, idx }: T.DotPr
 
   return (
     <>
-      {lastdot ? (
-        flag ? (
-          <div
-            className={S.dot}
-            style={assignInlineVars({
-              [S.dynamicZIndex]: `${idx}`,
-              [S.partycolor]: partycolor,
-            })}
-          ></div>
-        ) : (
-          <div
-            className={S.dot}
-            style={assignInlineVars({
-              [S.dynamicZIndex]: `${idx}`,
-              [S.partycolor]: vars.colors.service.STROKE_OR_BLUR,
-            })}
-          ></div>
-        )
-      ) : flag ? (
+      {flag ? (
         <div
           className={S.dot}
           style={assignInlineVars({
@@ -41,23 +23,17 @@ export default function Dot({ partycolor, flag, barflag, lastdot, idx }: T.DotPr
             [S.partycolor]: partycolor,
           })}
         >
-          {/* BAR */}
-          {barflag ? (
+          {idx !== 4 ? (
             <div
               className={S.bar}
               style={assignInlineVars({
+                [S.dynamicZIndex]: `${idx}`,
                 [S.partycolor]: partycolor,
               })}
             ></div>
           ) : (
-            <div
-              className={S.bar}
-              style={assignInlineVars({
-                [S.partycolor]: vars.colors.service.STROKE_OR_BLUR,
-              })}
-            ></div>
+            <></>
           )}
-          {/* BAR END */}
         </div>
       ) : (
         <div
@@ -70,6 +46,7 @@ export default function Dot({ partycolor, flag, barflag, lastdot, idx }: T.DotPr
           <div
             className={S.bar}
             style={assignInlineVars({
+              [S.dynamicZIndex]: `${idx}`,
               [S.partycolor]: vars.colors.service.STROKE_OR_BLUR,
             })}
           ></div>

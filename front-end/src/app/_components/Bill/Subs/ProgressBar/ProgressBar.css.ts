@@ -21,39 +21,10 @@ export const element = style({
   //   height: '100%',
 });
 
-export const bar = style({
-  width: 60,
-  height: 4,
-  backgroundColor: partycolor,
-  position: 'absolute',
-  top: 36,
-  left: 40,
-  zIndex: 0,
-});
-export const bar2 = style({
-  width: 60,
-  height: 4,
-  backgroundColor: partycolor,
-  position: 'absolute',
-  top: 36,
-  left: 115,
-  zIndex: 0,
-});
-
-export const bar3 = style({
-  width: 60,
-  height: 4,
-  backgroundColor: partycolor,
-  position: 'absolute',
-  top: 36,
-  left: 190,
-  zIndex: 0,
-});
-
 export const fontContent = style({
   //   height: 58,
-  fontSize: 15,
-  fontWeight: 700,
+  fontSize: 12,
+  fontWeight: 500,
 });
 
 export const fontDate = style({
