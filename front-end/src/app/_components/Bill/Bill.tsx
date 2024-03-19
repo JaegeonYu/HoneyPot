@@ -81,7 +81,7 @@ export default function Bill({
           </p>
         </div>
         {/* <p className={S.fontTitle}>This is ProgressBar</p> */}
-        <ProgressBar step={2} date={['11', '22', '33']} partycolor={partycolor}></ProgressBar>
+        <ProgressBar step={1} date={['11', '22', '33']} partycolor={partycolor}></ProgressBar>
       </div>
       <div className={S.billCardContents}>
         <div className={S.billCardContentsHeader}>

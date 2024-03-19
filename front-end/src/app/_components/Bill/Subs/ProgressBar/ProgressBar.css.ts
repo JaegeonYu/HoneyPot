@@ -10,7 +10,6 @@ export const wrapper = style({
   columnGap: 5,
   width: 290,
   height: '100%',
-  position: 'relative',
 });
 
 export const element = style({
