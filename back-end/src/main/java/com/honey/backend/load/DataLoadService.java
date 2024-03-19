@@ -5,7 +5,6 @@ import com.honey.backend.load.bill.BillLoadService;
 import com.honey.backend.load.committee.CommitteeLoadService;
 import com.honey.backend.load.poly.PolyLoadService;
 import com.honey.backend.load.region.RegionLoadService;
-import com.honey.backend.load.sns.SnsLoadResponse;
 import com.honey.backend.load.sns.SnsLoadService;
 import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
