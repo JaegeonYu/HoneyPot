@@ -2,8 +2,9 @@ import React from 'react';
 import * as S from './Card.css';
 import * as T from '@/types';
 import Image from 'next/image';
-import { assignInlineVars } from '@vanilla-extract/dynamic';
 import Badge from '../Badge/Badge';
+import { assignInlineVars } from '@vanilla-extract/dynamic';
+import { PALETTE } from '@/_constants';
 
 /**
  * @param children
@@ -14,7 +15,7 @@ import Badge from '../Badge/Badge';
  *
  * @param aspectRatio
  * Card의 크기 비율을 설정할 수 있음 [type: string]
- * (ex. 정당 리스트 페이지: 1 / 1, 의원 리스트 페이지: 4 / 5)
+ * (ex. 정당 리스트 페이지: 1 / 1, 의원 리스트 페이지: 4 / 5, 의원 상세 조회: 4 / 7)
  *
  * @param onClick
  * Card를 눌렀을 때 실행할 함수 [type: ([...args]:any) => any]
@@ -38,8 +39,8 @@ export default function Card({ ratio, imgUrl, children, badge, onClick }: T.Card
         height={100}
         alt={imgUrl}
       />
-      {badge.isBadgeNeed && (
-        <Badge isPositionAbsolute={true} color={'red'}>
+      {badge.isBadgeNeed && badge.text && (
+        <Badge isPositionAbsolute={true} color={PALETTE.party[badge.text][100]}>
           {badge.text}
         </Badge>
       )}

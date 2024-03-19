@@ -23,11 +23,11 @@ export const CATEGORY_LIST = [
 
 interface PALETTE_TYPE {
   service: {
-    MAIN_COLOR_100: 'rgba(232, 127, 34, 1)';
-    MAIN_COLOR_80: 'rgba(232, 127, 34, 0.8)';
-    MAIN_COLOR_60: 'rgba(232, 127, 34, 0.6)';
-    MAIN_COLOR_40: 'rgba(232, 127, 34, 0.4)';
-    MAIN_COLOR_20: 'rgba(232, 127, 34, 0.2)';
+    MAIN_COLOR_100: 'rgba(243, 185, 26, 1)';
+    MAIN_COLOR_80: 'rgba(243, 185, 26, 0.8)';
+    MAIN_COLOR_60: 'rgba(243, 185, 26, 0.6)';
+    MAIN_COLOR_40: 'rgba(243, 185, 26, 0.4)';
+    MAIN_COLOR_20: 'rgba(243, 185, 26, 0.2)';
 
     MAIN_BLACK: '#222222';
     SUB_BLACK: '#717171';
@@ -40,94 +40,28 @@ interface PALETTE_TYPE {
   };
   party: {
     [party: string]: { 100: string; 80: string; 60: string; 40: string; 20: string };
-    국민의힘: {
-      100: 'rgba(230, 30, 43, 1)';
-      80: 'rgba(230, 30, 43, 0.8)';
-      60: 'rgba(230, 30, 43, 0.6)';
-      40: 'rgba(230, 30, 43, 0.4)';
-      20: 'rgba(230, 30, 43, 0.2)';
-    };
-    더불어민주당: {
-      100: 'rgba(21, 36, 132, 1)';
-      80: 'rgba(21, 36, 132, 0.8)';
-      60: 'rgba(21, 36, 132, 0.6)';
-      40: 'rgba(21, 36, 132, 0.4)';
-      20: 'rgba(21, 36, 132, 0.2)';
-    };
-    녹색정의당: {
-      100: 'rgba(0, 124, 54, 1)';
-      80: 'rgba(0, 124, 54, 0.8)';
-      60: 'rgba(0, 124, 54, 0.6)';
-      40: 'rgba(0, 124, 54, 0.4)';
-      20: 'rgba(0, 124, 54, 0.2)';
-    };
-    개혁신당: {
-      100: 'rgba(255, 121, 32, 1)';
-      80: 'rgba(255, 121, 32, 0.8)';
-      60: 'rgba(255, 121, 32, 0.6)';
-      40: 'rgba(255, 121, 32, 0.4)';
-      20: 'rgba(255, 121, 32, 0.2)';
-    };
+    국민의힘: { 100: string; 80: string; 60: string; 40: string; 20: string };
+    더불어민주당: { 100: string; 80: string; 60: string; 40: string; 20: string };
+    녹색정의당: { 100: string; 80: string; 60: string; 40: string; 20: string };
+    개혁신당: { 100: string; 80: string; 60: string; 40: string; 20: string };
 
-    새로운미래: {
-      100: 'rgba(69, 186, 189, 1)';
-      80: 'rgba(69, 186, 189, 0.8)';
-      60: 'rgba(69, 186, 189, 0.6)';
-      40: 'rgba(69, 186, 189, 0.4)';
-      20: 'rgba(69, 186, 189, 0.2)';
-    };
-    자유통일당: {
-      100: 'rgba(9, 88, 167, 1)';
-      80: 'rgba(9, 88, 167, 0.8)';
-      60: 'rgba(9, 88, 167, 0.6)';
-      40: 'rgba(9, 88, 167, 0.4)';
-      20: 'rgba(9, 88, 167, 0.2)';
-    };
-    진보당: {
-      100: 'rgba(214, 0, 28, 1)';
-      80: 'rgba(214, 0, 28, 0.8)';
-      60: 'rgba(214, 0, 28, 0.6)';
-      40: 'rgba(214, 0, 28, 0.4)';
-      20: 'rgba(214, 0, 28, 0.2)';
-    };
-    더불어민주연합: {
-      100: 'rgba(21, 36, 132, 1)';
-      80: 'rgba(21, 36, 132, 0.8)';
-      60: 'rgba(21, 36, 132, 0.6)';
-      40: 'rgba(21, 36, 132, 0.4)';
-      20: 'rgba(21, 36, 132, 0.2)';
-    };
-    새진보연합: {
-      100: 'rgba(0, 210, 195, 1)';
-      80: 'rgba(0, 210, 195, 0.8)';
-      60: 'rgba(0, 210, 195, 0.6)';
-      40: 'rgba(0, 210, 195, 0.4)';
-      20: 'rgba(0, 210, 195, 0.2)';
-    };
-    조국혁신당: {
-      100: 'rgba(0, 115, 207, 1)';
-      80: 'rgba(0, 115, 207, 0.8)';
-      60: 'rgba(0, 115, 207, 0.6)';
-      40: 'rgba(0, 115, 207, 0.4)';
-      20: 'rgba(0, 115, 207, 0.2)';
-    };
-    무소속: {
-      100: 'rgba(113, 113, 113, 1)';
-      80: 'rgba(113, 113, 113, 0.8)';
-      60: 'rgba(113, 113, 113, 0.6)';
-      40: 'rgba(113, 113, 113, 0.4)';
-      20: 'rgba(113, 113, 113, 0.2)';
-    };
+    새로운미래: { 100: string; 80: string; 60: string; 40: string; 20: string };
+    자유통일당: { 100: string; 80: string; 60: string; 40: string; 20: string };
+    진보당: { 100: string; 80: string; 60: string; 40: string; 20: string };
+    더불어민주연합: { 100: string; 80: string; 60: string; 40: string; 20: string };
+    새진보연합: { 100: string; 80: string; 60: string; 40: string; 20: string };
+    조국혁신당: { 100: string; 80: string; 60: string; 40: string; 20: string };
+    무소속: { 100: string; 80: string; 60: string; 40: string; 20: string };
   };
 }
 
 export const PALETTE: PALETTE_TYPE = {
   service: {
-    MAIN_COLOR_100: 'rgba(232, 127, 34, 1)',
-    MAIN_COLOR_80: 'rgba(232, 127, 34, 0.8)',
-    MAIN_COLOR_60: 'rgba(232, 127, 34, 0.6)',
-    MAIN_COLOR_40: 'rgba(232, 127, 34, 0.4)',
-    MAIN_COLOR_20: 'rgba(232, 127, 34, 0.2)',
+    MAIN_COLOR_100: 'rgba(243, 185, 26, 1)',
+    MAIN_COLOR_80: 'rgba(243, 185, 26, 0.8)',
+    MAIN_COLOR_60: 'rgba(243, 185, 26, 0.6)',
+    MAIN_COLOR_40: 'rgba(243, 185, 26, 0.4)',
+    MAIN_COLOR_20: 'rgba(243, 185, 26, 0.2)',
 
     MAIN_BLACK: '#222222',
     SUB_BLACK: '#717171',

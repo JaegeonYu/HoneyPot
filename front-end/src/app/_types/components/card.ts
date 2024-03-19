@@ -1,7 +1,7 @@
 import React from 'react';
 
 export interface CardProps {
-  ratio: '1 / 1' | '4 / 5';
+  ratio: '1 / 1' | '4 / 5' | '4 / 7';
   imgUrl: string;
   children: React.ReactNode;
   badge: { isBadgeNeed: boolean; text?: string };

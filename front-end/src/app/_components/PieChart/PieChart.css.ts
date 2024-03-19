@@ -28,13 +28,13 @@ export const colorBox = style({
   display: 'inline-block',
   flexShrink: '0',
   height: '16px',
-  marginRight: '10px',
+  marginRight: '2px',
   width: '16px',
   borderRadius: 100,
 });
 
 export const legendTitle = style({
-  fontSize: 12,
+  fontSize: 10,
   height: 'fit-content',
   color: vars.colors.service.MAIN_BLACK,
   // paddingBottom: 2,
