@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 @RequiredArgsConstructor
 public enum AssemblyErrorCode implements ErrorCode {
 
-    ASSEMBLY_NO_MORE_LIST(HttpStatus.BAD_REQUEST, "ASSEMBLY_001", "더이상 불러 올 리스트가 없습니다."),
+    ASSEMBLY_NO_MORE_LIST(HttpStatus.NOT_FOUND, "ASSEMBLY_001", "국회의원을 찾을 수 없습니다."),
     ;
 
     private final HttpStatus status;

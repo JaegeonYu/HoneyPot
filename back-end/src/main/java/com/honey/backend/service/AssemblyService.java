@@ -4,24 +4,21 @@ import com.honey.backend.domain.assembly.Assembly;
 import com.honey.backend.domain.assembly.AssemblyRepository;
 import com.honey.backend.domain.bill.Bill;
 import com.honey.backend.domain.bill.BillRepository;
-import com.honey.backend.domain.committee.Committee;
 import com.honey.backend.domain.committee.CommitteeRepository;
-import com.honey.backend.domain.poly.Poly;
 import com.honey.backend.domain.poly.PolyRepository;
-import com.honey.backend.domain.region.dong.DongRepository;
-import com.honey.backend.domain.region.electionregion.ElectionRegion;
-import com.honey.backend.domain.region.electionregion.ElectionRegionRepository;
+import com.honey.backend.domain.sns.Sns;
+import com.honey.backend.domain.sns.SnsRepository;
 import com.honey.backend.exception.AssemblyErrorCode;
 import com.honey.backend.exception.BaseException;
+import com.honey.backend.exception.GlobalErrorCode;
 import com.honey.backend.response.AssemblyListResponse;
 import com.honey.backend.response.AssemblyResponse;
 import com.honey.backend.response.BillResponse;
+import com.honey.backend.response.SnsResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,8 +30,9 @@ public class AssemblyService {
     private final PolyRepository polyRepository;
     private final BillRepository billRepository;
     private final BillService billService;
+    private final SnsRepository snsRepository;
 
-    public List<AssemblyListResponse> findAllByRegion(String sidoName, String sigunguName, String dongName, Integer page,Integer limit, String word) {
+    public List<AssemblyListResponse> findAllByRegion(String sidoName, String sigunguName, String dongName, Integer page, Integer limit, String word) {
 
         List<Assembly> assemblyList = getPaginatedAssemblies(page, limit, assemblyRepository.findAllByRegion(word, sidoName, sigunguName, dongName));
 
@@ -42,22 +40,31 @@ public class AssemblyService {
 
     }
 
-    public List<AssemblyListResponse> findAllByPoly(String word, Long polyId, Integer page, Integer limit) {
+    public List<AssemblyListResponse> findAll(String sidoName, String sigunguName, String dongName, Integer page, Integer limit, String word, String poly) {
+        List<Assembly> assemblyList =null;
+        if (poly != null && (sidoName == null && sigunguName == null && dongName == null)) {
+            Long polyId = Long.parseLong(poly);
+            assemblyList = assemblyRepository.findAllByPoly(PageRequest.of(page, limit), word, polyId).getContent();
+        }
+        else if(poly == null)
+            assemblyList = getPaginatedAssemblies(page, limit, assemblyRepository.findAllByRegion(word, sidoName, sigunguName, dongName));
+        else {
+            throw new BaseException(GlobalErrorCode.NOT_SUPPORTED_URI_ERROR);
+        }
+        return insertToListResponse(assemblyList);
+
+    }
+
+    public List<AssemblyListResponse> findAllByPoly(String word, String poly, Integer page, Integer limit) {
+        Long polyId = Long.parseLong(poly);
         List<Assembly> assemblyList = assemblyRepository.findAllByPoly(PageRequest.of(page, limit), word, polyId).getContent();
-
-        if (assemblyList.isEmpty()) {
-            throw new BaseException(AssemblyErrorCode.ASSEMBLY_NO_MORE_LIST);
-        }
         return insertToListResponse(assemblyList);
     }
 
-    public List<AssemblyListResponse> findAllByCommittee(String word, Long cmitId, Integer page, Integer limit) {
-        List<Assembly> assemblyList = assemblyRepository.findAllByCommittee(PageRequest.of(page, limit), word, cmitId).getContent();
-        if (assemblyList.isEmpty()) {
-            throw new BaseException(AssemblyErrorCode.ASSEMBLY_NO_MORE_LIST);
-        }
-        return insertToListResponse(assemblyList);
-    }
+//    public List<AssemblyListResponse> findAllByCommittee(String word, Long cmitId, Integer page, Integer limit) {
+//        List<Assembly> assemblyList = assemblyRepository.findAllByCommittee(PageRequest.of(page, limit), word, cmitId).getContent();
+//        return insertToListResponse(assemblyList);
+//    }
 
     public AssemblyResponse findById(Long assemblyId) {
         Assembly assembly = assemblyRepository.findById(assemblyId).orElseThrow();
@@ -71,19 +78,27 @@ public class AssemblyService {
         int endIndex = Math.min(startIndex + size, totalSize);
 
         if (startIndex >= totalSize || totalSize == 0) {
-            throw new BaseException(AssemblyErrorCode.ASSEMBLY_NO_MORE_LIST);
+            return new ArrayList<>();
         }
         return assemblyList.subList(startIndex, endIndex);
     }
 
-    public List<BillResponse> findBillByAssemblyId(Long assemblyId) {
-        List<Bill> billList = billRepository.findAllByAssemblyId(assemblyId);
+    public List<BillResponse> findAllBillByAssemblyIdAndCmitId(Long assemblyId, Long cmitId) {
+        List<Bill> billList = billRepository.findAllByAssemblyIdAndCmitId(assemblyId, cmitId);
         List<BillResponse> billResponseList = new ArrayList<>();
         for (Bill bill : billList) {
             billResponseList.add(billService.insertToBillResponse(bill));
         }
+
         return billResponseList;
     }
+
+    public SnsResponse findSnsByAssemblyId(Long assemblyId) {
+        Sns sns = snsRepository.findByAssemblyId(assemblyId).orElseThrow();
+
+        return new SnsResponse(sns.getId(), assemblyId, sns.getFacebookUrl(), sns.getTwitterUrl(), sns.getYoutubeUrl(), sns.getBlogUrl());
+    }
+
 
     public List<AssemblyListResponse> insertToListResponse(List<Assembly> assemblyList) {
         List<AssemblyListResponse> assemblyResponseList = new ArrayList<>();
