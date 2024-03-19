@@ -26,9 +26,9 @@ export default function JunguTest() {
 
   return (
     <>
-      <div className={S.sectionOne}>
-        <div className={S.partyImg}>더블어민주당</div>
-        <div className={S.statistics}>
+      <div className={S.mainContainer}>
+        <div className={S.partyLogo}>더블어민주당</div>
+        <div className={S.statisticsContainer}>
           <Comp.Poster>
             <div style={{ width: 260 }}>
               <PieChart
@@ -90,7 +90,7 @@ export default function JunguTest() {
         </div>
       </div>
 
-      <div className={S.contentBar}>
+      <div className={S.tabBarContainer}>
         <Comp.Tab
           selectedIdx={isSelectedIdx}
           selectedIdxHandler={handleIsSelectedIdx}
@@ -98,17 +98,16 @@ export default function JunguTest() {
         />
       </div>
 
-      <div className={S.sectionTwo}>
-        <div className={S.sectionTwoHeader}>
+      <div className={S.mainContainer}>
+        <div className={S.sectionHeader}>
           <p className={S.fontHead}>분야별 발의 현황</p>
         </div>
 
-        <div className={S.listContainer}>
+        <div className={S.categoryListContainer}>
           {CATEGORY_LIST.map((category, i) => (
-            <button>
+            <div key={`category-${i}`}>
               <div className={S.categoryCard}>
                 <Category
-                  key={`category-${i}`}
                   categoryId={i}
                   color={{ default: '#717171', hover: '#000000', focus: '#000000' }}
                   width="30px"
@@ -116,11 +115,11 @@ export default function JunguTest() {
                 />
                 <p className={S.name}>{category.name}</p>
               </div>
-            </button>
+            </div>
           ))}
         </div>
 
-        <div className={S.sectionTwoContent}>
+        <div className={S.billListContainer}>
           <Comp.Bill></Comp.Bill>
           <Comp.Bill></Comp.Bill>
           <Comp.Bill></Comp.Bill>
