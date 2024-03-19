@@ -241,15 +241,19 @@ globalStyle('ul', {
 
 globalStyle('button', {
   backgroundColor: 'inherit',
+  outline: 'none',
   border: 'none',
   padding: 0,
+});
+
+globalStyle('h1, h2, h3, h4', {
+  margin: 0,
 });
 
 globalStyle('button:focus', {
   backgroundColor: 'inherit',
   outline: 'none',
   border: 'none',
-  padding: 0,
 });
 
 globalStyle('input:focus', {
