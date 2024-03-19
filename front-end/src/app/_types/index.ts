@@ -1,3 +1,4 @@
+/** components */
 import { TabProps } from './components/tab';
 import { CardProps } from './components/card';
 import { GridWrapperProps } from './components/girdWrapper';
@@ -12,6 +13,17 @@ import { VideoCardProps } from './components/videoCard';
 import { SearchInputProps } from './components/searchInput';
 import { AreaSelectorProps } from './components/areaSelector';
 import { ToggleButtonProps } from './components/toggleButton';
+import { CategoryListProps } from './components/CategoryList';
+/** components */
+
+/** pages */
+import {
+  AssemblyDetailLayoutProps,
+  AssemblyDetailCardProps,
+  AssemblyDetailChartsProps,
+  AssemblyDetailTopBillCategoriesProps,
+} from './pages/assembly-detail';
+/** pages */
 
 export type {
   TabProps,
@@ -25,8 +37,13 @@ export type {
   ProgressBarProps,
   DotProps,
   BillProps,
+  CategoryListProps,
   VideoCardProps,
   SearchInputProps,
   AreaSelectorProps,
   ToggleButtonProps,
+  AssemblyDetailLayoutProps,
+  AssemblyDetailCardProps,
+  AssemblyDetailChartsProps,
+  AssemblyDetailTopBillCategoriesProps,
 };
