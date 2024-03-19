@@ -9,8 +9,10 @@ import java.util.List;
 @Repository
 public interface BillRepositoryCustom {
 
-    List<Bill> findAllByAssemblyId(Long assemblyId);
+    List<Bill> findAllByAssemblyIdAndCmitId(Long assemblyId, Long cmitId);
 
     Page<Bill> findAll(Pageable pageable, String word);
+
     Page<Bill> findAllByCommittee(Pageable pageable, String word, Long cmitId);
+
 }

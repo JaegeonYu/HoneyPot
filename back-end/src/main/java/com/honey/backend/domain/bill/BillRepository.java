@@ -1,5 +1,7 @@
 package com.honey.backend.domain.bill;
 
+import com.honey.backend.domain.assembly.Assembly;
+import com.honey.backend.domain.committee.Committee;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -15,6 +17,7 @@ public interface BillRepository extends JpaRepository<Bill, Long>, BillRepositor
     Optional<List<Bill>> findAllByBillNo(String billNo);
 
     Optional<List<Bill>> findAllByProcResultIsNotNull();
+
 
 
 }

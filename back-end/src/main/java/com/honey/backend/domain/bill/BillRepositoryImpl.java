@@ -21,13 +21,14 @@ public class BillRepositoryImpl implements BillRepositoryCustom {
     QCommittee committee = QCommittee.committee;
 
     @Override
-    public List<Bill> findAllByAssemblyId(Long assemblyId) {
+    public List<Bill> findAllByAssemblyIdAndCmitId(Long assemblyId, Long cmitId) {
         return queryFactory
                 .select(bill)
                 .from(bill)
-                .rightJoin(assembly)
-                .on(bill.assembly.id.eq(assembly.id))
-                .where(bill.assembly.id.eq(assemblyId))
+                .rightJoin(assembly).on(bill.assembly.id.eq(assembly.id))
+                .rightJoin(committee).on(bill.committee.id.eq(committee.id))
+                .where(bill.assembly.id.eq(assemblyId),
+                        cmitId != null ? committee.id.eq(cmitId) :null)
                 .fetch();
     }
 
