@@ -1,6 +1,7 @@
 import React from 'react';
 import * as S from './Poster.css';
 import * as T from '@/types';
+import { assignInlineVars } from '@vanilla-extract/dynamic';
 
 /**
  * @param children
@@ -9,6 +10,16 @@ import * as T from '@/types';
  *
 
  */
-export default function Poster({ children }: T.PosterProps) {
-  return <div className={S.wrapper}>{children}</div>;
+export default function Poster({ children, posterwidth, posterheight }: T.PosterProps) {
+  return (
+    <div
+      className={S.wrapper}
+      style={assignInlineVars({
+        [S.posterheight]: posterheight,
+        [S.posterwidth]: posterwidth,
+      })}
+    >
+      {children}
+    </div>
+  );
 }

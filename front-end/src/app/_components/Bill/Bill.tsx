@@ -1,16 +1,42 @@
 import React, { useState } from 'react';
 import * as S from './Bill.css';
+import * as T from '@/types';
 
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 import { ArrowBlack, HelpCircle, LinkTo } from '@/_assets/icon';
 import ProgressBar from './Subs/ProgressBar/ProgressBar';
+import Badge from '../Badge/Badge';
+import { CATEGORY_LIST } from '@/_constants';
+import Category from '../Category/Category';
+import ToggleButton from '../ToggleButton/ToggleButton';
 
-export default function Bill() {
+/**
+ *
+ * TBD
+ *
+ * 파라미터로 데이터 받아오기
+ */
+export default function Bill({
+  partycolor,
+  partyname,
+  represent,
+  committee,
+  billtitle,
+  progressbar,
+  panelsectiondata,
+}: T.BillProps) {
   const [isActive, setIsActive] = useState(true);
+  const [isToggled, setIsToggled] = useState(false);
+  const [comm, setComm] = useState(committee);
 
   const toggleAccordion = () => {
     console.log(isActive, 'isActive');
     setIsActive(!isActive);
+  };
+
+  const toggleButton = () => {
+    console.log(isToggled, 'Toggles');
+    setIsToggled(!isToggled);
   };
 
   return (
@@ -23,20 +49,39 @@ export default function Bill() {
       onClick={toggleAccordion}
     >
       <div className={S.billCardHeader}>
-        <ArrowBlack></ArrowBlack>
-        <div className={S.billTitle}>
-          <p className={S.fontHeader}>고향사랑 기부금에 관한 법률안</p>
+        {isActive ? (
+          <div style={{ transform: 'rotate(180deg)' }}>
+            <ArrowBlack></ArrowBlack>
+          </div>
+        ) : (
+          <div>
+            <ArrowBlack></ArrowBlack>
+          </div>
+        )}
+        <div className={S.billTitle} style={{ width: 400 }}>
+          <p className={S.fontHeader}>{billtitle}</p>
           <div className={S.billTitlePerson}>
-            <p className={S.fontContent}>대표자 : 김태호</p>
-            <p className={S.fontContent}>뱃지</p>
+            <p className={S.fontContent}>대표자 : {represent}</p>
+
+            <Badge color={partycolor} isPositionAbsolute={false}>
+              {partyname}
+            </Badge>
           </div>
         </div>
         <div className={S.billTitleCommittee}>
-          <HelpCircle></HelpCircle>
-          <p className={S.fontContent}>국회운영위원회</p>
+          <Category
+            key={`category-${comm}`}
+            categoryId={comm}
+            color={{ default: '#777777', hover: '#777777', focus: '#777777' }}
+            width="24px"
+            height="28px"
+          />
+          <p className={S.fontContent} style={{ fontWeight: 700, width: 165, textAlign: 'center' }}>
+            {CATEGORY_LIST[comm].name}
+          </p>
         </div>
         {/* <p className={S.fontTitle}>This is ProgressBar</p> */}
-        <ProgressBar step={2} date={['11', '22', '33']} partycolor="green"></ProgressBar>
+        <ProgressBar step={2} date={['11', '22', '33']} partycolor={partycolor}></ProgressBar>
       </div>
       <div className={S.billCardContents}>
         <div className={S.billCardContentsHeader}>
@@ -45,6 +90,7 @@ export default function Bill() {
             <div className={S.billCardContentsHeaderSummarytBtn}>
               <p className={S.fontContent}>요약하기</p>
               <p className={S.fontContent}>toggle btn here</p>
+              {/* <ToggleButton clicked={isToggled}></ToggleButton> */}
             </div>
           </div>
           <div className={S.billCardContentsHeaderLink}>

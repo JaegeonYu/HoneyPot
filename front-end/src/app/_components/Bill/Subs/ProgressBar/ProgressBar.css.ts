@@ -18,34 +18,47 @@ export const element = style({
   flexDirection: 'column',
   alignItems: 'center',
   width: '100%',
+  rowGap: 8,
   //   height: '100%',
 });
 
 export const bar = style({
   width: 60,
-  height: 6,
+  height: 4,
   backgroundColor: partycolor,
   position: 'absolute',
-  top: 32,
+  top: 36,
   left: 40,
   zIndex: 0,
 });
 export const bar2 = style({
   width: 60,
-  height: 6,
+  height: 4,
   backgroundColor: partycolor,
   position: 'absolute',
-  top: 32,
-  left: 110,
+  top: 36,
+  left: 115,
   zIndex: 0,
 });
 
 export const bar3 = style({
   width: 60,
-  height: 6,
+  height: 4,
   backgroundColor: partycolor,
   position: 'absolute',
-  top: 32,
+  top: 36,
   left: 190,
   zIndex: 0,
+});
+
+export const fontContent = style({
+  //   height: 58,
+  fontSize: 15,
+  fontWeight: 700,
+});
+
+export const fontDate = style({
+  //   height: 58,
+  fontSize: 12,
+  fontWeight: 500,
 });
