@@ -14,6 +14,7 @@ export const containerRootStyle = style({
   color: vars.colors.service.MAIN_WHITE,
   fontWeight: 700,
   fontSize: 10,
+  cursor: 'default',
 });
 
 export const positionAbsoluteStyle = style([
