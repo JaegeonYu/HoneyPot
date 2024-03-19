@@ -211,6 +211,7 @@ globalStyle('*', {
   boxSizing: 'border-box',
   fontFamily: 'var(--noto-sans-kr)',
   fontWeight: 400,
+  color: vars.colors.service.MAIN_BLACK,
 });
 
 globalStyle('body', {
@@ -240,15 +241,19 @@ globalStyle('ul', {
 
 globalStyle('button', {
   backgroundColor: 'inherit',
+  outline: 'none',
   border: 'none',
   padding: 0,
+});
+
+globalStyle('h1, h2, h3, h4', {
+  margin: 0,
 });
 
 globalStyle('button:focus', {
   backgroundColor: 'inherit',
   outline: 'none',
   border: 'none',
-  padding: 0,
 });
 
 globalStyle('input:focus', {

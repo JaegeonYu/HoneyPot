@@ -17,19 +17,19 @@ import { vars } from '@/globalTheme.css';
 export default function ProgressBar({ step, date, partycolor }: T.ProgressBarProps) {
   const stepname = ['발의', '상임위', '법사위', '본회의'];
   //나중에 datetemp는 파라미터로 받은 date쓸 것
-  const datetemp = ['23.12.01', '24.01.04'];
+  const datetemp = ['23.12.01', '24.01.04', '24.02.01'];
 
   return (
     <div className={S.wrapper}>
       {/* 첫번쨰 Dot */}
       <div className={S.element}>
-        {step !== 44 && step !== 99 ? <p>{stepname[0]}</p> : <p style={{ height: 22 }}></p>}
+        {step !== 44 && step !== 99 ? <p className={S.fontContent}>{stepname[0]}</p> : <p style={{ height: 22 }}></p>}
         {step >= 0 && step < 4 ? (
           <Dot partycolor={partycolor} flag={true}></Dot>
         ) : (
           <Dot partycolor={partycolor} flag={false}></Dot>
         )}
-        {step !== 44 && step !== 99 ? <p>{datetemp[0]}</p> : <p></p>}
+        {step !== 44 && step !== 99 ? <p className={S.fontDate}>{datetemp[0]}</p> : <p></p>}
       </div>
 
       {/* 첫번쨰 bar 시작 */}
@@ -51,13 +51,13 @@ export default function ProgressBar({ step, date, partycolor }: T.ProgressBarPro
 
       {/* 두번쨰 DOT시작 */}
       <div className={S.element}>
-        <p>{stepname[1]}</p>
+        {step !== 44 && step !== 99 ? <p className={S.fontContent}>{stepname[1]}</p> : <p style={{ height: 22 }}></p>}
         {step >= 1 && step < 4 ? (
           <Dot partycolor={partycolor} flag={true}></Dot>
         ) : (
           <Dot partycolor={partycolor} flag={false}></Dot>
         )}
-        <p>{datetemp[1]}</p>
+        <p className={S.fontDate}>{datetemp[1]}</p>
       </div>
       {/* 두번째 bar 시작 */}
 
@@ -79,13 +79,13 @@ export default function ProgressBar({ step, date, partycolor }: T.ProgressBarPro
 
       {/* 세번쨰 DOT 시작 */}
       <div className={S.element}>
-        <p>{stepname[2]}</p>
+        {step !== 44 && step !== 99 ? <p className={S.fontContent}>{stepname[2]}</p> : <p style={{ height: 22 }}></p>}
         {step >= 2 && step < 4 ? (
           <Dot partycolor={partycolor} flag={true}></Dot>
         ) : (
           <Dot partycolor={partycolor} flag={false}></Dot>
         )}
-        <p>{datetemp[2]}</p>
+        <p className={S.fontDate}>{datetemp[2]}</p>
       </div>
 
       {/* 세번쨰 BAR 데이터 */}
@@ -107,13 +107,13 @@ export default function ProgressBar({ step, date, partycolor }: T.ProgressBarPro
 
       {/* 네번쨰 DOT 시작 */}
       <div className={S.element}>
-        <p>{stepname[3]}</p>
+        {step !== 44 && step !== 99 ? <p className={S.fontContent}>{stepname[3]}</p> : <p style={{ height: 22 }}></p>}
         {step >= 3 && step < 4 ? (
           <Dot partycolor={partycolor} flag={true}></Dot>
         ) : (
           <Dot partycolor={partycolor} flag={false}></Dot>
         )}
-        <p>{datetemp[3]}</p>
+        <p className={S.fontDate}>{datetemp[3]}</p>
       </div>
     </div>
   );

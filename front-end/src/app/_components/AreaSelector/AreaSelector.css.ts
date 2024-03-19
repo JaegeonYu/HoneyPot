@@ -70,6 +70,9 @@ export const ulContainer = style({
     [`${areaContainer}:focus > &`]: {
       visibility: 'visible',
     },
+    [`&::-webkit-scrollbar`]: {
+      display: 'none',
+    },
   },
 });
 

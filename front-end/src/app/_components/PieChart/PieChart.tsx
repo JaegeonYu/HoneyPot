@@ -17,14 +17,20 @@ ChartJS.register(Legend, Tooltip, Title);
  *
  * 예시는 아래와 같음
  *
- * [{ title: '본회의', color: PALETTE.party.PEOPLE_POWER_PARTY.MAIN },{ title: '상임위', color: PALETTE.party.PEOPLE_POWER_PARTY.SUB }]
+ * [
+ *  { title: '완료', color: PALETTE.party[DUMMY.polyName][100] },
+ *  { title: '추진중', color: PALETTE.party[DUMMY.polyName][80] },
+ *  { title: '보류', color: PALETTE.party[DUMMY.polyName][80] },
+ *  { title: '기타', color: PALETTE.party[DUMMY.polyName][80] },
+ *  { title: '폐기', color: PALETTE.party[DUMMY.polyName][80] },
+ * ]
  *
  * @param datasetList
  * 해당 차트에 보여질 데이터 세트의 리스트
  *
  * 예시는 아래와 같음
  *
- * [[30, 70],[20, 80]]
+ * [30, 20, 80, 12, 2]
  *
  * @param UNIQUE_ID_FOR_LEGEND
  * 커스텀 범례의 ID를 설정함. 꼭 UNIQUE 해야 함. 자세한 예시는 아래와 같음.
