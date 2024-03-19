@@ -13,6 +13,8 @@ import Bill from './Bill/Bill';
 import VideoCard from './VideoCard/VideoCard';
 import SearchInput from './SearchInput/SearchInput';
 import AreaSelector from './AreaSelector/AreaSelector';
+import HotBill from './HotBill/HotBIll';
+import HotBillPageTest from './HotBillPageTest/HotBillPageTest';
 
 export {
   Header,
@@ -28,4 +30,6 @@ export {
   VideoCard,
   SearchInput,
   AreaSelector,
+  HotBill,
+  HotBillPageTest,
 };
