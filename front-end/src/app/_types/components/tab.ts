@@ -1,5 +1,5 @@
 export interface TabProps {
+  children?: React.ReactNode;
   tabTitleList: string[];
-  selectedIdx: number;
-  selectedIdxHandler: ([...arg]: any) => void;
+  tabChildrenList: React.ReactNode[];
 }
