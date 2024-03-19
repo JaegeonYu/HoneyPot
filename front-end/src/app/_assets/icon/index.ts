@@ -8,6 +8,7 @@ import FaceboookLogo from './svgs/facebook-icon.svg';
 import NaverLogo from './svgs/naver-icon.svg';
 import XLogo from './svgs/x-icon.svg';
 import YoutubeLogo from './svgs/youtube-icon.svg';
+import ArrowMain from './svgs/arrow-main.svg';
 
 export {
   ArrowBlack,
@@ -20,4 +21,5 @@ export {
   NaverLogo,
   XLogo,
   YoutubeLogo,
+  ArrowMain,
 };

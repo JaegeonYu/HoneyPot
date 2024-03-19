@@ -1,11 +1,11 @@
 import { vars } from '@/globalTheme.css';
-import { createVar, style } from '@vanilla-extract/css';
+import { createVar, style, keyframes } from '@vanilla-extract/css';
 
 export const mainWrapper = style({
   display: 'flex',
   flexDirection: 'column',
   // alignItems: 'center',
-  width: '100%',
+  width: '120%',
   overflow: 'hidden',
   position: 'relative',
 });
@@ -27,11 +27,13 @@ export const solganWrapper = style({
   justifyContent: 'center',
   width: '100%',
 });
-
-export const arrow = style({
-  alignItems: 'center',
-  justifyContent: 'center',
+export const solganSubWrapper = style({
   display: 'flex',
+  flexDirection: 'row',
+  // alignItems: 'center',
+  marginTop: '8%',
+  marginBottom: '8%',
+  justifyContent: 'center',
   width: '100%',
 });
 
@@ -41,12 +43,34 @@ export const tempWrapper = style({
   // alignItems: 'center',
   height: '1230px',
   justifyContent: 'center',
+  alignItems: 'center',
   width: '100%',
+  backgroundColor: `${vars.colors.service.HOVER_BACKGROUND}`,
 });
 
-////FONT STYLE////
+const rotate = keyframes({
+  // '0%': { transform: 'rotate(0deg)' },
+  '50%': { transform: 'translateY(-30px)' },
+  '100%': { transform: 'translateY(0px)' },
+});
+export const arrow = style({
+  alignItems: 'center',
+  justifyContent: 'center',
+  display: 'flex',
+  width: '100%',
+  animationName: rotate,
+  animationDuration: '2s',
+  animationIterationCount: 'infinite',
+});
+
+////////////////////////////////////////FONT STYLE/////////////////
 export const solganFont = style({
   fontSize: 60,
   fontWeight: 500,
+  textAlign: 'center',
+});
+export const solganSubFont = style({
+  fontSize: 28,
+  fontWeight: 700,
   textAlign: 'center',
 });
