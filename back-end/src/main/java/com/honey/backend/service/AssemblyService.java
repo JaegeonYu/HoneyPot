@@ -4,17 +4,16 @@ import com.honey.backend.domain.assembly.Assembly;
 import com.honey.backend.domain.assembly.AssemblyRepository;
 import com.honey.backend.domain.bill.Bill;
 import com.honey.backend.domain.bill.BillRepository;
+import com.honey.backend.domain.committee.Committee;
 import com.honey.backend.domain.committee.CommitteeRepository;
+import com.honey.backend.domain.committee.CommitteeRepositoryCustom;
 import com.honey.backend.domain.poly.PolyRepository;
 import com.honey.backend.domain.sns.Sns;
 import com.honey.backend.domain.sns.SnsRepository;
 import com.honey.backend.exception.AssemblyErrorCode;
 import com.honey.backend.exception.BaseException;
 import com.honey.backend.exception.GlobalErrorCode;
-import com.honey.backend.response.AssemblyListResponse;
-import com.honey.backend.response.AssemblyResponse;
-import com.honey.backend.response.BillResponse;
-import com.honey.backend.response.SnsResponse;
+import com.honey.backend.response.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -31,14 +30,7 @@ public class AssemblyService {
     private final BillRepository billRepository;
     private final BillService billService;
     private final SnsRepository snsRepository;
-
-    public List<AssemblyListResponse> findAllByRegion(String sidoName, String sigunguName, String dongName, Integer page, Integer limit, String word) {
-
-        List<Assembly> assemblyList = getPaginatedAssemblies(page, limit, assemblyRepository.findAllByRegion(word, sidoName, sigunguName, dongName));
-
-        return insertToListResponse(assemblyList);
-
-    }
+    private final CommitteeRepository committeeRepository;
 
     public List<AssemblyListResponse> findAll(String sidoName, String sigunguName, String dongName, Integer page, Integer limit, String word, String poly) {
         List<Assembly> assemblyList =null;
@@ -53,12 +45,6 @@ public class AssemblyService {
         }
         return insertToListResponse(assemblyList);
 
-    }
-
-    public List<AssemblyListResponse> findAllByPoly(String word, String poly, Integer page, Integer limit) {
-        Long polyId = Long.parseLong(poly);
-        List<Assembly> assemblyList = assemblyRepository.findAllByPoly(PageRequest.of(page, limit), word, polyId).getContent();
-        return insertToListResponse(assemblyList);
     }
 
 //    public List<AssemblyListResponse> findAllByCommittee(String word, Long cmitId, Integer page, Integer limit) {
@@ -91,6 +77,19 @@ public class AssemblyService {
         }
 
         return billResponseList;
+    }
+
+    public List<CommitteeResponse> findMostCommitteeByAssemblyId(Long assemblyId){
+        List<Committee> committeeList = committeeRepository.findMostCommitteeByAssemblyId(assemblyId);
+        List<CommitteeResponse> committeeResponseList = new ArrayList<>();
+        for( Committee committee : committeeList) {
+            committeeResponseList.add(new CommitteeResponse(
+                    committee.getId(),
+                    committee.getCmitCode(),
+                    committee.getCmitName().substring(0,committee.getCmitName().length()-3)
+            ));
+        }
+        return committeeResponseList;
     }
 
     public SnsResponse findSnsByAssemblyId(Long assemblyId) {

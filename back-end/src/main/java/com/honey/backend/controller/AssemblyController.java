@@ -1,10 +1,7 @@
 package com.honey.backend.controller;
 
 import com.honey.backend.exception.AssemblyErrorCode;
-import com.honey.backend.response.AssemblyListResponse;
-import com.honey.backend.response.AssemblyResponse;
-import com.honey.backend.response.BillResponse;
-import com.honey.backend.response.SnsResponse;
+import com.honey.backend.response.*;
 import com.honey.backend.service.AssemblyService;
 import jakarta.annotation.Nullable;
 import lombok.RequiredArgsConstructor;
@@ -55,4 +52,11 @@ public class AssemblyController {
 
         return ResponseEntity.status(HttpStatus.OK).body(assemblyService.findSnsByAssemblyId(assemblyId));
     }
+
+    @GetMapping("/{assembly_id}/most")
+    public ResponseEntity<List<CommitteeResponse>> findMostCmitByAssemblyId(@PathVariable(name = ("assembly_id")) Long assemblyId){
+
+        return ResponseEntity.status(HttpStatus.OK).body(assemblyService.findMostCommitteeByAssemblyId(assemblyId));
+    }
+
 }
