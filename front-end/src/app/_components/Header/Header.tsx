@@ -14,7 +14,7 @@ function Header() {
           <span className={S.title}>21대 국회</span>
           <ul className={S.dropBox}>
             <li className={S.dropBoxItem}>
-              <Link href="/congressman">국회의원</Link>
+              <Link href="/assembly-list">국회의원</Link>
             </li>
             <li className={S.dropBoxItem}>
               <Link href="/parties">정당</Link>

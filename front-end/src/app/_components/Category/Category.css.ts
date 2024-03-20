@@ -39,7 +39,7 @@ export const categoryName = style({
   fontSize: fontSize,
   textAlign: 'center',
   textWrap: 'nowrap',
-  borderBottom: `2px solid ${vars.colors.service.MAIN_WHITE}`,
+  borderBottom: `2px solid transparent`,
 
   selectors: {
     [`${svgWrapper}:hover > &`]: {
