@@ -1,25 +1,22 @@
 package com.honey.backend.controller;
 
-import com.honey.backend.AssemblyListRequest;
+import com.honey.backend.request.AssemblyListRequest;
+import com.honey.backend.request.BillRequest;
 import com.honey.backend.response.*;
 import com.honey.backend.service.AssemblyService;
 import com.honey.backend.service.BillService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.Parameters;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -31,7 +28,7 @@ public class AssemblyController {
     private final BillService billService;
 
     @GetMapping("")
-    @Operation(summary = "국회의원 리스트 조회", description = "지역/ 이름 / 정당별 국회의원 리스트 API")
+    @Operation(summary = "국회의원 리스트 조회", description = "지역/ 이름 / 정당별 국회  의원 리스트 API")
     public ResponseEntity<List<AssemblyListResponse>> findAllAssembly(@Valid AssemblyListRequest assemblyListRequest) {
         List<AssemblyListResponse> assemblyListResponseList = assemblyService.findAll(assemblyListRequest);
         return assemblyListResponseList.isEmpty() ? ResponseEntity.status(HttpStatus.NO_CONTENT).build() : ResponseEntity.status(HttpStatus.OK).body(assemblyListResponseList);
@@ -46,9 +43,11 @@ public class AssemblyController {
 
     @GetMapping("/{assembly_id}/bill")
     @Operation(summary = "국회의원의 발의안 리스트 조회", description = "국회의원의 발의안 리스트 API")
-    public ResponseEntity<List<BillResponse>> findAllBillByAssemblyId(@PathVariable(name = "assembly_id") Long assemblyId, @RequestParam(required = false) Long cmitId) {
-        List<BillResponse> billResponseList = assemblyService.findAllBillByAssemblyIdAndCmitId(assemblyId, cmitId);
-        return billResponseList.isEmpty() ? ResponseEntity.status(HttpStatus.NO_CONTENT).build() : ResponseEntity.status(HttpStatus.OK).body(billResponseList);
+    public ResponseEntity<BillListResponse> findAllBillByAssemblyId(@PathVariable(name = "assembly_id") Long assemblyId, @Valid BillRequest billRequest) {
+        List<BillResponse> billResponseList = assemblyService.findAllBillByAssemblyIdAndCmitId(assemblyId, billRequest.cmit());
+        BillStatResponse billStatResponse = billService.getBillStat(assemblyId, billRequest.cmit());
+        BillListResponse billListResponse = new BillListResponse(billStatResponse, billResponseList);
+        return billResponseList.isEmpty() ? ResponseEntity.status(HttpStatus.NO_CONTENT).build() : ResponseEntity.status(HttpStatus.OK).body(billListResponse);
     }
 
     @GetMapping("/{assembly_id}/sns")
@@ -63,13 +62,6 @@ public class AssemblyController {
     public ResponseEntity<List<CommitteeResponse>> findMostCmitByAssemblyId(@PathVariable(name = ("assembly_id")) Long assemblyId) {
 
         return ResponseEntity.status(HttpStatus.OK).body(assemblyService.findMostCommitteeByAssemblyId(assemblyId));
-    }
-
-    @GetMapping("/{assembly_id}/bill/stat")
-    @Operation(summary = "국회의원의 의안 추진 현황 조회", description = "국회의원의 의안 추진 현황 API")
-    public ResponseEntity<BillStatResponse> getBillStat(@RequestParam Map<String, String> params, @PathVariable(name = ("assembly_id")) Long assemblyId) {
-        Long cmitId = params.get("cmitId") != null ? Long.parseLong(params.get("cmitId")) : null;
-        return ResponseEntity.status(HttpStatus.OK).body(billService.getBillStat(assemblyId, cmitId));
     }
 
 }

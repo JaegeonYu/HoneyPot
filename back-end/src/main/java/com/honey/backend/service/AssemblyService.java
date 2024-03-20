@@ -1,6 +1,5 @@
 package com.honey.backend.service;
 
-import com.honey.backend.AssemblyListRequest;
 import com.honey.backend.domain.assembly.Assembly;
 import com.honey.backend.domain.assembly.AssemblyRepository;
 import com.honey.backend.domain.bill.Bill;
@@ -12,6 +11,7 @@ import com.honey.backend.domain.sns.Sns;
 import com.honey.backend.domain.sns.SnsRepository;
 import com.honey.backend.exception.BaseException;
 import com.honey.backend.exception.GlobalErrorCode;
+import com.honey.backend.request.AssemblyListRequest;
 import com.honey.backend.response.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;

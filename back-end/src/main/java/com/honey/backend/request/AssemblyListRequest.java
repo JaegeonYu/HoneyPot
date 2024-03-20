@@ -1,4 +1,4 @@
-package com.honey.backend;
+package com.honey.backend.request;
 
 import jakarta.annotation.Nullable;
 
@@ -11,9 +11,9 @@ public record AssemblyListRequest(
         Long dong,
         @Nullable
         Long poly,
-        @Nullable
+
         int page,
-        @Nullable
+
         int limit,
         @Nullable
         String word

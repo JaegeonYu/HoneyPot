@@ -25,14 +25,14 @@ public class RegionController {
     }
 
     @GetMapping("/sigungu")
-    public ResponseEntity<List<RegionResponse>> getSigunguList(@RequestParam Long sidoId) {
-        return ResponseEntity.status(HttpStatus.OK).body(regionService.getSigunguList(sidoId));
+    public ResponseEntity<List<RegionResponse>> getSigunguList(@RequestParam Long sido) {
+        return ResponseEntity.status(HttpStatus.OK).body(regionService.getSigunguList(sido));
 
     }
 
     @GetMapping("/dong")
-    public ResponseEntity<List<RegionResponse>> getDongList(@RequestParam Long sigunguId) {
-        return ResponseEntity.status(HttpStatus.OK).body(regionService.getDongList(sigunguId));
+    public ResponseEntity<List<RegionResponse>> getDongList(@RequestParam Long sigungu) {
+        return ResponseEntity.status(HttpStatus.OK).body(regionService.getDongList(sigungu));
     }
 
 }
