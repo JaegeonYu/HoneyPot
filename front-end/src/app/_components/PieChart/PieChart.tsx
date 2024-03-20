@@ -15,7 +15,7 @@ ChartJS.register(Legend, Tooltip, Title);
  * 범례에 표출될 이름과 색깔을 명시함
  * [type: { title: string, color: string }[]]
  *
- * 예시는 아래와 같음
+ * 예시는 아래와 같음.
  *
  * [
  *  { title: '완료', color: PALETTE.party[DUMMY.polyName][100] },
