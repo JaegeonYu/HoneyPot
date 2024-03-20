@@ -8,6 +8,13 @@ export const chartWrapper = style({
   gap: 12,
 });
 
+export const chartTitle = style({
+  width: '100%',
+  fontSize: '14px',
+  fontWeight: 600,
+  textAlign: 'center',
+});
+
 export const customLegendUlContainer = style({
   width: '100%',
   display: 'flex',

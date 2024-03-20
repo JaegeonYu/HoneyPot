@@ -164,9 +164,11 @@ export default function SeongqTest() {
         </div>
 
         {/* <Comp.Bill {...bill}></Comp.Bill> */}
-        {billdata.map((bills, index) => (
-          <Comp.Bill key={index} {...bills} />
-        ))}
+        <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '12px', padding: 16 }}>
+          {billdata.map((bills, index) => (
+            <Comp.Bill key={index} {...bills} />
+          ))}
+        </div>
 
         {/* <Comp.Bill></Comp.Bill>
       <Comp.Bill></Comp.Bill> */}

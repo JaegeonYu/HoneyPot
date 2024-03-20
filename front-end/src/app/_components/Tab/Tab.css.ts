@@ -49,7 +49,7 @@ export const window = style({
 
 export const tabsWrapper = style({
   display: 'flex',
-  alignItems: 'center',
+  // alignItems: 'center',
   width: '100%',
   transform: `translateX(calc(${translateX}))`,
   transition: 'transform 0.2s ease',

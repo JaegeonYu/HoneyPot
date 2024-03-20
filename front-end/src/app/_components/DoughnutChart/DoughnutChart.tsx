@@ -93,7 +93,6 @@ export default function DoughnutChart({
     plugins: {
       legend: { display: false },
       htmlLegend: { containerID: UNIQUE_ID_FOR_LEGEND },
-      title: { display: true, text: chartTitle },
       tooltip: {
         callbacks: {
           label(context: any) {
@@ -110,6 +109,7 @@ export default function DoughnutChart({
 
   return (
     <div className={S.chartWrapper}>
+      <p className={S.chartTitle}>{chartTitle}</p>
       <Doughnut
         options={option}
         plugins={[htmlLegendPlugin]}
