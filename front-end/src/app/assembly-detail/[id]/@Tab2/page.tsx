@@ -1,11 +1,16 @@
 'use client';
 
 import React from 'react';
+import * as API from '@/_apis/assembly';
 import * as S from './page.css';
+import * as T from '@/types';
 import * as Comp from '@/components';
 import { CATEGORY_LIST } from '@/_constants';
+import { useInfiniteQuery } from '@tanstack/react-query';
 
-export default function AssemblyDetailTab2() {
+export default function AssemblyDetailTab2({ params }: T.AssemblyDetailTab2Props) {
+  const {} = useInfiniteQuery({});
+
   return (
     <div className={S.window}>
       <div className={S.categoriesWrapper}>
@@ -20,6 +25,7 @@ export default function AssemblyDetailTab2() {
           />
         ))}
       </div>
+      <section>{/* <Comp.Bill></Comp.Bill> */}</section>
     </div>
   );
 }
