@@ -1,17 +1,20 @@
 import { vars } from '@/globalTheme.css';
 import { createVar, style } from '@vanilla-extract/css';
 
-export const widthProps = createVar();
-export const heightProps = createVar();
+export const cursor = createVar();
 export const svgWrapper = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
+  cursor: cursor,
 });
 
 export const defaultColor = createVar();
 export const hoverColor = createVar();
 export const focusColor = createVar();
+
+export const widthProps = createVar();
+export const heightProps = createVar();
 export const styledSvg = style({
   width: widthProps,
   height: heightProps,
