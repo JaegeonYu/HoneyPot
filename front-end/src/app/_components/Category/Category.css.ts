@@ -40,6 +40,7 @@ export const categoryName = style({
   textAlign: 'center',
   textWrap: 'nowrap',
   borderBottom: `2px solid transparent`,
+  paddingBottom: '8px',
 
   selectors: {
     [`${svgWrapper}:hover > &`]: {

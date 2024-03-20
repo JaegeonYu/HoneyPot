@@ -25,9 +25,11 @@ export default function AssemblyDetailLayout({ Tab1, Tab2, Tab3, params }: T.Ass
           </Suspense>
         </section>
       </section>
-      <section className={S.tabSectionWrapper}>
-        <Comp.Tab tabTitleList={['공약', '의안', '약력']} tabChildrenList={[Tab1, Tab2, Tab3]} />
-      </section>
+      <Suspense fallback={<AssemblyDetailLoading width="100%" height="678px" />}>
+        <section className={S.tabSectionWrapper}>
+          <Comp.Tab tabTitleList={['공약', '의안', '약력']} tabChildrenList={[Tab1, Tab2, Tab3]} />
+        </section>
+      </Suspense>
     </>
   );
 }

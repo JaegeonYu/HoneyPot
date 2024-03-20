@@ -21,49 +21,61 @@ export const categoriesWrapper = style({
   transition: 'transform 0.2s ease',
 });
 
-export const categoryItem = style({
+export const billListWithChartWrapper = style({
   display: 'flex',
-  alignItems: 'center',
-  flexDirection: 'column',
-  width: 'fit-content',
-  cursor: 'pointer',
+  justifyContent: 'space-between',
 
-  selectors: {
-    [`&:hover`]: {
-      fill: vars.colors.service.MAIN_BLACK,
-    },
-  },
+  paddingTop: '36px',
 });
 
-export const categoryName = style({
-  color: vars.colors.service.SUB_BLACK,
-  borderBottom: `1px solid ${vars.colors.service.MAIN_WHITE}`,
-  textWrap: 'nowrap',
-  fontSize: '16px',
-
-  selectors: {
-    [`${categoryItem} &:hover`]: {
-      color: vars.colors.service.MAIN_BLACK,
-      borderBottom: `1px solid ${vars.colors.service.SUB_BLACK}`,
-    },
-    [`${categoryItem} &:focus-within`]: {
-      color: vars.colors.service.MAIN_BLACK,
-      borderBottom: `1px solid ${vars.colors.service.MAIN_BLACK}`,
-    },
-  },
+export const chartWrapper = style({
+  width: '100%',
+  height: '100%',
 });
 
-export const arrowButtonWrapper = style({
-  width: '16px',
-  height: '16px',
-  borderRadius: '100%',
-  backgroundColor: vars.colors.service.MAIN_WHITE,
-  position: 'absolute',
-  right: `${arrowButtonPositionRigiht}`,
-  top: '40%',
-  transform: `translate(-50%, 0%)`,
-});
+// export const categoryItem = style({
+//   display: 'flex',
+//   alignItems: 'center',
+//   flexDirection: 'column',
+//   width: 'fit-content',
+//   cursor: 'pointer',
 
-export const styleArrowSvg = style({
-  transform: 'rotate(90deg)',
-});
+//   selectors: {
+//     [`&:hover`]: {
+//       fill: vars.colors.service.MAIN_BLACK,
+//     },
+//   },
+// });
+
+// export const categoryName = style({
+//   color: vars.colors.service.SUB_BLACK,
+//   borderBottom: `1px solid ${vars.colors.service.MAIN_WHITE}`,
+//   textWrap: 'nowrap',
+//   fontSize: '16px',
+
+//   selectors: {
+//     [`${categoryItem} &:hover`]: {
+//       color: vars.colors.service.MAIN_BLACK,
+//       borderBottom: `1px solid ${vars.colors.service.SUB_BLACK}`,
+//     },
+//     [`${categoryItem} &:focus-within`]: {
+//       color: vars.colors.service.MAIN_BLACK,
+//       borderBottom: `1px solid ${vars.colors.service.MAIN_BLACK}`,
+//     },
+//   },
+// });
+
+// export const arrowButtonWrapper = style({
+//   width: '16px',
+//   height: '16px',
+//   borderRadius: '100%',
+//   backgroundColor: vars.colors.service.MAIN_WHITE,
+//   position: 'absolute',
+//   right: `${arrowButtonPositionRigiht}`,
+//   top: '40%',
+//   transform: `translate(-50%, 0%)`,
+// });
+
+// export const styleArrowSvg = style({
+//   transform: 'rotate(90deg)',
+// });
