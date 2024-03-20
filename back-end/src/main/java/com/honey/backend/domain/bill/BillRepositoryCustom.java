@@ -12,8 +12,6 @@ public interface BillRepositoryCustom {
 
     List<Bill> findAllByAssemblyIdAndCmitId(Long assemblyId, Long cmitId);
 
-    Page<Bill> findAll(Pageable pageable, String word);
-
     Page<Bill> findAllByCommittee(Pageable pageable, String word, Long cmitId);
 
     BillStatResponse findBillStatByAssemblyIdAndCmitId(Long assemblyId, Long cmitId);

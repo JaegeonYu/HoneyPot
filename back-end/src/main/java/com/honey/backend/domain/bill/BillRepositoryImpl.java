@@ -36,20 +36,6 @@ public class BillRepositoryImpl implements BillRepositoryCustom {
     }
 
     @Override
-    public Page<Bill> findAll(Pageable pageable, String word) {
-        List<Bill> billList = queryFactory
-                .select(bill)
-                .from(bill)
-                .where(word != null ? bill.billName.like("%" + word + "%") : null)
-                .orderBy(bill.billNo.desc())
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
-                .fetch();
-
-        return new PageImpl<>(billList);
-    }
-
-    @Override
     public Page<Bill> findAllByCommittee(Pageable pageable, String word, Long cmitId) {
         List<Bill> billList = queryFactory
                 .select(bill)

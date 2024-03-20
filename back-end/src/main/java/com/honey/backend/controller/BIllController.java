@@ -1,7 +1,5 @@
 package com.honey.backend.controller;
 
-import com.honey.backend.domain.bill.Bill;
-import com.honey.backend.load.bill.Response;
 import com.honey.backend.response.BillResponse;
 import com.honey.backend.response.BillStatResponse;
 import com.honey.backend.service.BillService;
@@ -20,27 +18,24 @@ public class BIllController {
     private final BillService billService;
 
     @GetMapping()
-    public ResponseEntity<List<BillResponse>> findAll(@RequestParam Map<String,String> params) {
-        Integer page = params.get("page") != null ?Integer.parseInt(params.get("page")) : 0;
+    public ResponseEntity<List<BillResponse>> getBillList(@RequestParam Map<String, String> params) {
+        Integer page = params.get("page") != null ? Integer.parseInt(params.get("page")) : 0;
+        Integer limit = params.get("limit") != null ? Integer.parseInt(params.get("limit")) : 10;
         String word = params.get("word");
-        return ResponseEntity.status(HttpStatus.OK).body(billService.findAll(page,word));
+        Long cmitId = params.get("cmitId") != null ? Long.parseLong(params.get("cmitId")) : null;
+
+        List<BillResponse> billResponseList = billService.getBillList(page, limit, word, cmitId);
+        return billResponseList.isEmpty() ? ResponseEntity.status(HttpStatus.NO_CONTENT).build() : ResponseEntity.status(HttpStatus.OK).body(billResponseList);
     }
 
     @GetMapping("/{bill_id}")
-    public ResponseEntity<BillResponse> findById(@PathVariable(name = "bill_id") Long billId){
+    public ResponseEntity<BillResponse> findById(@PathVariable(name = "bill_id") Long billId) {
         return ResponseEntity.status(HttpStatus.OK).body(billService.findById(billId));
     }
 
-    @GetMapping("/committee")
-    public ResponseEntity<List<BillResponse>> findAllByCommittee(@RequestParam Map<String,String> params) {
-        Integer page = params.get("page") != null ?Integer.parseInt(params.get("page")) : 0;
-        String word = params.get("word");
-        Long cmitId = params.get("cmitId") != null ? Long.parseLong(params.get("cmitId")) : null;
-        return ResponseEntity.status(HttpStatus.OK).body(billService.findAllByCommittee(page,word,cmitId));
-    }
     @GetMapping("/stat")
-    public ResponseEntity<BillStatResponse> getBillStat(@RequestParam Map<String,String> params){
+    public ResponseEntity<BillStatResponse> getBillStat(@RequestParam Map<String, String> params) {
         Long cmitId = params.get("cmitId") != null ? Long.parseLong(params.get("cmitId")) : null;
-        return ResponseEntity.status(HttpStatus.OK).body(billService.getBillStat(null,cmitId));
+        return ResponseEntity.status(HttpStatus.OK).body(billService.getBillStat(null, cmitId));
     }
 }

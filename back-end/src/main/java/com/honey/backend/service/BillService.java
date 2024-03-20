@@ -21,22 +21,12 @@ public class BillService {
     private final AssemblyRepository assemblyRepository;
     private final CommitteeRepository committeeRepository;
 
-    private final int limit = 10;
-
-    public List<BillResponse> findAll(Integer page, String word) {
-        List<Bill> billList = billRepository.findAll(PageRequest.of(page, limit), word).getContent();
-        List<BillResponse> billResponseList = new ArrayList<>();
-        for (Bill bill : billList) {
-            billResponseList.add(insertToBillResponse(bill));
-        }
-        return billResponseList;
-    }
 
     public BillResponse findById(Long billId) {
         return insertToBillResponse(billRepository.findById(billId).orElseThrow());
     }
 
-    public List<BillResponse> findAllByCommittee(Integer page, String word, Long cmitId) {
+    public List<BillResponse> getBillList(Integer page, Integer limit, String word, Long cmitId) {
         List<Bill> billList = billRepository.findAllByCommittee(PageRequest.of(page, limit), word, cmitId).getContent();
         List<BillResponse> billResponseList = new ArrayList<>();
         for (Bill bill : billList) {
@@ -44,8 +34,9 @@ public class BillService {
         }
         return billResponseList;
     }
+
     public BillStatResponse getBillStat(Long assemblyId, Long cmitId) {
-        return billRepository.findBillStatByAssemblyIdAndCmitId(assemblyId,cmitId);
+        return billRepository.findBillStatByAssemblyIdAndCmitId(assemblyId, cmitId);
     }
 
     public BillResponse insertToBillResponse(Bill bill) {

@@ -1,10 +1,8 @@
 package com.honey.backend.controller;
 
-import com.honey.backend.exception.AssemblyErrorCode;
 import com.honey.backend.response.*;
 import com.honey.backend.service.AssemblyService;
 import com.honey.backend.service.BillService;
-import jakarta.annotation.Nullable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +21,7 @@ public class AssemblyController {
     private final BillService billService;
 
     @GetMapping()
-    public ResponseEntity<List<AssemblyListResponse>> findAllAssemblyByRegion(@RequestParam Map<String, String> params) {
+    public ResponseEntity<List<AssemblyListResponse>> findAllAssembly(@RequestParam Map<String, String> params) {
         String sidoName = params.get("sido");
         String sigunguName = params.get("sigungu");
         String dongName = params.get("dong");
@@ -44,8 +42,8 @@ public class AssemblyController {
 
     @GetMapping("/{assembly_id}/bill")
     public ResponseEntity<List<BillResponse>> findAllBillByAssemblyId(@PathVariable(name = "assembly_id") Long assemblyId, @RequestParam(required = false) Long cmitId) {
-
-        return ResponseEntity.status(HttpStatus.OK).body(assemblyService.findAllBillByAssemblyIdAndCmitId(assemblyId, cmitId));
+        List<BillResponse> billResponseList = assemblyService.findAllBillByAssemblyIdAndCmitId(assemblyId, cmitId);
+        return billResponseList.isEmpty() ? ResponseEntity.status(HttpStatus.NO_CONTENT).build() : ResponseEntity.status(HttpStatus.OK).body(billResponseList);
     }
 
     @GetMapping("/{assembly_id}/sns")
