@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface AssemblyRepositoryCustom {
 
-    List<Assembly> findAllByRegion(String word, String sidoName, String sigunguName, String dongName);
+    List<Assembly> findAllByRegion(String word, Long sidoId, Long sigunguId, Long dongId);
 
     Page<Assembly> findAllByPoly(Pageable pageable, String word, Long polyId);
 

@@ -1,0 +1,38 @@
+package com.honey.backend.controller;
+
+import com.honey.backend.response.RegionResponse;
+import com.honey.backend.service.RegionService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/region")
+public class RegionController {
+
+    private final RegionService regionService;
+
+    @GetMapping("/sido")
+    public ResponseEntity<List<RegionResponse>> getSidoList() {
+        return ResponseEntity.status(HttpStatus.OK).body(regionService.getSidoList());
+    }
+
+    @GetMapping("/sigungu")
+    public ResponseEntity<List<RegionResponse>> getSigunguList(@RequestParam Long sidoId) {
+        return ResponseEntity.status(HttpStatus.OK).body(regionService.getSigunguList(sidoId));
+
+    }
+
+    @GetMapping("/dong")
+    public ResponseEntity<List<RegionResponse>> getDongList(@RequestParam Long sigunguId) {
+        return ResponseEntity.status(HttpStatus.OK).body(regionService.getDongList(sigunguId));
+    }
+
+}

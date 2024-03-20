@@ -1,16 +1,15 @@
 package com.honey.backend.service;
 
+import com.honey.backend.AssemblyListRequest;
 import com.honey.backend.domain.assembly.Assembly;
 import com.honey.backend.domain.assembly.AssemblyRepository;
 import com.honey.backend.domain.bill.Bill;
 import com.honey.backend.domain.bill.BillRepository;
 import com.honey.backend.domain.committee.Committee;
 import com.honey.backend.domain.committee.CommitteeRepository;
-import com.honey.backend.domain.committee.CommitteeRepositoryCustom;
 import com.honey.backend.domain.poly.PolyRepository;
 import com.honey.backend.domain.sns.Sns;
 import com.honey.backend.domain.sns.SnsRepository;
-import com.honey.backend.exception.AssemblyErrorCode;
 import com.honey.backend.exception.BaseException;
 import com.honey.backend.exception.GlobalErrorCode;
 import com.honey.backend.response.*;
@@ -32,14 +31,20 @@ public class AssemblyService {
     private final SnsRepository snsRepository;
     private final CommitteeRepository committeeRepository;
 
-    public List<AssemblyListResponse> findAll(String sidoName, String sigunguName, String dongName, Integer page, Integer limit, String word, String poly) {
-        List<Assembly> assemblyList =null;
-        if (poly != null && (sidoName == null && sigunguName == null && dongName == null)) {
-            Long polyId = Long.parseLong(poly);
-            assemblyList = assemblyRepository.findAllByPoly(PageRequest.of(page, limit), word, polyId).getContent();
-        }
-        else if(poly == null)
-            assemblyList = getPaginatedAssemblies(page, limit, assemblyRepository.findAllByRegion(word, sidoName, sigunguName, dongName));
+    public List<AssemblyListResponse> findAll(AssemblyListRequest assemblyListRequest) {
+        Long sido = assemblyListRequest.sido();
+        Long sigungu = assemblyListRequest.sigungu();
+        Long dong = assemblyListRequest.dong();
+        Long poly = assemblyListRequest.poly();
+        int page = assemblyListRequest.page();
+        int limit = assemblyListRequest.limit();
+        String word = assemblyListRequest.word();
+
+        List<Assembly> assemblyList = null;
+        if (poly != null && (sido == null && sigungu == null && dong == null)) {
+            assemblyList = assemblyRepository.findAllByPoly(PageRequest.of(page, limit), word, poly).getContent();
+        } else if (poly == null)
+            assemblyList = getPaginatedAssemblies(page, limit, assemblyRepository.findAllByRegion(word, sido, sigungu, dong));
         else {
             throw new BaseException(GlobalErrorCode.NOT_SUPPORTED_URI_ERROR);
         }
@@ -74,14 +79,14 @@ public class AssemblyService {
         return billResponseList;
     }
 
-    public List<CommitteeResponse> findMostCommitteeByAssemblyId(Long assemblyId){
+    public List<CommitteeResponse> findMostCommitteeByAssemblyId(Long assemblyId) {
         List<Committee> committeeList = committeeRepository.findMostCommitteeByAssemblyId(assemblyId);
         List<CommitteeResponse> committeeResponseList = new ArrayList<>();
-        for( Committee committee : committeeList) {
+        for (Committee committee : committeeList) {
             committeeResponseList.add(new CommitteeResponse(
                     committee.getId(),
                     committee.getCmitCode(),
-                    committee.getCmitName().substring(0,committee.getCmitName().length()-3)
+                    committee.getCmitName().substring(0, committee.getCmitName().length() - 3)
             ));
         }
         return committeeResponseList;

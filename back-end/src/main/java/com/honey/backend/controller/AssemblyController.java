@@ -1,5 +1,6 @@
 package com.honey.backend.controller;
 
+import com.honey.backend.AssemblyListRequest;
 import com.honey.backend.response.*;
 import com.honey.backend.service.AssemblyService;
 import com.honey.backend.service.BillService;
@@ -11,6 +12,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,18 +30,10 @@ public class AssemblyController {
     private final AssemblyService assemblyService;
     private final BillService billService;
 
-    @GetMapping()
+    @GetMapping("")
     @Operation(summary = "국회의원 리스트 조회", description = "지역/ 이름 / 정당별 국회의원 리스트 API")
-    public ResponseEntity<List<AssemblyListResponse>> findAllAssembly(@RequestParam Map<String, String> params) {
-        String sidoName = params.get("sido");
-        String sigunguName = params.get("sigungu");
-        String dongName = params.get("dong");
-        String word = params.get("word");
-        Integer page = params.get("page") != null ? Integer.parseInt(params.get("page")) : 0;
-        Integer limit = params.get("limit") != null ? Integer.parseInt(params.get("limit")) : 10;
-        String poly = params.get("poly");
-
-        List<AssemblyListResponse> assemblyListResponseList = assemblyService.findAll(sidoName, sigunguName, dongName, page, limit, word, poly);
+    public ResponseEntity<List<AssemblyListResponse>> findAllAssembly(@Valid AssemblyListRequest assemblyListRequest) {
+        List<AssemblyListResponse> assemblyListResponseList = assemblyService.findAll(assemblyListRequest);
         return assemblyListResponseList.isEmpty() ? ResponseEntity.status(HttpStatus.NO_CONTENT).build() : ResponseEntity.status(HttpStatus.OK).body(assemblyListResponseList);
     }
 

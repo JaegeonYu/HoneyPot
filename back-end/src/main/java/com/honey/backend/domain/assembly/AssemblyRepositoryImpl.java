@@ -33,7 +33,7 @@ public class AssemblyRepositoryImpl implements AssemblyRepositoryCustom {
     QCommittee committee = QCommittee.committee;
 
     @Override
-    public List<Assembly> findAllByRegion(String word, String sidoName, String sigunguName, String dongName) {
+    public List<Assembly> findAllByRegion(String word, Long sidoId, Long sigunguId, Long dongId) {
         List<Assembly> assemblyList = queryFactory
                 .select(assembly)
                 .from(assembly)
@@ -41,9 +41,9 @@ public class AssemblyRepositoryImpl implements AssemblyRepositoryCustom {
                 .innerJoin(sigungu).on(dong.sigungu.id.eq(sigungu.id))
                 .innerJoin(sido).on(sigungu.sido.id.eq(sido.id))
                 .where(
-                        sidoName != null ? sido.sidoName.eq(sidoName) : null,
-                        sigunguName != null ? sigungu.sigunguName.eq(sigunguName) : null,
-                        dongName != null ? dong.dongName.eq(dongName) : null,
+                        sidoId != null ? sido.id.eq(sidoId) : null,
+                        sigunguId != null ? sigungu.id.eq(sigunguId) : null,
+                        dongId != null ? dong.id.eq(dongId) : null,
                         word != null ? assembly.hgName.like("%" + word + "%") : null
                 )
                 .orderBy(dong.electionRegion.id.asc())
