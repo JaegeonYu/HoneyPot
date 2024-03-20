@@ -1,7 +1,7 @@
 import React from 'react';
 import * as S from './ProgressBar.css';
 import * as T from '@/types';
-import Dot from './Dot';
+import Dot from '../Dot/Dot';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 import { vars } from '@/globalTheme.css';
 
@@ -16,8 +16,9 @@ import { vars } from '@/globalTheme.css';
  */
 export default function ProgressBar({ step, date, partycolor }: T.ProgressBarProps) {
   const stepnameList = ['발의', '상임위', '법사위', '본회의'];
-  //나중에 datetemp는 파라미터로 받은 date쓸 것
-  const datetemp = ['23.12.01', '24.01.04', '24.02.01'];
+  //나중에 date는 파라미터로 받은 date쓸 것
+  // const date = ['23.12.01', '24.01.04', '24.02.01'];
+  console.log(date, 'date');
 
   return (
     <div className={S.wrapper}>
@@ -30,7 +31,7 @@ export default function ProgressBar({ step, date, partycolor }: T.ProgressBarPro
           ) : (
             <Dot idx={4 - i} partycolor={partycolor} flag={false} barflag={false} lastdot={true}></Dot>
           )}
-          {step !== 44 && step !== 99 ? <p className={S.fontDate}>{datetemp[0]}</p> : <p></p>}
+          {step !== 44 && step !== 99 ? <p className={S.fontDate}>{date[i]}</p> : <p></p>}
         </div>
       ))}
     </div>

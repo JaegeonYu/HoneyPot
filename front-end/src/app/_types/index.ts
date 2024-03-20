@@ -14,6 +14,7 @@ import { SearchInputProps } from './components/searchInput';
 import { AreaSelectorProps } from './components/areaSelector';
 import { ToggleButtonProps } from './components/toggleButton';
 import { CategoryListProps } from './components/CategoryList';
+import { OriginalPanelProps } from './components/originalPanel';
 /** components */
 
 /** pages */
@@ -38,6 +39,7 @@ export type {
   DotProps,
   BillProps,
   CategoryListProps,
+  OriginalPanelProps,
   VideoCardProps,
   SearchInputProps,
   AreaSelectorProps,
