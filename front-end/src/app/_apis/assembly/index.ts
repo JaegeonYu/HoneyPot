@@ -9,14 +9,16 @@ export async function getAssemblyList({
   poly,
 }: {
   sido: number;
-  sigungu: number;
-  dong: number;
+  sigungu: number | null;
+  dong: number | null;
   page: number;
   limit: number;
-  poly: number;
+  poly: number | null;
 }) {
   return await instance.get(
-    `/assembly?sido=${sido}&sigungu=${sigungu}&dong=${dong}&page=${page}&limit=${limit}&poly=${poly}`,
+    `/assembly?sido=${sido}&sigungu=${sigungu === null ? '' : sigungu}&dong=${
+      dong === null ? '' : dong
+    }&page=${page}&limit=${limit}&poly=${poly === null ? '' : poly}`,
   );
 }
 
@@ -34,8 +36,8 @@ export async function getAssemblyPledge({ assemblyId }: { assemblyId: string }) 
   return await instance.get(`/assembly/${assemblyId}/pledge`);
 }
 
-export async function getAssemblyBill({ assemblyId }: { assemblyId: string }) {
-  return await instance.get(`/assembly/${assemblyId}/bill`);
+export async function getAssemblyBill({ assemblyId, page, take }: { assemblyId: string; page: number; take: number }) {
+  return await instance.get(`/assembly/${assemblyId}/bill?page=${page}&limit=${take}`);
 }
 
 export async function getAssemblyVideoList({ assemblyId }: { assemblyId: string }) {

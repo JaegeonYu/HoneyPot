@@ -2,18 +2,22 @@
 
 import React, { useState } from 'react';
 import * as S from './page.css';
-import * as API from '@/apis';
+import * as API from '@/_apis/assembly';
 import * as Comp from '@/components';
 import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
 
 export default function AssemblyListTab1() {
-  const [take, setTake] = useState(1);
+  const [areaState, setAreaState] = useState({
+    sido: 0,
+    sigungu: null,
+    dong: null,
+  });
 
   const { data: response } = useQuery({
-    queryKey: ['test'],
+    queryKey: [{ assemblyList: `member-${areaState.sido}` }],
     queryFn: () =>
-      API.assembly.getAssemblyList().then(res => {
+      API.getAssemblyList({ ...areaState, page: 0, limit: 10, poly: 0 }).then(res => {
         console.log(`res.data :`, res.data);
         return res;
       }),
@@ -22,7 +26,7 @@ export default function AssemblyListTab1() {
   return (
     <>
       <Comp.GridWrapper>
-        {response?.data.map((res, i) => (
+        {response?.data.map((res: any, i: any) => (
           <Link className={S.styledLink} key={res.monaCd} href={`/assembly-detail/${res.assemblyId}`}>
             <Comp.Card
               key={res.monaCd}

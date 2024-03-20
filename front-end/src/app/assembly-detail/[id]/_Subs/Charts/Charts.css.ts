@@ -22,5 +22,6 @@ export const chartsContainer = style({
 
 export const chartContainer = style({
   width: '100%',
+  height: '100%',
   padding: '0px 24px',
 });

@@ -16,9 +16,12 @@ export const chartTitle = style({
 });
 
 export const customLegendUlContainer = style({
-  width: '100%',
+  minWidth: '100%',
+  height: 'fit-content',
   display: 'flex',
   justifyContent: 'center',
+  flexWrap: 'wrap',
+  gap: '12px',
   margin: 0,
   padding: 0,
 });
@@ -27,7 +30,7 @@ export const customLegendLiItem = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  width: '100%',
+  width: 'fit-content',
   cursor: 'default',
 });
 
@@ -44,5 +47,5 @@ export const legendTitle = style({
   fontSize: 10,
   height: 'fit-content',
   color: vars.colors.service.MAIN_BLACK,
-  // paddingBottom: 2,
+  textWrap: 'nowrap',
 });

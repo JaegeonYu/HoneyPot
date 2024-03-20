@@ -39,7 +39,7 @@ interface PALETTE_TYPE {
     MAIN_GOLD: '#FFD067';
   };
   party: {
-    [party: string]: { 100: string; 80: string; 60: string; 40: string; 20: string };
+    [party: string]: { [blur: string]: string };
     국민의힘: { 100: string; 80: string; 60: string; 40: string; 20: string };
     더불어민주당: { 100: string; 80: string; 60: string; 40: string; 20: string };
     녹색정의당: { 100: string; 80: string; 60: string; 40: string; 20: string };

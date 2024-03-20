@@ -6,16 +6,23 @@ export interface AssemblyDetailLayoutProps {
 }
 
 export interface AssemblyDetailCardProps {
-  assemblyImgUrl: string;
-  polyName: string;
-  hgName: string;
-  units: string;
-  origName: string;
-  birthDate: string;
+  params: { id: string };
 }
 
 export interface AssemblyDetailChartsProps {
-  polyName: string;
+  params: { id: string };
 }
 
-export interface AssemblyDetailTopBillCategoriesProps {}
+export interface AssemblyDetailTopBillCategoriesProps {
+  params: { id: string };
+}
+
+export interface AssemblyDetailTab1Props {
+  params: { id: string };
+}
+export interface AssemblyDetailTab2Props {
+  params: { id: string };
+}
+export interface AssemblyDetailTab3Props {
+  params: { id: string };
+}

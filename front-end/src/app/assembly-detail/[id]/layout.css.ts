@@ -17,22 +17,6 @@ export const mainSectionWrapper = style([
   },
 ]);
 
-export const snsWrapper = style({
-  display: 'flex',
-  justifyContent: 'space-between',
-  width: '100%',
-  padding: '12px 8px',
-});
-
-export const snsItem = style({
-  width: '42px',
-  height: '44px',
-  paddingTop: '2px',
-  backgroundColor: vars.colors.service.MAIN_WHITE,
-  boxShadow: '0 4px 10px 0 rgba(0,0,0,0.16)',
-  borderRadius: '12px',
-});
-
 export const rightOfMainContent = style({
   display: 'flex',
   flexDirection: 'column',

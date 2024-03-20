@@ -22,6 +22,9 @@ import {
   AssemblyDetailCardProps,
   AssemblyDetailChartsProps,
   AssemblyDetailTopBillCategoriesProps,
+  AssemblyDetailTab1Props,
+  AssemblyDetailTab2Props,
+  AssemblyDetailTab3Props,
 } from './pages/assembly-detail';
 /** pages */
 
@@ -46,4 +49,7 @@ export type {
   AssemblyDetailCardProps,
   AssemblyDetailChartsProps,
   AssemblyDetailTopBillCategoriesProps,
+  AssemblyDetailTab1Props,
+  AssemblyDetailTab2Props,
+  AssemblyDetailTab3Props,
 };
