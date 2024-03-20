@@ -100,17 +100,28 @@ export const btn = style({
   fontSize: 16,
   color: `${vars.colors.service.MAIN_WHITE}`,
   borderRadius: 8,
-  boxShadow: `inset 3.00px 3.22px 6.22px -0.78px rgba(0, 0, 0, 0.15),
-  inset -4.50px -4.83px 6.22px -0.78px rgba(0, 0, 0, 0.3),
-  9.01px 9.65px 4.66px -2.33px rgba(0, 0, 0, 0.6)`,
+  boxShadow: `inset 1.33px 1.49px 2.82px -0.35px rgba(0, 0, 0, 0.15),
+  inset -2.00px -2.23px 2.82px -0.35px rgba(0, 0, 0, 0.3),
+  4.00px 4.47px 2.12px -1.06px rgba(0, 0, 0, 0.6)
+  `,
 });
 
-// export const testclay = style({
-//   borderRadius: 3,
-//   boxShadow: `inset 3.00px 3.22px 6.22px -0.78px rgba(0, 0, 0, 0.15),
-//   inset -4.50px -4.83px 6.22px -0.78px rgba(0, 0, 0, 0.3),
-//   9.01px 9.65px 4.66px -2.33px rgba(0, 0, 0, 0.6)`,
-// });
+export const testclay = style({
+  backgroundColor: `${vars.colors.service.MAIN_COLOR_60}`,
+  borderRadius: 26,
+  boxShadow: `inset 1.33px 1.49px 2.82px -0.35px rgba(0, 0, 0, 0.15),
+  inset -2.00px -2.23px 2.82px -0.35px rgba(0, 0, 0, 0.3),
+  4.00px 4.47px 2.12px -1.06px rgba(0, 0, 0, 0.6)`,
+});
+export const testclay2 = style({
+  backgroundColor: `${vars.colors.service.MAIN_COLOR_60}`,
+  borderRadius: 26,
+
+  boxShadow: `inset 3.06px 2.58px 5.64px -0.70px rgba(0, 0, 0, 0.15),
+  inset -4.59px -3.87px 5.64px -0.70px rgba(0, 0, 0, 0.3),
+  9.18px 7.73px 4.23px -2.11px rgba(0, 0, 0, 0.6)`,
+});
+
 /////////////////////////////
 
 ////////////////////////////////////////FONT STYLE/////////////////

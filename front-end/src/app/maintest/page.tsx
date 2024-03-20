@@ -83,8 +83,14 @@ export default function MainTest() {
             <div style={{ alignItems: 'center', justifyContent: 'center', display: 'flex' }}>
               <p className={S.billSubFont}>이 가운데 통과된 법안은 몇개일까요</p>
             </div>
+            <div className={S.assembleSub}>
+              <p>sdfsdfsdf</p>
+              <div>
+                <img className={S.testclay} src={LawList.src} width="50%"></img>
+              </div>
+            </div>
             <div>
-              <img src={LawList.src} width="100%"></img>
+              <img className={S.testclay2} src={LawList.src} width="50%"></img>
             </div>
           </div>
         </section>
