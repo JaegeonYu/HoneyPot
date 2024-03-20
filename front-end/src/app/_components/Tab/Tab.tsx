@@ -16,7 +16,7 @@ import { assignInlineVars } from '@vanilla-extract/dynamic';
  * 탭으로 전환될 요소들 [type: React.ReactNode[]]
  */
 export default function Tab({ tabTitleList, children, tabChildrenList }: T.TabProps) {
-  const [tabIndex, setTabIndex] = useState(2);
+  const [tabIndex, setTabIndex] = useState(1);
 
   return (
     <div className={S.wrapper}>
