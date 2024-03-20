@@ -97,7 +97,7 @@ export default function SeongqTest() {
             ></Comp.PieChart>
           </Comp.Poster>
 
-          <Comp.Poster posterwidth="360px" posterheight="100%">
+          <Comp.Poster posterwidth="360px" posterheight="392px">
             <div className={S.textWrapper}>
               <p className={S.fontTitle}>가장 많이 발의한 분야</p>
               <p className={S.fontContent}></p>
@@ -124,11 +124,11 @@ export default function SeongqTest() {
                 >
                   <Category
                     categoryId={category}
-                    color={{ default: '#777777', hover: '#777777', focus: '#777777' }}
-                    width="20px"
-                    height="24px"
+                    dynamicColorMode={false}
+                    iconWidth="24px"
+                    iconHeight="28px"
+                    fontSize="12px"
                   />
-                  <p className={S.fontContent}>{CATEGORY_LIST[category].name}</p>
                 </div>
               ))}
             </div>
@@ -147,14 +147,8 @@ export default function SeongqTest() {
           {CATEGORY_LIST.map((category, i) => (
             <div key={`category-list-${i}`}>
               <div>
-                <Category
-                  categoryId={i}
-                  color={{ default: '#777777', hover: '#EEEEEE', focus: '#DDDDDD' }}
-                  width="20px"
-                  height="24px"
-                />
+                <Category categoryId={i} dynamicColorMode={false} iconWidth="20px" iconHeight="24px" fontSize="12px" />
               </div>
-              <div>{category.name}</div>
             </div>
           ))}
         </div>

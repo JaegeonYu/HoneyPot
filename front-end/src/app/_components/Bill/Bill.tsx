@@ -72,13 +72,11 @@ export default function Bill({
           <Category
             key={`category-${comm}`}
             categoryId={comm}
-            color={{ default: '#777777', hover: '#777777', focus: '#777777' }}
-            width="24px"
-            height="28px"
+            dynamicColorMode={false}
+            iconWidth="24px"
+            iconHeight="28px"
+            fontSize="12px"
           />
-          <p className={S.fontContent} style={{ fontWeight: 700, width: 165, textAlign: 'center' }}>
-            {CATEGORY_LIST[comm].name}
-          </p>
         </div>
         {/* <p className={S.fontTitle}>This is ProgressBar</p> */}
         <ProgressBar step={2} date={['11', '22', '33']} partycolor={partycolor}></ProgressBar>

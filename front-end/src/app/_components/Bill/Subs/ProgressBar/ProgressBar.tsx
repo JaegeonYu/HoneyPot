@@ -23,7 +23,7 @@ export default function ProgressBar({ step, date, partycolor }: T.ProgressBarPro
     <div className={S.wrapper}>
       {/* 첫번쨰 Dot */}
       {stepnameList.map((stepname, i) => (
-        <div className={S.element}>
+        <div className={S.element} key={i}>
           {step !== 44 && step !== 99 ? <p className={S.fontContent}>{stepname}</p> : <p style={{ height: 22 }}></p>}
           {step >= i && i < 4 ? (
             <Dot idx={4 - i} partycolor={partycolor} flag={true} barflag={true} lastdot={true}></Dot>

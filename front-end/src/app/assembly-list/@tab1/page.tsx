@@ -10,18 +10,18 @@ import { useQuery } from '@tanstack/react-query';
 export default function AssemblyListTab1() {
   const [take, setTake] = useState(1);
 
-  const { data: response } = useQuery({
-    queryKey: ['test'],
-    queryFn: () =>
-      API.assembly.getAssemblyList().then(res => {
-        console.log(`res.data :`, res.data);
-        return res;
-      }),
-  });
+  // const { data: response } = useQuery({
+  //   queryKey: ['test'],
+  //   queryFn: () =>
+  //     API.assembly.getAssemblyList().then(res => {
+  //       console.log(`res.data :`, res.data);
+  //       return res;
+  //     }),
+  // });
 
   return (
     <>
-      <Comp.GridWrapper>
+      {/* <Comp.GridWrapper>
         {response?.data.map((res, i) => (
           <Link className={S.styledLink} key={res.monaCd} href={`/assembly-detail/${res.assemblyId}`}>
             <Comp.Card
@@ -40,7 +40,7 @@ export default function AssemblyListTab1() {
             </Comp.Card>
           </Link>
         ))}
-      </Comp.GridWrapper>
+      </Comp.GridWrapper> */}
     </>
   );
 }
