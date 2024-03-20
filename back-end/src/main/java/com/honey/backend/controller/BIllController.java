@@ -1,7 +1,9 @@
 package com.honey.backend.controller;
 
+import com.honey.backend.domain.bill.Bill;
 import com.honey.backend.load.bill.Response;
 import com.honey.backend.response.BillResponse;
+import com.honey.backend.response.BillStatResponse;
 import com.honey.backend.service.BillService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -35,5 +37,10 @@ public class BIllController {
         String word = params.get("word");
         Long cmitId = params.get("cmitId") != null ? Long.parseLong(params.get("cmitId")) : null;
         return ResponseEntity.status(HttpStatus.OK).body(billService.findAllByCommittee(page,word,cmitId));
+    }
+    @GetMapping("/stat")
+    public ResponseEntity<BillStatResponse> getBillStat(@RequestParam Map<String,String> params){
+        Long cmitId = params.get("cmitId") != null ? Long.parseLong(params.get("cmitId")) : null;
+        return ResponseEntity.status(HttpStatus.OK).body(billService.getBillStat(null,cmitId));
     }
 }

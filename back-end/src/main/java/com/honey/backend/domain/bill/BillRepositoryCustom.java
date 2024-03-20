@@ -1,5 +1,6 @@
 package com.honey.backend.domain.bill;
 
+import com.honey.backend.response.BillStatResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
@@ -15,4 +16,5 @@ public interface BillRepositoryCustom {
 
     Page<Bill> findAllByCommittee(Pageable pageable, String word, Long cmitId);
 
+    BillStatResponse findBillStatByAssemblyIdAndCmitId(Long assemblyId, Long cmitId);
 }

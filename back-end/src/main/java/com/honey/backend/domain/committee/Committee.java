@@ -20,6 +20,7 @@ public class Committee {
     private Long id;
 
     private String cmitName;
+    @Column(unique = true)
     private String cmitCode;
     private String cmitLeader;
     private boolean cmitOnOff;

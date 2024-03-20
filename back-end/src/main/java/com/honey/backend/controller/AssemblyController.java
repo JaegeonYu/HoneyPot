@@ -3,6 +3,7 @@ package com.honey.backend.controller;
 import com.honey.backend.exception.AssemblyErrorCode;
 import com.honey.backend.response.*;
 import com.honey.backend.service.AssemblyService;
+import com.honey.backend.service.BillService;
 import jakarta.annotation.Nullable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,7 @@ import java.util.Map;
 public class AssemblyController {
 
     private final AssemblyService assemblyService;
-
+    private final BillService billService;
 
     @GetMapping()
     public ResponseEntity<List<AssemblyListResponse>> findAllAssemblyByRegion(@RequestParam Map<String, String> params) {
@@ -31,7 +32,7 @@ public class AssemblyController {
         Integer limit = params.get("limit") != null ? Integer.parseInt(params.get("limit")) : 10;
         String poly = params.get("poly");
 
-        List<AssemblyListResponse> assemblyListResponseList = assemblyService.findAll(sidoName,sigunguName,dongName,page,limit,word,poly);
+        List<AssemblyListResponse> assemblyListResponseList = assemblyService.findAll(sidoName, sigunguName, dongName, page, limit, word, poly);
         return assemblyListResponseList.isEmpty() ? ResponseEntity.status(HttpStatus.NO_CONTENT).build() : ResponseEntity.status(HttpStatus.OK).body(assemblyListResponseList);
     }
 
@@ -54,9 +55,15 @@ public class AssemblyController {
     }
 
     @GetMapping("/{assembly_id}/most")
-    public ResponseEntity<List<CommitteeResponse>> findMostCmitByAssemblyId(@PathVariable(name = ("assembly_id")) Long assemblyId){
+    public ResponseEntity<List<CommitteeResponse>> findMostCmitByAssemblyId(@PathVariable(name = ("assembly_id")) Long assemblyId) {
 
         return ResponseEntity.status(HttpStatus.OK).body(assemblyService.findMostCommitteeByAssemblyId(assemblyId));
+    }
+
+    @GetMapping("/{assembly_id}/bill/stat")
+    public ResponseEntity<BillStatResponse> getBillStat(@RequestParam Map<String, String> params, @PathVariable(name = ("assembly_id")) Long assemblyId) {
+        Long cmitId = params.get("cmitId") != null ? Long.parseLong(params.get("cmitId")) : null;
+        return ResponseEntity.status(HttpStatus.OK).body(billService.getBillStat(assemblyId, cmitId));
     }
 
 }

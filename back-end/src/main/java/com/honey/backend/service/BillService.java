@@ -5,6 +5,7 @@ import com.honey.backend.domain.bill.Bill;
 import com.honey.backend.domain.bill.BillRepository;
 import com.honey.backend.domain.committee.CommitteeRepository;
 import com.honey.backend.response.BillResponse;
+import com.honey.backend.response.BillStatResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -43,7 +44,9 @@ public class BillService {
         }
         return billResponseList;
     }
-
+    public BillStatResponse getBillStat(Long assemblyId, Long cmitId) {
+        return billRepository.findBillStatByAssemblyIdAndCmitId(assemblyId,cmitId);
+    }
 
     public BillResponse insertToBillResponse(Bill bill) {
 

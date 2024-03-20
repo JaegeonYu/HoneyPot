@@ -33,6 +33,7 @@ public class Assembly {
     @JoinColumn(name = "election_region_id")
     private ElectionRegion electionRegion;
 
+    @Column(unique = true)
     private String monaCd;
     private String hgName;
     private String hjName;

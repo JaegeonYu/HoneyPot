@@ -47,11 +47,6 @@ public class AssemblyService {
 
     }
 
-//    public List<AssemblyListResponse> findAllByCommittee(String word, Long cmitId, Integer page, Integer limit) {
-//        List<Assembly> assemblyList = assemblyRepository.findAllByCommittee(PageRequest.of(page, limit), word, cmitId).getContent();
-//        return insertToListResponse(assemblyList);
-//    }
-
     public AssemblyResponse findById(Long assemblyId) {
         Assembly assembly = assemblyRepository.findById(assemblyId).orElseThrow();
         return insertToResponse(assembly);
