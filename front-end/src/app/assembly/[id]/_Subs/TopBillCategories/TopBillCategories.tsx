@@ -5,9 +5,9 @@ import * as T from '@/types';
 import * as Comp from '@/components';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
-export default function TopBillCategories({ params }: T.AssemblyDetailTopBillCategoriesProps) {
+export default function TopBillCategories({ params }: T.AssemblyTopBillCategoriesProps) {
   const { data: mostCategoriesResponse, isFetched: mostCategoriesFetched } = useSuspenseQuery({
-    queryKey: [{ assemblyDetail: `most-categories-request-${params.id}` }],
+    queryKey: [{ Assembly: `most-categories-request-${params.id}` }],
     queryFn: () => API.getAssemblyMostCategories({ assemblyId: params.id }),
     retry: false,
   });

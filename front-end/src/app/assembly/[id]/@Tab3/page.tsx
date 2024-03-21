@@ -6,9 +6,9 @@ import * as API from '@/_apis/assembly';
 import * as S from './page.css';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
-export default function AssemblyDetailTab3({ params }: T.AssemblyDetailTab3Props) {
+export default function AssemblyTab3({ params }: T.AssemblyTab3Props) {
   const { data: infoResponse, isFetched: infoFetched } = useSuspenseQuery({
-    queryKey: [{ assemblyDetail: `info-request-${params.id}` }],
+    queryKey: [{ assembly: `info-request-${params.id}` }],
     queryFn: () => API.getAssemblyInfo({ assemblyId: params.id }),
     retry: false,
   });

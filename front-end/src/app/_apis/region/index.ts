@@ -11,3 +11,7 @@ export async function getSiGunGuList({ siDoId }: { siDoId: number }) {
 export async function getDongList({ siGunGuId }: { siGunGuId: number }) {
   return await instance.get(`/region/dong?sigungu=${siGunGuId}`);
 }
+
+export async function getRegionName({ siDo, siGunGu, dong }: { siDo: number; siGunGu: number; dong: number }) {
+  return await instance.get(`/region/name?sido=${siDo}&sigungu=${siGunGu}&dong=${dong}`);
+}
