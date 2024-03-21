@@ -2,7 +2,6 @@ package com.honey.backend.service;
 
 import com.honey.backend.domain.assembly.Assembly;
 import com.honey.backend.domain.assembly.AssemblyRepository;
-import com.honey.backend.domain.bill.Bill;
 import com.honey.backend.domain.bill.BillRepository;
 import com.honey.backend.domain.committee.Committee;
 import com.honey.backend.domain.committee.CommitteeRepository;
@@ -12,7 +11,10 @@ import com.honey.backend.domain.sns.SnsRepository;
 import com.honey.backend.exception.BaseException;
 import com.honey.backend.exception.GlobalErrorCode;
 import com.honey.backend.request.AssemblyListRequest;
-import com.honey.backend.response.*;
+import com.honey.backend.response.AssemblyListResponse;
+import com.honey.backend.response.AssemblyResponse;
+import com.honey.backend.response.CommitteeResponse;
+import com.honey.backend.response.SnsResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -26,8 +28,6 @@ public class AssemblyService {
 
     private final AssemblyRepository assemblyRepository;
     private final PolyRepository polyRepository;
-    private final BillRepository billRepository;
-    private final BillService billService;
     private final SnsRepository snsRepository;
     private final CommitteeRepository committeeRepository;
 
@@ -67,16 +67,6 @@ public class AssemblyService {
             return new ArrayList<>();
         }
         return assemblyList.subList(startIndex, endIndex);
-    }
-
-    public List<BillResponse> findAllBillByAssemblyIdAndCmitId(Long assemblyId, Long cmitId) {
-        List<Bill> billList = billRepository.findAllByAssemblyIdAndCmitId(assemblyId, cmitId);
-        List<BillResponse> billResponseList = new ArrayList<>();
-        for (Bill bill : billList) {
-            billResponseList.add(billService.insertToBillResponse(bill));
-        }
-
-        return billResponseList;
     }
 
     public List<CommitteeResponse> findMostCommitteeByAssemblyId(Long assemblyId) {

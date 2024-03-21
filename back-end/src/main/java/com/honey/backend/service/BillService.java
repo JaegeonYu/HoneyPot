@@ -29,15 +29,13 @@ public class BillService {
         return insertToBillResponse(billRepository.findById(billId).orElseThrow());
     }
 
-    public List<BillResponse> getBillList(BillRequest billRequest) {
+    public List<BillResponse> getBillList(Long assemblyId, BillRequest billRequest) {
         int page = billRequest.page();
         int limit = billRequest.limit();
         String word = billRequest.word();
         Long cmitId = billRequest.cmit();
-
-        List<Bill> billList = billRepository.findAllByCommittee(PageRequest.of(page, limit), word, cmitId).getContent();
+        List<Bill> billList = billRepository.findAllByAssemblyIdAndCmitId(PageRequest.of(page, limit), word, cmitId, assemblyId).getContent();
         List<BillResponse> billResponseList = new ArrayList<>();
-
         for (Bill bill : billList) {
             billResponseList.add(insertToBillResponse(bill));
         }
@@ -77,13 +75,13 @@ public class BillService {
     private BillProgressResponse setStatus(Bill bill) {
 
         String procResult = bill.getProcResult();
-        // 알수없음 0 , 가결 1, 부결 2, 철회/폐기 3, 대안반영 4, 계류 5
-        int result;
+        // 알수없음 0 , 가결 1, 부결 2, 철회/폐기 3, 대안반영 4, 수정안반영 5, 계류 6
+        int result = 0;
         int present;
         String resultName;
 
         if (procResult == null) {
-            result = 5;
+            result = 6;
             resultName = "계류";
         } else if (procResult.contains("가결")) {
             result = 1;
@@ -94,13 +92,17 @@ public class BillService {
         } else if (procResult.contains("대안반영")) {
             result = 4;
             resultName = "대안반영";
-        } else {
+        } else if (procResult.contains("수정안반영")) {
+            result = 5;
+            resultName = "수정안반영";
+        }
+        else {
             result = 3;
             resultName = "철회/폐기";
         }
-        if (result == 1 || result == 2) present = 3;
+        if (1 <= result && result <= 2) present = 3;
 
-        else if (result == 3 || result == 4) present = 0;
+        else if ( result <= 5) present = 0;
             // 미배정 0 , 상임위 1, 법사위 2, 본회의 3  (결과기준)
         else present = setPresent(bill);
 

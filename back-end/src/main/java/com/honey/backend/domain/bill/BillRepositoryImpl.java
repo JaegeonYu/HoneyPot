@@ -24,26 +24,15 @@ public class BillRepositoryImpl implements BillRepositoryCustom {
     QCommittee committee = QCommittee.committee;
 
     @Override
-    public List<Bill> findAllByAssemblyIdAndCmitId(Long assemblyId, Long cmitId) {
-        return queryFactory
-                .select(bill)
-                .from(bill)
-                .rightJoin(assembly).on(bill.assembly.id.eq(assembly.id))
-                .rightJoin(committee).on(bill.committee.id.eq(committee.id))
-                .where(bill.assembly.id.eq(assemblyId),
-                        cmitId != null ? committee.id.eq(cmitId) : null)
-                .fetch();
-    }
-
-    @Override
-    public Page<Bill> findAllByCommittee(Pageable pageable, String word, Long cmitId) {
+    public Page<Bill> findAllByAssemblyIdAndCmitId(Pageable pageable, String word, Long cmitId, Long assemblyId) {
         List<Bill> billList = queryFactory
                 .select(bill)
                 .from(bill)
-                .innerJoin(committee)
-                .on(bill.committee.id.eq(committee.id))
-                .where(word != null ? bill.billName.like("%" + word + "%") : null
-                        , cmitId != null ? bill.committee.id.eq(cmitId) : null)
+                .leftJoin(assembly).on(bill.assembly.id.eq(assembly.id))
+                .leftJoin(committee).on(bill.committee.id.eq(committee.id))
+                .where(assemblyId != null ? bill.assembly.id.eq(assemblyId): null,
+                        cmitId != 0 ? committee.id.eq(cmitId) : null,
+                        word != null ? bill.billName.like("%" + word + "%") : null)
                 .orderBy(bill.billNo.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
@@ -57,16 +46,14 @@ public class BillRepositoryImpl implements BillRepositoryCustom {
 
         StringExpression procResultAlias = bill.procResult;
         BooleanExpression assemblyCondition = (assemblyId != null ? bill.assembly.id.eq(assemblyId) : null);
-        BooleanExpression CommitteeCondition = (cmitId != null ? bill.committee.id.eq(cmitId) : null);
+        BooleanExpression committeeCondition = (cmitId != 0 ? bill.committee.id.eq(cmitId) : null);
         Long countOfApproved = queryFactory
                 .select(bill.count())
                 .from(bill)
                 .leftJoin(assembly).on(assembly.id.eq(bill.assembly.id))
                 .leftJoin(committee).on(committee.id.eq(bill.committee.id))
-                .groupBy(procResultAlias)
-                .having(procResultAlias.like("%가결"))
-                .where(assemblyCondition, CommitteeCondition)
-                .fetchFirst();
+                .where(assemblyCondition, committeeCondition,(procResultAlias.like("%가결")))
+                .fetchOne();
 
 
         Long countOfRejected = queryFactory
@@ -74,31 +61,26 @@ public class BillRepositoryImpl implements BillRepositoryCustom {
                 .from(bill)
                 .leftJoin(assembly).on(assembly.id.eq(bill.assembly.id))
                 .leftJoin(committee).on(committee.id.eq(bill.committee.id))
-                .groupBy(procResultAlias)
-                .having(procResultAlias.like("%부결"))
-                .where(assemblyCondition, CommitteeCondition)
-                .fetchFirst();
+                .where(assemblyCondition, committeeCondition,(procResultAlias.like("부결")))
+                .fetchOne();
 
         Long countOfDisposedOrWithdrawn = queryFactory
                 .select(bill.count().coalesce(0L))
                 .from(bill)
                 .leftJoin(assembly).on(assembly.id.eq(bill.assembly.id))
                 .leftJoin(committee).on(committee.id.eq(bill.committee.id))
-                .groupBy(procResultAlias)
-                .having((procResultAlias.like("%폐기").and(procResultAlias.notLike("%" + "대안반영" + "%")))
-                        .or(procResultAlias.like("%철회")))
-                .where(assemblyCondition, CommitteeCondition)
-                .fetchFirst();
+                .where(assemblyCondition, committeeCondition,
+                        ((procResultAlias.like("%폐기").and(procResultAlias.notLike("%" + "반영" + "%")))
+                        .or(procResultAlias.like("%철회"))))
+                .fetchOne();
 
         Long countOfInProgress = queryFactory
                 .select(bill.count().coalesce(0L))
                 .from(bill)
                 .leftJoin(assembly).on(assembly.id.eq(bill.assembly.id))
                 .leftJoin(committee).on(committee.id.eq(bill.committee.id))
-                .groupBy(procResultAlias)
-                .having(procResultAlias.isNull())
-                .where(assemblyCondition, CommitteeCondition)
-                .fetchFirst();
+                .where(assemblyCondition, committeeCondition,(procResultAlias.isNull()))
+                .fetchOne();
 
 
         Long countOfAlternativeIncorporated = queryFactory
@@ -106,10 +88,8 @@ public class BillRepositoryImpl implements BillRepositoryCustom {
                 .from(bill)
                 .leftJoin(assembly).on(assembly.id.eq(bill.assembly.id))
                 .leftJoin(committee).on(committee.id.eq(bill.committee.id))
-                .groupBy(procResultAlias)
-                .having(procResultAlias.like("%" + "대안반영" + "%"))
-                .where(assemblyCondition, CommitteeCondition)
-                .fetchFirst();
+                .where(assemblyCondition, committeeCondition,(procResultAlias.like("%" + "반영" + "%")))
+                .fetchOne();
 
 
         Long countOfTotalCount = queryFactory
@@ -117,8 +97,8 @@ public class BillRepositoryImpl implements BillRepositoryCustom {
                 .from(bill)
                 .leftJoin(assembly).on(assembly.id.eq(bill.assembly.id))
                 .leftJoin(committee).on(committee.id.eq(bill.committee.id))
-                .where(assemblyCondition, CommitteeCondition)
-                .fetchFirst();
+                .where(assemblyCondition, committeeCondition)
+                .fetchOne();
 
         int approved = countOfApproved == null ? 0 : countOfApproved.intValue();
         int rejected = countOfRejected == null ? 0 : countOfRejected.intValue();
