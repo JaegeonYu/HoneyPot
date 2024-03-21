@@ -18,7 +18,8 @@ export default function ProgressBar({ step, date, partycolor }: T.ProgressBarPro
   const stepnameList = ['발의', '상임위', '법사위', '본회의'];
   //나중에 date는 파라미터로 받은 date쓸 것
   // const date = ['23.12.01', '24.01.04', '24.02.01'];
-  console.log(date, 'date');
+  console.log(step, 'date');
+  console.log(date, 'what');
 
   return (
     <div className={S.wrapper}>

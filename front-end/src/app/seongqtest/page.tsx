@@ -1,12 +1,14 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import * as Comp from '@/components';
 import * as S from './style.css';
+import * as API from '@/_apis/bill';
 
 import { CATEGORY_LIST } from '@/_constants';
 import { PALETTE } from '@/_constants';
 import { Category } from '@/components';
+import { useSuspenseQuery } from '@tanstack/react-query';
 // import { fontName } from '@/_components/Bill/Bill.css';
 
 export default function SeongqTest() {
@@ -17,11 +19,19 @@ export default function SeongqTest() {
     setMounted(true);
   }, []);
 
+  const { data: infoResponse, isFetched: infoFetched } = useSuspenseQuery({
+    queryKey: [{ bill: `info-request-billtest` }],
+    queryFn: () => API.getBillInfo({ billId: '23555' }),
+    retry: false,
+  });
+
   const handleIsSelectedIdx = (idx: number) => {
     setIsSelectedIdx(idx);
   };
 
-  const data = {
+  console.log(infoResponse, 'INFO');
+
+  const ddata = {
     party: '더불어민주당',
     attendance: 88,
     average: 76,
@@ -128,7 +138,7 @@ export default function SeongqTest() {
                 padding: '0px 8px',
               }}
             >
-              {data.mostcategory.map((category, i) => (
+              {ddata.mostcategory.map((category, i) => (
                 <div
                   key={`category-${i}`}
                   style={{
@@ -153,9 +163,9 @@ export default function SeongqTest() {
               <p className={S.fontTitle}>가장 많이 발의한 의원 </p>
             </div>
             <div className={S.textWrapper}>
-              <p className={S.fontContent}>{data.mostlaw[0]}</p>
-              <p className={S.fontContent}>{data.mostlaw[1]}</p>
-              <p className={S.fontContent}>{data.mostlaw[2]}</p>
+              <p className={S.fontContent}>{ddata.mostlaw[0]}</p>
+              <p className={S.fontContent}>{ddata.mostlaw[1]}</p>
+              <p className={S.fontContent}>{ddata.mostlaw[2]}</p>
             </div>
           </Comp.Poster>
         </div>
@@ -172,16 +182,21 @@ export default function SeongqTest() {
           <p className={S.fontHead}>발의한 국회운영 의안</p>
           <p className={S.fontSub}>{billdata.length}개의 검색결과</p>
         </div>
+        {/* <form>
+          <pre>{infoResponse.data}</pre>
+        </form> */}
+        <div>{infoResponse.data.billProgressResponse.resultCd[1]}</div>
 
         {/* <Comp.Bill {...bill}></Comp.Bill> */}
-        <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '12px', padding: 16 }}>
+        {/* <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '12px', padding: 16 }}>
           {billdata.map((bills, index) => (
             <Comp.Bill key={index} {...bills} />
           ))}
-        </div>
+        </div> */}
 
-        {/* <Comp.Bill></Comp.Bill>
-      <Comp.Bill></Comp.Bill> */}
+        <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '12px', padding: 16 }}>
+          <Comp.Bill {...infoResponse.data} />
+        </div>
       </>
     )
   );

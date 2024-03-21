@@ -6,7 +6,7 @@ import { assignInlineVars } from '@vanilla-extract/dynamic';
 import { ArrowBlack, HelpCircle, LinkTo } from '@/_assets/icon';
 import ProgressBar from './Subs/ProgressBar/ProgressBar';
 import Badge from '../Badge/Badge';
-import { CATEGORY_LIST } from '@/_constants';
+import { CATEGORY_LIST, PALETTE } from '@/_constants';
 import Category from '../Category/Category';
 import ToggleButton from '../ToggleButton/ToggleButton';
 import SummaryPanel from './Subs/SummaryPanel/SummaryPanel';
@@ -19,35 +19,34 @@ import OriginalPanel from './Subs/OriginPanel/OriginalPanel';
  * 파라미터로 데이터 받아오기
  */
 export default function Bill({
+  assemblyId,
   billId,
   billName,
   billNo,
+  billProgressResponse,
   cmitId,
   cmitName,
-  cmtPresentDt,
-  cmtProcDt,
-  cmtProcResultCd,
-  committeeDt,
+  cmitProcDt,
   detailLink,
   hgName,
-  lawPresentDt,
   lawProcDt,
-  lawProcResultCd,
-  lawSubmitDt,
+  polyId,
   procDt,
   procResult,
   proposeDt,
   proposer,
   publProposer,
   rstProposer,
-  textBody,
   summary,
+  textBody,
 }: T.BillProps) {
   const [isActive, setIsActive] = useState(true);
   const [isToggled, setIsToggled] = useState(true);
   const [comm, setComm] = useState(cmitId);
-  const [dateList, setDateList] = useState([proposeDt, committeeDt, lawSubmitDt, procDt]);
+  const [status, setStatus] = useState(billProgressResponse);
+  const [dateList, setDateList] = useState([proposeDt, cmitProcDt, lawProcDt, procDt]);
 
+  const partyname = '더불어민주연합';
   const toggleAccordion = () => {
     console.log(isActive, 'isActive');
     setIsActive(!isActive);
@@ -83,7 +82,7 @@ export default function Bill({
           <div className={S.billTitlePerson}>
             <p className={S.fontContent}>대표자 : {hgName}</p>
 
-            <Badge color={'blue'} isPositionAbsolute={false}>
+            <Badge color={PALETTE.party[partyname][100]} isPositionAbsolute={false}>
               {hgName}
             </Badge>
           </div>
@@ -99,7 +98,12 @@ export default function Bill({
           />
         </div>
         {/* <p className={S.fontTitle}>This is ProgressBar</p> */}
-        <ProgressBar step={1} date={dateList} partycolor={'blue'}></ProgressBar>
+
+        <ProgressBar
+          step={Number(billProgressResponse.presentCd[1])}
+          date={dateList}
+          partycolor={PALETTE.party[partyname][100]}
+        ></ProgressBar>
       </div>
       <div className={S.billCardContents}>
         <div className={S.billCardContentsHeader}>
@@ -109,7 +113,7 @@ export default function Bill({
               {/* <p className={S.fontContent}>요약하기</p>
               <p className={S.fontContent}>toggle btn here</p> */}
               <div onClick={toggleButton}>
-                <ToggleButton clicked={isToggled} btncolor={'yellow'}></ToggleButton>
+                <ToggleButton clicked={isToggled} btncolor={PALETTE.party[partyname][100]}></ToggleButton>
               </div>
             </div>
           </div>

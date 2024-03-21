@@ -12,7 +12,7 @@ import { vars } from '@/globalTheme.css';
  *
  */
 export default function ToggleButton({ clicked, btncolor }: T.ToggleButtonProps) {
-  const bgc = clicked ? 'red' : `${vars.colors.service.HOVER_STROKE}`;
+  const bgc = clicked ? `${btncolor}` : `${vars.colors.service.HOVER_STROKE}`;
   return (
     <button className={S.btnWrapper}>
       <div>요약</div>
@@ -23,7 +23,7 @@ export default function ToggleButton({ clicked, btncolor }: T.ToggleButtonProps)
           [S.btncolor]: bgc,
         })}
       >
-        <div className={`${S.dot} ${clicked ? S.dotClicked : ''}`}></div>
+        <div className={`${S.dot} ${clicked ? S.dotClicked : null}`}></div>
       </div>
     </button>
   );
