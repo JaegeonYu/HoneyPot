@@ -50,10 +50,10 @@ public class BillLoadService {
 
     @Transactional
     public void insert() {
-        //if (initFlag()) {
-            insertBill();
-            updateTextBody();
-        //}
+        if (initFlag()) {
+        insertBill();
+        updateTextBody();
+        }
     }
 
     @Scheduled(cron = "0 0 3 * * *", zone = "Asia/Seoul")
@@ -96,7 +96,7 @@ public class BillLoadService {
     }
 
     public void updateTextBody() {
-        List<Bill> billsToUpdate = new ArrayList<>();
+
         List<BillTextBodyResponse> billTextBodyResponseList = getTextBody();
         float size = billTextBodyResponseList.size();
         int count = 0;
@@ -130,6 +130,7 @@ public class BillLoadService {
                 .codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(-1))
                 .build();
         for (int i = 1; i <= totalCount; i++) {
+
             String uri = "?KEY=" + infoKey + "&Type=json" + "&pIndex=" + i + "&pSize=" + limit + "&PROPOSER_KIND=의원" + "&AGE=21";
             String responseBody = WebClient.builder().
                     exchangeStrategies(exchangeStrategies).
@@ -145,7 +146,7 @@ public class BillLoadService {
                 int totalLength = getTotalLength(responseBody);
                 ObjectMapper mapper = new ObjectMapper();
                 float size = (float) totalLength;
-                totalCount = totalLength / limit;
+                totalCount = (totalLength / limit) + 1;
                 for (int j = 0; j < list.length(); j++) {
                     JSONObject item = ((JSONObject) list.get(j));
                     BillLoadResponse billLoadResponse = mapper.readValue(item.toString(), BillLoadResponse.class);
@@ -178,15 +179,15 @@ public class BillLoadService {
 
         for (int i = 1; i <= totalCount; i++) {
 
-            String fixUri = "?serviceKey=" + bodyKey + "&numOfRows=" + limit + "&pageNo=" + i + "&ord=A01"
-                    + "&start_ord=21&end_ord=21" + "&proposer_kind_cd=F01";
+            String uri = "?serviceKey=" + bodyKey + "&numOfRows=" + limit + "&pageNo=" + i + "&ord=A01"
+                    + "&start_ord=21&end_ord=21" + "&proposer_kind_cd=F01" + "&bill_kind_cd=B04";
 
             String responseBody = WebClient.builder()
                     .exchangeStrategies(exchangeStrategies)
                     .uriBuilderFactory(factory)
                     .build()
                     .get()
-                    .uri(bodyUrl + fixUri)
+                    .uri(bodyUrl + uri)
                     .retrieve()
                     .bodyToMono(String.class).block();
 
@@ -197,7 +198,7 @@ public class BillLoadService {
 
                 Items items = apiResponse.getBody().getItems();
                 int totalLength = apiResponse.getBody().getTotalCount();
-                totalCount = totalLength / limit;
+                totalCount = (totalLength / limit) + 1;
                 float size = (float) totalLength;
                 for (Item item : items.getItem()) {
                     System.out.print("Bill Body Api Call : " + String.format("%.2f", a++ / (size / 100)) + "% " + "\r");
