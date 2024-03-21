@@ -23,7 +23,10 @@ export const categoriesWrapper = style({
 
 export const billListWithChartWrapper = style({
   display: 'flex',
+  flexDirection: 'column',
+  gap: '8px',
   justifyContent: 'space-between',
+  padding: '16px',
 
   paddingTop: '36px',
 });

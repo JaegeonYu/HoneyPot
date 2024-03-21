@@ -11,7 +11,7 @@ import { DotProps } from './components/dot';
 import { BillProps } from './components/bill';
 import { VideoCardProps } from './components/videoCard';
 import { SearchInputProps } from './components/searchInput';
-import { AreaSelectorProps } from './components/areaSelector';
+import { AreaSelectorProps, Region, HandleQueryStringArgs, ResponseRegion } from './components/areaSelector';
 import { ToggleButtonProps } from './components/toggleButton';
 import { CategoryListProps } from './components/CategoryList';
 import { OriginalPanelProps } from './components/originalPanel';
@@ -19,13 +19,13 @@ import { OriginalPanelProps } from './components/originalPanel';
 
 /** pages */
 import {
-  AssemblyDetailLayoutProps,
-  AssemblyDetailCardProps,
-  AssemblyDetailChartsProps,
-  AssemblyDetailTopBillCategoriesProps,
-  AssemblyDetailTab1Props,
-  AssemblyDetailTab2Props,
-  AssemblyDetailTab3Props,
+  AssemblyLayoutProps,
+  AssemblyCardProps,
+  AssemblyChartsProps,
+  AssemblyTopBillCategoriesProps,
+  AssemblyTab1Props,
+  AssemblyTab2Props,
+  AssemblyTab3Props,
 } from './pages/assembly-detail';
 /** pages */
 
@@ -46,12 +46,15 @@ export type {
   VideoCardProps,
   SearchInputProps,
   AreaSelectorProps,
+  Region,
+  HandleQueryStringArgs,
+  ResponseRegion,
   ToggleButtonProps,
-  AssemblyDetailLayoutProps,
-  AssemblyDetailCardProps,
-  AssemblyDetailChartsProps,
-  AssemblyDetailTopBillCategoriesProps,
-  AssemblyDetailTab1Props,
-  AssemblyDetailTab2Props,
-  AssemblyDetailTab3Props,
+  AssemblyLayoutProps,
+  AssemblyCardProps,
+  AssemblyChartsProps,
+  AssemblyTopBillCategoriesProps,
+  AssemblyTab1Props,
+  AssemblyTab2Props,
+  AssemblyTab3Props,
 };

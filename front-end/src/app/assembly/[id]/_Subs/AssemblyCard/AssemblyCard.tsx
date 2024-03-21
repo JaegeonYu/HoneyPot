@@ -7,17 +7,17 @@ import * as Icon from '@/_assets/icon';
 import { PALETTE } from '@/_constants';
 import { useSuspenseQueries } from '@tanstack/react-query';
 
-export default function AssemblyCard({ params }: T.AssemblyDetailCardProps) {
+export default function AssemblyCard({ params }: T.AssemblyCardProps) {
   const [{ data: infoResponse, isFetched: infoFetched }, { data: snsResponse, isFetched: snsFetched }] =
     useSuspenseQueries({
       queries: [
         {
-          queryKey: [{ assemblyDetail: `info-request-${params.id}` }],
+          queryKey: [{ assembly: `info-request-${params.id}` }],
           queryFn: () => API.getAssemblyInfo({ assemblyId: params.id }),
           retry: false,
         },
         {
-          queryKey: [{ assemblyDetail: `sns-request-${params.id}` }],
+          queryKey: [{ assembly: `sns-request-${params.id}` }],
           queryFn: () => API.getAssemblySns({ assemblyId: params.id }),
           retry: false,
         },

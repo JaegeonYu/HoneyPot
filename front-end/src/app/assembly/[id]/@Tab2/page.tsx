@@ -8,9 +8,9 @@ import * as Comp from '@/components';
 import { CATEGORY_LIST, PALETTE } from '@/_constants';
 import { useSuspenseInfiniteQuery, useSuspenseQuery } from '@tanstack/react-query';
 
-export default function AssemblyDetailTab2({ params }: T.AssemblyDetailTab2Props) {
+export default function AssemblyTab2({ params }: T.AssemblyTab2Props) {
   const { data: infoResponse, isFetched: infoFetched } = useSuspenseQuery({
-    queryKey: [{ assemblyDetail: `info-request-${params.id}` }],
+    queryKey: [{ assembly: `info-request-${params.id}` }],
     queryFn: () => API.getAssemblyInfo({ assemblyId: params.id }),
     retry: false,
   });
@@ -24,8 +24,8 @@ export default function AssemblyDetailTab2({ params }: T.AssemblyDetailTab2Props
     isFetchingPreviousPage,
     ...result
   } = useSuspenseInfiniteQuery({
-    queryKey: [{ assemblyDetail: `detail-${params.id}` }],
-    queryFn: ({ pageParam }) => API.getAssemblyBill({ page: pageParam, assemblyId: params.id, take: 4 }),
+    queryKey: [{ assembly: `detail-${params.id}` }],
+    queryFn: ({ pageParam }) => API.getAssemblyBill({ assemblyId: params.id, cmit: 0, page: pageParam, take: 10 }),
     initialPageParam: 0,
     getNextPageParam: (lastPage, allPages, lastPageParam, allPageParams) => {
       console.log(`GET NEXT :`, lastPage);
@@ -45,15 +45,9 @@ export default function AssemblyDetailTab2({ params }: T.AssemblyDetailTab2Props
     <>
       <Comp.CategoryList />
       <section className={S.billListWithChartWrapper}>
-        {/* {data?.pages[0].data.map((res, i) => (
-      <Comp.Bill key={res.billId} partycolor={PALETTE.party[]}
-      partyname={}
-      represent={}
-      committee={}
-      billtitle={}
-      progressbar={}
-      panelsectiondata={} ></Comp.Bill>
-    ))} */}
+        {data?.pages[0].data.billResponse.map((res: T.BillProps, i: number) => (
+          <Comp.Bill key={res.billId} {...res} />
+        ))}
         <Comp.Poster posterwidth="280px" posterheight="268px">
           <div className={S.chartWrapper}>
             <Comp.PieChart
