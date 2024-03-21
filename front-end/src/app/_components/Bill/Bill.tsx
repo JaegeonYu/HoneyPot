@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import * as S from './Bill.css';
 import * as T from '@/types';
+import * as Comp from '@/components';
 
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 import { ArrowBlack, HelpCircle, LinkTo } from '@/_assets/icon';
@@ -41,8 +42,8 @@ export default function Bill({
   summary,
   textBody,
 }: T.BillProps) {
-  const [isActive, setIsActive] = useState(true);
-  const [isToggled, setIsToggled] = useState(true);
+  const [isActive, setIsActive] = useState(false);
+  const [isToggled, setIsToggled] = useState(false);
   const [comm, setComm] = useState(cmitId);
   const [status, setStatus] = useState(billProgressResponse);
   const [dateList, setDateList] = useState([proposeDt, cmitProcDt, lawProcDt, procDt]);

@@ -44,7 +44,7 @@ interface PALETTE_TYPE {
     더불어민주당: { 100: string; 80: string; 60: string; 40: string; 20: string };
     녹색정의당: { 100: string; 80: string; 60: string; 40: string; 20: string };
     개혁신당: { 100: string; 80: string; 60: string; 40: string; 20: string };
-
+    국민의미래: { 100: string; 80: string; 60: string; 40: string; 20: string };
     새로운미래: { 100: string; 80: string; 60: string; 40: string; 20: string };
     자유통일당: { 100: string; 80: string; 60: string; 40: string; 20: string };
     진보당: { 100: string; 80: string; 60: string; 40: string; 20: string };
@@ -74,6 +74,13 @@ export const PALETTE: PALETTE_TYPE = {
   },
   party: {
     국민의힘: {
+      100: 'rgba(230, 30, 43, 1)',
+      80: 'rgba(230, 30, 43, 0.8)',
+      60: 'rgba(230, 30, 43, 0.6)',
+      40: 'rgba(230, 30, 43, 0.4)',
+      20: 'rgba(230, 30, 43, 0.2)',
+    },
+    국민의미래: {
       100: 'rgba(230, 30, 43, 1)',
       80: 'rgba(230, 30, 43, 0.8)',
       60: 'rgba(230, 30, 43, 0.6)',
