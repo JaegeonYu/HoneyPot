@@ -11,7 +11,7 @@ import { DotProps } from './components/dot';
 import { BillProps } from './components/bill';
 import { VideoCardProps } from './components/videoCard';
 import { SearchInputProps } from './components/searchInput';
-import { AreaSelectorProps } from './components/areaSelector';
+import { AreaSelectorProps, Region, HandleQueryStringArgs, ResponseRegion } from './components/areaSelector';
 import { ToggleButtonProps } from './components/toggleButton';
 import { CategoryListProps } from './components/CategoryList';
 import { OriginalPanelProps } from './components/originalPanel';
@@ -46,6 +46,9 @@ export type {
   VideoCardProps,
   SearchInputProps,
   AreaSelectorProps,
+  Region,
+  HandleQueryStringArgs,
+  ResponseRegion,
   ToggleButtonProps,
   AssemblyDetailLayoutProps,
   AssemblyDetailCardProps,

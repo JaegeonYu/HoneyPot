@@ -28,7 +28,7 @@ function Header() {
               <li className={S.dropBoxItem}>핫이슈</li>
             </Link>
             <Link href="/bills">
-              21대 <li className={S.dropBoxItem}>의안</li>
+              <li className={S.dropBoxItem}>21대 의안</li>
             </Link>
           </ul>
         </div>
@@ -36,10 +36,10 @@ function Header() {
           <span className={S.title}>22대 총선</span>
           <ul className={S.dropBox}>
             <Link href="/candidates">
-              후보자 <li className={S.dropBoxItem}>확인</li>
+              <li className={S.dropBoxItem}>후보자 확인</li>
             </Link>
             <Link href="/polling-places">
-              투표소 <li className={S.dropBoxItem}>확인</li>
+              <li className={S.dropBoxItem}>투표소 확인</li>
             </Link>
           </ul>
         </div>

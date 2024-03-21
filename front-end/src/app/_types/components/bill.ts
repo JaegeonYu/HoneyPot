@@ -1,4 +1,4 @@
-export interface BilProps {
+export interface BillProps {
   assemblyId: number;
   billId: number;
   billName: string | null;
