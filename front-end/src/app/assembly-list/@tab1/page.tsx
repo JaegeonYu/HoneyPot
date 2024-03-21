@@ -14,6 +14,19 @@ export default function AssemblyListTab1() {
     dong: null,
   });
 
+  // const { data: response } = useQuery({
+  //   queryKey: ['test'],
+  //   queryFn: () =>
+  //     API.assembly.getAssemblyList().then(res => {
+  //       console.log(`res.data :`, res.data);
+  //       return res;
+  //     }),
+  // });
+
+  return (
+    <>
+      {/* <Comp.GridWrapper>
+        {response?.data.map((res, i) => (
   const { data: response } = useQuery({
     queryKey: [{ assemblyList: `member-${areaState.sido}` }],
     queryFn: () =>
@@ -44,7 +57,7 @@ export default function AssemblyListTab1() {
             </Comp.Card>
           </Link>
         ))}
-      </Comp.GridWrapper>
+      </Comp.GridWrapper> */}
     </>
   );
 }

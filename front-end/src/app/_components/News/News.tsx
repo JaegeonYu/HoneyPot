@@ -27,8 +27,8 @@ export default function News() {
       <div className={S.newsHeader}>
         <p>최근 국회 뉴스</p>
       </div>
-      {itemsContent.map(item => (
-        <div className={S.newsContent}>
+      {itemsContent.map((item, i) => (
+        <div className={S.newsContent} key={`list-news-${i}`}>
           <div className={S.leftItems}>
             <div className={S.itemContent} onClick={handleClick}>
               {item.title}
