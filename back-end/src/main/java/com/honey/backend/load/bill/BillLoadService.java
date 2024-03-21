@@ -17,6 +17,8 @@ import lombok.RequiredArgsConstructor;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -34,7 +36,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BillLoadService {
 
-
+    private final Logger logger = LoggerFactory.getLogger("LoggingDataLoad");
     @Value("${BILL_INFO_URL}")
     private String infoUrl;
     @Value("${BILL_INFO_KEY}")
@@ -87,12 +89,12 @@ public class BillLoadService {
 
             }
 
-            System.out.print("Bill Saving : " + String.format("%.2f", count++ / (size / 100)) + "% " + "\r");
+            logger.info("Bill Saving : " + String.format("%.2f", count++ / (size / 100)) + "% " + "\r");
         }
         if (!billsToSave.isEmpty()) {
             billRepository.saveAll(billsToSave);
         }
-        System.out.println("Bill Saving : COMPLETE");
+        logger.info("Bill Saving : COMPLETE");
     }
 
     public void updateTextBody() {
@@ -107,7 +109,7 @@ public class BillLoadService {
             if (bills == null) continue;
             for (Bill bill : bills) {
 
-                System.out.print("Bill Body Update : " + String.format("%.2f", count++ / (size / 100)) + "% " + "\r");
+                logger.info("Bill Body Update : " + String.format("%.2f", count++ / (size / 100)) + "% " + "\r");
                 billRepository.updateTextBodyByBillNo(
                         billTextBodyResponse.summary(),
                         bill.getBillNo()
@@ -116,7 +118,7 @@ public class BillLoadService {
             }
         }
 
-        System.out.println("Bill Body Update  : COMPLETE");
+        logger.info("Bill Body Update  : COMPLETE");
 
     }
 
