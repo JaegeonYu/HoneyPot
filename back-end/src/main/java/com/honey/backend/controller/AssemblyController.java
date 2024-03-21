@@ -29,9 +29,9 @@ public class AssemblyController {
 
     @GetMapping("")
     @Operation(summary = "국회의원 리스트 조회", description = "지역/ 이름 / 정당별 국회  의원 리스트 API")
-    public ResponseEntity<List<AssemblyListResponse>> findAllAssembly(@Valid AssemblyListRequest assemblyListRequest) {
-        List<AssemblyListResponse> assemblyListResponseList = assemblyService.findAll(assemblyListRequest);
-        return assemblyListResponseList.isEmpty() ? ResponseEntity.status(HttpStatus.NO_CONTENT).build() : ResponseEntity.status(HttpStatus.OK).body(assemblyListResponseList);
+    public ResponseEntity<AssemblyListResponse> findAllAssembly(@Valid AssemblyListRequest assemblyListRequest) {
+        AssemblyListResponse assemblyListResponse = assemblyService.findAll(assemblyListRequest);
+        return assemblyListResponse.assemblyCardResponseList().isEmpty() ? ResponseEntity.status(HttpStatus.NO_CONTENT).build() : ResponseEntity.status(HttpStatus.OK).body(assemblyListResponse);
     }
 
     @GetMapping("/{assembly_id}")
@@ -44,7 +44,7 @@ public class AssemblyController {
     @GetMapping("/{assembly_id}/bill")
     @Operation(summary = "국회의원의 발의안 리스트 조회", description = "국회의원의 발의안 리스트 API")
     public ResponseEntity<BillListResponse> findAllBillByAssemblyId(@PathVariable(name = "assembly_id") Long assemblyId, @Valid BillRequest billRequest) {
-        List<BillResponse> billResponseList = assemblyService.findAllBillByAssemblyIdAndCmitId(assemblyId, billRequest.cmit());
+        List<BillResponse> billResponseList = billService.getBillList(assemblyId, billRequest);
         BillStatResponse billStatResponse = billService.getBillStat(assemblyId, billRequest.cmit());
         BillListResponse billListResponse = new BillListResponse(billStatResponse, billResponseList);
         return billResponseList.isEmpty() ? ResponseEntity.status(HttpStatus.NO_CONTENT).build() : ResponseEntity.status(HttpStatus.OK).body(billListResponse);
