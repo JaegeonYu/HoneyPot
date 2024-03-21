@@ -1,6 +1,6 @@
 import { instance } from '../instance';
 
-export async function getAssemblyList({
+export async function getAssemblies({
   sido,
   sigungu,
   dong,

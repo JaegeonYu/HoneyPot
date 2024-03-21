@@ -19,13 +19,13 @@ import { OriginalPanelProps } from './components/originalPanel';
 
 /** pages */
 import {
-  AssemblyDetailLayoutProps,
-  AssemblyDetailCardProps,
-  AssemblyDetailChartsProps,
-  AssemblyDetailTopBillCategoriesProps,
-  AssemblyDetailTab1Props,
-  AssemblyDetailTab2Props,
-  AssemblyDetailTab3Props,
+  AssemblyLayoutProps,
+  AssemblyCardProps,
+  AssemblyChartsProps,
+  AssemblyTopBillCategoriesProps,
+  AssemblyTab1Props,
+  AssemblyTab2Props,
+  AssemblyTab3Props,
 } from './pages/assembly-detail';
 /** pages */
 
@@ -50,11 +50,11 @@ export type {
   HandleQueryStringArgs,
   ResponseRegion,
   ToggleButtonProps,
-  AssemblyDetailLayoutProps,
-  AssemblyDetailCardProps,
-  AssemblyDetailChartsProps,
-  AssemblyDetailTopBillCategoriesProps,
-  AssemblyDetailTab1Props,
-  AssemblyDetailTab2Props,
-  AssemblyDetailTab3Props,
+  AssemblyLayoutProps,
+  AssemblyCardProps,
+  AssemblyChartsProps,
+  AssemblyTopBillCategoriesProps,
+  AssemblyTab1Props,
+  AssemblyTab2Props,
+  AssemblyTab3Props,
 };

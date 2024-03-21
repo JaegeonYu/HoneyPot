@@ -1,28 +1,28 @@
-export interface AssemblyDetailLayoutProps {
+export interface AssemblyLayoutProps {
   Tab1: React.ReactNode;
   Tab2: React.ReactNode;
   Tab3: React.ReactNode;
   params: { id: string };
 }
 
-export interface AssemblyDetailCardProps {
+export interface AssemblyCardProps {
   params: { id: string };
 }
 
-export interface AssemblyDetailChartsProps {
+export interface AssemblyChartsProps {
   params: { id: string };
 }
 
-export interface AssemblyDetailTopBillCategoriesProps {
+export interface AssemblyTopBillCategoriesProps {
   params: { id: string };
 }
 
-export interface AssemblyDetailTab1Props {
+export interface AssemblyTab1Props {
   params: { id: string };
 }
-export interface AssemblyDetailTab2Props {
+export interface AssemblyTab2Props {
   params: { id: string };
 }
-export interface AssemblyDetailTab3Props {
+export interface AssemblyTab3Props {
   params: { id: string };
 }

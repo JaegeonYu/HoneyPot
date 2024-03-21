@@ -6,18 +6,18 @@ import * as Comp from '@/components';
 import { PALETTE } from '@/_constants';
 import { useSuspenseQueries } from '@tanstack/react-query';
 
-export default function Charts({ params }: T.AssemblyDetailChartsProps) {
+export default function Charts({ params }: T.AssemblyChartsProps) {
   const [
     { data: infoResponse, isFetched: infoFetched },
     //  { data: pledgeResponse, isFetched: pledgeFetched }
   ] = useSuspenseQueries({
     queries: [
       {
-        queryKey: [{ assemblyDetail: `info-request-${params.id}` }],
+        queryKey: [{ assembly: `info-request-${params.id}` }],
         queryFn: () => API.getAssemblyInfo({ assemblyId: params.id }),
       },
       // {
-      //   queryKey: [{ assemblyDetail: `pledge-request-${params.id}` }],
+      //   queryKey: [{ assembly: `pledge-request-${params.id}` }],
       //   queryFn: () => API.getAssemblyPledge({ assemblyId: params.id }),
       // },
     ],
