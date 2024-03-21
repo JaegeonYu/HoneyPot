@@ -53,8 +53,8 @@ public class BillLoadService {
     @Transactional
     public void insert() {
         if (initFlag()) {
-        insertBill();
-        updateTextBody();
+            insertBill();
+            updateTextBody();
         }
     }
 

@@ -28,7 +28,7 @@ public class DataLoadService {
     private final CommitteeLoadService committeeLoadService;
     private final PolyLoadService polyLoadService;
     private final SnsLoadService snsLoadService;
-    @PostConstruct
+//    @PostConstruct
     public void init() {
         try {
             regionLoadService.insertRegion();
