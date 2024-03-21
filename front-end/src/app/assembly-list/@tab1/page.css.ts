@@ -3,6 +3,7 @@ import { style } from '@vanilla-extract/css';
 
 export const styledLink = style({
   width: '100%',
+  cursor: 'pointer',
 });
 
 export const cardArticle = style({

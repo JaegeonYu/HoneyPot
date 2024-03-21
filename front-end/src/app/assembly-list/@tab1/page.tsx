@@ -9,7 +9,7 @@ import { useQuery } from '@tanstack/react-query';
 
 export default function AssemblyListTab1() {
   const [areaState, setAreaState] = useState({
-    sido: 0,
+    sido: 1,
     sigungu: null,
     dong: null,
   });
@@ -17,8 +17,8 @@ export default function AssemblyListTab1() {
   const { data: response } = useQuery({
     queryKey: [{ assemblyList: `member-${areaState.sido}` }],
     queryFn: () =>
-      API.getAssemblyList({ ...areaState, page: 0, limit: 10, poly: 0 }).then(res => {
-        console.log(`res.data :`, res.data);
+      API.getAssemblyList({ ...areaState, page: 0, limit: 10, poly: null }).then(res => {
+        // console.log(`res.data :`, res.data);
         return res;
       }),
   });
@@ -30,7 +30,7 @@ export default function AssemblyListTab1() {
           <Link className={S.styledLink} key={res.monaCd} href={`/assembly-detail/${res.assemblyId}`}>
             <Comp.Card
               key={res.monaCd}
-              ratio="4 / 5"
+              ratio="4 / 6"
               badge={{ isBadgeNeed: true, text: res.polyName }}
               imgUrl={res.assemblyImgUrl}
             >

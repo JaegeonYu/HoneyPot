@@ -16,5 +16,4 @@ export const imgHeight = createVar();
 export const styledImage = style({
   width: '100%',
   height: imgHeight,
-  cursor: 'pointer',
 });

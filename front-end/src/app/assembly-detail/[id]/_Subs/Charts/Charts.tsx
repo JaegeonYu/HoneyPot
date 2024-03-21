@@ -4,12 +4,23 @@ import * as S from './Charts.css';
 import * as T from '@/types';
 import * as Comp from '@/components';
 import { PALETTE } from '@/_constants';
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useSuspenseQueries } from '@tanstack/react-query';
 
 export default function Charts({ params }: T.AssemblyDetailChartsProps) {
-  const { data: infoResponse, isFetched } = useSuspenseQuery({
-    queryKey: [{ assemblyDetail: `info-request-${params.id}` }],
-    queryFn: () => API.getAssemblyInfo({ assemblyId: params.id }),
+  const [
+    { data: infoResponse, isFetched: infoFetched },
+    //  { data: pledgeResponse, isFetched: pledgeFetched }
+  ] = useSuspenseQueries({
+    queries: [
+      {
+        queryKey: [{ assemblyDetail: `info-request-${params.id}` }],
+        queryFn: () => API.getAssemblyInfo({ assemblyId: params.id }),
+      },
+      // {
+      //   queryKey: [{ assemblyDetail: `pledge-request-${params.id}` }],
+      //   queryFn: () => API.getAssemblyPledge({ assemblyId: params.id }),
+      // },
+    ],
   });
 
   return (
