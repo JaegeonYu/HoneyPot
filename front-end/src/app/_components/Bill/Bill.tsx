@@ -44,7 +44,7 @@ export default function Bill({
   summary,
 }: T.BillProps) {
   const [isActive, setIsActive] = useState(true);
-  const [isToggled, setIsToggled] = useState(false);
+  const [isToggled, setIsToggled] = useState(true);
   const [comm, setComm] = useState(cmitId);
   const [dateList, setDateList] = useState([proposeDt, committeeDt, lawSubmitDt, procDt]);
 
@@ -53,8 +53,9 @@ export default function Bill({
     setIsActive(!isActive);
   };
 
-  const toggleButton = () => {
+  const toggleButton = (event: React.MouseEvent) => {
     console.log(isToggled, 'Toggles');
+    event.stopPropagation();
     setIsToggled(!isToggled);
   };
 
@@ -105,9 +106,11 @@ export default function Bill({
           <div className={S.billCardContentsHeaderSummary}>
             <p className={S.fontTitle}>세부사항</p>
             <div className={S.billCardContentsHeaderSummarytBtn}>
-              <p className={S.fontContent}>요약하기</p>
-              <p className={S.fontContent}>toggle btn here</p>
-              {/* <ToggleButton clicked={isToggled}></ToggleButton> */}
+              {/* <p className={S.fontContent}>요약하기</p>
+              <p className={S.fontContent}>toggle btn here</p> */}
+              <div onClick={toggleButton}>
+                <ToggleButton clicked={isToggled} btncolor={'yellow'}></ToggleButton>
+              </div>
             </div>
           </div>
           <div className={S.billCardContentsHeaderLink}>
