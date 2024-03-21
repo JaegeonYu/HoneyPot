@@ -1,5 +1,7 @@
 package com.honey.backend.exception;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
@@ -18,9 +20,11 @@ import java.util.List;
 */
 @RestControllerAdvice
 public class ApiGlobalExceptionHandler {
+    private final Logger logger = LoggerFactory.getLogger("ExceptionHandler");
     @ExceptionHandler(BaseException.class)
     public ResponseEntity<ErrorResponse> applicationException(BaseException e){
         ErrorCode code = e.getCode();
+        logger.error(String.valueOf(e.getCode()));
         return ResponseEntity
                 .status(code.getStatus())
                 .body(ErrorResponse.from(code));
@@ -32,6 +36,7 @@ public class ApiGlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> methodArgumentNotValidException(MethodArgumentNotValidException e) {
         List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
+        logger.error(extractErrorMessage(fieldErrors));
         return convert(GlobalErrorCode.VALIDATION_ERROR, extractErrorMessage(fieldErrors));
     }
 
@@ -41,6 +46,7 @@ public class ApiGlobalExceptionHandler {
     @ExceptionHandler(BindException.class)
     public ResponseEntity<ErrorResponse> bindException(BindException e) {
         List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
+        logger.error(extractErrorMessage(fieldErrors));
         return convert(GlobalErrorCode.VALIDATION_ERROR, extractErrorMessage(fieldErrors));
     }
 
