@@ -10,6 +10,7 @@ export const wrapper = style({
   columnGap: 5,
   width: 290,
   height: '100%',
+  position: 'relative',
 });
 
 export const element = style({
@@ -18,6 +19,29 @@ export const element = style({
   alignItems: 'center',
   width: '100%',
   rowGap: 8,
+  position: 'relative',
+
+  //   height: '100%',
+});
+
+export const replaceWord = style({
+  position: 'absolute',
+  height: 22,
+  // top: '-6px',
+  left: '50%',
+  transform: 'translateX(-50%)',
+  fontSize: 12,
+  fontWeight: 600,
+  //   height: '100%',
+});
+export const finalDate = style({
+  position: 'absolute',
+  height: 22,
+  top: 60,
+  left: '50%',
+
+  transform: 'translateX(-50%)',
+  fontSize: 12,
   //   height: '100%',
 });
 
