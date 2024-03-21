@@ -33,11 +33,12 @@ public class RegionLoadService {
     @Transactional
     public void insertRegion() throws IOException {
         if (initFlag()) {
-            System.out.println("============LOAD REGION============");
             Resource resource = new ClassPathResource("21region.csv"); //
             List<String> regionList = Files.readAllLines(resource.getFile().toPath(), StandardCharsets.UTF_8);
-
+            float size = regionList.size();
+            int a = 0;
             for (String region : regionList) {
+                System.out.print("Region load : " + String.format("%.2f", a++ / (size / 100)) + "% " + "\r");
                 String[] split = region.split(",");
                 if (split.length == 1) {
                     insertSido(split);
@@ -52,7 +53,7 @@ public class RegionLoadService {
             if (!electionRegionRepository.existsByElectionRegionName("비례대표"))
                 electionRegionRepository.save(ElectionRegion.createElectionRegion("비례대표"));
 
-            System.out.println("============LOAD REGION COMPLETE============");
+            System.out.println("Region load : COMPLETE");
         }
         }
 
@@ -100,9 +101,7 @@ public class RegionLoadService {
     }
 
     public boolean initFlag() {
-        if (sidoRepository.count() == 0 || sigunguRepository.count() == 0 ||
-                electionRegionRepository.count() == 0 || dongRepository.count() == 0)
-            return true;
-        else return false;
+        return sidoRepository.count() == 0 || sigunguRepository.count() == 0 ||
+                electionRegionRepository.count() == 0 || dongRepository.count() == 0;
     }
 }

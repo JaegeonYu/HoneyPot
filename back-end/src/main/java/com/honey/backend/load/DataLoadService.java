@@ -40,7 +40,7 @@ public class DataLoadService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        ;
+
     }
 
 

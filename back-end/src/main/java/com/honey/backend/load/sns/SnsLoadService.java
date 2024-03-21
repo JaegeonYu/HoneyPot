@@ -7,6 +7,7 @@ import com.honey.backend.domain.assembly.Assembly;
 import com.honey.backend.domain.assembly.AssemblyRepository;
 import com.honey.backend.domain.sns.Sns;
 import com.honey.backend.domain.sns.SnsRepository;
+import com.honey.backend.load.committee.CommitteeLoadResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -36,10 +37,15 @@ public class SnsLoadService {
     public void insertSns() {
 
         if (initFlag()) {
-            System.out.println("============LOAD SNS============");
+
             List<Assembly> assemblyList = assemblyRepository.findAll();
-            for(Assembly assembly : assemblyList) {
-                if(assembly.getMonaCd()== null) continue;
+            float size = assemblyList.size();
+            int a = 0;
+
+            for (Assembly assembly : assemblyList) {
+                System.out.print("SNS Load : " + String.format("%.2f", a++ / (size / 100)) + "% " + "\r");
+
+                if (assembly.getMonaCd() == null) continue;
                 SnsLoadResponse snsInfoResponse = getSnsInfo(assembly.getMonaCd());
                 snsRepository.save(Sns.createSns(
                         assembly,
@@ -48,7 +54,8 @@ public class SnsLoadService {
                         snsInfoResponse.Y_URL() == null ? null : snsInfoResponse.Y_URL(),
                         snsInfoResponse.B_URL() == null ? null : snsInfoResponse.B_URL()));
             }
-            System.out.println("============LOAD SNS COMPLETE============");
+            System.out.println("SNS Load : COMPLETE");
+
         }
 
     }
@@ -84,9 +91,7 @@ public class SnsLoadService {
     }
 
     public boolean initFlag() {
-        if (snsRepository.count() == 0)
-            return true;
-        else return false;
+        return snsRepository.count() == 0;
     }
 
 }

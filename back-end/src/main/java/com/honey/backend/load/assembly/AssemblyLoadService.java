@@ -68,10 +68,14 @@ public class AssemblyLoadService {
     @Transactional
     public void insertAssembly() {
         if (initFlag()) {
-            System.out.println("============LOAD ASSEMBLY============");
+            int a = 0;
+
             for (int i = 1; i < 3; i++) {
                 infoResponseList = getAssemblyInfoList(i);
+                float size = infoResponseList.size();
+
                 for (AssemblyInfoResponse infoResponse : infoResponseList) {
+                    System.out.print("Assembly Info Load : " + String.format("%.2f", a++ / (size / 100)) + "% " + "\r");
 
                     String region = infoResponse.ORIG_NM().trim();
                     String imgUrl = "NO_IMG";
@@ -88,17 +92,21 @@ public class AssemblyLoadService {
                     assemblyRepository.save(assembly);
 
                 }
+                System.out.println("Assembly Info Load : COMPLETE");
             }
             List<AssemblyImgResponse> imgResponseList = getAssemblyImgList();
+            float size = imgResponseList.size();
+            a = 0;
+
             for (AssemblyImgResponse imgResponse : imgResponseList) {
+                System.out.print("Assembly Img Load : " + String.format("%.2f", a++ / (size / 100)) + "% " + "\r");
                 Assembly assembly = assemblyRepository.findByHgNameAndOrigName(imgResponse.empNm(), imgResponse.origNm()).orElseThrow();
                 assembly.updateImage(imgResponse.jpgLink());
             }
-
+            System.out.println("Assembly Img Load : COMPLETE");
             Poly UnknownPoly = polyRepository.findByPolyName("무소속").orElseThrow();
             ElectionRegion UnknownElectionRegion = electionRegionRepository.findByElectionRegionName("비례대표").orElseThrow();
             assemblyRepository.save(Assembly.createUnknownAssembly("UNKNOWN", UnknownPoly, UnknownElectionRegion));
-            System.out.println("============LOAD ASSEMBLY COMPLETE============");
         }
     }
 
@@ -200,9 +208,7 @@ public class AssemblyLoadService {
     }
 
     public boolean initFlag() {
-        if (assemblyRepository.count() == 0)
-            return true;
-        else return false;
+        return assemblyRepository.count() == 0;
     }
 
 }
