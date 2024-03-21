@@ -20,6 +20,7 @@ public record BillResponse(
         String textBody,
         String summary,
         Long polyId,
+        String polyName,
         BillProgressResponse billProgressResponse
 
 ) {

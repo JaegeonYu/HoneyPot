@@ -68,6 +68,7 @@ public class BillService {
                 bill.getTextBody(),
                 bill.getSummary(),
                 polyRepository.findByAssemblyId(bill.getAssembly().getId()).getId(),
+                polyRepository.findByAssemblyId(bill.getAssembly().getId()).getPolyName(),
                 setStatus(bill)
         );
     }
