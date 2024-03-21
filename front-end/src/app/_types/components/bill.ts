@@ -11,6 +11,7 @@ export interface BilProps {
   hgName: string | null;
   lawProcDt: string | null;
   polyId: number;
+  polyName: string | null;
   procDt: string | null;
   procResult: string | null;
   proposeDt: string | null;

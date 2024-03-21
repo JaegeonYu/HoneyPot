@@ -14,27 +14,37 @@ import { vars } from '@/globalTheme.css';
  * @description
 
  */
-export default function ProgressBar({ step, date, partycolor }: T.ProgressBarProps) {
+export default function ProgressBar({ step, date, partycolor, status, finalStatus, finalDate }: T.ProgressBarProps) {
   const stepnameList = ['발의', '상임위', '법사위', '본회의'];
   //나중에 date는 파라미터로 받은 date쓸 것
   // const date = ['23.12.01', '24.01.04', '24.02.01'];
+  const st = false;
   console.log(step, 'date');
-  console.log(date, 'what');
+  console.log(status, 'what');
 
   return (
     <div className={S.wrapper}>
       {/* 첫번쨰 Dot */}
       {stepnameList.map((stepname, i) => (
         <div className={S.element} key={i}>
-          {step !== 44 && step !== 99 ? <p className={S.fontContent}>{stepname}</p> : <p style={{ height: 22 }}></p>}
+          {status === 'R6' ? <p className={S.fontContent}>{stepname}</p> : <p style={{ height: 22 }}></p>}
           {step >= i && i < 4 ? (
             <Dot idx={4 - i} partycolor={partycolor} flag={true} barflag={true} lastdot={true}></Dot>
           ) : (
             <Dot idx={4 - i} partycolor={partycolor} flag={false} barflag={false} lastdot={true}></Dot>
           )}
-          {step !== 44 && step !== 99 ? <p className={S.fontDate}>{date[i]}</p> : <p></p>}
+          {status === 'R6' ? <p className={S.fontDate}>{date[i]}</p> : <p style={{ height: 22 }}></p>}
         </div>
       ))}
+
+      {status !== 'R6' ? (
+        <>
+          <p className={S.replaceWord}> {finalStatus}</p>
+          <p className={S.finalDate}> {finalDate}</p>
+        </>
+      ) : (
+        <></>
+      )}
     </div>
   );
 }

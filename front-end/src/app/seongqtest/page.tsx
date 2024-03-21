@@ -21,7 +21,7 @@ export default function SeongqTest() {
 
   const { data: infoResponse, isFetched: infoFetched } = useSuspenseQuery({
     queryKey: [{ bill: `info-request-billtest` }],
-    queryFn: () => API.getBillInfo({ billId: '23555' }),
+    queryFn: () => API.getBillInfo({ billId: '25999' }),
     retry: false,
   });
 

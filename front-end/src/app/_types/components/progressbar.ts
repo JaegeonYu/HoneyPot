@@ -5,5 +5,7 @@ export interface ProgressBarProps {
   date: any[];
   partycolor: string;
   status: string;
+  finalDate: string;
+  finalStatus: string;
   // children: React.ReactNode;
 }

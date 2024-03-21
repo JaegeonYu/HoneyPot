@@ -31,6 +31,7 @@ export default function Bill({
   hgName,
   lawProcDt,
   polyId,
+  polyName,
   procDt,
   procResult,
   proposeDt,
@@ -46,7 +47,6 @@ export default function Bill({
   const [status, setStatus] = useState(billProgressResponse);
   const [dateList, setDateList] = useState([proposeDt, cmitProcDt, lawProcDt, procDt]);
 
-  const partyname = '더불어민주연합';
   const toggleAccordion = () => {
     console.log(isActive, 'isActive');
     setIsActive(!isActive);
@@ -82,8 +82,8 @@ export default function Bill({
           <div className={S.billTitlePerson}>
             <p className={S.fontContent}>대표자 : {hgName}</p>
 
-            <Badge color={PALETTE.party[partyname][100]} isPositionAbsolute={false}>
-              {hgName}
+            <Badge color={PALETTE.party[polyName][100]} isPositionAbsolute={false}>
+              {polyName}
             </Badge>
           </div>
         </div>
@@ -102,7 +102,10 @@ export default function Bill({
         <ProgressBar
           step={Number(billProgressResponse.presentCd[1])}
           date={dateList}
-          partycolor={PALETTE.party[partyname][100]}
+          partycolor={PALETTE.party[polyName][100]}
+          status={billProgressResponse.resultCd}
+          finalDate={procDt}
+          finalStatus={billProgressResponse.resultName}
         ></ProgressBar>
       </div>
       <div className={S.billCardContents}>
@@ -113,7 +116,7 @@ export default function Bill({
               {/* <p className={S.fontContent}>요약하기</p>
               <p className={S.fontContent}>toggle btn here</p> */}
               <div onClick={toggleButton}>
-                <ToggleButton clicked={isToggled} btncolor={PALETTE.party[partyname][100]}></ToggleButton>
+                <ToggleButton clicked={isToggled} btncolor={PALETTE.party[polyName][100]}></ToggleButton>
               </div>
             </div>
           </div>
