@@ -25,7 +25,7 @@ export default function AssemblyDetailTab2({ params }: T.AssemblyDetailTab2Props
     ...result
   } = useSuspenseInfiniteQuery({
     queryKey: [{ assemblyDetail: `detail-${params.id}` }],
-    queryFn: ({ pageParam }) => API.getAssemblyBill({ page: pageParam, assemblyId: params.id, take: 4 }),
+    queryFn: ({ pageParam }) => API.getAssemblyBill({ assemblyId: params.id, cmit: 0, page: pageParam, take: 4 }),
     initialPageParam: 0,
     getNextPageParam: (lastPage, allPages, lastPageParam, allPageParams) => {
       console.log(`GET NEXT :`, lastPage);

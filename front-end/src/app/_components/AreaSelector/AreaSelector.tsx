@@ -13,150 +13,144 @@ interface ResponseRegion extends Region {
   regionName: string;
 }
 
+interface HandleQueryStringArgs {
+  sido: number;
+  siGunGu: number;
+  dong: number;
+}
+
 export default function AreaSelector() {
   const siDoButton = useRef<HTMLButtonElement>(null);
   const siGunGuButton = useRef<HTMLButtonElement>(null);
   const dongButton = useRef<HTMLButtonElement>(null);
 
+  const [placeholders, setPlaceholders] = useState({
+    sido: '시/도 선택',
+    siGunGu: '시/군/구 선택',
+    dong: '동 선택',
+  });
+
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-
   const handleQueryString = useCallback(
-    (key: string, value: number | null) => {
+    ({ sido, siGunGu, dong }: HandleQueryStringArgs) => {
       const params = new URLSearchParams(searchParams.toString());
-      params.set(key, value === null ? '' : String(value));
 
-      params.set('sido', params.get('sido') === null ? '' : (params.get('sido') as string));
-      params.set('sigungu', params.get('sigungu') === null ? '' : (params.get('sigungu') as string));
-      params.set('dong', params.get('dong') === null ? '' : (params.get('dong') as string));
+      params.set('sido', String(sido));
+      params.set('sigungu', String(siGunGu));
+      params.set('dong', String(dong));
 
       router.push(`${pathname}?${params.toString()}`);
     },
     [searchParams],
   );
 
-  const [selectedArea, setSelectedArea] = useState({ sido: 0, siGunGu: 0, dong: 0 });
-
+  const concatFiltering = (origin: ResponseRegion[], upstream: ResponseRegion[] | undefined) => {
+    return origin.concat(upstream ? upstream : []).filter(li => li);
+  };
   const { data: siDoListResponse, refetch: siDoRefetch } = useQuery({
-    queryKey: [`siDo-list`],
+    queryKey: [`si-do-list`],
     queryFn: () =>
-      API.region.getSiDoList().then((res: AxiosResponse<ResponseRegion[], any>) => {
-        res.data.forEach((li, i) => {
-          // if (Number(searchParams.get('sido')) === li.regionId) setSiDo({ ...li });
-          // if (Number(searchParams.get('sido')) === li.regionId) setSelectedArea({ ...selectedArea, sido: { ...li } });
-        });
-        return res;
+      API.region.getSiDoList().then(res => {
+        if (res.status === 400) handleQueryString({ sido: 0, siGunGu: 0, dong: 0 });
+        console.log(`res.status :`, res.status);
+        return concatFiltering([{ regionId: 0, regionName: '시/도 선택' }], res.data);
       }),
+    retry: false,
   });
-
   const { data: siGunGuListResponse, refetch: siGunGuRefetch } = useQuery({
     queryKey: [`si-gun-gu-list-${searchParams.get('sido')}`],
     queryFn: () =>
-      API.region
-        .getSiGunGuList({ siDoId: Number(searchParams.get('sido')) })
-        .then((res: AxiosResponse<ResponseRegion[], any>) => {
-          res.data.forEach((li, i) => {
-            console.log(`IN REQUEST :`, selectedArea.siGunGu);
-            // if (Number(searchParams.get('sigungu')) === li.regionId) setSiGunGu(prev => ({ ...li }));
-            // if (Number(searchParams.get('sigungu')) === li.regionId)
-            // setSelectedArea({ ...selectedArea, siGunGu: { ...li } });
-          });
-          return res;
-        }),
+      API.region.getSiGunGuList({ siDoId: Number(searchParams.get('sido')) }).then(res => {
+        if (res.status === 400) handleQueryString({ sido: 0, siGunGu: 0, dong: 0 });
+        console.log(`res.status :`, res.status);
+        return concatFiltering([{ regionId: 0, regionName: '시/군/구 선택' }], res.data);
+      }),
+    retry: false,
   });
-
   const { data: dongListResponse, refetch: dongRefetch } = useQuery({
     queryKey: [`dong-list-${searchParams.get('sigungu')}`],
     queryFn: () =>
-      API.region
-        .getDongList({ siGunGuId: Number(searchParams.get('sigungu')) })
-        .then((res: AxiosResponse<ResponseRegion[], any>) => {
-          res.data.forEach((li, i) => {
-            // if (Number(searchParams.get('dong')) === li.regionId) setDong(prev => ({ ...li }));
-            // if (Number(searchParams.get('dong')) === li.regionId) setSelectedArea({ ...selectedArea, dong: { ...li } });
-          });
-          return res;
-        }),
+      API.region.getDongList({ siGunGuId: Number(searchParams.get('sigungu')) }).then(res => {
+        if (res.status === 400) handleQueryString({ sido: 0, siGunGu: 0, dong: 0 });
+        console.log(`res.status :`, res.status);
+        return concatFiltering([{ regionId: 0, regionName: '동 선택' }], res.data);
+      }),
+    retry: false,
   });
 
-  const handleSidoItemClick = (region: Region) => {
-    handleQueryString('sido', region.regionId);
+  const handleSidoItemClick = (region: ResponseRegion) => {
+    handleQueryString({ sido: region.regionId, siGunGu: 0, dong: 0 });
     siGunGuRefetch();
     siDoButton.current?.blur();
     siGunGuButton.current?.focus();
-    if (selectedArea.sido !== 0 && selectedArea.sido !== region.regionId) {
-      handleQueryString('sigungu', null);
-      handleQueryString('dong', null);
-    }
-    setSelectedArea(prev => ({ ...prev, sido: region.regionId }));
+    setPlaceholders(prev => ({ ...prev, sido: region.regionName, siGunGu: '시/군/구 선택', dong: '동 선택' }));
   };
-
-  const handleSiGunGuItemClick = (region: Region) => {
-    // setSiGunGu(prev => ({ ...region }));
-
+  const handleSiGunGuItemClick = (region: ResponseRegion) => {
     if (region.regionId === 0) {
-      handleQueryString('sigungu', null);
-      handleQueryString('dong', null);
+      handleQueryString({ sido: region.regionId, siGunGu: 0, dong: 0 });
     } else {
-      handleQueryString('sigungu', region.regionId);
+      handleQueryString({ sido: Number(searchParams.get('sido')), siGunGu: region.regionId, dong: 0 });
       siGunGuButton.current?.blur();
       dongButton.current?.focus();
     }
     dongRefetch();
+    setPlaceholders(prev => ({ ...prev, siGunGu: region.regionName, dong: '동 선택' }));
   };
-
-  const handleDongItemClick = (region: Region) => {
-    // setDong({ ...region });
-
+  const handleDongItemClick = (region: ResponseRegion) => {
     if (region.regionId === 0) {
-      handleQueryString('dong', null);
+      handleQueryString({
+        sido: Number(searchParams.get('sido')),
+        siGunGu: Number(searchParams.get('sigungu')),
+        dong: 0,
+      });
     } else {
-      handleQueryString('dong', region.regionId);
+      handleQueryString({
+        sido: Number(searchParams.get('sido')),
+        siGunGu: Number(searchParams.get('sigungu')),
+        dong: region.regionId,
+      });
       dongButton.current?.blur();
     }
-  };
-
-  const concatFiltering = (origin: ResponseRegion[], upstream: ResponseRegion[] | undefined) => {
-    return origin.concat(upstream ? upstream : []).filter(li => li);
+    setPlaceholders(prev => ({ ...prev, dong: region.regionName }));
   };
 
   return (
     <div className={S.wrapper}>
       <button className={S.areaContainer} ref={siDoButton}>
-        {[selectedArea.sido]}
+        {/* {siDoListResponse ? siDoListResponse[Number(searchParams.get('sido'))].regionName : '시/도 선택'} */}
+        {placeholders.sido}
         <ul className={S.ulContainer}>
-          {siDoListResponse?.data.map((sido: Region, i: number) => (
-            <li key={`sido-${i}`} className={S.optionsItem} onClick={() => handleSidoItemClick({ ...sido })}>
-              {/* {sido.regionName} */}
+          {siDoListResponse?.map((sido: ResponseRegion, i: number) => (
+            <li key={`si-do-${i}`} className={S.optionsItem} onClick={() => handleSidoItemClick({ ...sido })}>
+              {sido.regionName}
             </li>
           ))}
         </ul>
       </button>
       <hr className={S.styledHr} />
       <button className={S.areaContainer} ref={siGunGuButton}>
-        {[selectedArea.siGunGu]}
+        {/* {siGunGuListResponse ? siGunGuListResponse[Number(searchParams.get('sigungu'))]?.regionName : '시/군/구 선택'} */}
+        {placeholders.siGunGu}
         <ul className={S.ulContainer}>
-          {concatFiltering([{ regionId: 0, regionName: '시/군/구 선택' }], siGunGuListResponse?.data).map(
-            (siGunGu: Region, i: number) => (
-              <li key={`siGunGu-${i}`} className={S.optionsItem} onClick={() => handleSiGunGuItemClick({ ...siGunGu })}>
-                {/* {siGunGu.regionName} */}
-              </li>
-            ),
-          )}
+          {siGunGuListResponse?.map((siGunGu: ResponseRegion, i: number) => (
+            <li key={`si-gun-gu-${i}`} className={S.optionsItem} onClick={() => handleSiGunGuItemClick({ ...siGunGu })}>
+              {siGunGu.regionName}
+            </li>
+          ))}
         </ul>
       </button>
       <hr className={S.styledHr} />
       <button className={S.areaContainer} ref={dongButton}>
-        {[selectedArea.dong]}
+        {/* {dongListResponse ? dongListResponse[Number(searchParams.get('dong'))]?.regionName : '동 선택'} */}
+        {placeholders.dong}
         <ul className={S.ulContainer}>
-          {concatFiltering([{ regionId: 0, regionName: '동 선택' }], dongListResponse?.data).map(
-            (dong: Region, i: number) => (
-              <li key={`dong-${i}`} className={S.optionsItem} onClick={() => handleDongItemClick({ ...dong })}>
-                {/* {dong.regionName} */}
-              </li>
-            ),
-          )}
+          {dongListResponse?.map((dong: ResponseRegion, i: number) => (
+            <li key={`dong-${i}`} className={S.optionsItem} onClick={() => handleDongItemClick({ ...dong })}>
+              {dong.regionName}
+            </li>
+          ))}
         </ul>
       </button>
     </div>
