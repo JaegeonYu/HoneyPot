@@ -39,21 +39,15 @@ export default function AssemblyDetailTab2({ params }: T.AssemblyDetailTab2Props
 
   const legendList = console.log(`data.pages[0].data :`, data.pages[0].data);
   console.log(`data.pageParams :`, data?.pageParams);
-  console.log(`data.pages :`, data?.pages);
+  console.log(`data.pages :`, data);
 
   return (
     <>
       <Comp.CategoryList />
       <section className={S.billListWithChartWrapper}>
-        {/* {data?.pages[0].data.map((res, i) => (
-      <Comp.Bill key={res.billId} partycolor={PALETTE.party[]}
-      partyname={}
-      represent={}
-      committee={}
-      billtitle={}
-      progressbar={}
-      panelsectiondata={} ></Comp.Bill>
-    ))} */}
+        {data.pages[0].data.billProgressResponse.map((res, i) => (
+          <Comp.Bill key={res.billId} {...res}></Comp.Bill>
+        ))}
         <Comp.Poster posterwidth="280px" posterheight="268px">
           <div className={S.chartWrapper}>
             <Comp.PieChart

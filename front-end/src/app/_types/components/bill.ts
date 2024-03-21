@@ -1,4 +1,4 @@
-export interface BilProps {
+export interface BillProps {
   assemblyId: number;
   billId: number;
   billName: string | null;
@@ -11,7 +11,7 @@ export interface BilProps {
   hgName: string | null;
   lawProcDt: string | null;
   polyId: number;
-  polyName: string | null;
+  polyName: string;
   procDt: string | null;
   procResult: string | null;
   proposeDt: string | null;

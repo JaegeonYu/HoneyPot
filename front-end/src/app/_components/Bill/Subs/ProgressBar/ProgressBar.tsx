@@ -18,9 +18,6 @@ export default function ProgressBar({ step, date, partycolor, status, finalStatu
   const stepnameList = ['발의', '상임위', '법사위', '본회의'];
   //나중에 date는 파라미터로 받은 date쓸 것
   // const date = ['23.12.01', '24.01.04', '24.02.01'];
-  const st = false;
-  console.log(step, 'date');
-  console.log(status, 'what');
 
   return (
     <div className={S.wrapper}>
@@ -28,7 +25,7 @@ export default function ProgressBar({ step, date, partycolor, status, finalStatu
       {stepnameList.map((stepname, i) => (
         <div className={S.element} key={i}>
           {status === 'R6' ? <p className={S.fontContent}>{stepname}</p> : <p style={{ height: 22 }}></p>}
-          {step >= i && i < 4 ? (
+          {step !== null && step >= i && i < 4 ? (
             <Dot idx={4 - i} partycolor={partycolor} flag={true} barflag={true} lastdot={true}></Dot>
           ) : (
             <Dot idx={4 - i} partycolor={partycolor} flag={false} barflag={false} lastdot={true}></Dot>
