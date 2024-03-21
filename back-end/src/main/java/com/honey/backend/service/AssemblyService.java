@@ -11,10 +11,7 @@ import com.honey.backend.domain.sns.SnsRepository;
 import com.honey.backend.exception.AssemblyErrorCode;
 import com.honey.backend.exception.BaseException;
 import com.honey.backend.request.AssemblyListRequest;
-import com.honey.backend.response.AssemblyListResponse;
-import com.honey.backend.response.AssemblyResponse;
-import com.honey.backend.response.CommitteeResponse;
-import com.honey.backend.response.SnsResponse;
+import com.honey.backend.response.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
