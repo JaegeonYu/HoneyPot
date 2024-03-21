@@ -56,7 +56,7 @@ export default function AssembliesTab1() {
   return (
     <>
       {response?.data.assemblyCardResponseList.map((res: any, i: any) => (
-        <Link className={S.styledLink} key={res.monaCd} href={`/assembly-detail/${res.assemblyId}`}>
+        <Link className={S.styledLink} key={res.monaCd} href={`/assembly/${res.assemblyId}`}>
           <Comp.Card
             key={res.monaCd}
             ratio="4 / 6"
