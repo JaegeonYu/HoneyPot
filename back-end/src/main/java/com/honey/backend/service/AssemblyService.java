@@ -9,12 +9,11 @@ import com.honey.backend.domain.committee.CommitteeRepository;
 import com.honey.backend.domain.poly.PolyRepository;
 import com.honey.backend.domain.sns.Sns;
 import com.honey.backend.domain.sns.SnsRepository;
+import com.honey.backend.exception.AssemblyErrorCode;
 import com.honey.backend.exception.BaseException;
-import com.honey.backend.exception.GlobalErrorCode;
 import com.honey.backend.request.AssemblyListRequest;
 import com.honey.backend.response.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -31,7 +30,7 @@ public class AssemblyService {
     private final SnsRepository snsRepository;
     private final CommitteeRepository committeeRepository;
 
-    public List<AssemblyListResponse> findAll(AssemblyListRequest assemblyListRequest) {
+    public AssemblyListResponse findAll(AssemblyListRequest assemblyListRequest) {
         Long sido = assemblyListRequest.sido();
         Long sigungu = assemblyListRequest.sigungu();
         Long dong = assemblyListRequest.dong();
@@ -39,16 +38,14 @@ public class AssemblyService {
         int page = assemblyListRequest.page();
         int limit = assemblyListRequest.limit();
         String word = assemblyListRequest.word();
-
-        List<Assembly> assemblyList = null;
-        if (poly != null && (sido == null && sigungu == null && dong == null)) {
-            assemblyList = assemblyRepository.findAllByPoly(PageRequest.of(page, limit), word, poly).getContent();
-        } else if (poly == null)
-            assemblyList = getPaginatedAssemblies(page, limit, assemblyRepository.findAllByRegion(word, sido, sigungu, dong));
-        else {
-            throw new BaseException(GlobalErrorCode.NOT_SUPPORTED_URI_ERROR);
+        List<Assembly> assemblyList = assemblyRepository.findAll(word, sido, sigungu, dong, poly);
+        int totalCount = assemblyList.size();
+        if (assemblyList.isEmpty()) {
+            throw new BaseException(AssemblyErrorCode.ASSEMBLY_BAD_REQUEST);
         }
-        return insertToListResponse(assemblyList);
+        assemblyList = getPaginatedAssemblies(page, limit, assemblyList);
+
+        return insertToListResponse(assemblyList, totalCount);
 
     }
 
@@ -99,10 +96,10 @@ public class AssemblyService {
     }
 
 
-    public List<AssemblyListResponse> insertToListResponse(List<Assembly> assemblyList) {
-        List<AssemblyListResponse> assemblyResponseList = new ArrayList<>();
+    public AssemblyListResponse insertToListResponse(List<Assembly> assemblyList, int totalCount) {
+        List<AssemblyCardResponse> assemblyCardResponseList = new ArrayList<>();
         for (Assembly assembly : assemblyList) {
-            assemblyResponseList.add(new AssemblyListResponse(
+            assemblyCardResponseList.add(new AssemblyCardResponse(
                     assembly.getId(),
                     assembly.getAssemblyImgUrl(),
                     polyRepository.findById(assembly.getPoly().getId()).orElseThrow().getPolyName(),
@@ -111,7 +108,7 @@ public class AssemblyService {
                     assembly.getOrigName()
             ));
         }
-        return assemblyResponseList;
+        return new AssemblyListResponse(assemblyCardResponseList, totalCount);
     }
 
     public AssemblyResponse insertToResponse(Assembly assembly) {
@@ -133,5 +130,13 @@ public class AssemblyService {
                 assembly.getEmail(),
                 assembly.getPlenaryAttendance(),
                 assembly.getStandingAttendance());
+    }
+
+    public boolean polySearch() {
+        return true;
+    }
+
+    public boolean regionSearch() {
+        return true;
     }
 }

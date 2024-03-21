@@ -1,11 +1,9 @@
 package com.honey.backend.response;
 
+import java.util.List;
+
 public record AssemblyListResponse(
-        Long assemblyId,
-        String assemblyImgUrl,
-        String polyName,
-        String monaCd,
-        String hgName,
-        String origName
+        List<AssemblyCardResponse> assemblyCardResponseList,
+        int count
 ) {
 }
