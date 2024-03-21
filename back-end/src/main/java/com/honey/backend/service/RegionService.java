@@ -6,6 +6,10 @@ import com.honey.backend.domain.region.sido.Sido;
 import com.honey.backend.domain.region.sido.SidoRepository;
 import com.honey.backend.domain.region.sigungu.Sigungu;
 import com.honey.backend.domain.region.sigungu.SigunguRepository;
+import com.honey.backend.exception.BaseException;
+import com.honey.backend.exception.RegionErrorCode;
+import com.honey.backend.request.RegionNameRequest;
+import com.honey.backend.response.RegionNameResponse;
 import com.honey.backend.response.RegionResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -48,6 +52,29 @@ public class RegionService {
             regionResponseList.add(new RegionResponse(dong.getId(), dong.getDongName()));
         }
         return regionResponseList;
+    }
+
+    public RegionNameResponse getRegionName(RegionNameRequest regionNameRequest) {
+        String sidoName = null;
+        String sigunguName = null;
+        String dongName = null;
+        if (regionNameRequest.sido() != 0)
+            sidoName = sidoRepository.findById(regionNameRequest.sido()).orElseThrow(
+                    () -> new BaseException(RegionErrorCode.SIDO_NOT_FOUND)
+            ).getSidoName();
+
+        if (regionNameRequest.sigungu() != 0) {
+            sigunguName = sigunguRepository.findById(regionNameRequest.sigungu()).orElseThrow(
+                    () -> new BaseException(RegionErrorCode.SIGUNGU_NOT_FOUND)
+            ).getSigunguName();
+        }
+        if (regionNameRequest.dong() != 0) {
+            dongName = dongRepository.findById(regionNameRequest.dong()).orElseThrow(
+                    () -> new BaseException(RegionErrorCode.DONG_NOT_FOUND)
+            ).getDongName();
+        }
+
+        return new RegionNameResponse(sidoName, sigunguName, dongName);
     }
 
 }
