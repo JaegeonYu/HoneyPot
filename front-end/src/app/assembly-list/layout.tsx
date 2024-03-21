@@ -4,8 +4,7 @@ import React, { useState } from 'react';
 import * as S from './layout.css';
 import * as Comp from '@/components';
 
-export default function AssemblyListLayout({ tab1, tab2 }: { tab1: React.ReactNode; tab2: React.ReactNode }) {
-  const [currentTab, setCurrentTab] = useState(0);
+export default function AssemblyListLayout({ Tab1, Tab2 }: { Tab1: React.ReactNode; Tab2: React.ReactNode }) {
   const [searchValue, setSearchValue] = useState('');
 
   const handleChangeSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,8 +25,8 @@ export default function AssemblyListLayout({ tab1, tab2 }: { tab1: React.ReactNo
           <Comp.AreaSelector />
         </div>
       </section>
-      {tab1}
-      {tab2}
+      {Tab1}
+      {Tab2}
     </>
   );
 }

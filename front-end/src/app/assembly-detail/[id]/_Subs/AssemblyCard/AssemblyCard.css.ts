@@ -38,3 +38,32 @@ export const birthDate = style({
   fontSize: '14px',
   color: vars.colors.service.SUB_BLACK,
 });
+
+export const snsWrapper = style({
+  display: 'flex',
+  justifyContent: 'space-between',
+  width: '100%',
+  padding: '12px 8px',
+});
+
+export const snsItem = style({
+  display: 'inline-block',
+  position: 'relative',
+  width: '42px',
+  height: '44px',
+  padding: '6px 0px 0px 6px',
+  backgroundColor: vars.colors.service.MAIN_WHITE,
+  boxShadow: '0 4px 10px 0 rgba(0,0,0,0.16)',
+  borderRadius: '12px',
+  overflow: 'hidden',
+});
+
+export const snsItemOverlay = style({
+  width: '100%',
+  height: '100%',
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  backgroundColor: vars.colors.service.MAIN_BLACK,
+  opacity: 0.3,
+});

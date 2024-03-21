@@ -97,7 +97,7 @@ export default function DoughnutChart({
         callbacks: {
           label(context: any) {
             let dataList = context.dataset.data;
-            return `${context.dataIndex === 0 ? '결석' : '출석'}: ${dataList[context.dataIndex]}`;
+            return `${context.dataIndex === 0 ? '결석' : '출석'}: ${dataList[context.dataIndex]}%`;
           },
           title(context: any) {
             return legendList[context[0].datasetIndex].title;
