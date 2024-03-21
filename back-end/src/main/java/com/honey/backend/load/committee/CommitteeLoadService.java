@@ -7,6 +7,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.honey.backend.load.poly.PolyInfoResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,16 +34,20 @@ public class CommitteeLoadService {
 
     public void insertCommittee() {
         if (initFlag()) {
-            System.out.println("============LOAD COMMITTEE============");
-            List<CommitteeLoadResponse> committeeLoadResponsesList = getCommitteeList();
+            List<CommitteeLoadResponse> committeeLoadResponseList = getCommitteeList();
+            float size = committeeLoadResponseList.size();
+            int a = 0;
 
-            for (CommitteeLoadResponse committeeLoadResponse : committeeLoadResponsesList) {
+            for (CommitteeLoadResponse committeeLoadResponse : committeeLoadResponseList) {
+                System.out.print("Committee Load : " + String.format("%.2f", a++ / (size / 100)) + "% " + "\r");
 
                 committeeRepository.save(Committee.createCommittee(committeeLoadResponse.COMMITTEE_NAME(), committeeLoadResponse.HR_DEPT_CD(), committeeLoadResponse.HG_NM(), true));
 
             }
+            System.out.println("Committee Load : COMPLETE");
+
             committeeRepository.save(Committee.createCommittee("미배정", null, null, false));
-            System.out.println("============LOAD COMMITTEE COMPLETE============");
+
 
         }
     }
@@ -80,9 +85,7 @@ public class CommitteeLoadService {
     }
 
     public boolean initFlag() {
-        if (committeeRepository.count() == 0)
-            return true;
-        else return false;
+        return committeeRepository.count() == 0;
     }
 
 }
