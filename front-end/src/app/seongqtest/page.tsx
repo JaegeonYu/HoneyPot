@@ -19,7 +19,7 @@ export default function SeongqTest() {
   const [mounted, setMounted] = useState<boolean>(false);
   const [page, setPage] = useState(0); // 페이지 상태 추가
   const [limit, setLimit] = useState(10); // 한 페이지에 보일 아이템 개수 상태 추가
-
+  const [selectedCategoryId, setSelectedCategoryId] = useState(0);
   const [scrollPosition, setScrollPosition] = useState<number>(); // 스크롤 위치 상태 추가
 
   const scrollToRef = useRef<HTMLDivElement>(null);
@@ -40,7 +40,7 @@ export default function SeongqTest() {
     queryFn: () => API.getBillInfo({ cmit: 0, page, limit, word: '' }), // API 호출 시 동적으로 page와 limit 전달
     retry: false,
   });
-
+  ///////////////////////////////
   const handleIsSelectedIdx = (idx: number) => {
     setIsSelectedIdx(idx);
   };
@@ -51,8 +51,13 @@ export default function SeongqTest() {
   const handleLimitChange = (newLimit: number) => {
     setLimit(newLimit);
   };
-
+  ///////////////////////////////////////////////////
   console.log(billResponse.data, 'INFO');
+
+  const handleCategoryClick = (categoryId: number) => {
+    setSelectedCategoryId(categoryId);
+    console.log(categoryId, '========================');
+  };
 
   const ddata = {
     party: '더불어민주당',
@@ -145,7 +150,7 @@ export default function SeongqTest() {
           <p className={S.fontSub}>{billResponse.data.billStatResponse.totalCount}개의 검색결과</p>
         </div>
         <div style={{ paddingTop: 4, backgroundColor: `${PALETTE.service.HOVER_BACKGROUND}` }}>
-          <Comp.CategoryList />
+          <Comp.CategoryList onCategoryClick={handleCategoryClick} />
         </div>
         <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '12px', padding: 16 }}>
           {billResponse.data.billResponse.map((res: T.BillProps, index: number) => (
