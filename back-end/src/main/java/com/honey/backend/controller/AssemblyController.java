@@ -5,6 +5,7 @@ import com.honey.backend.request.BillRequest;
 import com.honey.backend.response.*;
 import com.honey.backend.service.AssemblyService;
 import com.honey.backend.service.BillService;
+import com.honey.backend.service.CommitteeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -26,6 +27,7 @@ public class AssemblyController {
 
     private final AssemblyService assemblyService;
     private final BillService billService;
+    private final CommitteeService committeeService;
 
     @GetMapping("")
     @Operation(summary = "국회의원 리스트 조회", description = "지역/ 이름 / 정당별 국회  의원 리스트 API")
@@ -37,7 +39,6 @@ public class AssemblyController {
     @GetMapping("/{assembly_id}")
     @Operation(summary = "국회의원 상세 조회", description = "국회의원 상세 API")
     public ResponseEntity<AssemblyResponse> findById(@PathVariable(name = "assembly_id") Long assemblyId) {
-
         return ResponseEntity.status(HttpStatus.OK).body(assemblyService.findById(assemblyId));
     }
 
@@ -46,22 +47,8 @@ public class AssemblyController {
     public ResponseEntity<BillListResponse> findAllBillByAssemblyId(@PathVariable(name = "assembly_id") Long assemblyId, @Valid BillRequest billRequest) {
         List<BillResponse> billResponseList = billService.getBillList(assemblyId, billRequest);
         BillStatResponse billStatResponse = billService.getBillStat(assemblyId, billRequest.cmit());
-        BillListResponse billListResponse = new BillListResponse(billStatResponse, billResponseList);
+        List<CommitteeResponse> committeeResponseList = committeeService.findMostCommitteeByAssemblyId(assemblyId);
+        BillListResponse billListResponse = new BillListResponse(billStatResponse, billResponseList, committeeResponseList, null);
         return billResponseList.isEmpty() ? ResponseEntity.status(HttpStatus.NO_CONTENT).build() : ResponseEntity.status(HttpStatus.OK).body(billListResponse);
     }
-
-    @GetMapping("/{assembly_id}/sns")
-    @Operation(summary = "국회의원의 SNS 정보 조회", description = "국회의원의 SNS API")
-    public ResponseEntity<SnsResponse> findByAssemblyId(@PathVariable(name = "assembly_id") Long assemblyId) {
-
-        return ResponseEntity.status(HttpStatus.OK).body(assemblyService.findSnsByAssemblyId(assemblyId));
-    }
-
-    @GetMapping("/{assembly_id}/most")
-    @Operation(summary = "국회의원의 가장 많이 발의한 분야 리스트 조회", description = "국회의원의 가장 많이 발의한 분야 리스트 API")
-    public ResponseEntity<List<CommitteeResponse>> findMostCmitByAssemblyId(@PathVariable(name = ("assembly_id")) Long assemblyId) {
-
-        return ResponseEntity.status(HttpStatus.OK).body(assemblyService.findMostCommitteeByAssemblyId(assemblyId));
-    }
-
 }

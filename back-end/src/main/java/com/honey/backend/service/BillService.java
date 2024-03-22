@@ -3,12 +3,14 @@ package com.honey.backend.service;
 import com.honey.backend.domain.assembly.AssemblyRepository;
 import com.honey.backend.domain.bill.Bill;
 import com.honey.backend.domain.bill.BillRepository;
+import com.honey.backend.domain.committee.Committee;
 import com.honey.backend.domain.committee.CommitteeRepository;
 import com.honey.backend.domain.poly.PolyRepository;
 import com.honey.backend.request.BillRequest;
 import com.honey.backend.response.BillProgressResponse;
 import com.honey.backend.response.BillResponse;
 import com.honey.backend.response.BillStatResponse;
+import com.honey.backend.response.CommitteeResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -45,6 +47,9 @@ public class BillService {
     public BillStatResponse getBillStat(Long assemblyId, Long cmitId) {
         return billRepository.findBillStatByAssemblyIdAndCmitId(assemblyId, cmitId);
     }
+
+
+
 
     public BillResponse insertToBillResponse(Bill bill) {
 

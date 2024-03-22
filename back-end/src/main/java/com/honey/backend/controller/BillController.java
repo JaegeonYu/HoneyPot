@@ -1,10 +1,10 @@
 package com.honey.backend.controller;
 
 import com.honey.backend.request.BillRequest;
-import com.honey.backend.response.BillListResponse;
-import com.honey.backend.response.BillResponse;
-import com.honey.backend.response.BillStatResponse;
+import com.honey.backend.response.*;
+import com.honey.backend.service.AssemblyService;
 import com.honey.backend.service.BillService;
+import com.honey.backend.service.CommitteeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -23,15 +23,19 @@ import java.util.List;
 @RequestMapping("/bill")
 @Tag(name = "Bill Info", description = "Bill Info(의안 정보) API")
 public class BillController {
+    private final AssemblyService assemblyService;
     private final BillService billService;
+    private final CommitteeService committeeService;
 
     @GetMapping()
     @Operation(summary = "의안 리스트 조회", description = "이름 / 의안번호별 의안 리스트 정보 API")
     public ResponseEntity<BillListResponse> getBillList(@Valid BillRequest billRequest) {
 
-        List<BillResponse> billResponseList = billService.getBillList(null,billRequest);
+        List<BillResponse> billResponseList = billService.getBillList(null, billRequest);
         BillStatResponse billStatResponse = billService.getBillStat(null, billRequest.cmit());
-        BillListResponse billListResponse = new BillListResponse(billStatResponse, billResponseList);
+        List<CommitteeResponse> committeeResponse = committeeService.findMostCommittee();
+        List<MostCmitAssemblyResponse> mostCmitAssemblyResponseList = assemblyService.findMostAssembly();
+        BillListResponse billListResponse = new BillListResponse(billStatResponse, billResponseList, committeeResponse, mostCmitAssemblyResponseList);
         return billResponseList.isEmpty() ? ResponseEntity.status(HttpStatus.NO_CONTENT).body(billListResponse) : ResponseEntity.status(HttpStatus.OK).body(billListResponse);
     }
 

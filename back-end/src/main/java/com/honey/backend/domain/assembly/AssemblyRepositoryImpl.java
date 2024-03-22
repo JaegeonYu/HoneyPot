@@ -1,7 +1,6 @@
 package com.honey.backend.domain.assembly;
 
 import com.honey.backend.domain.bill.QBill;
-import com.honey.backend.domain.committee.QCommittee;
 import com.honey.backend.domain.poly.QPoly;
 import com.honey.backend.domain.region.dong.QDong;
 import com.honey.backend.domain.region.sido.QSido;
@@ -24,7 +23,7 @@ public class AssemblyRepositoryImpl implements AssemblyRepositoryCustom {
     QSigungu sigungu = QSigungu.sigungu;
     QSido sido = QSido.sido;
     QBill bill = QBill.bill;
-    QCommittee committee = QCommittee.committee;
+
 
     @Override
     public List<Assembly> findAll(String word, Long sidoId, Long sigunguId, Long dongId, Long polyId) {
@@ -46,6 +45,34 @@ public class AssemblyRepositoryImpl implements AssemblyRepositoryCustom {
                 .fetch().stream().distinct().collect(Collectors.toList());
 
         return assemblyList;
+
+    }
+
+    @Override
+    public List<Assembly> findMostAssemblyByPoly(Long polyId) {
+        return queryFactory
+                .select(assembly)
+                .from(assembly)
+                .innerJoin(bill).on(assembly.id.eq(bill.assembly.id))
+                .innerJoin(poly).on(poly.id.eq(assembly.poly.id))
+                .where(poly.id.eq(polyId))
+                .groupBy(assembly)
+                .orderBy(assembly.count().desc(), assembly.id.asc())
+                .limit(3)
+                .fetch();
+
+    }
+
+    @Override
+    public List<Assembly> findMostAssembly() {
+        return queryFactory
+                .select(assembly)
+                .from(assembly)
+                .innerJoin(bill).on(assembly.id.eq(bill.assembly.id))
+                .groupBy(assembly)
+                .orderBy(assembly.count().desc(), assembly.id.asc())
+                .limit(3)
+                .fetch();
 
     }
 
