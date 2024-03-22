@@ -23,6 +23,9 @@ import {
   AssemblyDetailChartsProps,
   AssemblyDetailTopBillCategoriesProps,
 } from './pages/assembly-detail';
+
+import { PartyDetailLayoutProps } from './pages/party-detail';
+
 /** pages */
 
 export type {
@@ -46,4 +49,5 @@ export type {
   AssemblyDetailCardProps,
   AssemblyDetailChartsProps,
   AssemblyDetailTopBillCategoriesProps,
+  PartyDetailLayoutProps,
 };
