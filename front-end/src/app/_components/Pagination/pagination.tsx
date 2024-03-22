@@ -10,25 +10,28 @@ interface PaginationProps {
 
 const Pagination: React.FC<PaginationProps> = ({ currentPage, onPageChange, totalItems }) => {
   const limit = 10;
-  const totalPages = Math.ceil(totalItems / limit) - 1;
-
+  const totalPages = Math.ceil(totalItems / limit);
+  //   console.log('now',currentPage)
+  //   console.log("ddd",totalPages)
   const handleFirstPage = () => {
-    onPageChange(1);
+    onPageChange(0);
   };
 
   const handleLastPage = () => {
-    onPageChange(totalPages);
+    onPageChange(totalPages - 1);
   };
 
   const handlePrevPage = () => {
-    if (currentPage > 1) {
-      onPageChange(currentPage - 1);
+    const prevPage = currentPage - 1;
+    if (prevPage >= 0) {
+      onPageChange(prevPage);
     }
   };
 
   const handleNextPage = () => {
-    if (currentPage < totalPages) {
-      onPageChange(currentPage + 1);
+    const nextPage = currentPage + 1;
+    if (nextPage < totalPages) {
+      onPageChange(nextPage);
     }
   };
 
@@ -40,11 +43,11 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, onPageChange, tota
     const pageNumbers: number[] = [];
     const groupSize = 5;
 
-    const groupIndex = Math.floor((currentPage - 1) / groupSize);
-    const startPage = groupIndex * groupSize + 1;
-    const endPage = Math.min(startPage + groupSize - 1, totalPages);
+    const groupIndex = Math.floor(currentPage / groupSize);
+    const startPage = groupIndex * groupSize;
+    const endPage = Math.min(startPage + groupSize, totalPages);
 
-    for (let i = startPage; i <= endPage; i++) {
+    for (let i = startPage; i < endPage; i++) {
       pageNumbers.push(i);
     }
 
@@ -53,10 +56,10 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, onPageChange, tota
 
   return (
     <div className={S.paginationContainer}>
-      <button className={S.paginationFirstLastButton} onClick={handleFirstPage} disabled={currentPage === 1}>
+      <button className={S.paginationFirstLastButton} onClick={handleFirstPage} disabled={currentPage === 0}>
         맨앞
       </button>
-      <button className={S.paginationPreviousNextButton} onClick={handlePrevPage} disabled={currentPage === 1}>
+      <button className={S.paginationPreviousNextButton} onClick={handlePrevPage} disabled={currentPage === 0}>
         이전
       </button>
       {generatePageNumbers().map(number => (
@@ -65,13 +68,21 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, onPageChange, tota
           className={currentPage === number ? S.paginationActiveButton : S.paginationButton}
           onClick={() => handlePageClick(number)}
         >
-          {number}
+          {number + 1}
         </button>
       ))}
-      <button className={S.paginationPreviousNextButton} onClick={handleNextPage} disabled={currentPage === totalPages}>
+      <button
+        className={S.paginationPreviousNextButton}
+        onClick={handleNextPage}
+        disabled={currentPage === totalPages - 1}
+      >
         다음
       </button>
-      <button className={S.paginationFirstLastButton} onClick={handleLastPage} disabled={currentPage === totalPages}>
+      <button
+        className={S.paginationFirstLastButton}
+        onClick={handleLastPage}
+        disabled={currentPage === totalPages - 1}
+      >
         맨뒤
       </button>
     </div>

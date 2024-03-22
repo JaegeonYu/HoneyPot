@@ -20,7 +20,7 @@ export default function SeongqTest() {
   const [page, setPage] = useState(0); // 페이지 상태 추가
   const [limit, setLimit] = useState(10); // 한 페이지에 보일 아이템 개수 상태 추가
 
-  const [scrollPosition, setScrollPosition] = useState<number>(0); // 스크롤 위치 상태 추가
+  const [scrollPosition, setScrollPosition] = useState<number>(); // 스크롤 위치 상태 추가
 
   const scrollToRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -96,7 +96,7 @@ export default function SeongqTest() {
 
           <Comp.Poster posterwidth="330px" posterheight="362px">
             <div className={S.textWrapper}>
-              <p className={S.fontTitle}>가장 많이 발의한 분야</p>
+              <p className={S.fontTitle}>가장 많이 발의된 분야</p>
               <p className={S.fontContent}></p>
             </div>
 
@@ -109,7 +109,7 @@ export default function SeongqTest() {
                 padding: '0px 8px',
               }}
             >
-              {ddata.mostcategory.map((category, i) => (
+              {billResponse.data.committeeResponse.map((res: any, i: number) => (
                 <div
                   key={`category-${i}`}
                   style={{
@@ -120,7 +120,7 @@ export default function SeongqTest() {
                   }}
                 >
                   <Category
-                    categoryId={category}
+                    categoryId={Number(res.cmitId)}
                     dynamicColorMode={false}
                     iconWidth="24px"
                     iconHeight="28px"
@@ -131,12 +131,12 @@ export default function SeongqTest() {
             </div>
 
             <div className={S.textWrapper}>
-              <p className={S.fontTitle}>가장 많이 발의한 의원 </p>
+              <p className={S.fontTitle}>분야 가장 많이 발의한 의원 </p>
             </div>
             <div className={S.textWrapper}>
-              <p className={S.fontContent}>{ddata.mostlaw[0]}</p>
-              <p className={S.fontContent}>{ddata.mostlaw[1]}</p>
-              <p className={S.fontContent}>{ddata.mostlaw[2]}</p>
+              <p className={S.fontContent}>{billResponse.data.mostCmitAssemblyResponseList[0].hgName}</p>
+              <p className={S.fontContent}>{billResponse.data.mostCmitAssemblyResponseList[1].hgName}</p>
+              <p className={S.fontContent}>{billResponse.data.mostCmitAssemblyResponseList[2].hgName}</p>
             </div>
           </Comp.Poster>
         </div>
