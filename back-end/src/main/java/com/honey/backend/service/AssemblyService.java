@@ -2,8 +2,11 @@ package com.honey.backend.service;
 
 import com.honey.backend.domain.assembly.Assembly;
 import com.honey.backend.domain.assembly.AssemblyRepository;
+
 import com.honey.backend.domain.committee.Committee;
+
 import com.honey.backend.domain.committee.CommitteeRepository;
+import com.honey.backend.domain.poly.Poly;
 import com.honey.backend.domain.poly.PolyRepository;
 import com.honey.backend.domain.region.sido.SidoRepository;
 import com.honey.backend.domain.sns.Sns;
@@ -60,6 +63,17 @@ public class AssemblyService {
         return insertToResponse(assembly);
     }
 
+    public List<MostCmitAssemblyResponse> findMostAssembly() {
+        List<Assembly> assemblyList = assemblyRepository.findMostAssembly();
+
+        List<MostCmitAssemblyResponse> mostCmitAssemblyResponseList = new ArrayList<>();
+        for (Assembly assembly : assemblyList) {
+            Poly poly = polyRepository.findByAssemblyId(assembly.getId());
+            mostCmitAssemblyResponseList.add(new MostCmitAssemblyResponse(
+                    assembly.getId(), assembly.getHgName(), poly.getId(), poly.getPolyName()));
+        }
+        return mostCmitAssemblyResponseList;
+    }
 
     public List<Assembly> getPaginatedAssemblies(int page, int size, List<Assembly> assemblyList) {
         int totalSize = assemblyList.size();
@@ -70,25 +84,6 @@ public class AssemblyService {
             return new ArrayList<>();
         }
         return assemblyList.subList(startIndex, endIndex);
-    }
-
-    public List<CommitteeResponse> findMostCommitteeByAssemblyId(Long assemblyId) {
-        List<Committee> committeeList = committeeRepository.findMostCommitteeByAssemblyId(assemblyId);
-        List<CommitteeResponse> committeeResponseList = new ArrayList<>();
-        for (Committee committee : committeeList) {
-            committeeResponseList.add(new CommitteeResponse(
-                    committee.getId(),
-                    committee.getCmitCode(),
-                    committee.getCmitName().substring(0, committee.getCmitName().length() - 3)
-            ));
-        }
-        return committeeResponseList;
-    }
-
-    public SnsResponse findSnsByAssemblyId(Long assemblyId) {
-        Sns sns = snsRepository.findByAssemblyId(assemblyId).orElseThrow();
-
-        return new SnsResponse(sns.getId(), assemblyId, sns.getFacebookUrl(), sns.getTwitterUrl(), sns.getYoutubeUrl(), sns.getBlogUrl());
     }
 
 
@@ -108,7 +103,8 @@ public class AssemblyService {
     }
 
     public AssemblyResponse insertToResponse(Assembly assembly) {
-
+        Sns sns = snsRepository.findByAssemblyId(assembly.getId()).orElseThrow();
+        ;
         return new AssemblyResponse(
                 assembly.getId(),
                 assembly.getAssemblyImgUrl(),
@@ -125,8 +121,12 @@ public class AssemblyService {
                 assembly.getMemTitle(),
                 assembly.getEmail(),
                 assembly.getPlenaryAttendance(),
-                assembly.getStandingAttendance());
+                assembly.getStandingAttendance(),
+                new SnsResponse(sns.getId(), sns.getFacebookUrl(), sns.getTwitterUrl(), sns.getYoutubeUrl(), sns.getBlogUrl())
+        );
+
     }
+
 
     public boolean polySearch() {
         return true;

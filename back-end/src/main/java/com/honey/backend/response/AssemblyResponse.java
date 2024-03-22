@@ -19,6 +19,7 @@ public record AssemblyResponse(
         String memTitle,
         String email,
         int plenaryAttendance,
-        int standingAttendance
+        int standingAttendance,
+        SnsResponse snsResponse
 ) {
 }
