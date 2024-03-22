@@ -1,18 +1,17 @@
 package com.honey.backend.load.poly;
 
-import com.honey.backend.domain.poly.Poly;
-import com.honey.backend.domain.poly.PolyRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.honey.backend.load.assembly.AssemblyImgResponse;
+import com.honey.backend.domain.poly.Poly;
+import com.honey.backend.domain.poly.PolyRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;

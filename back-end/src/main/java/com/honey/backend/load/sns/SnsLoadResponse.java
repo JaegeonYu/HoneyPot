@@ -1,7 +1,5 @@
 package com.honey.backend.load.sns;
 
-import com.honey.backend.domain.assembly.Assembly;
-
 public record SnsLoadResponse(
         String HG_NM,
         String F_URL,

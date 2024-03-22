@@ -11,4 +11,5 @@ public record CommitteeLoadResponse(
         String CURR_CNT,
         String POLY99_CNT,
         String POLY_CNT
-) {}
+) {
+}

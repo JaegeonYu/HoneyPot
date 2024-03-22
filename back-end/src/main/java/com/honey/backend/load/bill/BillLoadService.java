@@ -89,7 +89,7 @@ public class BillLoadService {
 
             }
 
-            logger.info("Bill Saving : " + String.format("%.2f", count++ / (size / 100)) + "% " + "\r");
+            System.out.print("Bill Saving : " + String.format("%.2f", count++ / (size / 100)) + "% " + "\r");
         }
         if (!billsToSave.isEmpty()) {
             billRepository.saveAll(billsToSave);
@@ -109,7 +109,7 @@ public class BillLoadService {
             if (bills == null) continue;
             for (Bill bill : bills) {
 
-                logger.info("Bill Body Update : " + String.format("%.2f", count++ / (size / 100)) + "% " + "\r");
+                System.out.print("Bill Body Update : " + String.format("%.2f", count++ / (size / 100)) + "% " + "\r");
                 billRepository.updateTextBodyByBillNo(
                         billTextBodyResponse.summary(),
                         bill.getBillNo()
@@ -117,7 +117,6 @@ public class BillLoadService {
 
             }
         }
-
         logger.info("Bill Body Update  : COMPLETE");
 
     }
@@ -149,6 +148,7 @@ public class BillLoadService {
                 ObjectMapper mapper = new ObjectMapper();
                 float size = (float) totalLength;
                 totalCount = (totalLength / limit) + 1;
+                totalCount =10;
                 for (int j = 0; j < list.length(); j++) {
                     JSONObject item = ((JSONObject) list.get(j));
                     BillLoadResponse billLoadResponse = mapper.readValue(item.toString(), BillLoadResponse.class);
@@ -201,6 +201,7 @@ public class BillLoadService {
                 Items items = apiResponse.getBody().getItems();
                 int totalLength = apiResponse.getBody().getTotalCount();
                 totalCount = (totalLength / limit) + 1;
+                totalCount= 10;
                 float size = (float) totalLength;
                 for (Item item : items.getItem()) {
                     System.out.print("Bill Body Api Call : " + String.format("%.2f", a++ / (size / 100)) + "% " + "\r");

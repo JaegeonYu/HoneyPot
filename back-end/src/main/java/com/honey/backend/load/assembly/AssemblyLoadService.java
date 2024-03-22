@@ -72,7 +72,7 @@ public class AssemblyLoadService {
 
             for (int i = 1; i < 3; i++) {
                 infoResponseList = getAssemblyInfoList(i);
-                float size = infoResponseList.size();
+                float size = 300;
 
                 for (AssemblyInfoResponse infoResponse : infoResponseList) {
                     System.out.print("Assembly Info Load : " + String.format("%.2f", a++ / (size / 100)) + "% " + "\r");

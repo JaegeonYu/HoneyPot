@@ -27,4 +27,5 @@ public record BillLoadResponse(
         String RST_MONA_CD,
         String PROC_RESULT_CD,
         String PROC_DT
-) {}
+) {
+}
