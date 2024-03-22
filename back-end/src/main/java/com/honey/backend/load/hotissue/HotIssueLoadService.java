@@ -11,6 +11,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
@@ -32,6 +33,9 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 public class HotIssueLoadService {
     private final HotIssuerRepository hotIssuerRepository;
     private final Logger logger = LoggerFactory.getLogger("hotIssueLogger");
+
+    @Value("PYTHON_URL")
+    private String PYTHON_URL;
 
     public String getCrolling(String url) throws IOException {
         Document doc = Jsoup.connect(url).get();
@@ -88,7 +92,7 @@ public class HotIssueLoadService {
         RestClient restClient = RestClient.create();
         SummaryDto summaryDto = new SummaryDto(hotIssue.getOriginal());
         SummaryResponseDto summaryResponse = restClient.post()
-                .uri("http://:8000/summary/issue")
+                .uri(PYTHON_URL+"/issue")
                 .contentType(APPLICATION_JSON)
                 .body(summaryDto)
                 .retrieve().toEntity(SummaryResponseDto.class).getBody();
