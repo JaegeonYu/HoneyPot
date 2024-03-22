@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as S from './Bill.css';
 import * as T from '@/types';
 import * as Comp from '@/components';
@@ -48,6 +48,12 @@ export default function Bill({
   const [status, setStatus] = useState(billProgressResponse);
   const [dateList, setDateList] = useState([proposeDt, cmitProcDt, lawProcDt, procDt]);
 
+  useEffect(() => {
+    // 데이터가 변경되면 isActive 상태를 false로 초기화
+    setIsActive(false);
+    setIsToggled(false);
+  }, [assemblyId, billId, billNo]);
+
   const toggleAccordion = () => {
     console.log(isActive, 'isActive');
     setIsActive(!isActive);
@@ -57,6 +63,11 @@ export default function Bill({
     console.log(isToggled, 'Toggles');
     event.stopPropagation();
     setIsToggled(!isToggled);
+  };
+
+  const linkButton = (event: React.MouseEvent) => {
+    window.open(`${detailLink}`, '_blank', 'noopener, noreferrer');
+    event.stopPropagation();
   };
 
   return (
@@ -121,7 +132,7 @@ export default function Bill({
               </div>
             </div>
           </div>
-          <div className={S.billCardContentsHeaderLink}>
+          <div className={S.billCardContentsHeaderLink} onClick={linkButton}>
             <p className={S.fontContent}>원문확인</p>
             <LinkTo></LinkTo>
           </div>

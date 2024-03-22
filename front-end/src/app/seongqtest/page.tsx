@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, Suspense } from 'react';
+import React, { useState, useEffect, Suspense, useRef } from 'react';
 import * as Comp from '@/components';
 import * as S from './style.css';
 import * as T from '@/types';
@@ -10,24 +10,46 @@ import { CATEGORY_LIST } from '@/_constants';
 import { PALETTE } from '@/_constants';
 import { Category } from '@/components';
 import { useSuspenseQuery } from '@tanstack/react-query';
+import Pagination from '@/_components/Pagination/pagination';
+import BillLoading from './loading';
 // import { fontName } from '@/_components/Bill/Bill.css';
 
 export default function SeongqTest() {
   const [isSelectedIdx, setIsSelectedIdx] = useState(0);
   const [mounted, setMounted] = useState<boolean>(false);
+  const [page, setPage] = useState(0); // 페이지 상태 추가
+  const [limit, setLimit] = useState(10); // 한 페이지에 보일 아이템 개수 상태 추가
 
+  const [scrollPosition, setScrollPosition] = useState<number>(0); // 스크롤 위치 상태 추가
+
+  const scrollToRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     setMounted(true);
   }, []);
+  useEffect(() => {
+    // 스크롤 위치 변경 시 특정 위치로 이동
+    if (scrollToRef.current) {
+      scrollToRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [page]);
+
+  console.log(page, 'page');
 
   const { data: billResponse, isFetched: billFetched } = useSuspenseQuery({
-    queryKey: [{ bill: `info-request-bill-list` }],
-    queryFn: () => API.getBillInfo({ cmit: 0, page: 1, limit: 10, word: '' }),
+    queryKey: [{ bill: `info-request-bill-list` }, { page, limit }], // 쿼리 키에 page와 limit 추가
+    queryFn: () => API.getBillInfo({ cmit: 0, page, limit, word: '' }), // API 호출 시 동적으로 page와 limit 전달
     retry: false,
   });
 
   const handleIsSelectedIdx = (idx: number) => {
     setIsSelectedIdx(idx);
+  };
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+  };
+
+  const handleLimitChange = (newLimit: number) => {
+    setLimit(newLimit);
   };
 
   console.log(billResponse.data, 'INFO');
@@ -47,13 +69,6 @@ export default function SeongqTest() {
   return (
     mounted && (
       <>
-        {/* <Comp.Tab
-          tabTitleList={['전체 의안', '주목을 받았던 의안']}
-          tabChildrenList={[<div>ffdfd</div>, <div>fdfdfd</div>, <div></div>]}
-        >
-          <Comp.SearchInput inputId="12" onChange={() => {}} value="" placeholder="hello world"></Comp.SearchInput>
-        </Comp.Tab> */}
-
         <div className={S.postWrapper}>
           <Comp.Poster posterwidth="330px" posterheight="100%">
             <div style={{ width: '80%' }}>
@@ -125,26 +140,36 @@ export default function SeongqTest() {
             </div>
           </Comp.Poster>
         </div>
-
-        <div className={S.headWrapper}>
+        <div className={S.headWrapper} ref={scrollToRef}>
           <p className={S.fontHead}>발의한 국회운영 의안</p>
           <p className={S.fontSub}>{billResponse.data.billStatResponse.totalCount}개의 검색결과</p>
         </div>
         <div style={{ paddingTop: 4, backgroundColor: `${PALETTE.service.HOVER_BACKGROUND}` }}>
           <Comp.CategoryList />
         </div>
-        {/* <Comp.Bill {...bill}></Comp.Bill> */}
         <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '12px', padding: 16 }}>
           {billResponse.data.billResponse.map((res: T.BillProps, index: number) => (
-            // console.log(res, '======='),
             <Comp.Bill key={index} {...res} />
           ))}
         </div>
 
-        {/* <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '12px', padding: 16 }}>
-          <Comp.Bill {...billResponse.data.billResponse} />
-        </div> */}
+        <Pagination
+          currentPage={page}
+          onPageChange={handlePageChange}
+          // limit={limit}
+          // onLimitChange={handleLimitChange}
+          totalItems={billResponse.data.billStatResponse.totalCount}
+        ></Pagination>
       </>
     )
   );
 }
+
+// <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '12px', padding: 16 }}>
+// {/* 로딩 중이면 스켈레톤을 보여줌 */}
+// {billFetched
+//   ? billResponse.data.billResponse.map((res: T.BillProps, index: number) => (
+//       <Comp.Bill key={index} {...res} />
+//     ))
+//   : Array.from({ length: 10 }, (_, index) => <BillLoading width="100%" height="30" key={index} />)}
+// </div>

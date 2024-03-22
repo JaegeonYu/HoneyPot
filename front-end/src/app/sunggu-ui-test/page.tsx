@@ -4,10 +4,11 @@ import React, { Suspense } from 'react';
 import * as Comp from '@/components';
 import SeongqTest from '@/seongqtest/page';
 import HotBill from '@/_components/HotBill/HotBIll';
+import BillLoading from '@/seongqtest/loading';
 
 export default function SungguUiTest() {
   return (
-    <Suspense fallback={<div>loading</div>}>
+    <Suspense fallback={<BillLoading width="350px" height="43px"></BillLoading>}>
       <Comp.Tab
         tabTitleList={['전체 의안', '주목을 받았던 의안']}
         tabChildrenList={[
@@ -15,7 +16,7 @@ export default function SungguUiTest() {
           <Comp.HotBillPageTest key={`bill-list-${1}`}></Comp.HotBillPageTest>,
         ]}
       >
-        <Comp.SearchInput inputId="12" onChange={() => {}} value="" placeholder="hello world"></Comp.SearchInput>
+        {/* <Comp.SearchInput inputId="12" onChange={() => {}} value="" placeholder="hello world"></Comp.SearchInput> */}
       </Comp.Tab>
     </Suspense>
   );
