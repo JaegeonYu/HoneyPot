@@ -1,7 +1,13 @@
 package com.honey.backend.service;
 
+import com.honey.backend.domain.assembly.Assembly;
+import com.honey.backend.domain.assembly.AssemblyRepository;
+import com.honey.backend.domain.committee.Committee;
+import com.honey.backend.domain.committee.CommitteeRepository;
 import com.honey.backend.domain.poly.Poly;
 import com.honey.backend.domain.poly.PolyRepository;
+import com.honey.backend.response.CommitteeResponse;
+import com.honey.backend.response.MostCmitAssemblyResponse;
 import com.honey.backend.response.PolyResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,6 +20,8 @@ import java.util.List;
 public class PolyService {
 
     private final PolyRepository polyRepository;
+    private final AssemblyRepository assemblyRepository;
+    private final CommitteeRepository committeeRepository;
 
     public List<PolyResponse> findAll() {
         List<Poly> polyList = polyRepository.findAll();
@@ -41,6 +49,18 @@ public class PolyService {
                 poly.getLeader()
         );
 
+    }
+
+    public List<MostCmitAssemblyResponse> findMostAssemblyByPoly(Long cmitId, Long polyId) {
+        List<Assembly> assemblyList = assemblyRepository.findMostAssemblyByPoly(cmitId, polyId);
+
+        List<MostCmitAssemblyResponse> mostCmitAssemblyResponseList = new ArrayList<>();
+        for (Assembly assembly : assemblyList) {
+            Poly poly = polyRepository.findByAssemblyId(assembly.getId());
+            mostCmitAssemblyResponseList.add(new MostCmitAssemblyResponse(
+                    assembly.getId(), assembly.getHgName(), poly.getId(), poly.getPolyName()));
+        }
+        return mostCmitAssemblyResponseList;
     }
 
 }

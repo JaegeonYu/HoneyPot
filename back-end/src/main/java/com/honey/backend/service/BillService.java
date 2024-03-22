@@ -29,7 +29,7 @@ public class BillService {
         return insertToBillResponse(billRepository.findById(billId).orElseThrow());
     }
 
-    public List<BillResponse> getBillList(Long assemblyId, BillRequest billRequest) {
+    public List<BillResponse> getBillListAssembly(Long assemblyId, BillRequest billRequest) {
         int page = billRequest.page();
         int limit = billRequest.limit();
         String word = billRequest.word();
@@ -42,10 +42,26 @@ public class BillService {
         return billResponseList;
     }
 
-    public BillStatResponse getBillStat(Long assemblyId, Long cmitId) {
+    public BillStatResponse getBillStatAssembly(Long assemblyId, Long cmitId) {
         return billRepository.findBillStatByAssemblyIdAndCmitId(assemblyId, cmitId);
     }
 
+    public List<BillResponse> getBillListPoly(Long polyId, BillRequest billRequest) {
+        int page = billRequest.page();
+        int limit = billRequest.limit();
+        String word = billRequest.word();
+        Long cmitId = billRequest.cmit();
+        List<Bill> billList = billRepository.findAllByPolyIdAndCmitId(PageRequest.of(page, limit), word, cmitId, polyId).getContent();
+        List<BillResponse> billResponseList = new ArrayList<>();
+        for (Bill bill : billList) {
+            billResponseList.add(insertToBillResponse(bill));
+        }
+        return billResponseList;
+    }
+
+    public BillStatResponse getBillStatPoly(Long polyId, Long cmitId) {
+        return billRepository.findBillStatByPolyIdAndCmitId(polyId, cmitId);
+    }
 
     public BillResponse insertToBillResponse(Bill bill) {
 
@@ -75,10 +91,15 @@ public class BillService {
     }
 
 
-    public int getCount(BillRequest billRequest) {
+    public int getCountAssembly(BillRequest billRequest, Long assemblyId) {
 
         return billRepository.countByAssemblyIdAndCmitId(
-                billRequest.word(), billRequest.cmit(), null).intValue();
+                billRequest.word(), billRequest.cmit(), assemblyId).intValue();
+    }
+    public int getCountPoly(BillRequest billRequest, Long polyId) {
+
+        return billRepository.countByPolyIdAndCmitId(
+                billRequest.word(), billRequest.cmit(), polyId).intValue();
     }
 
     private BillProgressResponse setStatus(Bill bill) {

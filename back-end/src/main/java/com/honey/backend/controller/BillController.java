@@ -31,11 +31,11 @@ public class BillController {
     @Operation(summary = "의안 리스트 조회", description = "이름 / 의안번호별 의안 리스트 정보 API")
     public ResponseEntity<BillListResponse> getBillList(@Valid BillRequest billRequest) {
 
-        List<BillResponse> billResponseList = billService.getBillList(null, billRequest);
-        BillStatResponse billStatResponse = billService.getBillStat(null, billRequest.cmit());
+        List<BillResponse> billResponseList = billService.getBillListAssembly(null, billRequest);
+        BillStatResponse billStatResponse = billService.getBillStatAssembly(null, billRequest.cmit());
         List<CommitteeResponse> committeeResponse = committeeService.findMostCommittee();
         List<MostCmitAssemblyResponse> mostCmitAssemblyResponseList = assemblyService.findMostAssembly(billRequest.cmit());
-        int searchCount = billService.getCount(billRequest);
+        int searchCount = billService.getCountAssembly(billRequest, null);
         BillListResponse billListResponse = new BillListResponse(billStatResponse, searchCount, committeeResponse, mostCmitAssemblyResponseList, billResponseList);
         return billResponseList.isEmpty() ? ResponseEntity.status(HttpStatus.NO_CONTENT).body(billListResponse) : ResponseEntity.status(HttpStatus.OK).body(billListResponse);
     }

@@ -46,10 +46,10 @@ public class AssemblyController {
     @GetMapping("/{assembly_id}/bill")
     @Operation(summary = "국회의원의 발의안 리스트 조회", description = "국회의원의 발의안 리스트 API")
     public ResponseEntity<BillListResponse> findAllBillByAssemblyId(@PathVariable(name = "assembly_id") Long assemblyId, @Valid BillRequest billRequest) {
-        List<BillResponse> billResponseList = billService.getBillList(assemblyId, billRequest);
-        BillStatResponse billStatResponse = billService.getBillStat(assemblyId, billRequest.cmit());
+        List<BillResponse> billResponseList = billService.getBillListAssembly(assemblyId, billRequest);
+        BillStatResponse billStatResponse = billService.getBillStatAssembly(assemblyId, billRequest.cmit());
         List<CommitteeResponse> committeeResponseList = committeeService.findMostCommitteeByAssemblyId(assemblyId);
-        int searchCount = billService.getCount(billRequest);
+        int searchCount = billService.getCountAssembly(billRequest, assemblyId);
         BillListResponse billListResponse = new BillListResponse(billStatResponse, searchCount, committeeResponseList, null, billResponseList);
         return billResponseList.isEmpty() ? ResponseEntity.status(HttpStatus.NO_CONTENT).build() : ResponseEntity.status(HttpStatus.OK).body(billListResponse);
     }

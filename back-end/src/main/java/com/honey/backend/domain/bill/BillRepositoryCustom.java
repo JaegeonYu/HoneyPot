@@ -17,4 +17,10 @@ public interface BillRepositoryCustom {
     BillStatResponse findBillStatByAssemblyIdAndCmitId(Long assemblyId, Long cmitId);
 
     Long countByAssemblyIdAndCmitId(String word, Long cmitId, Long assemblyId);
+
+    Page<Bill> findAllByPolyIdAndCmitId(Pageable pageable, String word, Long cmitId, Long polyId);
+
+    BillStatResponse findBillStatByPolyIdAndCmitId(Long polyId, Long cmitId);
+
+    Long countByPolyIdAndCmitId(String word, Long cmitId, Long polyId);
 }
