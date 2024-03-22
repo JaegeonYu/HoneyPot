@@ -34,8 +34,9 @@ public class BillController {
         List<BillResponse> billResponseList = billService.getBillList(null, billRequest);
         BillStatResponse billStatResponse = billService.getBillStat(null, billRequest.cmit());
         List<CommitteeResponse> committeeResponse = committeeService.findMostCommittee();
-        List<MostCmitAssemblyResponse> mostCmitAssemblyResponseList = assemblyService.findMostAssembly();
-        BillListResponse billListResponse = new BillListResponse(billStatResponse, billResponseList, committeeResponse, mostCmitAssemblyResponseList);
+        List<MostCmitAssemblyResponse> mostCmitAssemblyResponseList = assemblyService.findMostAssembly(billRequest.cmit());
+        int searchCount = billService.getCount(billRequest);
+        BillListResponse billListResponse = new BillListResponse(billStatResponse, searchCount, committeeResponse, mostCmitAssemblyResponseList, billResponseList);
         return billResponseList.isEmpty() ? ResponseEntity.status(HttpStatus.NO_CONTENT).body(billListResponse) : ResponseEntity.status(HttpStatus.OK).body(billListResponse);
     }
 

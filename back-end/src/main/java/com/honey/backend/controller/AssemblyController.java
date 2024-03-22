@@ -39,6 +39,7 @@ public class AssemblyController {
     @GetMapping("/{assembly_id}")
     @Operation(summary = "국회의원 상세 조회", description = "국회의원 상세 API")
     public ResponseEntity<AssemblyResponse> findById(@PathVariable(name = "assembly_id") Long assemblyId) {
+
         return ResponseEntity.status(HttpStatus.OK).body(assemblyService.findById(assemblyId));
     }
 
@@ -48,7 +49,23 @@ public class AssemblyController {
         List<BillResponse> billResponseList = billService.getBillList(assemblyId, billRequest);
         BillStatResponse billStatResponse = billService.getBillStat(assemblyId, billRequest.cmit());
         List<CommitteeResponse> committeeResponseList = committeeService.findMostCommitteeByAssemblyId(assemblyId);
-        BillListResponse billListResponse = new BillListResponse(billStatResponse, billResponseList, committeeResponseList, null);
+        int searchCount = billService.getCount(billRequest);
+        BillListResponse billListResponse = new BillListResponse(billStatResponse, searchCount, committeeResponseList, null, billResponseList);
         return billResponseList.isEmpty() ? ResponseEntity.status(HttpStatus.NO_CONTENT).build() : ResponseEntity.status(HttpStatus.OK).body(billListResponse);
     }
+
+    @GetMapping("/{assembly_id}/sns")
+    @Operation(summary = "국회의원의 SNS 정보 조회", description = "국회의원의 SNS API")
+    public ResponseEntity<SnsResponse> findByAssemblyId(@PathVariable(name = "assembly_id") Long assemblyId) {
+
+        return ResponseEntity.status(HttpStatus.OK).body(assemblyService.findSnsByAssemblyId(assemblyId));
+    }
+
+    @GetMapping("/{assembly_id}/most")
+    @Operation(summary = "국회의원의 가장 많이 발의한 분야 리스트 조회", description = "국회의원의 가장 많이 발의한 분야 리스트 API")
+    public ResponseEntity<List<CommitteeResponse>> findMostCmitByAssemblyId(@PathVariable(name = ("assembly_id")) Long assemblyId) {
+
+        return ResponseEntity.status(HttpStatus.OK).body(assemblyService.findMostCommitteeByAssemblyId(assemblyId));
+    }
+
 }

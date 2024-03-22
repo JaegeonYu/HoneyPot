@@ -2,9 +2,7 @@ package com.honey.backend.service;
 
 import com.honey.backend.domain.assembly.Assembly;
 import com.honey.backend.domain.assembly.AssemblyRepository;
-
 import com.honey.backend.domain.committee.Committee;
-
 import com.honey.backend.domain.committee.CommitteeRepository;
 import com.honey.backend.domain.poly.Poly;
 import com.honey.backend.domain.poly.PolyRepository;
@@ -63,8 +61,8 @@ public class AssemblyService {
         return insertToResponse(assembly);
     }
 
-    public List<MostCmitAssemblyResponse> findMostAssembly() {
-        List<Assembly> assemblyList = assemblyRepository.findMostAssembly();
+    public List<MostCmitAssemblyResponse> findMostAssembly(Long cmitId) {
+        List<Assembly> assemblyList = assemblyRepository.findMostAssembly(cmitId);
 
         List<MostCmitAssemblyResponse> mostCmitAssemblyResponseList = new ArrayList<>();
         for (Assembly assembly : assemblyList) {
@@ -86,7 +84,6 @@ public class AssemblyService {
         return assemblyList.subList(startIndex, endIndex);
     }
 
-
     public AssemblyListResponse insertToListResponse(List<Assembly> assemblyList, int totalCount) {
         List<AssemblyCardResponse> assemblyCardResponseList = new ArrayList<>();
         for (Assembly assembly : assemblyList) {
@@ -102,8 +99,23 @@ public class AssemblyService {
         return new AssemblyListResponse(assemblyCardResponseList, totalCount);
     }
 
+    public SnsResponse findSnsByAssemblyId(Long assemblyId) {
+        Sns sns = snsRepository.findByAssemblyId(assemblyId).orElseThrow();
+        return new SnsResponse(sns.getId(), sns.getFacebookUrl(), sns.getTwitterUrl(), sns.getYoutubeUrl(), sns.getBlogUrl());
+    }
+
+    public List<CommitteeResponse> findMostCommitteeByAssemblyId(Long assemblyId) {
+        List<Committee> committeeList = committeeRepository.findMostCommitteeByAssemblyId(assemblyId);
+        List<CommitteeResponse> committeeResponseList = new ArrayList<>();
+        for (Committee committee : committeeList) {
+            committeeResponseList.add(new CommitteeResponse(committee.getId(), committee.getCmitCode(), committee.getCmitName()));
+        }
+        return committeeResponseList;
+    }
+
+
     public AssemblyResponse insertToResponse(Assembly assembly) {
-        Sns sns = snsRepository.findByAssemblyId(assembly.getId()).orElseThrow();
+
         ;
         return new AssemblyResponse(
                 assembly.getId(),
@@ -121,8 +133,7 @@ public class AssemblyService {
                 assembly.getMemTitle(),
                 assembly.getEmail(),
                 assembly.getPlenaryAttendance(),
-                assembly.getStandingAttendance(),
-                new SnsResponse(sns.getId(), sns.getFacebookUrl(), sns.getTwitterUrl(), sns.getYoutubeUrl(), sns.getBlogUrl())
+                assembly.getStandingAttendance()
         );
 
     }

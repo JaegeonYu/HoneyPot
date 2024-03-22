@@ -5,8 +5,9 @@ import java.util.List;
 public record BillListResponse(
 
         BillStatResponse billStatResponse,
-        List<BillResponse> billResponse,
+        int searchCount,
         List<CommitteeResponse> committeeResponse,
-        List<MostCmitAssemblyResponse> mostCmitAssemblyResponseList
+        List<MostCmitAssemblyResponse> mostCmitAssemblyResponseList,
+        List<BillResponse> billResponse
 ) {
 }

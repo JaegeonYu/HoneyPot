@@ -30,7 +30,7 @@ public class BillRepositoryImpl implements BillRepositoryCustom {
                 .from(bill)
                 .leftJoin(assembly).on(bill.assembly.id.eq(assembly.id))
                 .leftJoin(committee).on(bill.committee.id.eq(committee.id))
-                .where(assemblyId != null ? bill.assembly.id.eq(assemblyId): null,
+                .where(assemblyId != null ? bill.assembly.id.eq(assemblyId) : null,
                         cmitId != 0 ? committee.id.eq(cmitId) : null,
                         word != null ? bill.billName.like("%" + word + "%") : null)
                 .orderBy(bill.billNo.desc())
@@ -52,7 +52,7 @@ public class BillRepositoryImpl implements BillRepositoryCustom {
                 .from(bill)
                 .leftJoin(assembly).on(assembly.id.eq(bill.assembly.id))
                 .leftJoin(committee).on(committee.id.eq(bill.committee.id))
-                .where(assemblyCondition, committeeCondition,(procResultAlias.like("%가결")))
+                .where(assemblyCondition, committeeCondition, (procResultAlias.like("%가결")))
                 .fetchOne();
 
 
@@ -61,7 +61,7 @@ public class BillRepositoryImpl implements BillRepositoryCustom {
                 .from(bill)
                 .leftJoin(assembly).on(assembly.id.eq(bill.assembly.id))
                 .leftJoin(committee).on(committee.id.eq(bill.committee.id))
-                .where(assemblyCondition, committeeCondition,(procResultAlias.like("부결")))
+                .where(assemblyCondition, committeeCondition, (procResultAlias.like("부결")))
                 .fetchOne();
 
         Long countOfDisposedOrWithdrawn = queryFactory
@@ -71,7 +71,7 @@ public class BillRepositoryImpl implements BillRepositoryCustom {
                 .leftJoin(committee).on(committee.id.eq(bill.committee.id))
                 .where(assemblyCondition, committeeCondition,
                         ((procResultAlias.like("%폐기").and(procResultAlias.notLike("%" + "반영" + "%")))
-                        .or(procResultAlias.like("%철회"))))
+                                .or(procResultAlias.like("%철회"))))
                 .fetchOne();
 
         Long countOfInProgress = queryFactory
@@ -79,7 +79,7 @@ public class BillRepositoryImpl implements BillRepositoryCustom {
                 .from(bill)
                 .leftJoin(assembly).on(assembly.id.eq(bill.assembly.id))
                 .leftJoin(committee).on(committee.id.eq(bill.committee.id))
-                .where(assemblyCondition, committeeCondition,(procResultAlias.isNull()))
+                .where(assemblyCondition, committeeCondition, (procResultAlias.isNull()))
                 .fetchOne();
 
 
@@ -88,7 +88,7 @@ public class BillRepositoryImpl implements BillRepositoryCustom {
                 .from(bill)
                 .leftJoin(assembly).on(assembly.id.eq(bill.assembly.id))
                 .leftJoin(committee).on(committee.id.eq(bill.committee.id))
-                .where(assemblyCondition, committeeCondition,(procResultAlias.like("%" + "반영" + "%")))
+                .where(assemblyCondition, committeeCondition, (procResultAlias.like("%" + "반영" + "%")))
                 .fetchOne();
 
 
@@ -108,6 +108,21 @@ public class BillRepositoryImpl implements BillRepositoryCustom {
         int total = countOfTotalCount == null ? 0 : countOfTotalCount.intValue();
 
         return new BillStatResponse(approved, rejected, disposedOrWithdrawn, inProgress, alternativeIncorporated, total);
+    }
+
+    @Override
+    public Long countByAssemblyIdAndCmitId(String word, Long cmitId, Long assemblyId) {
+        return queryFactory
+                .select(bill.count())
+                .from(bill)
+                .leftJoin(assembly).on(bill.assembly.id.eq(assembly.id))
+                .leftJoin(committee).on(bill.committee.id.eq(committee.id))
+                .where(assemblyId != null ? bill.assembly.id.eq(assemblyId) : null,
+                        cmitId != 0 ? committee.id.eq(cmitId) : null,
+                        word != null ? bill.billName.like("%" + word + "%") : null)
+                .orderBy(bill.billNo.desc())
+                .fetchOne();
+
     }
 
 }

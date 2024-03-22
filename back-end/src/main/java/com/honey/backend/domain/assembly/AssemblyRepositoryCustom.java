@@ -12,7 +12,7 @@ public interface AssemblyRepositoryCustom {
 
     List<Assembly> findAllByNonRegion(String word, Long sidoId, Long sigunguId, Long dongId, Long polyId);
 
-    List<Assembly> findMostAssemblyByPoly(Long polyId);
+    List<Assembly> findMostAssemblyByPoly(Long polyId, Long cmitId);
 
-    List<Assembly> findMostAssembly();
+    List<Assembly> findMostAssembly(Long cmitId);
 }
