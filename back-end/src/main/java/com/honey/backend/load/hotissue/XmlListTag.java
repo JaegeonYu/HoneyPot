@@ -1,4 +1,4 @@
-package com.honey.backend.domain.hotissue;
+package com.honey.backend.load.hotissue;
 
 import lombok.Getter;
 import lombok.Setter;

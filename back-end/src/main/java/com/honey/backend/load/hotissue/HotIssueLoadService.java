@@ -1,5 +1,7 @@
-package com.honey.backend.domain.hotissue;
+package com.honey.backend.load.hotissue;
 
+import com.honey.backend.domain.hotissue.HotIssue;
+import com.honey.backend.domain.hotissue.HotIssuerRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.jsoup.Jsoup;
@@ -16,7 +18,6 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -24,7 +25,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class HotIssueService {
+public class HotIssueLoadService {
     private final HotIssuerRepository hotIssuerRepository;
     private final Logger logger = LoggerFactory.getLogger("hotIssueLogger");
 
@@ -60,7 +61,7 @@ public class HotIssueService {
             System.out.println(hotIssueXmls.get(0));
             List<HotIssueXml> subXmls = hotIssueXmls.subList(1, hotIssueXmls.size() - 1);
 
-            // 날짜순 위해 뒤집기
+            // 날짜순 역정렬
             Collections.reverse(subXmls);
 
             List<HotIssue> hotIssues = subXmls.stream()
@@ -72,7 +73,6 @@ public class HotIssueService {
                 System.out.println(hot.getTitle());
                 hot.addOriginal(getCrolling(hot.getUrl()));
             }
-
 
             hotIssuerRepository.saveAll(hotIssues);
         }
