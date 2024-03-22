@@ -228,18 +228,15 @@ export default function Category({ categoryId, dynamicColorMode, iconWidth, icon
     />,
   ];
   return (
-    <button
-      className={S.svgWrapper}
-      // style={assignInlineVars({
-      //   [S.defaultColor]: dynamicColorMode ? vars.colors.service.SUB_BLACK : vars.colors.service.MAIN_BLACK,
-      //   [S.hoverColor]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
-      //   [S.focusColor]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
-      // })}
-    >
+    <>
       {CATEGORY_LIST.map((category, i: number) => {
         if (categoryId === i)
           return (
-            <>
+            <button
+              key={`category-list-${i}`}
+              className={S.svgWrapper}
+              style={assignInlineVars({ [S.cursor]: dynamicColorMode ? 'pointer' : 'default' })}
+            >
               {svgList[i]}
               <span
                 className={S.categoryName}
@@ -247,16 +244,16 @@ export default function Category({ categoryId, dynamicColorMode, iconWidth, icon
                   [S.defaultColor]: dynamicColorMode ? vars.colors.service.SUB_BLACK : vars.colors.service.MAIN_BLACK,
                   [S.hoverColor]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
                   [S.focusColor]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
-                  [S.hoverBorder]: dynamicColorMode ? vars.colors.service.SUB_BLACK : vars.colors.service.SUB_BLACK,
-                  [S.focusBorder]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
+                  [S.hoverBorder]: dynamicColorMode ? vars.colors.service.HOVER_STROKE : vars.colors.service.MAIN_WHITE,
+                  [S.focusBorder]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_WHITE,
                   [S.fontSize]: fontSize,
                 })}
               >
                 {category.name}
               </span>
-            </>
+            </button>
           );
       })}
-    </button>
+    </>
   );
 }

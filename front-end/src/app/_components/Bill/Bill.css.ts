@@ -146,19 +146,3 @@ export const billCardContentsMain = style({
   columnGap: 4,
   padding: '10px 16px',
 });
-
-export const billCardContentsProblem = style({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'flex-start',
-  rowGap: 24,
-  padding: '20px 32px',
-  //   border: '1px solid red',
-});
-
-export const billCardContentsProblemText = style({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'flex-start',
-  rowGap: 10,
-});

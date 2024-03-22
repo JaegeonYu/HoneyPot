@@ -113,6 +113,14 @@ export default function PieChart({
       responsive: true,
       legend: { display: false },
       htmlLegend: { containerID: UNIQUE_ID_FOR_LEGEND },
+      tooltip: {
+        callbacks: {
+          label(context: any) {
+            let dataList = context.dataset.data;
+            return `${dataList[context.dataIndex]}개`;
+          },
+        },
+      },
     },
   };
   return (

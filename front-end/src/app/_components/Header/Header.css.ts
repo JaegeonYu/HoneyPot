@@ -12,6 +12,7 @@ export const headerContainer = style({
   gap: 48,
   paddingLeft: '5vw',
   position: 'sticky',
+  zIndex: 10,
 });
 
 export const logo = style({

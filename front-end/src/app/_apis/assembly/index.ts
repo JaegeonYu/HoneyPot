@@ -1,12 +1,13 @@
 import { instance } from '../instance';
 
-export async function getAssemblyList({
+export async function getAssemblies({
   sido,
   sigungu,
   dong,
   page,
   limit,
   poly,
+  word,
 }: {
   sido: number;
   sigungu: number;
@@ -14,9 +15,10 @@ export async function getAssemblyList({
   page: number;
   limit: number;
   poly: number;
+  word: string;
 }) {
   return await instance.get(
-    `/assembly?sido=${sido}&sigungu=${sigungu}&dong=${dong}&page=${page}&limit=${limit}&poly=${poly}`,
+    `/assembly?sido=${sido}&sigungu=${sigungu}&dong=${dong}&page=${page}&limit=${limit}&poly=${poly}&word=${word}`,
   );
 }
 
@@ -34,8 +36,18 @@ export async function getAssemblyPledge({ assemblyId }: { assemblyId: string }) 
   return await instance.get(`/assembly/${assemblyId}/pledge`);
 }
 
-export async function getAssemblyBill({ assemblyId }: { assemblyId: string }) {
-  return await instance.get(`/assembly/${assemblyId}/bill`);
+export async function getAssemblyBill({
+  assemblyId,
+  cmit,
+  page,
+  take,
+}: {
+  assemblyId: string;
+  cmit: number;
+  page: number;
+  take: number;
+}) {
+  return await instance.get(`/assembly/${assemblyId}/bill?cmit=${cmit}&page=${page}&limit=${take}`);
 }
 
 export async function getAssemblyVideoList({ assemblyId }: { assemblyId: string }) {
