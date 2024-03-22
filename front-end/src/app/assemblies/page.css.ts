@@ -31,3 +31,11 @@ export const areaName = style({
   fontSize: '14px',
   lineHeight: '33px',
 });
+
+export const skeletonCard = style({
+  minWidth: 276,
+  width: '100%',
+  maxWidth: 402,
+  aspectRatio: '4 / 6',
+  borderRadius: 16,
+});
