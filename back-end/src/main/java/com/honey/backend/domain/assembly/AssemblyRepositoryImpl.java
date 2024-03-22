@@ -1,11 +1,17 @@
 package com.honey.backend.domain.assembly;
 
-import com.honey.backend.domain.bill.QBill;
 import com.honey.backend.domain.committee.QCommittee;
+import com.honey.backend.domain.poly.Poly;
 import com.honey.backend.domain.poly.QPoly;
 import com.honey.backend.domain.region.dong.QDong;
+import com.honey.backend.domain.region.electionregion.ElectionRegion;
+import com.honey.backend.domain.region.electionregion.QElectionRegion;
 import com.honey.backend.domain.region.sido.QSido;
 import com.honey.backend.domain.region.sigungu.QSigungu;
+import com.honey.backend.exception.BaseException;
+import com.honey.backend.exception.ElectionRegionErrorCode;
+import com.honey.backend.exception.PolyErrorCode;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -23,30 +29,78 @@ public class AssemblyRepositoryImpl implements AssemblyRepositoryCustom {
     QDong dong = QDong.dong;
     QSigungu sigungu = QSigungu.sigungu;
     QSido sido = QSido.sido;
-    QBill bill = QBill.bill;
+    QElectionRegion electionRegion = QElectionRegion.electionRegion;
     QCommittee committee = QCommittee.committee;
 
     @Override
-    public List<Assembly> findAll(String word, Long sidoId, Long sigunguId, Long dongId, Long polyId) {
-        List<Assembly> assemblyList = queryFactory
+    public List<Assembly> findAllByRegion(String word, Long sidoId, Long sigunguId, Long dongId, Long polyId) {
+        makeException(sidoId, sigunguId, dongId, polyId);
+
+        return queryFactory
                 .select(assembly)
+                .from(assembly)
+                .innerJoin(dong).on(assembly.electionRegion.eq(dong.electionRegion))
+                .innerJoin(dong).on(dong.sigungu.id.eq(sigungu.id))
+                .innerJoin(sigungu).on(sigungu.sido.id.eq(sido.id))
+                .innerJoin(poly).on(assembly.poly.id.eq(poly.id))
+                .where(
+                        (assembly.hgName.notLike("UNKNOWN")),
+                        (sidoId != 0 ? sido.id.eq(sidoId) : null),
+                        (sigunguId != 0 ? sigungu.id.eq(sigunguId) : null),
+                        (dongId != 0 ? dong.id.eq(dongId) : null),
+                        (polyId != 0 ? poly.id.eq(polyId) : null),
+                        (word != null ? assembly.hgName.like("%" + word + "%") : null)
+
+                )
+                .fetch().stream().distinct().collect(Collectors.toList());
+
+    }
+
+    @Override
+    public List<Assembly> findAllByNonRegion(String word, Long sidoId, Long sigunguId, Long dongId, Long polyId) {
+        makeException(sidoId, sigunguId, dongId, polyId);
+
+        return queryFactory
+                .select(assembly)
+                .from(assembly)
+                .innerJoin(poly).on(assembly.poly.id.eq(poly.id))
+                .where(
+                        (assembly.electionRegion.electionRegionName.eq("비례대표")),
+                        (polyId != 0 ? poly.id.eq(polyId) : null),
+                        (word != null ? assembly.hgName.like("%" + word + "%") : null),
+                        (assembly.hgName.notLike("UNKNOWN"))
+                )
+                .orderBy(assembly.electionRegion.id.asc())
+                .fetch().stream().distinct().collect(Collectors.toList());
+
+    }
+
+    public void makeException(Long sidoId, Long sigunguId, Long dongId, Long polyId) {
+        ElectionRegion tempElectionRegion = queryFactory
+                .select(assembly.electionRegion)
                 .from(assembly)
                 .innerJoin(dong).on(assembly.electionRegion.eq(dong.electionRegion))
                 .innerJoin(sigungu).on(dong.sigungu.id.eq(sigungu.id))
                 .innerJoin(sido).on(sigungu.sido.id.eq(sido.id))
-                .innerJoin(poly).on(assembly.poly.id.eq(poly.id))
-                .where(
-                        sidoId != 0 ? sido.id.eq(sidoId) : null,
-                        sigunguId != 0 ? sigungu.id.eq(sigunguId) : null,
-                        dongId != 0 ? dong.id.eq(dongId) : null,
-                        polyId != 0 ? poly.id.eq(polyId) : null,
-                        word != null ? assembly.hgName.like("%" + word + "%") : null
-                )
-                .orderBy(dong.electionRegion.id.asc())
-                .fetch().stream().distinct().collect(Collectors.toList());
+                .where((sidoId != 0 ? sido.id.eq(sidoId) : null),
+                        (sigunguId != 0 ? sigungu.id.eq(sigunguId) : null),
+                        (dongId != 0 ? dong.id.eq(dongId) : null),
+                        (sidoId == 0 && sigunguId != 0 ? Expressions.booleanTemplate("false") : null),
+                        ((sidoId == 0 || sigunguId == 0) && dongId != 0 ? Expressions.booleanTemplate("false") : null),
+                        (assembly.hgName.ne("UNKNOWN")))
+                .fetchFirst();
 
-        return assemblyList;
+        if (tempElectionRegion == null) throw new BaseException(ElectionRegionErrorCode.ELECTION_REGION_BAD_REQUEST);
+        System.out.println(tempElectionRegion.getElectionRegionName());
+        Poly tempPoly = queryFactory
+                .select(assembly.poly)
+                .from(assembly)
+                .innerJoin(poly).on(assembly.poly.id.eq(poly.id))
+                .where((polyId != 0 ? poly.id.eq(polyId) : null),
+                        (assembly.hgName.ne("UNKNOWN")))
+                .fetchFirst();
+
+        if (tempPoly == null) throw new BaseException(PolyErrorCode.POLY_BAD_REQUEST);
 
     }
-
 }
