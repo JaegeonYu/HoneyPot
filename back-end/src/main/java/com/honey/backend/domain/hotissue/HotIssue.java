@@ -42,4 +42,8 @@ public class HotIssue {
     public void addOriginal(String original){
         this.original = original;
     }
+
+    public void addSummary(String summary){
+        this.summary = summary;
+    }
 }

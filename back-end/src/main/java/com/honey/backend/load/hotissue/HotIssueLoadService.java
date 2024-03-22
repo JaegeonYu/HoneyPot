@@ -3,6 +3,7 @@ package com.honey.backend.load.hotissue;
 import com.honey.backend.domain.hotissue.HotIssue;
 import com.honey.backend.domain.hotissue.HotIssuerRepository;
 import jakarta.annotation.PostConstruct;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -12,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClient;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -22,6 +24,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 @Service
 @RequiredArgsConstructor
@@ -69,12 +73,27 @@ public class HotIssueLoadService {
                     .toList();
 
             for(HotIssue hot : hotIssues){
-                System.out.println("==========");
-                System.out.println(hot.getTitle());
                 hot.addOriginal(getCrolling(hot.getUrl()));
             }
 
             hotIssuerRepository.saveAll(hotIssues);
         }
+    }
+
+    @Transactional
+    public String getSummary(Long hotIssueId){
+        HotIssue hotIssue = hotIssuerRepository.findById(hotIssueId)
+                .orElseThrow(() -> new IllegalArgumentException("not found hot issue"));
+
+        RestClient restClient = RestClient.create();
+        SummaryDto summaryDto = new SummaryDto(hotIssue.getOriginal());
+        SummaryResponseDto summaryResponse = restClient.post()
+                .uri("http://:8000/summary/issue")
+                .contentType(APPLICATION_JSON)
+                .body(summaryDto)
+                .retrieve().toEntity(SummaryResponseDto.class).getBody();
+
+        hotIssue.addSummary(summaryResponse.getSummary());
+        return summaryResponse.getSummary();
     }
 }
