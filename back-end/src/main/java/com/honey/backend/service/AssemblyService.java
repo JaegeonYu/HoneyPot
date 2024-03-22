@@ -2,10 +2,10 @@ package com.honey.backend.service;
 
 import com.honey.backend.domain.assembly.Assembly;
 import com.honey.backend.domain.assembly.AssemblyRepository;
-import com.honey.backend.domain.bill.BillRepository;
 import com.honey.backend.domain.committee.Committee;
 import com.honey.backend.domain.committee.CommitteeRepository;
 import com.honey.backend.domain.poly.PolyRepository;
+import com.honey.backend.domain.region.sido.SidoRepository;
 import com.honey.backend.domain.sns.Sns;
 import com.honey.backend.domain.sns.SnsRepository;
 import com.honey.backend.exception.AssemblyErrorCode;
@@ -26,6 +26,7 @@ public class AssemblyService {
     private final PolyRepository polyRepository;
     private final SnsRepository snsRepository;
     private final CommitteeRepository committeeRepository;
+    private final SidoRepository sidoRepository;
 
     public AssemblyListResponse findAll(AssemblyListRequest assemblyListRequest) {
         Long sido = assemblyListRequest.sido();
@@ -35,11 +36,19 @@ public class AssemblyService {
         int page = assemblyListRequest.page();
         int limit = assemblyListRequest.limit();
         String word = assemblyListRequest.word();
-        List<Assembly> assemblyList = assemblyRepository.findAll(word, sido, sigungu, dong, poly);
+        Long jeJuId = (sidoRepository.findBySidoName("제주특별자치도").orElseThrow(
+                () -> new BaseException(AssemblyErrorCode.ASSEMBLY_NOT_FOUND)
+        )).getId();
+        List<Assembly> assemblyList;
+        assemblyList = (sido == jeJuId + 1) ?
+                assemblyRepository.findAllByNonRegion(word, sido, sigungu, dong, poly) :
+                assemblyRepository.findAllByRegion(word, sido, sigungu, dong, poly);
+
+        if (sido == 0)
+            assemblyList.addAll(assemblyRepository.findAllByNonRegion(word, sido, sigungu, dong, poly));
+
         int totalCount = assemblyList.size();
-        if (assemblyList.isEmpty()) {
-            throw new BaseException(AssemblyErrorCode.ASSEMBLY_BAD_REQUEST);
-        }
+        assemblyList.sort((o1, o2) -> o1.getHgName().compareTo(o2.getHgName()));
         assemblyList = getPaginatedAssemblies(page, limit, assemblyList);
 
         return insertToListResponse(assemblyList, totalCount);
