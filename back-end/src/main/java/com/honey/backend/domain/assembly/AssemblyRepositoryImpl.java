@@ -91,7 +91,7 @@ public class AssemblyRepositoryImpl implements AssemblyRepositoryCustom {
                 .fetchFirst();
 
         if (tempElectionRegion == null) throw new BaseException(ElectionRegionErrorCode.ELECTION_REGION_BAD_REQUEST);
-        System.out.println(tempElectionRegion.getElectionRegionName());
+
         Poly tempPoly = queryFactory
                 .select(assembly.poly)
                 .from(assembly)
