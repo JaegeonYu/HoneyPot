@@ -24,6 +24,7 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -75,6 +76,7 @@ public class HotIssueLoadService {
             List<HotIssue> hotIssues = subXmls.stream()
                     .map(HotIssueXml::toIssue)
                     .toList();
+
 
             for(HotIssue hot : hotIssues){
                 hot.addOriginal(getCrolling(hot.getUrl()));

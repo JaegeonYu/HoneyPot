@@ -90,7 +90,8 @@ public class ApiGlobalExceptionHandler {
      * 내부 서버 오류 전용 ExceptionHandler
      */
     @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<ErrorResponse> handleAnyException() {
+    public ResponseEntity<ErrorResponse> handleAnyException(RuntimeException e) {
+        logger.error(e.getMessage());
         return convert(GlobalErrorCode.INTERNAL_SERVER_ERROR);
     }
 

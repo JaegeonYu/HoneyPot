@@ -38,7 +38,8 @@ public class HotIssueXml {
     }
 
     public static LocalDateTime covertDate(String date){
+        String formattedDate = date.split("\\.")[0];
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        return LocalDateTime.parse(date, formatter);
+        return LocalDateTime.parse(formattedDate, formatter);
     }
 }
