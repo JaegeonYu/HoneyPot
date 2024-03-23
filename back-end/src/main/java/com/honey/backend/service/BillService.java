@@ -3,14 +3,12 @@ package com.honey.backend.service;
 import com.honey.backend.domain.assembly.AssemblyRepository;
 import com.honey.backend.domain.bill.Bill;
 import com.honey.backend.domain.bill.BillRepository;
-import com.honey.backend.domain.committee.Committee;
 import com.honey.backend.domain.committee.CommitteeRepository;
 import com.honey.backend.domain.poly.PolyRepository;
 import com.honey.backend.request.BillRequest;
 import com.honey.backend.response.BillProgressResponse;
 import com.honey.backend.response.BillResponse;
 import com.honey.backend.response.BillStatResponse;
-import com.honey.backend.response.CommitteeResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -31,7 +29,7 @@ public class BillService {
         return insertToBillResponse(billRepository.findById(billId).orElseThrow());
     }
 
-    public List<BillResponse> getBillList(Long assemblyId, BillRequest billRequest) {
+    public List<BillResponse> getBillListAssembly(Long assemblyId, BillRequest billRequest) {
         int page = billRequest.page();
         int limit = billRequest.limit();
         String word = billRequest.word();
@@ -44,12 +42,26 @@ public class BillService {
         return billResponseList;
     }
 
-    public BillStatResponse getBillStat(Long assemblyId, Long cmitId) {
+    public BillStatResponse getBillStatAssembly(Long assemblyId, Long cmitId) {
         return billRepository.findBillStatByAssemblyIdAndCmitId(assemblyId, cmitId);
     }
 
+    public List<BillResponse> getBillListPoly(Long polyId, BillRequest billRequest) {
+        int page = billRequest.page();
+        int limit = billRequest.limit();
+        String word = billRequest.word();
+        Long cmitId = billRequest.cmit();
+        List<Bill> billList = billRepository.findAllByPolyIdAndCmitId(PageRequest.of(page, limit), word, cmitId, polyId).getContent();
+        List<BillResponse> billResponseList = new ArrayList<>();
+        for (Bill bill : billList) {
+            billResponseList.add(insertToBillResponse(bill));
+        }
+        return billResponseList;
+    }
 
-
+    public BillStatResponse getBillStatPoly(Long polyId, Long cmitId) {
+        return billRepository.findBillStatByPolyIdAndCmitId(polyId, cmitId);
+    }
 
     public BillResponse insertToBillResponse(Bill bill) {
 
@@ -78,6 +90,18 @@ public class BillService {
         );
     }
 
+
+    public int getCountAssembly(BillRequest billRequest, Long assemblyId) {
+
+        return billRepository.countByAssemblyIdAndCmitId(
+                billRequest.word(), billRequest.cmit(), assemblyId).intValue();
+    }
+    public int getCountPoly(BillRequest billRequest, Long polyId) {
+
+        return billRepository.countByPolyIdAndCmitId(
+                billRequest.word(), billRequest.cmit(), polyId).intValue();
+    }
+
     private BillProgressResponse setStatus(Bill bill) {
 
         String procResult = bill.getProcResult();
@@ -101,14 +125,13 @@ public class BillService {
         } else if (procResult.contains("수정안반영")) {
             result = 5;
             resultName = "수정안반영";
-        }
-        else {
+        } else {
             result = 3;
             resultName = "철회/폐기";
         }
         if (1 <= result && result <= 2) present = 3;
 
-        else if ( result <= 5) present = 0;
+        else if (result <= 5) present = 0;
             // 미배정 0 , 상임위 1, 법사위 2, 본회의 3  (결과기준)
         else present = setPresent(bill);
 

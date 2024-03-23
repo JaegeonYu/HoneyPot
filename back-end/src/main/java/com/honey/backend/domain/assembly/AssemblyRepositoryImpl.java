@@ -1,6 +1,7 @@
 package com.honey.backend.domain.assembly;
 
 import com.honey.backend.domain.bill.QBill;
+import com.honey.backend.domain.committee.QCommittee;
 import com.honey.backend.domain.poly.Poly;
 import com.honey.backend.domain.poly.QPoly;
 import com.honey.backend.domain.region.dong.QDong;
@@ -28,7 +29,7 @@ public class AssemblyRepositoryImpl implements AssemblyRepositoryCustom {
     QDong dong = QDong.dong;
     QSigungu sigungu = QSigungu.sigungu;
     QSido sido = QSido.sido;
-
+    QCommittee committee = QCommittee.committee;
     QBill bill = QBill.bill;
 
 
@@ -105,26 +106,29 @@ public class AssemblyRepositoryImpl implements AssemblyRepositoryCustom {
     }
 
     @Override
-    public List<Assembly> findMostAssemblyByPoly(Long polyId) {
+    public List<Assembly> findMostAssemblyByPoly(Long polyId, Long cmitId) {
         return queryFactory
                 .select(assembly)
-                .from(assembly)
-                .innerJoin(bill).on(assembly.id.eq(bill.assembly.id))
+                .from(bill)
+                .innerJoin(assembly).on(assembly.id.eq(bill.assembly.id))
+                .innerJoin(committee).on(committee.id.eq(bill.committee.id))
                 .innerJoin(poly).on(poly.id.eq(assembly.poly.id))
-                .where(poly.id.eq(polyId))
+                .where(poly.id.eq(polyId),
+                        cmitId != 0 ? committee.id.eq(cmitId) : null)
                 .groupBy(assembly)
                 .orderBy(assembly.count().desc(), assembly.id.asc())
                 .limit(3)
                 .fetch();
-
     }
 
     @Override
-    public List<Assembly> findMostAssembly() {
+    public List<Assembly> findMostAssembly(Long cmitId) {
         return queryFactory
                 .select(assembly)
-                .from(assembly)
-                .innerJoin(bill).on(assembly.id.eq(bill.assembly.id))
+                .from(bill)
+                .innerJoin(committee).on(committee.id.eq(bill.committee.id))
+                .innerJoin(assembly).on(assembly.id.eq(bill.assembly.id))
+                .where(cmitId != 0 ? committee.id.eq(cmitId) : null)
                 .groupBy(assembly)
                 .orderBy(assembly.count().desc(), assembly.id.asc())
                 .limit(3)
