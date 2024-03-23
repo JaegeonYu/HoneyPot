@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 @Getter
 @EqualsAndHashCode(of = "id")
 @ToString
+@Table(name = "hot_issue")
 public class HotIssue {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "hot_issue_id")

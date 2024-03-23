@@ -1,7 +1,7 @@
 package com.honey.backend.load.hotissue;
 
 import com.honey.backend.domain.hotissue.HotIssue;
-import com.honey.backend.domain.hotissue.HotIssuerRepository;
+import com.honey.backend.domain.hotissue.HotIssueRepository;
 import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -24,15 +24,15 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class HotIssueLoadService {
-    private final HotIssuerRepository hotIssuerRepository;
+    private final HotIssueRepository hotIssueRepository;
     private final Logger logger = LoggerFactory.getLogger("hotIssueLogger");
 
     @Value("PYTHON_URL")
@@ -51,7 +51,7 @@ public class HotIssueLoadService {
 
     @PostConstruct
     public void getIssue() throws IOException, JAXBException {
-        if(hotIssuerRepository.count() == 0){
+        if(hotIssueRepository.count() == 0){
 
             // xml file read
             InputStream inputStream = new ClassPathResource("hot.xml").getInputStream();
@@ -82,13 +82,13 @@ public class HotIssueLoadService {
                 hot.addOriginal(getCrolling(hot.getUrl()));
             }
 
-            hotIssuerRepository.saveAll(hotIssues);
+            hotIssueRepository.saveAll(hotIssues);
         }
     }
 
     @Transactional
     public String getSummary(Long hotIssueId){
-        HotIssue hotIssue = hotIssuerRepository.findById(hotIssueId)
+        HotIssue hotIssue = hotIssueRepository.findById(hotIssueId)
                 .orElseThrow(() -> new IllegalArgumentException("not found hot issue"));
 
         RestClient restClient = RestClient.create();
