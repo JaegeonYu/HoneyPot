@@ -4,11 +4,7 @@ import { vars } from '@/globalTheme.css';
 export const newsSection = style({
   width: '100%',
 });
-export const listSection = style({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 10,
-});
+export const polyListSection = style({});
 
 export const newsTitle = style({
   width: '100%',

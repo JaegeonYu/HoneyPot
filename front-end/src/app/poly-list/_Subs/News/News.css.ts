@@ -16,15 +16,17 @@ export const newsHeader = style({
 
 export const newsContent = style({
   display: 'flex',
+  justifyContent: 'center',
   gap: 10,
-  padding: '0px 16px',
 });
 
-export const leftItem = style({
-  width: '50%',
-});
-export const rightItem = style({
-  width: '50%',
+export const items = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 10,
+  padding: '0px 16px',
+  fontSize: 14,
+  width: '100%',
 });
 export const line = style({
   width: 1,
@@ -35,11 +37,10 @@ export const item = style({
   display: 'flex',
   justifyContent: 'space-between',
   gap: 64,
-  padding: '10px 0px',
 });
 
 export const itemContent = style({
-  overflow: 'hidden',
+  color: `${vars.colors.service.MAIN_BLACK}`,
 });
 
 export const itemDate = style({

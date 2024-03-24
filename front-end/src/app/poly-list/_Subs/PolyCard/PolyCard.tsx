@@ -1,28 +1,46 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as S from './PolyCard.css';
 import * as Comp from '@/components';
+import * as API from '@/_apis';
+import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 
-const data = {
-  polyId: 1,
-  polyName: '더불어민주당',
-  logoUrl: 'http://www.assembly.go.kr/photo/9770984.jpg',
-  seats: 154,
-  leader: '',
-};
-// key={i}
+interface PolyData {
+  polyId: number;
+  polyName: string;
+  logoUrl: string;
+  seats: number;
+  leader: string;
+}
+
 export default function PolyCard() {
+  const { data: partyList, isFetched: partyListFetched } = useQuery({
+    queryKey: [`party-list`],
+    queryFn: () => API.poly.getPolyList(),
+    retry: false,
+  });
+
   return (
     <>
-      {Array.from({ length: 12 }).map((poly, i) => (
-        <Comp.Card key={data.polyId} ratio="4 / 5" badge={{ isBadgeNeed: false }} imgUrl={data.logoUrl}>
-          <div className={S.cardSection}>
-            <div className={S.polyCnt}>{data.seats} / 157</div>
-            <div className={S.leaderName}>{data.leader}</div>
-          </div>
-        </Comp.Card>
+      {partyList?.data.map((poly: PolyData, i: number) => (
+        <Link className={S.styledLink} key={`party-${poly.polyId}`} href={`/poly-detail/${poly.polyId}`}>
+          <Comp.Card
+            key={`party-${poly.polyId}`}
+            ratio="1 / 1"
+            badge={{ isBadgeNeed: false }}
+            imgUrl={`/party/party-${poly.polyId}.svg`}
+          >
+            <div className={S.cardInfoSection}>
+              <div className={S.polyCnt}>
+                <span>{poly.seats} 명</span>
+                <span style={{ fontSize: 14, color: '#717171' }}> / 157 명</span>
+              </div>
+              <div className={S.leaderName}>당대표 : {poly.leader}</div>
+            </div>
+          </Comp.Card>
+        </Link>
       ))}
     </>
   );

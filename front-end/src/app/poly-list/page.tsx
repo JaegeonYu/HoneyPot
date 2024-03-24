@@ -10,7 +10,7 @@ export default function PolyListPage() {
       <section className={S.newsSection}>
         <SubComp.News></SubComp.News>
       </section>
-      <section className={S.listSection}>
+      <section className={S.polyListSection}>
         <div className={S.newsTitle}>21대 국회 정당</div>
         <div className={S.newsContent}>
           <Comp.GridWrapper>
