@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as S from './Bill.css';
 import * as T from '@/types';
+import * as Comp from '@/components';
 
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 import { ArrowBlack, HelpCircle, LinkTo } from '@/_assets/icon';
@@ -41,21 +42,31 @@ export default function Bill({
   summary,
   textBody,
 }: T.BillProps) {
-  const [isActive, setIsActive] = useState(true);
-  const [isToggled, setIsToggled] = useState(true);
+  const [isActive, setIsActive] = useState(false);
+  const [isToggled, setIsToggled] = useState(false);
   const [comm, setComm] = useState(cmitId);
   const [status, setStatus] = useState(billProgressResponse);
   const [dateList, setDateList] = useState([proposeDt, cmitProcDt, lawProcDt, procDt]);
 
+  useEffect(() => {
+    // 데이터가 변경되면 isActive 상태를 false로 초기화
+    setIsActive(false);
+    setIsToggled(false);
+    setComm(cmitId);
+  }, [assemblyId, billId, billNo, cmitId]);
+
   const toggleAccordion = () => {
-    console.log(isActive, 'isActive');
     setIsActive(!isActive);
   };
 
   const toggleButton = (event: React.MouseEvent) => {
-    console.log(isToggled, 'Toggles');
     event.stopPropagation();
     setIsToggled(!isToggled);
+  };
+
+  const linkButton = (event: React.MouseEvent) => {
+    window.open(`${detailLink}`, '_blank', 'noopener, noreferrer');
+    event.stopPropagation();
   };
 
   return (
@@ -120,7 +131,7 @@ export default function Bill({
               </div>
             </div>
           </div>
-          <div className={S.billCardContentsHeaderLink}>
+          <div className={S.billCardContentsHeaderLink} onClick={linkButton}>
             <p className={S.fontContent}>원문확인</p>
             <LinkTo></LinkTo>
           </div>

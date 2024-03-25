@@ -23,18 +23,36 @@ import { vars } from '@/globalTheme.css';
  *
  * @param fontSize
  *
+ * @param selected
+ *
+ *
  * @description
  */
 
-export default function Category({ categoryId, dynamicColorMode, iconWidth, iconHeight, fontSize }: T.CategoryProps) {
+export default function Category({
+  categoryId,
+  dynamicColorMode,
+  iconWidth,
+  iconHeight,
+  fontSize,
+  selected,
+}: T.CategoryProps) {
+  const selectedColorFilter = () => {
+    if (!dynamicColorMode) {
+      return vars.colors.service.MAIN_BLACK;
+    } else {
+      if (selected) return vars.colors.service.MAIN_BLACK;
+      if (!selected) return vars.colors.service.SUB_BLACK;
+    }
+  };
+
   const svgList = [
     <A.Category0
       key={`category-${0}`}
       className={S.styledSvg}
       style={assignInlineVars({
-        [S.defaultColor]: dynamicColorMode ? vars.colors.service.SUB_BLACK : vars.colors.service.MAIN_BLACK,
         [S.hoverColor]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
-        [S.focusColor]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
+        [S.focusColor]: selectedColorFilter(),
         [S.widthProps]: iconWidth,
         [S.heightProps]: iconHeight,
       })}
@@ -43,9 +61,8 @@ export default function Category({ categoryId, dynamicColorMode, iconWidth, icon
       key={`category-${1}`}
       className={S.styledSvg}
       style={assignInlineVars({
-        [S.defaultColor]: dynamicColorMode ? vars.colors.service.SUB_BLACK : vars.colors.service.MAIN_BLACK,
         [S.hoverColor]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
-        [S.focusColor]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
+        [S.focusColor]: selectedColorFilter(),
         [S.widthProps]: iconWidth,
         [S.heightProps]: iconHeight,
       })}
@@ -54,9 +71,8 @@ export default function Category({ categoryId, dynamicColorMode, iconWidth, icon
       key={`category-${2}`}
       className={S.styledSvg}
       style={assignInlineVars({
-        [S.defaultColor]: dynamicColorMode ? vars.colors.service.SUB_BLACK : vars.colors.service.MAIN_BLACK,
         [S.hoverColor]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
-        [S.focusColor]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
+        [S.focusColor]: selectedColorFilter(),
         [S.widthProps]: iconWidth,
         [S.heightProps]: iconHeight,
       })}
@@ -65,9 +81,8 @@ export default function Category({ categoryId, dynamicColorMode, iconWidth, icon
       key={`category-${3}`}
       className={S.styledSvg}
       style={assignInlineVars({
-        [S.defaultColor]: dynamicColorMode ? vars.colors.service.SUB_BLACK : vars.colors.service.MAIN_BLACK,
         [S.hoverColor]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
-        [S.focusColor]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
+        [S.focusColor]: selectedColorFilter(),
         [S.widthProps]: iconWidth,
         [S.heightProps]: iconHeight,
       })}
@@ -76,9 +91,8 @@ export default function Category({ categoryId, dynamicColorMode, iconWidth, icon
       key={`category-${4}`}
       className={S.styledSvg}
       style={assignInlineVars({
-        [S.defaultColor]: dynamicColorMode ? vars.colors.service.SUB_BLACK : vars.colors.service.MAIN_BLACK,
         [S.hoverColor]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
-        [S.focusColor]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
+        [S.focusColor]: selectedColorFilter(),
         [S.widthProps]: iconWidth,
         [S.heightProps]: iconHeight,
       })}
@@ -87,9 +101,8 @@ export default function Category({ categoryId, dynamicColorMode, iconWidth, icon
       key={`category-${5}`}
       className={S.styledSvg}
       style={assignInlineVars({
-        [S.defaultColor]: dynamicColorMode ? vars.colors.service.SUB_BLACK : vars.colors.service.MAIN_BLACK,
         [S.hoverColor]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
-        [S.focusColor]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
+        [S.focusColor]: selectedColorFilter(),
         [S.widthProps]: iconWidth,
         [S.heightProps]: iconHeight,
       })}
@@ -98,9 +111,8 @@ export default function Category({ categoryId, dynamicColorMode, iconWidth, icon
       key={`category-${6}`}
       className={S.styledSvg}
       style={assignInlineVars({
-        [S.defaultColor]: dynamicColorMode ? vars.colors.service.SUB_BLACK : vars.colors.service.MAIN_BLACK,
         [S.hoverColor]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
-        [S.focusColor]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
+        [S.focusColor]: selectedColorFilter(),
         [S.widthProps]: iconWidth,
         [S.heightProps]: iconHeight,
       })}
@@ -109,9 +121,8 @@ export default function Category({ categoryId, dynamicColorMode, iconWidth, icon
       key={`category-${7}`}
       className={S.styledSvg}
       style={assignInlineVars({
-        [S.defaultColor]: dynamicColorMode ? vars.colors.service.SUB_BLACK : vars.colors.service.MAIN_BLACK,
         [S.hoverColor]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
-        [S.focusColor]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
+        [S.focusColor]: selectedColorFilter(),
         [S.widthProps]: iconWidth,
         [S.heightProps]: iconHeight,
       })}
@@ -120,9 +131,8 @@ export default function Category({ categoryId, dynamicColorMode, iconWidth, icon
       key={`category-${8}`}
       className={S.styledSvg}
       style={assignInlineVars({
-        [S.defaultColor]: dynamicColorMode ? vars.colors.service.SUB_BLACK : vars.colors.service.MAIN_BLACK,
         [S.hoverColor]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
-        [S.focusColor]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
+        [S.focusColor]: selectedColorFilter(),
         [S.widthProps]: iconWidth,
         [S.heightProps]: iconHeight,
       })}
@@ -131,9 +141,8 @@ export default function Category({ categoryId, dynamicColorMode, iconWidth, icon
       key={`category-${9}`}
       className={S.styledSvg}
       style={assignInlineVars({
-        [S.defaultColor]: dynamicColorMode ? vars.colors.service.SUB_BLACK : vars.colors.service.MAIN_BLACK,
         [S.hoverColor]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
-        [S.focusColor]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
+        [S.focusColor]: selectedColorFilter(),
         [S.widthProps]: iconWidth,
         [S.heightProps]: iconHeight,
       })}
@@ -142,9 +151,8 @@ export default function Category({ categoryId, dynamicColorMode, iconWidth, icon
       key={`category-${10}`}
       className={S.styledSvg}
       style={assignInlineVars({
-        [S.defaultColor]: dynamicColorMode ? vars.colors.service.SUB_BLACK : vars.colors.service.MAIN_BLACK,
         [S.hoverColor]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
-        [S.focusColor]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
+        [S.focusColor]: selectedColorFilter(),
         [S.widthProps]: iconWidth,
         [S.heightProps]: iconHeight,
       })}
@@ -153,9 +161,8 @@ export default function Category({ categoryId, dynamicColorMode, iconWidth, icon
       key={`category-${11}`}
       className={S.styledSvg}
       style={assignInlineVars({
-        [S.defaultColor]: dynamicColorMode ? vars.colors.service.SUB_BLACK : vars.colors.service.MAIN_BLACK,
         [S.hoverColor]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
-        [S.focusColor]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
+        [S.focusColor]: selectedColorFilter(),
         [S.widthProps]: iconWidth,
         [S.heightProps]: iconHeight,
       })}
@@ -164,9 +171,8 @@ export default function Category({ categoryId, dynamicColorMode, iconWidth, icon
       key={`category-${12}`}
       className={S.styledSvg}
       style={assignInlineVars({
-        [S.defaultColor]: dynamicColorMode ? vars.colors.service.SUB_BLACK : vars.colors.service.MAIN_BLACK,
         [S.hoverColor]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
-        [S.focusColor]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
+        [S.focusColor]: selectedColorFilter(),
         [S.widthProps]: iconWidth,
         [S.heightProps]: iconHeight,
       })}
@@ -175,9 +181,8 @@ export default function Category({ categoryId, dynamicColorMode, iconWidth, icon
       key={`category-${13}`}
       className={S.styledSvg}
       style={assignInlineVars({
-        [S.defaultColor]: dynamicColorMode ? vars.colors.service.SUB_BLACK : vars.colors.service.MAIN_BLACK,
         [S.hoverColor]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
-        [S.focusColor]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
+        [S.focusColor]: selectedColorFilter(),
         [S.widthProps]: iconWidth,
         [S.heightProps]: iconHeight,
       })}
@@ -186,9 +191,8 @@ export default function Category({ categoryId, dynamicColorMode, iconWidth, icon
       key={`category-${14}`}
       className={S.styledSvg}
       style={assignInlineVars({
-        [S.defaultColor]: dynamicColorMode ? vars.colors.service.SUB_BLACK : vars.colors.service.MAIN_BLACK,
         [S.hoverColor]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
-        [S.focusColor]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
+        [S.focusColor]: selectedColorFilter(),
         [S.widthProps]: iconWidth,
         [S.heightProps]: iconHeight,
       })}
@@ -197,9 +201,8 @@ export default function Category({ categoryId, dynamicColorMode, iconWidth, icon
       key={`category-${15}`}
       className={S.styledSvg}
       style={assignInlineVars({
-        [S.defaultColor]: dynamicColorMode ? vars.colors.service.SUB_BLACK : vars.colors.service.MAIN_BLACK,
         [S.hoverColor]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
-        [S.focusColor]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
+        [S.focusColor]: selectedColorFilter(),
         [S.widthProps]: iconWidth,
         [S.heightProps]: iconHeight,
       })}
@@ -208,9 +211,8 @@ export default function Category({ categoryId, dynamicColorMode, iconWidth, icon
       key={`category-${16}`}
       className={S.styledSvg}
       style={assignInlineVars({
-        [S.defaultColor]: dynamicColorMode ? vars.colors.service.SUB_BLACK : vars.colors.service.MAIN_BLACK,
         [S.hoverColor]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
-        [S.focusColor]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
+        [S.focusColor]: selectedColorFilter(),
         [S.widthProps]: iconWidth,
         [S.heightProps]: iconHeight,
       })}
@@ -219,9 +221,8 @@ export default function Category({ categoryId, dynamicColorMode, iconWidth, icon
       key={`category-${17}`}
       className={S.styledSvg}
       style={assignInlineVars({
-        [S.defaultColor]: dynamicColorMode ? vars.colors.service.SUB_BLACK : vars.colors.service.MAIN_BLACK,
         [S.hoverColor]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
-        [S.focusColor]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
+        [S.focusColor]: selectedColorFilter(),
         [S.widthProps]: iconWidth,
         [S.heightProps]: iconHeight,
       })}
@@ -241,11 +242,10 @@ export default function Category({ categoryId, dynamicColorMode, iconWidth, icon
               <span
                 className={S.categoryName}
                 style={assignInlineVars({
-                  [S.defaultColor]: dynamicColorMode ? vars.colors.service.SUB_BLACK : vars.colors.service.MAIN_BLACK,
                   [S.hoverColor]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
-                  [S.focusColor]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
+                  [S.focusColor]: selectedColorFilter(),
                   [S.hoverBorder]: dynamicColorMode ? vars.colors.service.HOVER_STROKE : 'transparent',
-                  [S.focusBorder]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : 'transparent',
+                  [S.focusBorder]: selected && dynamicColorMode ? vars.colors.service.SUB_BLACK : 'transparent',
                   [S.fontSize]: fontSize,
                 })}
               >

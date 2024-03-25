@@ -7,9 +7,39 @@ export const window = style({
   overflowX: 'scroll',
   position: 'relative',
 });
-
 globalStyle(`${window}::-webkit-scrollbar`, {
   visibility: 'hidden',
+});
+
+export const wrapper = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '24px',
+  overflow: 'hidden',
+  paddingBottom: '12px',
+});
+
+export const titleWrapper = style({
+  display: 'flex',
+  justifyContent: 'space-between',
+  height: '38px',
+  borderBottom: `1px solid ${vars.colors.service.STROKE_OR_BLUR}`,
+});
+
+export const title = style({
+  fontSize: '18px',
+  fontWeight: 600,
+  lineHeight: '38px',
+});
+
+export const totalContWrapper = style({
+  fontSize: '14px',
+  lineHeight: '38px',
+});
+
+export const number = style({
+  fontWeight: 600,
+  lineHeight: '38px',
 });
 
 export const arrowButtonPositionRigiht = createVar();
@@ -23,62 +53,18 @@ export const categoriesWrapper = style({
 
 export const billListWithChartWrapper = style({
   display: 'flex',
-  flexDirection: 'column',
   gap: '8px',
   justifyContent: 'space-between',
-  padding: '16px',
+  padding: '0px 4px',
+});
 
-  paddingTop: '36px',
+export const billswrapper = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '8px',
 });
 
 export const chartWrapper = style({
   width: '100%',
   height: '100%',
 });
-
-// export const categoryItem = style({
-//   display: 'flex',
-//   alignItems: 'center',
-//   flexDirection: 'column',
-//   width: 'fit-content',
-//   cursor: 'pointer',
-
-//   selectors: {
-//     [`&:hover`]: {
-//       fill: vars.colors.service.MAIN_BLACK,
-//     },
-//   },
-// });
-
-// export const categoryName = style({
-//   color: vars.colors.service.SUB_BLACK,
-//   borderBottom: `1px solid ${vars.colors.service.MAIN_WHITE}`,
-//   textWrap: 'nowrap',
-//   fontSize: '16px',
-
-//   selectors: {
-//     [`${categoryItem} &:hover`]: {
-//       color: vars.colors.service.MAIN_BLACK,
-//       borderBottom: `1px solid ${vars.colors.service.SUB_BLACK}`,
-//     },
-//     [`${categoryItem} &:focus-within`]: {
-//       color: vars.colors.service.MAIN_BLACK,
-//       borderBottom: `1px solid ${vars.colors.service.MAIN_BLACK}`,
-//     },
-//   },
-// });
-
-// export const arrowButtonWrapper = style({
-//   width: '16px',
-//   height: '16px',
-//   borderRadius: '100%',
-//   backgroundColor: vars.colors.service.MAIN_WHITE,
-//   position: 'absolute',
-//   right: `${arrowButtonPositionRigiht}`,
-//   top: '40%',
-//   transform: `translate(-50%, 0%)`,
-// });
-
-// export const styleArrowSvg = style({
-//   transform: 'rotate(90deg)',
-// });

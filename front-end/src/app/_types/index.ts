@@ -15,6 +15,8 @@ import { AreaSelectorProps, Region, HandleQueryStringArgs, ResponseRegion } from
 import { ToggleButtonProps } from './components/toggleButton';
 import { CategoryListProps } from './components/CategoryList';
 import { OriginalPanelProps } from './components/originalPanel';
+import { PledgeProps } from './components/pledge';
+import { TooltipProps } from './components/tooltip';
 /** components */
 
 /** pages */
@@ -27,6 +29,15 @@ import {
   AssemblyTab2Props,
   AssemblyTab3Props,
 } from './pages/assembly-detail';
+
+import {
+  PartyDetailLayoutProps,
+  PartyDetailChartsProps,
+  PartyDetailTopBillCategoriesProps,
+  PartyDetailTab1Props,
+  PartyDetailTab2Props,
+} from './pages/party-detail';
+
 /** pages */
 
 export type {
@@ -57,4 +68,11 @@ export type {
   AssemblyTab1Props,
   AssemblyTab2Props,
   AssemblyTab3Props,
+  PartyDetailLayoutProps,
+  PartyDetailChartsProps,
+  PartyDetailTopBillCategoriesProps,
+  PledgeProps,
+  PartyDetailTab1Props,
+  PartyDetailTab2Props,
+  TooltipProps,
 };

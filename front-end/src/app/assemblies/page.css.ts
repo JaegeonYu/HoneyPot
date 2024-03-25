@@ -6,10 +6,38 @@ export const styledLink = style({
   cursor: 'pointer',
 });
 
+export const cardSection = style({
+  width: '100%',
+});
+
+export const titleWrapper = style({
+  display: 'flex',
+  justifyContent: 'space-between',
+  height: '38px',
+  borderBottom: `1px solid ${vars.colors.service.STROKE_OR_BLUR}`,
+});
+
+export const title = style({
+  fontSize: '18px',
+  fontWeight: 600,
+  lineHeight: '38px',
+});
+
+export const totalContWrapper = style({
+  fontSize: '14px',
+  lineHeight: '38px',
+});
+
+export const number = style({
+  fontWeight: 600,
+  lineHeight: '38px',
+});
+
 export const cardArticle = style({
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'space-between',
+  justifyContent: 'center',
+  flexDirection: 'column',
   height: '18%',
   padding: '0px 16px',
 });

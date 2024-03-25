@@ -6,7 +6,7 @@ export interface DoughnutChartProps {
 }
 
 export interface PieChartProps {
-  chartTitle: string;
+  chartTitle: React.ReactNode;
   datasetList: number[] | string[];
   legendList: { title: string; color: string }[];
   legendDisplay: boolean;

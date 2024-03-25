@@ -1,5 +1,5 @@
 import { vars } from '@/globalTheme.css';
-import { globalStyle, style } from '@vanilla-extract/css';
+import { createVar, globalStyle, style } from '@vanilla-extract/css';
 
 export const userInteractionSection = style({
   width: '100%',
@@ -37,12 +37,14 @@ export const partySelectorWrapper = style({
   height: '40px',
 });
 
+export const isSelectedBgColor = createVar();
 export const partyItem = style({
   borderRadius: '6px',
   overflow: 'hidden',
-  backgroundColor: vars.colors.service.SUB_WHITE,
+  backgroundColor: isSelectedBgColor,
 });
 
+export const isSelectedFontColor = createVar();
 export const partyText = style({
   display: 'inline-block',
   width: 'fit-content',
@@ -52,6 +54,7 @@ export const partyText = style({
   fontSize: '14px',
   lineHeight: '27px',
   textWrap: 'nowrap',
+  color: isSelectedFontColor,
 
   selectors: {
     [`${partyItem}:hover &`]: {
