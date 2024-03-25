@@ -28,6 +28,15 @@ import {
   AssemblyTab2Props,
   AssemblyTab3Props,
 } from './pages/assembly-detail';
+
+import {
+  PartyDetailLayoutProps,
+  PartyDetailChartsProps,
+  PartyDetailTopBillCategoriesProps,
+  PartyDetailTab1Props,
+  PartyDetailTab2Props,
+} from './pages/party-detail';
+
 /** pages */
 
 export type {
@@ -58,5 +67,10 @@ export type {
   AssemblyTab1Props,
   AssemblyTab2Props,
   AssemblyTab3Props,
+  PartyDetailLayoutProps,
+  PartyDetailChartsProps,
+  PartyDetailTopBillCategoriesProps,
   PledgeProps,
+  PartyDetailTab1Props,
+  PartyDetailTab2Props,
 };
