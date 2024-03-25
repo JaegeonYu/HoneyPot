@@ -9,6 +9,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -19,7 +20,6 @@ import java.time.LocalDateTime;
 public class HotIssue {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "hot_issue_id")
-
     private Long id;
 
     private String title;
@@ -35,6 +35,7 @@ public class HotIssue {
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
+
 
     @Builder
     public HotIssue(String title, String summary, String url, LocalDateTime createdAt, LocalDateTime updatedAt) {
