@@ -5,25 +5,22 @@ import * as S from './page.css';
 import * as T from '@/types';
 import * as API from '@/_apis/assembly';
 import * as Comp from '@/components';
-import { useQuery, useSuspenseQueries, useSuspenseQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 
 export default function AssemblyTab1({ params }: T.AssemblyTab1Props) {
-  const [pageParam, setPageParam] = useState(0);
   const { data: infoResponse, isFetched: infoFetched } = useSuspenseQuery({
     queryKey: [{ assembly: `info-request-${params.id}` }],
     queryFn: () => API.getAssemblyInfo({ assemblyId: params.id }),
     retry: false,
   });
-  const { data: pledgeResponse, isFetched: pledgeFetched } = useQuery({
-    queryKey: [{ assembly: `pledge-list-request-${params.id}`, pageParam: pageParam }],
+
+  const { data: pledgeResponse, isFetched: pledgeFetched } = useSuspenseQuery({
+    queryKey: [{ assembly: `pledge-list-request-${params.id}` }],
     queryFn: () => API.getPledgeList({ assemblyId: params.id }),
     retry: false,
   });
 
-  const handlePaginationClick = (page: number) => {
-    setPageParam(page);
-  };
-
+  console.log(`pledgeResponse :`, pledgeResponse.data);
   return (
     <section className={S.wrapper}>
       <h2 className={S.titleWrapper}>
@@ -33,11 +30,11 @@ export default function AssemblyTab1({ params }: T.AssemblyTab1Props) {
         </span>
       </h2>
       <ul className={S.pledgeWrapper}>
-        {pledgeResponse?.data.map((el: T.PledgeProps, i: number) => (
+        {pledgeResponse.data.map((el: T.PledgeProps, i: number) => (
           <Comp.Pledge key={`pledge-${el.id}`} {...el} polyName={infoResponse.data.polyName} />
         ))}
       </ul>
-      <Comp.Pagination currentPage={1} totalItems={pledgeResponse?.data.length} onPageChange={handlePaginationClick} />
+      {/* <Comp.Pagination currentPage={1} totalItems={pledgeResponse?.data.length} onPageChange={handlePaginationClick} /> */}
     </section>
   );
 }
