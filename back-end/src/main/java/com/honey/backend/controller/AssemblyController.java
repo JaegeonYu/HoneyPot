@@ -76,7 +76,8 @@ public class AssemblyController {
     @Operation(summary = "국회의원의 공약 리스트 조회", description = "국회의원의 공약 리스트 API")
     public ResponseEntity<List<PledgeDetailResponse>> findPledgeList(@PathVariable(name = ("assembly_id")) Long assemblyId) {
         PledgeResponse pledgeResponse = pledgeService.getPledge(assemblyId);
-        return ResponseEntity.status(HttpStatus.OK).body(pledgeService.getPledgeDetail(pledgeResponse.id()));
+        List<PledgeDetailResponse> pledgeDetailResponseList = pledgeService.getPledgeDetail(pledgeResponse.id());
+        return pledgeDetailResponseList.isEmpty()?ResponseEntity.status(HttpStatus.NO_CONTENT).body(pledgeDetailResponseList):ResponseEntity.status(HttpStatus.OK).body(pledgeDetailResponseList);
     }
 
     @GetMapping("/{assembly_id}/pledgeRateInfo")

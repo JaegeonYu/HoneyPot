@@ -25,9 +25,11 @@ public class PledgeService {
 
     public PledgeResponse getPledge(Long assemblyId) {
         PledgeFulfillmentRate pledgeFulfillmentRate = pledgeFulfillmentRateRepository.findByAssemblyId(assemblyId)
-                .orElseThrow(() -> new BaseException(PledgeErrorCode.PLEDGE_NOT_FOUND));
+                .orElse(null);
 
-
+        if(pledgeFulfillmentRate == null) {
+            return new PledgeResponse(-1L,new PledgeFulfillmentStatus(0,0,0,0,0,0));
+        }
         return new PledgeResponse(
                 pledgeFulfillmentRate.getId(),
                 getPledgeFulfillmentStatus(pledgeFulfillmentRate)
@@ -36,7 +38,9 @@ public class PledgeService {
 
     public List<PledgeDetailResponse> getPledgeDetail(Long pledgeFulfilmentRateId) {
         List<Pledge> pledgeList = pledgeRepository.findAllByPledgeFulfillmentRateId(pledgeFulfilmentRateId)
-                .orElseThrow(() -> new BaseException(PledgeErrorCode.PLEDGE_NOT_FOUND));
+                .orElse(null);
+        if(pledgeList == null)
+            return null;
         List<PledgeDetailResponse> pledgeDetailResponseList = new ArrayList<>();
         for (Pledge pledge : pledgeList) {
             pledgeDetailResponseList.add(getPledgeDetail(pledge));
