@@ -89,6 +89,15 @@ export default function PieChart({
       items.forEach((item: any, i: number) => {
         const listElement = document.createElement('li');
         listElement.className = S.customLegendLiItem;
+        listElement.onclick = () => {
+          const { type } = chart.config;
+          if (type === 'pie' || type === 'doughnut') {
+            chart.toggleDataVisibility(item.index);
+          } else {
+            chart.setDatasetVisibility(item.datasetIndex, !chart.isDatasetVisible(item.datasetIndex));
+          }
+          chart.update();
+        };
 
         const colorBox = document.createElement('span');
         colorBox.className = S.colorBox;
@@ -99,6 +108,7 @@ export default function PieChart({
 
         const text = document.createTextNode(item.text);
         textContainer.appendChild(text);
+        textContainer.style.textDecoration = item.hidden ? 'line-through' : '';
 
         listElement.appendChild(colorBox);
         listElement.appendChild(textContainer);

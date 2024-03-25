@@ -1,17 +1,14 @@
 'use client';
 
-import React, { useState, useEffect, Suspense, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import * as Comp from '@/components';
 import * as S from './style.css';
 import * as T from '@/types';
 import * as API from '@/_apis/bill';
 
-import { CATEGORY_LIST } from '@/_constants';
 import { PALETTE } from '@/_constants';
 import { Category } from '@/components';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import Pagination from '@/_components/Pagination/pagination';
-import BillLoading from './loading';
 // import { fontName } from '@/_components/Bill/Bill.css';
 
 export default function SeongqTest() {
@@ -158,13 +155,13 @@ export default function SeongqTest() {
           ))}
         </div>
 
-        <Pagination
+        <Comp.Pagination
           currentPage={page}
           onPageChange={handlePageChange}
           // limit={limit}
           // onLimitChange={handleLimitChange}
           totalItems={billResponse.data.billStatResponse.totalCount}
-        ></Pagination>
+        ></Comp.Pagination>
       </>
     )
   );
