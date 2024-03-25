@@ -1,4 +1,3 @@
-import { fontSize } from '@/_components/Category/Category.css';
 import { vars } from '@/globalTheme.css';
 import { style } from '@vanilla-extract/css';
 
