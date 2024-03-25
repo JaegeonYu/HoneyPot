@@ -7,6 +7,8 @@ import * as API from '@/apis';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import AssemblieslLoading from './loading';
 import { useQuery } from '@tanstack/react-query';
+import { assignInlineVars } from '@vanilla-extract/dynamic';
+import { PALETTE } from '@/_constants';
 
 interface Poly {
   polyId: number;
@@ -80,8 +82,24 @@ export default function AssembliesLayout({ children }: { children: React.ReactNo
                 key={`party-${party.polyId}`}
                 className={S.partyItem}
                 onClick={() => handleQueryString('poly', party.polyId)}
+                style={assignInlineVars({
+                  [S.isSelectedBgColor]:
+                    Number(searchParams.get('poly')) === party.polyId
+                      ? PALETTE.service.MAIN_BLACK
+                      : PALETTE.service.SUB_WHITE,
+                })}
               >
-                <span className={S.partyText}>{party.polyName}</span>
+                <span
+                  className={S.partyText}
+                  style={assignInlineVars({
+                    [S.isSelectedFontColor]:
+                      Number(searchParams.get('poly')) === party.polyId
+                        ? PALETTE.service.MAIN_WHITE
+                        : PALETTE.service.MAIN_BLACK,
+                  })}
+                >
+                  {party.polyName}
+                </span>
               </button>
             ))}
           </div>
@@ -89,8 +107,7 @@ export default function AssembliesLayout({ children }: { children: React.ReactNo
       ) : (
         <div className={S.skeletonPartyWrapper} />
       )}
-
-      <Comp.GridWrapper>{children}</Comp.GridWrapper>
+      {children}
     </>
   );
 }
