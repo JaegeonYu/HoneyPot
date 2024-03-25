@@ -52,7 +52,8 @@ export default function Bill({
     // 데이터가 변경되면 isActive 상태를 false로 초기화
     setIsActive(false);
     setIsToggled(false);
-  }, [assemblyId, billId, billNo]);
+    setComm(cmitId);
+  }, [assemblyId, billId, billNo, cmitId]);
 
   const toggleAccordion = () => {
     console.log(isActive, 'isActive');

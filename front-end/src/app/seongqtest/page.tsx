@@ -36,8 +36,8 @@ export default function SeongqTest() {
   console.log(page, 'page');
 
   const { data: billResponse, isFetched: billFetched } = useSuspenseQuery({
-    queryKey: [{ bill: `info-request-bill-list` }, { page, limit }], // 쿼리 키에 page와 limit 추가
-    queryFn: () => API.getBillInfo({ cmit: 0, page, limit, word: '' }), // API 호출 시 동적으로 page와 limit 전달
+    queryKey: [{ bill: `info-request-bill-list` }, { page, limit, selectedCategoryId }], // 쿼리 키에 page와 limit 추가
+    queryFn: () => API.getBillInfo({ cmit: selectedCategoryId, page, limit, word: '' }), // API 호출 시 동적으로 page와 limit 전달
     retry: false,
   });
   ///////////////////////////////
@@ -56,7 +56,7 @@ export default function SeongqTest() {
 
   const handleCategoryClick = (categoryId: number) => {
     setSelectedCategoryId(categoryId);
-    console.log(categoryId, '========================');
+    console.log(selectedCategoryId, '========================');
   };
 
   const ddata = {

@@ -8,7 +8,7 @@ import { CATEGORY_LIST } from '@/_constants';
 
 export default function CategoryList({ onCategoryClick }: T.CategoryListProps) {
   const handleCategoryClick = (categoryId: number) => {
-    // onCategoryClick(categoryId);
+    onCategoryClick(categoryId);
     console.log(categoryId, 'categoryId');
   };
 
