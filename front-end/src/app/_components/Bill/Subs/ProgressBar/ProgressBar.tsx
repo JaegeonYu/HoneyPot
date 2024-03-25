@@ -26,7 +26,7 @@ export default function ProgressBar({ step, date, partycolor, status, finalStatu
       {stepnameList.map((stepname, i) => (
         <div className={S.element} key={i}>
           {status === 'R6' ? <p className={S.fontContent}>{stepname}</p> : <p style={{ height: 22 }}></p>}
-          {step >= i && i < 4 ? (
+          {step !== null && step >= i && i < 4 ? (
             <Dot idx={4 - i} partycolor={partycolor} flag={true} barflag={true} lastdot={true}></Dot>
           ) : (
             <Dot idx={4 - i} partycolor={partycolor} flag={false} barflag={false} lastdot={true}></Dot>

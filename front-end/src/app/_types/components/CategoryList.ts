@@ -1,3 +1,4 @@
 export interface CategoryListProps {
-  onClick: ({ index }: { index: number }) => void;
+  // onClick: ({ index }: { index: number }) => void;
+  onCategoryClick: (categoryId: number) => void;
 }

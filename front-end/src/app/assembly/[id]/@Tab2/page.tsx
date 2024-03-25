@@ -10,6 +10,7 @@ import { useSuspenseInfiniteQuery, useSuspenseQuery } from '@tanstack/react-quer
 
 export default function AssemblyTab2({ params }: T.AssemblyTab2Props) {
   const [totalCount, setTotalCount] = useState<number | null>(null);
+  const [selectedCategoryId, setSelectedCategoryId] = useState(0);
 
   const { data: infoResponse, isFetched: infoFetched } = useSuspenseQuery({
     queryKey: [{ assembly: `info-request-${params.id}` }],
@@ -40,17 +41,25 @@ export default function AssemblyTab2({ params }: T.AssemblyTab2Props) {
     },
   });
 
+  const legendList = console.log(`data.pages[0].data :`, data.pages[0].data);
+  console.log(`data.pageParams :`, data?.pageParams);
+  console.log(`data.pages :`, data);
   /**
    * 총 갯수 관리 하기
    */
   useEffect(() => {}, []);
+
+  const handleCategoryClick = (categoryId: number) => {
+    setSelectedCategoryId(categoryId);
+    console.log(selectedCategoryId, '========================');
+  };
 
   return (
     <>
       <h2 className={S.totalCountText}>
         총 <span className={S.totalNumber}>{totalCount}</span>명
       </h2>
-      <Comp.CategoryList />
+      <Comp.CategoryList onCategoryClick={handleCategoryClick} />
       <section className={S.billListWithChartWrapper}>
         {data?.pages[0].data.billResponse?.map((res: T.BillProps, i: number) => (
           <Comp.Bill key={res.billId} {...res} />

@@ -1,11 +1,11 @@
 import React from 'react';
 
 export interface ProgressBarProps {
-  step: number;
+  step: number | null;
   date: any[];
-  partycolor: string;
-  status: string;
-  finalDate: string;
-  finalStatus: string;
+  partycolor: string | null;
+  status: string | null;
+  finalDate: string | null;
+  finalStatus: string | null;
   // children: React.ReactNode;
 }
