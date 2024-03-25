@@ -19,8 +19,6 @@ export default function ProgressBar({ step, date, partycolor, status, finalStatu
   //나중에 date는 파라미터로 받은 date쓸 것
   // const date = ['23.12.01', '24.01.04', '24.02.01'];
   const st = false;
-  console.log(step, 'date');
-  console.log(status, 'what');
 
   return (
     <div className={S.wrapper}>
