@@ -2,6 +2,10 @@ package com.honey.backend.service;
 
 import com.honey.backend.domain.assembly.Assembly;
 import com.honey.backend.domain.assembly.AssemblyRepository;
+import com.honey.backend.domain.attendance.Attendance;
+import com.honey.backend.domain.attendance.AttendanceRepository;
+import com.honey.backend.domain.attendance.StandingAttendance;
+import com.honey.backend.domain.attendance.StandingAttendanceRepository;
 import com.honey.backend.domain.committee.Committee;
 import com.honey.backend.domain.committee.CommitteeRepository;
 import com.honey.backend.domain.poly.Poly;
@@ -28,6 +32,11 @@ public class AssemblyService {
     private final SnsRepository snsRepository;
     private final CommitteeRepository committeeRepository;
     private final SidoRepository sidoRepository;
+
+    private final AttendanceRepository attendanceRepository;
+    private final StandingAttendanceRepository standingAttendanceRepository;
+
+
 
     public AssemblyListResponse findAll(AssemblyListRequest assemblyListRequest) {
         Long sido = assemblyListRequest.sido();
@@ -116,7 +125,7 @@ public class AssemblyService {
 
     public AssemblyResponse insertToResponse(Assembly assembly) {
 
-        ;
+
         return new AssemblyResponse(
                 assembly.getId(),
                 assembly.getAssemblyImgUrl(),
@@ -132,12 +141,22 @@ public class AssemblyService {
                 assembly.getGender(),
                 assembly.getMemTitle(),
                 assembly.getEmail(),
-                assembly.getPlenaryAttendance(),
-                assembly.getStandingAttendance()
+                getAttendanceInfo(assembly.getId())
+
         );
 
     }
+    public AttendanceResponse getAttendanceInfo(Long assemblyId) {
+        Attendance attendance = attendanceRepository.findByAssemblyId(assemblyId).orElse(null);
+        StandingAttendance standingAttendance = standingAttendanceRepository.findByAssemblyId(assemblyId).orElse(null);
 
+        int attendanceRate = attendance != null ? attendance.getAttendance() + attendance.getLeaves() + attendance.getBusinessTrip() + attendance.getAbsenceReport() : 0;
+        int absenceRate = attendance != null ? attendance.getAbsence() : 0;
+        int standingAttendanceRate = standingAttendance != null ? standingAttendance.getAttendance() + standingAttendance.getLeaves() + standingAttendance.getBusinessTrip() + standingAttendance.getAbsenceReport() : 0;
+        int standingAbsenceRate = standingAttendance != null ? standingAttendance.getAbsence() : 0;
+
+        return new AttendanceResponse(attendanceRate, absenceRate, standingAttendanceRate, standingAbsenceRate);
+    }
 
     public boolean polySearch() {
         return true;

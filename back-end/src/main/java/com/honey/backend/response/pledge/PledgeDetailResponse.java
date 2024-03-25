@@ -11,4 +11,5 @@ public record PledgeDetailResponse(
         String requiredBudgetAmount,
         String securedBudgetAmount,
         String otherImplementationBasis
-) {}
+) {
+}

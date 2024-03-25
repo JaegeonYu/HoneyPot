@@ -6,10 +6,14 @@ import com.honey.backend.domain.pledge.PledgeFulfillmentRateRepository;
 import com.honey.backend.domain.pledge.PledgeRepository;
 import com.honey.backend.exception.BaseException;
 import com.honey.backend.exception.PledgeErrorCode;
+import com.honey.backend.request.PledgeRequest;
 import com.honey.backend.response.pledge.PledgeDetailResponse;
 import com.honey.backend.response.pledge.PledgeFulfillmentStatus;
+import com.honey.backend.response.pledge.PledgeListResponse;
 import com.honey.backend.response.pledge.PledgeResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -36,8 +40,8 @@ public class PledgeService {
         );
     }
 
-    public List<PledgeDetailResponse> getPledgeDetail(Long pledgeFulfilmentRateId) {
-        List<Pledge> pledgeList = pledgeRepository.findAllByPledgeFulfillmentRateId(pledgeFulfilmentRateId)
+    public PledgeListResponse getPledgeDetailList(PledgeRequest pledgeRequest, Long pledgeFulfilmentRateId) {
+        Page<Pledge> pledgeList = pledgeRepository.findAllByPledgeFulfillmentRateId(PageRequest.of(pledgeRequest.page(),pledgeRequest.limit()),pledgeFulfilmentRateId)
                 .orElse(null);
         if(pledgeList == null)
             return null;
@@ -45,7 +49,7 @@ public class PledgeService {
         for (Pledge pledge : pledgeList) {
             pledgeDetailResponseList.add(getPledgeDetail(pledge));
         }
-        return pledgeDetailResponseList;
+        return new PledgeListResponse((int)pledgeList.getTotalElements(),pledgeDetailResponseList);
     }
 
     private PledgeFulfillmentStatus getPledgeFulfillmentStatus(PledgeFulfillmentRate pledgeFulfillmentRate) {

@@ -2,8 +2,9 @@ package com.honey.backend.controller;
 
 import com.honey.backend.request.AssemblyListRequest;
 import com.honey.backend.request.BillRequest;
+import com.honey.backend.request.PledgeRequest;
 import com.honey.backend.response.*;
-import com.honey.backend.response.pledge.PledgeDetailResponse;
+import com.honey.backend.response.pledge.PledgeListResponse;
 import com.honey.backend.response.pledge.PledgeResponse;
 import com.honey.backend.service.AssemblyService;
 import com.honey.backend.service.BillService;
@@ -74,10 +75,10 @@ public class AssemblyController {
 
     @GetMapping("/{assembly_id}/pledgeList")
     @Operation(summary = "국회의원의 공약 리스트 조회", description = "국회의원의 공약 리스트 API")
-    public ResponseEntity<List<PledgeDetailResponse>> findPledgeList(@PathVariable(name = ("assembly_id")) Long assemblyId) {
+    public ResponseEntity<PledgeListResponse> findPledgeList(@PathVariable(name = ("assembly_id")) Long assemblyId, PledgeRequest pledgeRequest) {
         PledgeResponse pledgeResponse = pledgeService.getPledge(assemblyId);
-        List<PledgeDetailResponse> pledgeDetailResponseList = pledgeService.getPledgeDetail(pledgeResponse.id());
-        return pledgeDetailResponseList.isEmpty()?ResponseEntity.status(HttpStatus.NO_CONTENT).body(pledgeDetailResponseList):ResponseEntity.status(HttpStatus.OK).body(pledgeDetailResponseList);
+        PledgeListResponse pledgeDetailResponseList = pledgeService.getPledgeDetailList(pledgeRequest, pledgeResponse.id());
+        return pledgeDetailResponseList.pledgeDetailResponse().isEmpty() ? ResponseEntity.status(HttpStatus.NO_CONTENT).body(pledgeDetailResponseList) : ResponseEntity.status(HttpStatus.OK).body(pledgeDetailResponseList);
     }
 
     @GetMapping("/{assembly_id}/pledgeRateInfo")
