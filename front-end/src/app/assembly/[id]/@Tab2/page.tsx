@@ -1,19 +1,22 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import * as API from '@/_apis/assembly';
 import * as S from './page.css';
 import * as T from '@/types';
 import * as Comp from '@/components';
-import { CATEGORY_LIST, PALETTE } from '@/_constants';
+import { PALETTE } from '@/_constants';
 import { useSuspenseInfiniteQuery, useSuspenseQuery } from '@tanstack/react-query';
 
 export default function AssemblyTab2({ params }: T.AssemblyTab2Props) {
+  const [totalCount, setTotalCount] = useState<number | null>(null);
+
   const { data: infoResponse, isFetched: infoFetched } = useSuspenseQuery({
     queryKey: [{ assembly: `info-request-${params.id}` }],
     queryFn: () => API.getAssemblyInfo({ assemblyId: params.id }),
     retry: false,
   });
+
   const {
     data,
     fetchNextPage,
@@ -37,15 +40,19 @@ export default function AssemblyTab2({ params }: T.AssemblyTab2Props) {
     },
   });
 
-  // console.log(`data.pages[0].data :`, data.pages[0].data);
-  // console.log(`data.pageParams :`, data?.pageParams);
-  // console.log(`data.pages :`, data?.pages);
+  /**
+   * 총 갯수 관리 하기
+   */
+  useEffect(() => {}, []);
 
   return (
     <>
+      <h2 className={S.totalCountText}>
+        총 <span className={S.totalNumber}>{totalCount}</span>명
+      </h2>
       <Comp.CategoryList />
       <section className={S.billListWithChartWrapper}>
-        {data?.pages[0].data.billResponse.map((res: T.BillProps, i: number) => (
+        {data?.pages[0].data.billResponse?.map((res: T.BillProps, i: number) => (
           <Comp.Bill key={res.billId} {...res} />
         ))}
         <Comp.Poster posterwidth="280px" posterheight="268px">

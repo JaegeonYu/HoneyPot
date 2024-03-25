@@ -77,7 +77,7 @@ export default function AreaSelector() {
   };
   const handleSiGunGuItemClick = (region: T.ResponseRegion) => {
     if (region.regionId === 0) {
-      handleQueryString({ sido: region.regionId, siGunGu: 0, dong: 0 });
+      handleQueryString({ sido: Number(searchParams.get('sido')), siGunGu: 0, dong: 0 });
     } else {
       handleQueryString({ sido: Number(searchParams.get('sido')), siGunGu: region.regionId, dong: 0 });
       siGunGuButton.current?.blur();

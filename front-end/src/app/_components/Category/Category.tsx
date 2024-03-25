@@ -244,8 +244,8 @@ export default function Category({ categoryId, dynamicColorMode, iconWidth, icon
                   [S.defaultColor]: dynamicColorMode ? vars.colors.service.SUB_BLACK : vars.colors.service.MAIN_BLACK,
                   [S.hoverColor]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
                   [S.focusColor]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_BLACK,
-                  [S.hoverBorder]: dynamicColorMode ? vars.colors.service.HOVER_STROKE : vars.colors.service.MAIN_WHITE,
-                  [S.focusBorder]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : vars.colors.service.MAIN_WHITE,
+                  [S.hoverBorder]: dynamicColorMode ? vars.colors.service.HOVER_STROKE : 'transparent',
+                  [S.focusBorder]: dynamicColorMode ? vars.colors.service.MAIN_BLACK : 'transparent',
                   [S.fontSize]: fontSize,
                 })}
               >
