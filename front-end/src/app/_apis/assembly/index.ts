@@ -58,6 +58,6 @@ export async function getPledgeRateInfo({ assemblyId }: { assemblyId: string }) 
   return await instance.get(`/assembly/${assemblyId}/pledgeRateInfo`);
 }
 
-export async function getPledgeList({ assemblyId }: { assemblyId: string }) {
-  return await instance.get(`/assembly/${assemblyId}/pledgeList`);
+export async function getPledgeList({ assemblyId, page, take }: { assemblyId: string; page: number; take: number }) {
+  return await instance.get(`/assembly/${assemblyId}/pledgeList?page=${page}&limit=${take}`);
 }
