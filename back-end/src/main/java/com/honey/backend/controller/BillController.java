@@ -46,4 +46,9 @@ public class BillController {
         return ResponseEntity.status(HttpStatus.OK).body(billService.findById(billId));
     }
 
+    @GetMapping("/{bill_id}/summary")
+    @Operation(summary = "의안 요약 조회", description = "의안 요약 API")
+    public ResponseEntity<String> findBySummary(@PathVariable(name = "bill_id") Long billId) {
+        return ResponseEntity.status(HttpStatus.OK).body(billService.getSummary(billId));
+    }
 }

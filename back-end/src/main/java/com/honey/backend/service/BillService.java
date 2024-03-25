@@ -5,16 +5,25 @@ import com.honey.backend.domain.bill.Bill;
 import com.honey.backend.domain.bill.BillRepository;
 import com.honey.backend.domain.committee.CommitteeRepository;
 import com.honey.backend.domain.poly.PolyRepository;
+import com.honey.backend.exception.BaseException;
+import com.honey.backend.exception.BillErrorCode;
 import com.honey.backend.request.BillRequest;
 import com.honey.backend.response.BillProgressResponse;
 import com.honey.backend.response.BillResponse;
 import com.honey.backend.response.BillStatResponse;
 import lombok.RequiredArgsConstructor;
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -24,6 +33,9 @@ public class BillService {
     private final AssemblyRepository assemblyRepository;
     private final CommitteeRepository committeeRepository;
     private final PolyRepository polyRepository;
+
+    @Value("${PYTHON_URL}")
+    private String pythonUrl;
 
     public BillResponse findById(Long billId) {
         return insertToBillResponse(billRepository.findById(billId).orElseThrow());
@@ -62,6 +74,26 @@ public class BillService {
     public BillStatResponse getBillStatPoly(Long polyId, Long cmitId) {
         return billRepository.findBillStatByPolyIdAndCmitId(polyId, cmitId);
     }
+    @Transactional
+    public String getSummary(Long billId) {
+        Bill bill = billRepository.findById(billId).orElseThrow(
+                () ->
+                        new BaseException(BillErrorCode.BILL_NOT_FOUND)
+
+        );
+        Map<String, String> bodyMap = new HashMap<>();
+        bodyMap.put("content", bill.getTextBody());
+        String reponseBody = WebClient.create()
+                .post()
+                .uri(pythonUrl + "bill")
+                .bodyValue(bodyMap)
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .bodyToMono(String.class).block();
+
+        bill.updateSummary(reponseBody);
+        return reponseBody;
+    }
 
     public BillResponse insertToBillResponse(Bill bill) {
 
@@ -96,6 +128,7 @@ public class BillService {
         return billRepository.countByAssemblyIdAndCmitId(
                 billRequest.word(), billRequest.cmit(), assemblyId).intValue();
     }
+
     public int getCountPoly(BillRequest billRequest, Long polyId) {
 
         return billRepository.countByPolyIdAndCmitId(
