@@ -87,6 +87,8 @@ export default function AssembliesPage() {
     setTotalCount(assembliesResponse.pages[0]?.data.count || 0);
   }, [assembliesResponse.pages]);
 
+  console.log(`test :`, assembliesResponse.pages);
+
   return (
     <section className={S.cardSection}>
       <h2 className={S.titleWrapper}>

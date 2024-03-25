@@ -8,7 +8,7 @@ import { PALETTE } from '@/_constants';
 import { useSuspenseQueries } from '@tanstack/react-query';
 
 export default function Charts({ params }: T.AssemblyChartsProps) {
-  const [{ data: infoResponse, isFetched: infoFetched }, { data: pledgeResponse, isFetched: pledgeFetched }] =
+  const [{ data: infoResponse, isFetched: infoFetched }, { data: pledgeRateResponse, isFetched: pledgeFetched }] =
     useSuspenseQueries({
       queries: [
         {
@@ -22,13 +22,14 @@ export default function Charts({ params }: T.AssemblyChartsProps) {
       ],
     });
 
+  console.log(`공약 이행률 조회 :`, pledgeRateResponse.data);
   return (
     <article className={S.chartsWrapper}>
       <h3 className={S.titleText}>활동 현황</h3>
       <div className={S.chartsContainer}>
         <Comp.Poster posterwidth="360px" posterheight="360px">
           <div className={S.chartContainer}>
-            <p className={S.totalCount}>총 {pledgeResponse.data.pledgeFulfillmentStatus.totalPledges}개</p>
+            <p className={S.totalCount}>총 {pledgeRateResponse.data.pledgeFulfillmentStatus.totalPledges}개</p>
             <Comp.PieChart
               chartTitle={'공약 추진 현황'}
               legendDisplay={true}
@@ -40,11 +41,11 @@ export default function Charts({ params }: T.AssemblyChartsProps) {
                 { title: '폐기', color: PALETTE.party[infoResponse.data.polyName][20] },
               ]}
               datasetList={[
-                pledgeResponse.data.pledgeFulfillmentStatus.completedPledges,
-                pledgeResponse.data.pledgeFulfillmentStatus.ongoingPledges,
-                pledgeResponse.data.pledgeFulfillmentStatus.pendingPledges,
-                pledgeResponse.data.pledgeFulfillmentStatus.otherPledges,
-                pledgeResponse.data.pledgeFulfillmentStatus.discardedPledges,
+                pledgeRateResponse.data.pledgeFulfillmentStatus.completedPledges,
+                pledgeRateResponse.data.pledgeFulfillmentStatus.ongoingPledges,
+                pledgeRateResponse.data.pledgeFulfillmentStatus.pendingPledges,
+                pledgeRateResponse.data.pledgeFulfillmentStatus.otherPledges,
+                pledgeRateResponse.data.pledgeFulfillmentStatus.discardedPledges,
               ]}
               UNIQUE_ID_FOR_LEGEND="assembly-member-promise-current-situation"
             />

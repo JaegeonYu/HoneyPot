@@ -50,7 +50,7 @@ export default function AssemblyTab2({ params }: T.AssemblyTab2Props) {
     setPageParam(0);
   };
 
-  const handlePageChange = (newPage: number) => {
+  const handlePaginationClick = (newPage: number) => {
     setPageParam(newPage);
     if (target.current) target.current.scrollIntoView({ behavior: 'smooth' });
   };
@@ -89,7 +89,7 @@ export default function AssemblyTab2({ params }: T.AssemblyTab2Props) {
           </div>
         </section>
       </section>
-      <Comp.Pagination currentPage={pageParam} totalItems={totalCount || 0} onPageChange={handlePageChange} />
+      <Comp.Pagination currentPage={pageParam} totalItems={totalCount || 0} onPageChange={handlePaginationClick} />
     </>
   );
 }
