@@ -1,5 +1,9 @@
-import { createVar, style } from '@vanilla-extract/css';
+import { style } from '@vanilla-extract/css';
 import { vars } from '@/globalTheme.css';
+
+export const newsSection = style({
+  width: '100%',
+});
 
 export const newsWrapper = style({
   display: 'flex',
@@ -18,31 +22,45 @@ export const newsContent = style({
   display: 'flex',
   justifyContent: 'center',
   gap: 10,
+  width: '100%',
+
+  '@media': {
+    '(max-width: 768px)': {
+      flexDirection: 'column',
+    },
+  },
 });
 
-export const items = style({
+export const itemsWrapper = style({
   display: 'flex',
   flexDirection: 'column',
   gap: 10,
+  width: '50%',
   padding: '0px 16px',
   fontSize: 14,
-  width: '100%',
+
+  '@media': {
+    '(max-width: 768px)': {
+      width: '100%',
+    },
+  },
 });
+
 export const line = style({
   width: 1,
   backgroundColor: `${vars.colors.service.STROKE_OR_BLUR}`,
+
+  '@media': {
+    '(max-width: 768px)': {
+      display: 'none',
+    },
+  },
 });
 
-export const item = style({
-  display: 'flex',
-  justifyContent: 'space-between',
-  gap: 64,
-});
-
-export const itemContent = style({
-  color: `${vars.colors.service.MAIN_BLACK}`,
-});
-
-export const itemDate = style({
-  color: `${vars.colors.service.SUB_BLACK}`,
+export const partyTitle = style({
+  width: '100%',
+  fontSize: 18,
+  fontWeight: 'bold',
+  borderBottom: `1px solid ${vars.colors.service.STROKE_OR_BLUR}`,
+  padding: '48px 0px 8px 0px',
 });

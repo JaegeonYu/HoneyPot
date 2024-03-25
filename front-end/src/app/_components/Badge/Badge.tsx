@@ -14,7 +14,7 @@ import { assignInlineVars } from '@vanilla-extract/dynamic';
  * Badge가 우측 상단에 떠있어야 되는 경우 [type: boolean]
  *
  * @description
- * 의안 컴포넌트, 국회의원 카드 내부에 쓰임
+ * 법안 컴포넌트, 국회의원 카드 내부에 쓰임
  */
 export default function Badge({ color, children, isPositionAbsolute }: T.BadgeProps) {
   return (

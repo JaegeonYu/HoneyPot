@@ -14,7 +14,7 @@ export default function TopBillCategories({ params }: T.AssemblyTopBillCategorie
 
   return (
     <article className={S.mostCategoriesWrapper}>
-      <h3 className={S.titleText}>가장 많이 발의한 의안 분야</h3>
+      <h3 className={S.titleText}>가장 많이 발의한 법안 분야</h3>
       <div className={S.mostCategoryContainer}>
         {mostCategoriesResponse.data.map((el: { cmitCd: string; cmitId: number; cmitName: string }, i: number) => (
           <Comp.Category

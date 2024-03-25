@@ -12,8 +12,10 @@ export const wrapper = style({
   overflow: 'hidden',
 });
 
+export const imgPadding = createVar();
 export const imgHeight = createVar();
 export const styledImage = style({
   width: '100%',
   height: imgHeight,
+  padding: imgPadding,
 });
