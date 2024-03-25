@@ -24,7 +24,8 @@
       "@/apis": ["_apis/"],
       "@/assets": ["_assets/"],
       "@/types": ["_types/"],
-      "@/store": ["_store/"]
+      "@/store": ["_store/"],
+      "@/customhooks": ["_customhooks/"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

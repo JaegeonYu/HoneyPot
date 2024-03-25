@@ -56,12 +56,10 @@ export default function Bill({
   }, [assemblyId, billId, billNo, cmitId]);
 
   const toggleAccordion = () => {
-    console.log(isActive, 'isActive');
     setIsActive(!isActive);
   };
 
   const toggleButton = (event: React.MouseEvent) => {
-    console.log(isToggled, 'Toggles');
     event.stopPropagation();
     setIsToggled(!isToggled);
   };

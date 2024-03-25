@@ -18,6 +18,7 @@ export default function ProgressBar({ step, date, partycolor, status, finalStatu
   const stepnameList = ['발의', '상임위', '법사위', '본회의'];
   //나중에 date는 파라미터로 받은 date쓸 것
   // const date = ['23.12.01', '24.01.04', '24.02.01'];
+  const st = false;
 
   return (
     <div className={S.wrapper}>

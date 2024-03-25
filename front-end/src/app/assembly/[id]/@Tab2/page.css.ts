@@ -7,9 +7,20 @@ export const window = style({
   overflowX: 'scroll',
   position: 'relative',
 });
-
 globalStyle(`${window}::-webkit-scrollbar`, {
   visibility: 'hidden',
+});
+
+export const totalCountText = style({
+  height: '28px',
+  fontSize: '16px',
+  textAlign: 'right',
+  paddingRight: '24px',
+  borderBottom: `2px solid ${vars.colors.service.STROKE_OR_BLUR}`,
+});
+
+export const totalNumber = style({
+  fontWeight: 700,
 });
 
 export const arrowButtonPositionRigiht = createVar();
@@ -35,50 +46,3 @@ export const chartWrapper = style({
   width: '100%',
   height: '100%',
 });
-
-// export const categoryItem = style({
-//   display: 'flex',
-//   alignItems: 'center',
-//   flexDirection: 'column',
-//   width: 'fit-content',
-//   cursor: 'pointer',
-
-//   selectors: {
-//     [`&:hover`]: {
-//       fill: vars.colors.service.MAIN_BLACK,
-//     },
-//   },
-// });
-
-// export const categoryName = style({
-//   color: vars.colors.service.SUB_BLACK,
-//   borderBottom: `1px solid ${vars.colors.service.MAIN_WHITE}`,
-//   textWrap: 'nowrap',
-//   fontSize: '16px',
-
-//   selectors: {
-//     [`${categoryItem} &:hover`]: {
-//       color: vars.colors.service.MAIN_BLACK,
-//       borderBottom: `1px solid ${vars.colors.service.SUB_BLACK}`,
-//     },
-//     [`${categoryItem} &:focus-within`]: {
-//       color: vars.colors.service.MAIN_BLACK,
-//       borderBottom: `1px solid ${vars.colors.service.MAIN_BLACK}`,
-//     },
-//   },
-// });
-
-// export const arrowButtonWrapper = style({
-//   width: '16px',
-//   height: '16px',
-//   borderRadius: '100%',
-//   backgroundColor: vars.colors.service.MAIN_WHITE,
-//   position: 'absolute',
-//   right: `${arrowButtonPositionRigiht}`,
-//   top: '40%',
-//   transform: `translate(-50%, 0%)`,
-// });
-
-// export const styleArrowSvg = style({
-//   transform: 'rotate(90deg)',
-// });

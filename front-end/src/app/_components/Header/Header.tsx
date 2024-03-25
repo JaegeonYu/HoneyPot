@@ -13,7 +13,7 @@ function Header() {
         <div className={S.navTitle}>
           <span className={S.title}>21대 국회</span>
           <ul className={S.dropBox}>
-            <Link href="/assembly-list">
+            <Link href="/assemblies">
               <li className={S.dropBoxItem}>국회의원</li>
             </Link>
             <Link href="/parties">

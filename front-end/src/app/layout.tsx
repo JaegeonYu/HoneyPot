@@ -37,7 +37,7 @@ export default function RootLayout({
       <body className={`${notoSansKr.className}`}>
         <ReactQueryProviders>
           <Comp.Header />
-          <div
+          <main
             style={{
               width: '90%',
               maxWidth: '1240px',
@@ -50,7 +50,7 @@ export default function RootLayout({
             }}
           >
             {children}
-          </div>
+          </main>
         </ReactQueryProviders>
       </body>
     </html>
