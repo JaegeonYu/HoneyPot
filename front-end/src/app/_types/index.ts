@@ -33,6 +33,8 @@ import {
   PartyDetailLayoutProps,
   PartyDetailChartsProps,
   PartyDetailTopBillCategoriesProps,
+  PartyDetailTab1Props,
+  PartyDetailTab2Props,
 } from './pages/party-detail';
 
 /** pages */
@@ -65,11 +67,10 @@ export type {
   AssemblyTab1Props,
   AssemblyTab2Props,
   AssemblyTab3Props,
-<<<<<<< HEAD
   PartyDetailLayoutProps,
   PartyDetailChartsProps,
   PartyDetailTopBillCategoriesProps,
-=======
   PledgeProps,
->>>>>>> fe-develop
+  PartyDetailTab1Props,
+  PartyDetailTab2Props,
 };

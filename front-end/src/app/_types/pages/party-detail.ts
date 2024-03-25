@@ -11,3 +11,10 @@ export interface PartyDetailChartsProps {
 export interface PartyDetailTopBillCategoriesProps {
   params: { id: string };
 }
+export interface PartyDetailTab1Props {
+  params: { id: string };
+}
+
+export interface PartyDetailTab2Props {
+  params: { id: string };
+}

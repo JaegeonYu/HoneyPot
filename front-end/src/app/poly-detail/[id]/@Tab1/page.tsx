@@ -1,5 +1,20 @@
-export default function PolyDetailTab1() {
-  return <div style={{ border: '1px solid blue' }}>탭1페이지지</div>;
+'use client';
+
+import React from 'react';
+import * as S from './page.css';
+import * as T from '@/types';
+import * as API from '@/_apis';
+import * as Comp from '@/components';
+import { useSuspenseQuery } from '@tanstack/react-query';
+
+export default function PolyDetailTab1({ params }: T.PartyDetailTab1Props) {
+  const { data: infoResponse, isFetched: infoFetched } = useSuspenseQuery({
+    queryKey: [{ assembly: `info-request-${params.id}` }],
+    queryFn: () => API.poly.getPolyDetail({ polyId: params.id }),
+    retry: false,
+  });
+
+  return;
 }
 
 // 'use client';
