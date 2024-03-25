@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
@@ -35,7 +36,7 @@ public class HotIssueLoadService {
     private final HotIssueRepository hotIssueRepository;
     private final Logger logger = LoggerFactory.getLogger("hotIssueLogger");
 
-    @Value("PYTHON_URL")
+    @Value("${PYTHON_URL}")
     private String PYTHON_URL;
 
     public String getCrolling(String url) throws IOException {
@@ -86,20 +87,42 @@ public class HotIssueLoadService {
         }
     }
 
-    @Transactional
+
     public String getSummary(Long hotIssueId){
+        //db read
+        for(int i=746;i<839;i++){
+            System.out.println(i);
+            String s = addSummary((long) i);
+            System.out.println(s);
+        }
+
+
+        return "done";
+    }
+
+    @Transactional
+    protected String addSummary(Long hotIssueId) {
         HotIssue hotIssue = hotIssueRepository.findById(hotIssueId)
                 .orElseThrow(() -> new IllegalArgumentException("not found hot issue"));
 
-        RestClient restClient = RestClient.create();
-        SummaryDto summaryDto = new SummaryDto(hotIssue.getOriginal());
-        SummaryResponseDto summaryResponse = restClient.post()
-                .uri(PYTHON_URL+"/issue")
-                .contentType(APPLICATION_JSON)
-                .body(summaryDto)
-                .retrieve().toEntity(SummaryResponseDto.class).getBody();
+        // 요약 여부 확인
+        if(hotIssue.getSummary() != null)throw new IllegalArgumentException("이미 요약이 존재합니다.");
 
-        hotIssue.addSummary(summaryResponse.getSummary());
-        return summaryResponse.getSummary();
+        // python 서버 요약 요청
+        RestClient restClient = RestClient.builder().baseUrl(PYTHON_URL+"issue").build();
+
+        SummaryResponseDto summary = restClient.post()
+                .contentType(APPLICATION_JSON)
+                .body(new SummaryDto(hotIssue.getTitle(), hotIssue.getOriginal()))
+                .retrieve()
+                .body(SummaryResponseDto.class);
+
+        StringBuffer summaries = new StringBuffer();
+        for(String sum : summary.getResult()){
+            summaries.append(sum+"\n");
+        }
+
+        hotIssue.addSummary(summaries.toString());
+        return summaries.toString();
     }
 }
