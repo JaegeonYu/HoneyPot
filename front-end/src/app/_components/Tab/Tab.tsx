@@ -10,7 +10,7 @@ import { assignInlineVars } from '@vanilla-extract/dynamic';
  *
  * @param children
  * Tab 사이에 들어가야 될 요소가 있을 때
- * (ex. 의안 리스트 페이지 - 차트)
+ * (ex. 법안 리스트 페이지 - 차트)
  *
  * @param tabChildrenList
  * 탭으로 전환될 요소들 [type: React.ReactNode[]]

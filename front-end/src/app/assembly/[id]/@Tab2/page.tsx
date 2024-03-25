@@ -59,7 +59,7 @@ export default function AssemblyTab2({ params }: T.AssemblyTab2Props) {
     <>
       <section className={S.wrapper}>
         <h2 className={S.titleWrapper} ref={target}>
-          <span className={S.title}>의안</span>
+          <span className={S.title}>법안</span>
           <span className={S.totalContWrapper}>
             총 <span className={S.number}>{totalCount || 0}</span>개
           </span>
@@ -69,7 +69,7 @@ export default function AssemblyTab2({ params }: T.AssemblyTab2Props) {
           <Comp.Poster posterwidth="280px" posterheight="268px">
             <div className={S.chartWrapper}>
               <Comp.PieChart
-                chartTitle="전체 의안 추진 현황"
+                chartTitle="전체 법안 추진 현황"
                 legendList={['가결', '진행중', '대안바영', '철회 또는 페기', '부결'].map((title: string, i) => {
                   return {
                     title: title,
