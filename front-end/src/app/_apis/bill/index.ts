@@ -17,3 +17,7 @@ export async function getBillInfo({
 }) {
   return await instance.get(`/bill?page=${page}&limit=${limit}&cmit=${cmit}&word=${word}`);
 }
+
+export async function getHotBillInfo({ page, size }: { page: number; size: number }) {
+  return await instance.get(`?page=${page}&size=${size}`);
+}
