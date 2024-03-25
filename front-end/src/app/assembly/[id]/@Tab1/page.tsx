@@ -5,14 +5,25 @@ import * as S from './page.css';
 import * as T from '@/types';
 import * as API from '@/_apis/assembly';
 import * as Comp from '@/components';
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useSuspenseQueries, useSuspenseQuery } from '@tanstack/react-query';
 
 export default function AssemblyTab1({ params }: T.AssemblyTab1Props) {
-  const { data: infoResponse, isFetched: infoFetched } = useSuspenseQuery({
-    queryKey: [{ assembly: `info-request-${params.id}` }],
-    queryFn: () => API.getAssemblyInfo({ assemblyId: params.id }),
-    retry: false,
-  });
+  const [{ data: infoResponse, isFetched: infoFetched }, { data: pledgeResponse, isFetched: pledgeFetched }] =
+    useSuspenseQueries({
+      queries: [
+        {
+          queryKey: [{ assembly: `info-request-${params.id}` }],
+          queryFn: () => API.getAssemblyInfo({ assemblyId: params.id }),
+          retry: false,
+        },
+        {
+          queryKey: [{ assembly: `pledge-list-request-${params.id}` }],
+          queryFn: () => API.getPledgeList({ assemblyId: params.id }),
+          retry: false,
+        },
+      ],
+    });
+  console.log(`pledgeResponse :`, pledgeResponse.data);
 
   return (
     <section className={S.wrapper}>

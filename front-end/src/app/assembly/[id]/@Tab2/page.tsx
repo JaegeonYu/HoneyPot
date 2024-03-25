@@ -70,10 +70,12 @@ export default function AssemblyTab2({ params }: T.AssemblyTab2Props) {
             <div className={S.chartWrapper}>
               <Comp.PieChart
                 chartTitle="전체 의안 추진 현황"
-                legendList={['가결', '진행중', '대안바영', '철회 또는 페기', '부결'].map((title: string, i = 7) => ({
-                  title: title,
-                  color: PALETTE.party[infoResponse.data.polyName][(i - 1) * 20],
-                }))}
+                legendList={['가결', '진행중', '대안바영', '철회 또는 페기', '부결'].map((title: string, i) => {
+                  return {
+                    title: title,
+                    color: PALETTE.party[infoResponse.data.polyName][100 - i * 20],
+                  };
+                })}
                 legendDisplay={true}
                 datasetList={chartData}
                 UNIQUE_ID_FOR_LEGEND="assembly-member-bill-current-situation"
@@ -91,12 +93,3 @@ export default function AssemblyTab2({ params }: T.AssemblyTab2Props) {
     </>
   );
 }
-
-// {
-//   "approved": 0,//'가결',
-//   "rejected": 0,//'부결',
-//   "disposedOrWithdrawn": 0,//'철회or페기',
-//   "inProgress": 0,//'진행중',
-//   "alternativeIncorporated": 0,//'대안반영',
-//   "totalCount": 0,//'전체 갯수',
-// }

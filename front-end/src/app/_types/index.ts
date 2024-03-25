@@ -16,6 +16,7 @@ import { ToggleButtonProps } from './components/toggleButton';
 import { CategoryListProps } from './components/CategoryList';
 import { OriginalPanelProps } from './components/originalPanel';
 import { PledgeProps } from './components/pledge';
+import { TooltipProps } from './components/tooltip';
 /** components */
 
 /** pages */
@@ -73,4 +74,5 @@ export type {
   PledgeProps,
   PartyDetailTab1Props,
   PartyDetailTab2Props,
+  TooltipProps,
 };

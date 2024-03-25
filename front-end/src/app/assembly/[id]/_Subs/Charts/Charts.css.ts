@@ -1,3 +1,4 @@
+import { fontSize } from '@/_components/Category/Category.css';
 import { vars } from '@/globalTheme.css';
 import { style } from '@vanilla-extract/css';
 
@@ -24,4 +25,15 @@ export const chartContainer = style({
   width: '100%',
   height: '100%',
   padding: '0px 24px',
+  position: 'relative',
+});
+
+export const totalCount = style({
+  position: 'absolute',
+  top: 0,
+  right: 0,
+  color: vars.colors.service.SUB_BLACK,
+  fontSize: '12px',
+  height: '20px',
+  lineHeight: '20px',
 });
