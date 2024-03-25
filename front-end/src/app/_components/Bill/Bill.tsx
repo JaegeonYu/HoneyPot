@@ -48,12 +48,10 @@ export default function Bill({
   const [dateList, setDateList] = useState([proposeDt, cmitProcDt, lawProcDt, procDt]);
 
   const toggleAccordion = () => {
-    console.log(isActive, 'isActive');
     setIsActive(!isActive);
   };
 
   const toggleButton = (event: React.MouseEvent) => {
-    console.log(isToggled, 'Toggles');
     event.stopPropagation();
     setIsToggled(!isToggled);
   };

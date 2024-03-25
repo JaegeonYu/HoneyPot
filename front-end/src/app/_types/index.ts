@@ -15,6 +15,7 @@ import { AreaSelectorProps, Region, HandleQueryStringArgs, ResponseRegion } from
 import { ToggleButtonProps } from './components/toggleButton';
 import { CategoryListProps } from './components/CategoryList';
 import { OriginalPanelProps } from './components/originalPanel';
+import { PledgeProps } from './components/pledge';
 /** components */
 
 /** pages */
@@ -57,4 +58,5 @@ export type {
   AssemblyTab1Props,
   AssemblyTab2Props,
   AssemblyTab3Props,
+  PledgeProps,
 };

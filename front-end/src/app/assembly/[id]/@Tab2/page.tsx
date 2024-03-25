@@ -28,18 +28,18 @@ export default function AssemblyTab2({ params }: T.AssemblyTab2Props) {
     queryFn: ({ pageParam }) => API.getAssemblyBill({ assemblyId: params.id, cmit: 0, page: pageParam, take: 10 }),
     initialPageParam: 0,
     getNextPageParam: (lastPage, allPages, lastPageParam, allPageParams) => {
-      console.log(`GET NEXT :`, lastPage);
+      // console.log(`GET NEXT :`, lastPage);
       return null;
     },
     getPreviousPageParam: (firstPage, allPages, firstPageParam, allPageParams) => {
-      console.log(`GET PREV :`, firstPage);
+      // console.log(`GET PREV :`, firstPage);
       return null;
     },
   });
 
-  const legendList = console.log(`data.pages[0].data :`, data.pages[0].data);
-  console.log(`data.pageParams :`, data?.pageParams);
-  console.log(`data.pages :`, data?.pages);
+  // console.log(`data.pages[0].data :`, data.pages[0].data);
+  // console.log(`data.pageParams :`, data?.pageParams);
+  // console.log(`data.pages :`, data?.pages);
 
   return (
     <>
