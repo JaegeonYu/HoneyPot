@@ -10,7 +10,7 @@ export default function SungguUiTest() {
   return (
     <Suspense fallback={<BillLoading width="350px" height="43px"></BillLoading>}>
       <Comp.Tab
-        tabTitleList={['전체 의안', '주목을 받았던 의안']}
+        tabTitleList={['전체 법안', '주목을 받았던 ']}
         tabChildrenList={[
           <SeongqTest key={`bill-list-${0}`}></SeongqTest>,
           <Comp.HotBillPageTest key={`bill-list-${1}`}></Comp.HotBillPageTest>,
