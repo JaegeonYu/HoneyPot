@@ -6,16 +6,15 @@ import * as T from '@/types';
 import * as Comp from '@/components';
 import { CATEGORY_LIST } from '@/_constants';
 
-export default function CategoryList({ onCategoryClick }: T.CategoryListProps) {
+export default function CategoryList({ onCategoryClick, selectedIdx }: T.CategoryListProps) {
   const handleCategoryClick = (categoryId: number) => {
     onCategoryClick(categoryId);
     console.log(categoryId, 'categoryId');
   };
-
   return (
     <div className={S.window}>
       <div className={S.categoriesWrapper}>
-        {CATEGORY_LIST.map((category, i) => (
+        {CATEGORY_LIST.map((_, i) => (
           <div key={i} onClick={() => handleCategoryClick(i)}>
             <Comp.Category
               key={i}
@@ -24,7 +23,7 @@ export default function CategoryList({ onCategoryClick }: T.CategoryListProps) {
               dynamicColorMode={true}
               iconWidth="32px"
               iconHeight="34px"
-              // onClick={() => handleCategoryClick(i)}
+              selected={selectedIdx === i}
             />
           </div>
         ))}
@@ -32,22 +31,3 @@ export default function CategoryList({ onCategoryClick }: T.CategoryListProps) {
     </div>
   );
 }
-
-// export default function CategoryList() {
-//   return (
-//     <div className={S.window}>
-//       <div className={S.categoriesWrapper}>
-//         {CATEGORY_LIST.map((category, i) => (
-//           <Comp.Category
-//             key={i}
-//             categoryId={i}
-//             fontSize="13px"
-//             dynamicColorMode={true}
-//             iconWidth="32px"
-//             iconHeight="34px"
-//           />
-//         ))}
-//       </div>
-//     </div>
-//   );
-// }
