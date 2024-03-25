@@ -147,7 +147,7 @@ export default function SeongqTest() {
           <p className={S.fontSub}>{billResponse.data.billStatResponse.totalCount}개의 검색결과</p>
         </div>
         <div style={{ paddingTop: 4, backgroundColor: `${PALETTE.service.HOVER_BACKGROUND}` }}>
-          <Comp.CategoryList onCategoryClick={handleCategoryClick} />
+          <Comp.CategoryList selectedIdx={selectedCategoryId} onCategoryClick={handleCategoryClick} />
         </div>
         <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '12px', padding: 16 }}>
           {billResponse.data.billResponse.map((res: T.BillProps, index: number) => (
