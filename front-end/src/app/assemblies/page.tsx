@@ -93,8 +93,11 @@ export default function AssembliesPage() {
 
   return (
     <section className={S.cardSection}>
-      <h2 className={S.totalCountText}>
-        총 <span className={S.totalNumber}>{totalCount}</span>명
+      <h2 className={S.titleWrapper}>
+        <span className={S.title}>21대 국회의원</span>
+        <span className={S.totalContWrapper}>
+          총 <span className={S.number}>{totalCount || 0}</span>명
+        </span>
       </h2>
       <Comp.GridWrapper>
         {assembliesFetched

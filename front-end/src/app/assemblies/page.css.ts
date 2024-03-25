@@ -10,16 +10,27 @@ export const cardSection = style({
   width: '100%',
 });
 
-export const totalCountText = style({
-  height: '28px',
-  fontSize: '16px',
-  textAlign: 'right',
-  paddingRight: '24px',
-  borderBottom: `2px solid ${vars.colors.service.STROKE_OR_BLUR}`,
+export const titleWrapper = style({
+  display: 'flex',
+  justifyContent: 'space-between',
+  height: '38px',
+  borderBottom: `1px solid ${vars.colors.service.STROKE_OR_BLUR}`,
 });
 
-export const totalNumber = style({
-  fontWeight: 700,
+export const title = style({
+  fontSize: '18px',
+  fontWeight: 600,
+  lineHeight: '38px',
+});
+
+export const totalContWrapper = style({
+  fontSize: '14px',
+  lineHeight: '38px',
+});
+
+export const number = style({
+  fontWeight: 600,
+  lineHeight: '38px',
 });
 
 export const cardArticle = style({
