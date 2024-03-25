@@ -28,7 +28,11 @@ import {
   AssemblyTab3Props,
 } from './pages/assembly-detail';
 
-import { PartyDetailLayoutProps } from './pages/party-detail';
+import {
+  PartyDetailLayoutProps,
+  PartyDetailChartsProps,
+  PartyDetailTopBillCategoriesProps,
+} from './pages/party-detail';
 
 /** pages */
 
@@ -60,4 +64,7 @@ export type {
   AssemblyTab1Props,
   AssemblyTab2Props,
   AssemblyTab3Props,
+  PartyDetailLayoutProps,
+  PartyDetailChartsProps,
+  PartyDetailTopBillCategoriesProps,
 };

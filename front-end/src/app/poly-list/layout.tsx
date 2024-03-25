@@ -2,6 +2,6 @@
 
 import React, { useState } from 'react';
 
-export default function AssemblyListLayout({ children }: { children: React.ReactNode }) {
+export default function PolyListLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }

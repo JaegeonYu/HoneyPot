@@ -3,3 +3,11 @@ export interface PartyDetailLayoutProps {
   Tab2: React.ReactNode;
   params: { id: string };
 }
+
+export interface PartyDetailChartsProps {
+  params: { id: string };
+}
+
+export interface PartyDetailTopBillCategoriesProps {
+  params: { id: string };
+}
