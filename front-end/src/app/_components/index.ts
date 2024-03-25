@@ -16,6 +16,8 @@ import AreaSelector from './AreaSelector/AreaSelector';
 import CategoryList from './CategoryList/CategoryList';
 import HotBill from './HotBill/HotBIll';
 import HotBillPageTest from './HotBillPageTest/HotBillPageTest';
+import Pledge from './Pledge/Pledge';
+import Pagination from './Pagination/Pagination';
 
 export {
   Header,
@@ -34,4 +36,6 @@ export {
   CategoryList,
   HotBill,
   HotBillPageTest,
+  Pledge,
+  Pagination,
 };

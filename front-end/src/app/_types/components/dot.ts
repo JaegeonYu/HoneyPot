@@ -1,5 +1,5 @@
 export interface DotProps {
-  partycolor: string;
+  partycolor: string | null;
   flag: boolean;
   barflag: boolean;
   lastdot: boolean;

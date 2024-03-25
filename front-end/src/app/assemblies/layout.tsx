@@ -1,13 +1,14 @@
 'use client';
 
-import React, { Suspense, useState } from 'react';
+import React, { Suspense, useCallback, useState } from 'react';
 import * as S from './layout.css';
 import * as Comp from '@/components';
 import * as API from '@/apis';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import AssemblieslLoading from './loading';
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { AxiosResponse } from 'axios';
+import { useQuery } from '@tanstack/react-query';
+import { assignInlineVars } from '@vanilla-extract/dynamic';
+import { PALETTE } from '@/_constants';
 
 interface Poly {
   polyId: number;
@@ -21,23 +22,35 @@ export default function AssembliesLayout({ children }: { children: React.ReactNo
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [searchValue, setSearchValue] = useState(searchParams.get('word') || '');
 
+  const handleQueryString = useCallback(
+    (key: string, value: string | number) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set(key, String(value));
+
+      router.push(`${pathname}?${params.toString()}`);
+    },
+    [searchParams],
+  );
+
+  const [searchValue, setSearchValue] = useState(searchParams.get('word') || '');
   const handleChangeSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
   };
-
   const handleInputSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const params = new URLSearchParams(searchParams.toString());
-    params.set('word', searchValue);
-
-    router.push(`${pathname}?${params.toString()}`);
+    handleQueryString('word', searchValue);
   };
 
-  const { data: partyList, isFetched: partyListFetched } = useSuspenseQuery({
+  const { data: partyList, isFetched: partyListFetched } = useQuery({
     queryKey: [`party-list`],
-    queryFn: () => API.poly.getPolyList(),
+    queryFn: () =>
+      API.poly.getPolyList().then(res => {
+        return [
+          { polyId: 0, polyName: '모두 보기', logoUrl: 'logoUrl', seats: 'seats', leader: 'leader' },
+          ...res.data,
+        ];
+      }),
     retry: false,
   });
 
@@ -61,14 +74,40 @@ export default function AssembliesLayout({ children }: { children: React.ReactNo
           </Suspense>
         </div>
       </section>
-      <div>
-        {partyList.data.map((party: Poly, i: number) => (
-          <button key={`party-${party.polyId}`}></button>
-        ))}
-      </div>
-      <Comp.GridWrapper>
-        <Suspense fallback={<AssemblieslLoading width="100%" height="60px" borderRadius="32px" />}>{children}</Suspense>
-      </Comp.GridWrapper>
+      {partyListFetched ? (
+        <div className={S.partyListWindow}>
+          <div className={S.partySelectorWrapper}>
+            {partyList?.map((party: Poly, i: number) => (
+              <button
+                key={`party-${party.polyId}`}
+                className={S.partyItem}
+                onClick={() => handleQueryString('poly', party.polyId)}
+                style={assignInlineVars({
+                  [S.isSelectedBgColor]:
+                    Number(searchParams.get('poly')) === party.polyId
+                      ? PALETTE.service.MAIN_BLACK
+                      : PALETTE.service.SUB_WHITE,
+                })}
+              >
+                <span
+                  className={S.partyText}
+                  style={assignInlineVars({
+                    [S.isSelectedFontColor]:
+                      Number(searchParams.get('poly')) === party.polyId
+                        ? PALETTE.service.MAIN_WHITE
+                        : PALETTE.service.MAIN_BLACK,
+                  })}
+                >
+                  {party.polyName}
+                </span>
+              </button>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div className={S.skeletonPartyWrapper} />
+      )}
+      {children}
     </>
   );
 }

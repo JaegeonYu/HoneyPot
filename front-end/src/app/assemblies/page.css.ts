@@ -6,10 +6,27 @@ export const styledLink = style({
   cursor: 'pointer',
 });
 
+export const cardSection = style({
+  width: '100%',
+});
+
+export const totalCountText = style({
+  height: '28px',
+  fontSize: '16px',
+  textAlign: 'right',
+  paddingRight: '24px',
+  borderBottom: `2px solid ${vars.colors.service.STROKE_OR_BLUR}`,
+});
+
+export const totalNumber = style({
+  fontWeight: 700,
+});
+
 export const cardArticle = style({
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'space-between',
+  justifyContent: 'center',
+  flexDirection: 'column',
   height: '18%',
   padding: '0px 16px',
 });
@@ -30,4 +47,12 @@ export const areaName = style({
   height: '26px',
   fontSize: '14px',
   lineHeight: '33px',
+});
+
+export const skeletonCard = style({
+  minWidth: 276,
+  width: '100%',
+  maxWidth: 402,
+  aspectRatio: '4 / 6',
+  borderRadius: 16,
 });

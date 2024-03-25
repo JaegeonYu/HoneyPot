@@ -91,6 +91,7 @@ export const billTitleCommittee = style({
   alignItems: 'center',
   rowGap: 4,
   padding: '10px 16px',
+  width: 134,
 
   //   border: '1px solid red',
 });
