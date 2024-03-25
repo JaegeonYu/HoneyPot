@@ -1,6 +1,6 @@
 // Pagination.tsx
 import React from 'react';
-import * as S from './Pagination.css'; // 파일 경로에 맞게 수정
+import * as S from './pagination.css'; // 파일 경로에 맞게 수정
 
 interface PaginationProps {
   currentPage: number;
