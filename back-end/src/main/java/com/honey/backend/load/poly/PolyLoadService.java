@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.honey.backend.load.assembly.AssemblyImgResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,13 +35,18 @@ public class PolyLoadService {
     public void insertPoly() {
 
         if (initFlag()) {
-            System.out.println("============LOAD POLY============");
+
 
             List<PolyInfoResponse> polyInfoResponseList = getPolyInfo();
+            float size = polyInfoResponseList.size();
+            int a = 0;
+
             for (PolyInfoResponse polyInfoResponse : polyInfoResponseList) {
+                System.out.print("Poly Load : " + String.format("%.2f", a++ / (size / 100)) + "% " + "\r");
+
                 polyRepository.save(Poly.createPoly(polyInfoResponse.POLY_NM(), "logoURL", polyInfoResponse.N3(), ""));
             }
-            System.out.println("============LOAD POLY COMPLETE============");
+            System.out.println("Poly Load :  COMPLETE");
         }
 
     }
@@ -75,9 +81,7 @@ public class PolyLoadService {
     }
 
     public boolean initFlag() {
-        if (polyRepository.count() == 0)
-            return true;
-        else return false;
+        return polyRepository.count() == 0;
     }
 
 }

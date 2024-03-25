@@ -2,18 +2,18 @@ package com.honey.backend.domain.assembly;
 
 import com.honey.backend.domain.bill.QBill;
 import com.honey.backend.domain.committee.QCommittee;
+import com.honey.backend.domain.poly.Poly;
 import com.honey.backend.domain.poly.QPoly;
 import com.honey.backend.domain.region.dong.QDong;
+import com.honey.backend.domain.region.electionregion.ElectionRegion;
 import com.honey.backend.domain.region.sido.QSido;
 import com.honey.backend.domain.region.sigungu.QSigungu;
-import com.honey.backend.exception.AssemblyErrorCode;
 import com.honey.backend.exception.BaseException;
-import com.querydsl.jpa.JPAExpressions;
+import com.honey.backend.exception.ElectionRegionErrorCode;
+import com.honey.backend.exception.PolyErrorCode;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -29,75 +29,111 @@ public class AssemblyRepositoryImpl implements AssemblyRepositoryCustom {
     QDong dong = QDong.dong;
     QSigungu sigungu = QSigungu.sigungu;
     QSido sido = QSido.sido;
-    QBill bill = QBill.bill;
     QCommittee committee = QCommittee.committee;
+    QBill bill = QBill.bill;
+
 
     @Override
-    public List<Assembly> findAllByRegion(String word, String sidoName, String sigunguName, String dongName) {
-        List<Assembly> assemblyList = queryFactory
+    public List<Assembly> findAllByRegion(String word, Long sidoId, Long sigunguId, Long dongId, Long polyId) {
+        makeException(sidoId, sigunguId, dongId, polyId);
+
+        return queryFactory
                 .select(assembly)
+                .from(assembly)
+                .innerJoin(dong).on(assembly.electionRegion.eq(dong.electionRegion))
+                .innerJoin(dong).on(dong.sigungu.id.eq(sigungu.id))
+                .innerJoin(sigungu).on(sigungu.sido.id.eq(sido.id))
+                .innerJoin(poly).on(assembly.poly.id.eq(poly.id))
+                .where(
+                        (assembly.hgName.notLike("UNKNOWN")),
+                        (sidoId != 0 ? sido.id.eq(sidoId) : null),
+                        (sigunguId != 0 ? sigungu.id.eq(sigunguId) : null),
+                        (dongId != 0 ? dong.id.eq(dongId) : null),
+                        (polyId != 0 ? poly.id.eq(polyId) : null),
+                        (word != null ? assembly.hgName.like("%" + word + "%") : null)
+
+                )
+                .fetch().stream().distinct().collect(Collectors.toList());
+
+    }
+
+    @Override
+    public List<Assembly> findAllByNonRegion(String word, Long sidoId, Long sigunguId, Long dongId, Long polyId) {
+        makeException(sidoId, sigunguId, dongId, polyId);
+
+        return queryFactory
+                .select(assembly)
+                .from(assembly)
+                .innerJoin(poly).on(assembly.poly.id.eq(poly.id))
+                .where(
+                        (assembly.electionRegion.electionRegionName.eq("비례대표")),
+                        (polyId != 0 ? poly.id.eq(polyId) : null),
+                        (word != null ? assembly.hgName.like("%" + word + "%") : null),
+                        (assembly.hgName.notLike("UNKNOWN"))
+                )
+                .orderBy(assembly.electionRegion.id.asc())
+                .fetch().stream().distinct().collect(Collectors.toList());
+
+    }
+
+    public void makeException(Long sidoId, Long sigunguId, Long dongId, Long polyId) {
+        ElectionRegion tempElectionRegion = queryFactory
+                .select(assembly.electionRegion)
                 .from(assembly)
                 .innerJoin(dong).on(assembly.electionRegion.eq(dong.electionRegion))
                 .innerJoin(sigungu).on(dong.sigungu.id.eq(sigungu.id))
                 .innerJoin(sido).on(sigungu.sido.id.eq(sido.id))
-                .where(
-                        sidoName != null ? sido.sidoName.eq(sidoName) : null,
-                        sigunguName != null ? sigungu.sigunguName.eq(sigunguName) : null,
-                        dongName != null ? dong.dongName.eq(dongName) : null,
-                        word != null ? assembly.hgName.like("%" + word + "%") : null
-                )
-                .orderBy(dong.electionRegion.id.asc())
-                .fetch().stream().distinct().collect(Collectors.toList());
+                .where((sidoId != 0 ? sido.id.eq(sidoId) : null),
+                        (sigunguId != 0 ? sigungu.id.eq(sigunguId) : null),
+                        (dongId != 0 ? dong.id.eq(dongId) : null),
+                        (sidoId == 0 && sigunguId != 0 ? Expressions.booleanTemplate("false") : null),
+                        ((sidoId == 0 || sigunguId == 0) && dongId != 0 ? Expressions.booleanTemplate("false") : null),
+                        (assembly.hgName.ne("UNKNOWN")))
+                .fetchFirst();
 
-        return assemblyList;
+        if (tempElectionRegion == null) throw new BaseException(ElectionRegionErrorCode.ELECTION_REGION_BAD_REQUEST);
 
-    }
-
-    @Override
-    public Page<Assembly> findAllByPoly(Pageable pageable, String word, Long polyId) {
-
-        List<Assembly> assemblyList = queryFactory
-                .select(assembly)
+        Poly tempPoly = queryFactory
+                .select(assembly.poly)
                 .from(assembly)
-                .innerJoin(poly)
-                .on(assembly.poly.id.eq(poly.id))
-                .where(polyId != null ? assembly.poly.id.eq(polyId) : null
-                        , word != null ? assembly.hgName.like("%" + word + "%") : null)
-                .orderBy(assembly.id.asc())
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
-                .fetch();
+                .innerJoin(poly).on(assembly.poly.id.eq(poly.id))
+                .where((polyId != 0 ? poly.id.eq(polyId) : null),
+                        (assembly.hgName.ne("UNKNOWN")))
+                .fetchFirst();
 
-        return new PageImpl<>(assemblyList);
+        if (tempPoly == null) throw new BaseException(PolyErrorCode.POLY_BAD_REQUEST);
+
     }
 
     @Override
-    public Page<Assembly> findAllByCommittee(Pageable pageable, String word, Long cmitId) {
-
-        List<Assembly> assemblyList = queryFactory
+    public List<Assembly> findMostAssemblyByPoly(Long polyId, Long cmitId) {
+        return queryFactory
                 .select(assembly)
                 .from(bill)
-                .join(bill.assembly, assembly)
-                .join(bill.committee, committee)
-                .groupBy(assembly.id)
-                .where(cmitId != null ? committee.id.eq(cmitId) : null
-                        , assembly.hgName.ne("unknown")
-                        , (assembly.id.in(
-                                JPAExpressions.select(bill.assembly.id)
-                                        .from(bill)
-                                        .join(bill.committee, committee)
-                                        .groupBy(bill.assembly.id)
-                                        .orderBy(assembly.id.count().desc())
-                                        .limit(3)
-                        ))
-                )
-                .orderBy(assembly.id.asc())
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
+                .innerJoin(assembly).on(assembly.id.eq(bill.assembly.id))
+                .innerJoin(committee).on(committee.id.eq(bill.committee.id))
+                .innerJoin(poly).on(poly.id.eq(assembly.poly.id))
+                .where(poly.id.eq(polyId),
+                        cmitId != 0 ? committee.id.eq(cmitId) : null)
+                .groupBy(assembly)
+                .orderBy(assembly.count().desc(), assembly.id.asc())
+                .limit(3)
+                .fetch();
+    }
+
+    @Override
+    public List<Assembly> findMostAssembly(Long cmitId) {
+        return queryFactory
+                .select(assembly)
+                .from(bill)
+                .innerJoin(committee).on(committee.id.eq(bill.committee.id))
+                .innerJoin(assembly).on(assembly.id.eq(bill.assembly.id))
+                .where(cmitId != 0 ? committee.id.eq(cmitId) : null)
+                .groupBy(assembly)
+                .orderBy(assembly.count().desc(), assembly.id.asc())
+                .limit(3)
                 .fetch();
 
-        if(pageable.getOffset() >= assemblyList.size() || assemblyList.size() == 0 )
-            throw new BaseException(AssemblyErrorCode.ASSEMBLY_NO_MORE_LIST);
-        return new PageImpl<>(assemblyList);
     }
+
 }

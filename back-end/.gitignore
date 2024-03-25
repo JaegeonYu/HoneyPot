@@ -224,6 +224,7 @@ $RECYCLE.BIN/
 *.msp
 
 application-security.yml
+logback-spring.xml
 # Windows shortcuts
 *.lnk
 

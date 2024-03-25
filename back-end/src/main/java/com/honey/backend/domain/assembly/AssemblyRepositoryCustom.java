@@ -8,11 +8,11 @@ import java.util.List;
 
 public interface AssemblyRepositoryCustom {
 
-    List<Assembly> findAllByRegion(String word, String sidoName, String sigunguName, String dongName);
+    List<Assembly> findAllByRegion(String word, Long sidoId, Long sigunguId, Long dongId, Long polyId);
 
-    Page<Assembly> findAllByPoly(Pageable pageable, String word, Long polyId);
+    List<Assembly> findAllByNonRegion(String word, Long sidoId, Long sigunguId, Long dongId, Long polyId);
 
-    Page<Assembly> findAllByCommittee(Pageable pageable, String word, Long cmitId);
+    List<Assembly> findMostAssemblyByPoly(Long polyId, Long cmitId);
 
-
+    List<Assembly> findMostAssembly(Long cmitId);
 }
