@@ -30,6 +30,7 @@ export const billCardHeader = style({
   paddingRight: 12,
   paddingTop: 2,
   paddingBottom: 2,
+  columnGap: 20,
   //   justifyContent: 'space-between',
 });
 
@@ -97,8 +98,8 @@ export const fontName = style({
 });
 export const fontHeader = style({
   //   height: 58,
-  fontSize: 15,
-  fontWeight: 600,
+  fontSize: 17,
+  fontWeight: 700,
 });
 
 export const fontTitle = style({

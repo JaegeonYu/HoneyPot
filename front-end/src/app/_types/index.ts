@@ -16,6 +16,7 @@ import { ToggleButtonProps } from './components/toggleButton';
 import { CategoryListProps } from './components/CategoryList';
 import { OriginalPanelProps } from './components/originalPanel';
 import { PledgeProps } from './components/pledge';
+import { HotBillProps } from './components/hotbill';
 /** components */
 
 /** pages */
@@ -28,6 +29,8 @@ import {
   AssemblyTab2Props,
   AssemblyTab3Props,
 } from './pages/assembly-detail';
+
+import { BillsLayoutProps } from './pages/bills';
 /** pages */
 
 export type {
@@ -59,4 +62,6 @@ export type {
   AssemblyTab2Props,
   AssemblyTab3Props,
   PledgeProps,
+  HotBillProps,
+  BillsLayoutProps,
 };
