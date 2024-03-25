@@ -3,9 +3,12 @@ package com.honey.backend.controller;
 import com.honey.backend.request.AssemblyListRequest;
 import com.honey.backend.request.BillRequest;
 import com.honey.backend.response.*;
+import com.honey.backend.response.pledge.PledgeDetailResponse;
+import com.honey.backend.response.pledge.PledgeResponse;
 import com.honey.backend.service.AssemblyService;
 import com.honey.backend.service.BillService;
 import com.honey.backend.service.CommitteeService;
+import com.honey.backend.service.PledgeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -28,6 +31,7 @@ public class AssemblyController {
     private final AssemblyService assemblyService;
     private final BillService billService;
     private final CommitteeService committeeService;
+    private final PledgeService pledgeService;
 
     @GetMapping("")
     @Operation(summary = "국회의원 리스트 조회", description = "지역/ 이름 / 정당별 국회  의원 리스트 API")
@@ -68,4 +72,18 @@ public class AssemblyController {
         return ResponseEntity.status(HttpStatus.OK).body(assemblyService.findMostCommitteeByAssemblyId(assemblyId));
     }
 
+    @GetMapping("/{assembly_id}/pledgeList")
+    @Operation(summary = "국회의원의 공약 리스트 조회", description = "국회의원의 공약 리스트 API")
+    public ResponseEntity<List<PledgeDetailResponse>> findPledgeList(@PathVariable(name = ("assembly_id")) Long assemblyId) {
+        PledgeResponse pledgeResponse = pledgeService.getPledge(assemblyId);
+        return ResponseEntity.status(HttpStatus.OK).body(pledgeService.getPledgeDetail(pledgeResponse.id()));
+    }
+
+    @GetMapping("/{assembly_id}/pledgeRateInfo")
+    @Operation(summary = "국회의원의 공약 이행률 조회", description = "국회의원의 공약 이행률 API")
+    public ResponseEntity<PledgeResponse> findPledge(@PathVariable(name = ("assembly_id")) Long assemblyId) {
+
+        return ResponseEntity.status(HttpStatus.OK).body(pledgeService.getPledge(assemblyId));
+    }
 }
+
