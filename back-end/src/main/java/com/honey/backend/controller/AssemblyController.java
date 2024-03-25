@@ -77,7 +77,7 @@ public class AssemblyController {
     public ResponseEntity<List<PledgeDetailResponse>> findPledgeList(@PathVariable(name = ("assembly_id")) Long assemblyId) {
         PledgeResponse pledgeResponse = pledgeService.getPledge(assemblyId);
         List<PledgeDetailResponse> pledgeDetailResponseList = pledgeService.getPledgeDetail(pledgeResponse.id());
-        return pledgeDetailResponseList.isEmpty()?ResponseEntity.status(HttpStatus.NO_CONTENT).body(pledgeDetailResponseList):ResponseEntity.status(HttpStatus.OK).body(pledgeDetailResponseList);
+        return pledgeDetailResponseList.isEmpty() ? ResponseEntity.status(HttpStatus.NO_CONTENT).body(pledgeDetailResponseList) : ResponseEntity.status(HttpStatus.OK).body(pledgeDetailResponseList);
     }
 
     @GetMapping("/{assembly_id}/pledgeRateInfo")
@@ -86,5 +86,7 @@ public class AssemblyController {
 
         return ResponseEntity.status(HttpStatus.OK).body(pledgeService.getPledge(assemblyId));
     }
+
+
 }
 
