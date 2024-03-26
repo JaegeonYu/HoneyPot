@@ -1,4 +1,4 @@
-package com.honey.backend.response;
+package com.honey.backend.response.region;
 
 public record RegionNameResponse(
         String sido,

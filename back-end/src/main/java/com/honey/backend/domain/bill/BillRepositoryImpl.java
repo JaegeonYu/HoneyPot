@@ -3,7 +3,7 @@ package com.honey.backend.domain.bill;
 import com.honey.backend.domain.assembly.QAssembly;
 import com.honey.backend.domain.committee.QCommittee;
 import com.honey.backend.domain.poly.QPoly;
-import com.honey.backend.response.BillStatResponse;
+import com.honey.backend.response.bill.BillStatResponse;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.StringExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;

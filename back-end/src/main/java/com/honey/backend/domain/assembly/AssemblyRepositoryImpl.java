@@ -106,14 +106,13 @@ public class AssemblyRepositoryImpl implements AssemblyRepositoryCustom {
     }
 
     @Override
-    public List<Assembly> findMostAssemblyByPoly(Long polyId, Long cmitId) {
+    public List<Assembly> findMostAssemblyByPoly(Long cmitId, Long polyId) {
         return queryFactory
                 .select(assembly)
                 .from(bill)
                 .innerJoin(assembly).on(assembly.id.eq(bill.assembly.id))
                 .innerJoin(committee).on(committee.id.eq(bill.committee.id))
-                .innerJoin(poly).on(poly.id.eq(assembly.poly.id))
-                .where(poly.id.eq(polyId),
+                .where(assembly.poly.id.eq(polyId),
                         cmitId != 0 ? committee.id.eq(cmitId) : null)
                 .groupBy(assembly)
                 .orderBy(assembly.count().desc(), assembly.id.asc())

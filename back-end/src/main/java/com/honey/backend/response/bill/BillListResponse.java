@@ -1,4 +1,7 @@
-package com.honey.backend.response;
+package com.honey.backend.response.bill;
+
+import com.honey.backend.response.committee.CommitteeResponse;
+import com.honey.backend.response.committee.MostCmitAssemblyResponse;
 
 import java.util.List;
 

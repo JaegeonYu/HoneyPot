@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -20,8 +21,8 @@ public class CommitteeRepositoryImpl implements CommitteeRepositoryCustom {
     QPoly poly = QPoly.poly;
 
     @Override
-    public List<Committee> findMostCommittee() {
-        return queryFactory
+    public Optional<List<Committee>> findMostCommittee() {
+        List<Committee> committeeList = queryFactory
                 .select(committee)
                 .from(bill)
                 .leftJoin(committee).on(bill.committee.id.eq(committee.id))
@@ -29,11 +30,12 @@ public class CommitteeRepositoryImpl implements CommitteeRepositoryCustom {
                 .orderBy(committee.count().desc(), committee.id.asc())
                 .limit(3)
                 .fetch();
+        return Optional.of(committeeList);
     }
 
     @Override
-    public List<Committee> findMostCommitteeByAssemblyId(Long assemblyId) {
-        return queryFactory
+    public Optional<List<Committee>> findMostCommitteeByAssemblyId(Long assemblyId) {
+        List<Committee> committeeList = queryFactory
                 .select(committee)
                 .from(bill)
                 .leftJoin(committee).on(bill.committee.id.eq(committee.id))
@@ -43,12 +45,13 @@ public class CommitteeRepositoryImpl implements CommitteeRepositoryCustom {
                 .orderBy(committee.count().desc(), committee.id.asc())
                 .limit(4)
                 .fetch();
+        return Optional.of(committeeList);
     }
 
 
     @Override
-    public List<Committee> findMostCommitteeByPolyId(Long polyId) {
-        return queryFactory
+    public Optional<List<Committee>> findMostCommitteeByPolyId(Long polyId) {
+        List<Committee> committeeList = queryFactory
                 .select(committee)
                 .from(bill)
                 .leftJoin(committee).on(bill.committee.id.eq(committee.id))
@@ -59,5 +62,6 @@ public class CommitteeRepositoryImpl implements CommitteeRepositoryCustom {
                 .orderBy(committee.count().desc(), committee.id.asc())
                 .limit(3)
                 .fetch();
+        return Optional.of(committeeList);
     }
 }

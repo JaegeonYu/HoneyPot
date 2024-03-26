@@ -1,4 +1,4 @@
-package com.honey.backend.response;
+package com.honey.backend.response.poly;
 
 public record PolyResponse(
         Long polyId,

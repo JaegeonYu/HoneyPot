@@ -13,10 +13,11 @@ import com.honey.backend.domain.poly.PolyRepository;
 import com.honey.backend.domain.region.sido.SidoRepository;
 import com.honey.backend.domain.sns.Sns;
 import com.honey.backend.domain.sns.SnsRepository;
-import com.honey.backend.exception.AssemblyErrorCode;
-import com.honey.backend.exception.BaseException;
+import com.honey.backend.exception.*;
 import com.honey.backend.request.AssemblyListRequest;
-import com.honey.backend.response.*;
+import com.honey.backend.response.assembly.*;
+import com.honey.backend.response.committee.CommitteeResponse;
+import com.honey.backend.response.committee.MostCmitAssemblyResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -47,7 +48,7 @@ public class AssemblyService {
         int limit = assemblyListRequest.limit();
         String word = assemblyListRequest.word();
         Long jeJuId = (sidoRepository.findBySidoName("제주특별자치도").orElseThrow(
-                () -> new BaseException(AssemblyErrorCode.ASSEMBLY_NOT_FOUND)
+                () -> new BaseException(RegionErrorCode.SIDO_NOT_FOUND)
         )).getId();
         List<Assembly> assemblyList;
         assemblyList = (sido == jeJuId + 1) ?
@@ -66,7 +67,9 @@ public class AssemblyService {
     }
 
     public AssemblyResponse findById(Long assemblyId) {
-        Assembly assembly = assemblyRepository.findById(assemblyId).orElseThrow();
+        Assembly assembly = assemblyRepository.findById(assemblyId).orElseThrow(
+                () -> new BaseException(AssemblyErrorCode.ASSEMBLY_NOT_FOUND)
+        );
         return insertToResponse(assembly);
     }
 
@@ -99,7 +102,9 @@ public class AssemblyService {
             assemblyCardResponseList.add(new AssemblyCardResponse(
                     assembly.getId(),
                     assembly.getAssemblyImgUrl(),
-                    polyRepository.findById(assembly.getPoly().getId()).orElseThrow().getPolyName(),
+                    polyRepository.findById(assembly.getPoly().getId()).orElseThrow(
+                            () -> new BaseException(PolyErrorCode.POLY_NOT_FOUND)
+                    ).getPolyName(),
                     assembly.getMonaCd(),
                     assembly.getHgName(),
                     assembly.getOrigName()
@@ -109,12 +114,16 @@ public class AssemblyService {
     }
 
     public SnsResponse findSnsByAssemblyId(Long assemblyId) {
-        Sns sns = snsRepository.findByAssemblyId(assemblyId).orElseThrow();
+        Sns sns = snsRepository.findByAssemblyId(assemblyId).orElseThrow(
+                () -> new BaseException(AssemblyErrorCode.SNS_NOT_FOUND)
+        );
         return new SnsResponse(sns.getId(), sns.getFacebookUrl(), sns.getTwitterUrl(), sns.getYoutubeUrl(), sns.getBlogUrl());
     }
 
     public List<CommitteeResponse> findMostCommitteeByAssemblyId(Long assemblyId) {
-        List<Committee> committeeList = committeeRepository.findMostCommitteeByAssemblyId(assemblyId);
+        List<Committee> committeeList = committeeRepository.findMostCommitteeByAssemblyId(assemblyId).orElseThrow(
+                () -> new BaseException(CommitteeErrorCode.COMMITTEE_NOT_FOUND)
+        );
         List<CommitteeResponse> committeeResponseList = new ArrayList<>();
         for (Committee committee : committeeList) {
             committeeResponseList.add(new CommitteeResponse(committee.getId(), committee.getCmitCode(), committee.getCmitName()));
@@ -129,7 +138,9 @@ public class AssemblyService {
         return new AssemblyResponse(
                 assembly.getId(),
                 assembly.getAssemblyImgUrl(),
-                polyRepository.findById(assembly.getPoly().getId()).orElseThrow().getPolyName(),
+                polyRepository.findById(assembly.getPoly().getId()).orElseThrow(
+                        () -> new BaseException(PolyErrorCode.POLY_NOT_FOUND)
+                ).getPolyName(),
                 assembly.getMonaCd(),
                 assembly.getHgName(),
                 assembly.getHjName(),

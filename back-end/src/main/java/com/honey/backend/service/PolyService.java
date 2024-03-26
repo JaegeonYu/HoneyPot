@@ -2,13 +2,13 @@ package com.honey.backend.service;
 
 import com.honey.backend.domain.assembly.Assembly;
 import com.honey.backend.domain.assembly.AssemblyRepository;
-import com.honey.backend.domain.committee.Committee;
 import com.honey.backend.domain.committee.CommitteeRepository;
 import com.honey.backend.domain.poly.Poly;
 import com.honey.backend.domain.poly.PolyRepository;
-import com.honey.backend.response.CommitteeResponse;
-import com.honey.backend.response.MostCmitAssemblyResponse;
-import com.honey.backend.response.PolyResponse;
+import com.honey.backend.exception.BaseException;
+import com.honey.backend.exception.PolyErrorCode;
+import com.honey.backend.response.committee.MostCmitAssemblyResponse;
+import com.honey.backend.response.poly.PolyResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -40,7 +40,9 @@ public class PolyService {
     }
 
     public PolyResponse findById(Long polyId) {
-        Poly poly = polyRepository.findById(polyId).orElseThrow();
+        Poly poly = polyRepository.findById(polyId).orElseThrow(
+                () -> new BaseException(PolyErrorCode.POLY_NOT_FOUND)
+        );
         return new PolyResponse(
                 poly.getId(),
                 poly.getPolyName(),
