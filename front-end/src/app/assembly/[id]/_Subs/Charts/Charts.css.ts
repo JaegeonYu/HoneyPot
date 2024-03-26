@@ -57,6 +57,12 @@ export const totalCount = style({
   lineHeight: '20px',
 });
 
+export const toolTipTitle = style({
+  fontSize: '12px',
+  fontWeight: 600,
+  paddingTop: '4px',
+});
+
 export const tooltipText = style({
   width: 'fit-content',
   textWrap: 'nowrap',
