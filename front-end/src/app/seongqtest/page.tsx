@@ -75,7 +75,7 @@ export default function SeongqTest() {
           <Comp.Poster posterwidth="330px" posterheight="100%">
             <div style={{ width: '80%' }}>
               <Comp.PieChart
-                chartTitle="의안 추진 현황"
+                chartTitle="법안 추진 현황"
                 legendList={[
                   { title: '가결', color: PALETTE.service.MAIN_COLOR_100 },
                   { title: '진행중', color: PALETTE.service.MAIN_COLOR_80 },
@@ -143,11 +143,11 @@ export default function SeongqTest() {
           </Comp.Poster>
         </div>
         <div className={S.headWrapper} ref={scrollToRef}>
-          <p className={S.fontHead}>발의한 국회운영 의안</p>
+          <p className={S.fontHead}>발의한 국회운영 법안</p>
           <p className={S.fontSub}>{billResponse.data.billStatResponse.totalCount}개의 검색결과</p>
         </div>
         <div style={{ paddingTop: 4, backgroundColor: `${PALETTE.service.HOVER_BACKGROUND}` }}>
-          <Comp.CategoryList onCategoryClick={handleCategoryClick} />
+          <Comp.CategoryList selectedIdx={selectedCategoryId} onCategoryClick={handleCategoryClick} />
         </div>
         <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '12px', padding: 16 }}>
           {billResponse.data.billResponse.map((res: T.BillProps, index: number) => (

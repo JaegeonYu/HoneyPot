@@ -64,16 +64,12 @@ export default function AssembliesPage() {
         page: pageParam,
         limit: 8,
       })
-        .then(res => {
-          console.log(`res :`, res.status);
-          return res;
-        })
+        .then(res => res)
         .catch(err => {
           err.response.data.status === 400 && handleQueryString({ sido: 0, siGunGu: 0, dong: 0 });
         }),
     initialPageParam: 0,
     getNextPageParam: (lastPage, allPages, lastPageParam, allPageParams) => {
-      console.log(`lastPage :`, lastPageParam);
       if (lastPage?.status === 204 && lastPageParam === 0) return null;
       else if (totalCount !== null && lastPageParam * 8 > totalCount) return null;
       return lastPageParam + 1;
@@ -93,8 +89,11 @@ export default function AssembliesPage() {
 
   return (
     <section className={S.cardSection}>
-      <h2 className={S.totalCountText}>
-        총 <span className={S.totalNumber}>{totalCount}</span>명
+      <h2 className={S.titleWrapper}>
+        <span className={S.title}>21대 국회의원</span>
+        <span className={S.totalContWrapper}>
+          총 <span className={S.number}>{totalCount || 0}</span>명
+        </span>
       </h2>
       <Comp.GridWrapper>
         {assembliesFetched

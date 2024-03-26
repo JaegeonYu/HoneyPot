@@ -55,6 +55,16 @@ export default function Bill({
     setComm(cmitId);
   }, [assemblyId, billId, billNo, cmitId]);
 
+  useEffect(() => {
+    // 데이터가 변경되면 isActive 상태를 false로 초기화
+    console.log(isToggled);
+  }, [isToggled]);
+
+  useEffect(() => {
+    // 데이터가 변경되면 isActive 상태를 false로 초기화
+    if (summary) setIsToggled(true);
+  }, [summary]);
+
   const toggleAccordion = () => {
     setIsActive(!isActive);
   };
@@ -137,7 +147,7 @@ export default function Bill({
           </div>
         </div>
         <div className={S.billCardContentsMain}>
-          {summary !== null ? <SummaryPanel></SummaryPanel> : <OriginalPanel data={textBody}></OriginalPanel>}
+          {isToggled ? <SummaryPanel data={summary}></SummaryPanel> : <OriginalPanel data={textBody}></OriginalPanel>}
         </div>
       </div>
     </div>

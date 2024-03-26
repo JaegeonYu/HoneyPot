@@ -1,8 +1,9 @@
 import { createVar, style } from '@vanilla-extract/css';
 
+export const minWidth = createVar();
 export const aspectRatioProps = createVar();
 export const wrapper = style({
-  minWidth: 276,
+  minWidth: minWidth,
   width: '100%',
   maxWidth: 402,
   aspectRatio: aspectRatioProps,
@@ -12,8 +13,10 @@ export const wrapper = style({
   overflow: 'hidden',
 });
 
+export const imgPadding = createVar();
 export const imgHeight = createVar();
 export const styledImage = style({
   width: '100%',
   height: imgHeight,
+  padding: imgPadding,
 });

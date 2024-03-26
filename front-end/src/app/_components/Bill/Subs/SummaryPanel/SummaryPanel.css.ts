@@ -15,6 +15,17 @@ export const billCardContentsProblem = style({
   alignItems: 'flex-start',
   rowGap: 24,
   padding: '20px 32px',
+  width: '75%',
+  //   border: '1px solid red',
+});
+
+export const billCardKeyword = style({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+  rowGap: 24,
+  padding: '20px 32px',
+  width: '25%',
   //   border: '1px solid red',
 });
 

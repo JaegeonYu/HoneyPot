@@ -38,9 +38,9 @@ ChartJS.register(Legend, Tooltip, Title);
  * [type:
  * 정당 상세 조회 - 의석수 | 'party-parliamentary-seat'
  *
- * 의안 리스트 조회 - 추진 현황 | 'bill-list-current-situation'
+ * 법안 리스트 조회 - 추진 현황 | 'bill-list-current-situation'
  *
- * 의원 상세 조회 - 의안 추친 현황 | 'assembly-member-bill-current-situation'
+ * 의원 상세 조회 - 법안 추친 현황 | 'assembly-member-bill-current-situation'
  *
  * 의원 상세 조회 - 공약 추진 현황 | 'assembly-member-promise-current-situation']
  *
@@ -57,7 +57,7 @@ ChartJS.register(Legend, Tooltip, Title);
 
 // UNIQUE_ID_FOR_LEGEND:
 
-export default function PieChart({
+export default React.memo(function PieChart({
   chartTitle,
   legendList,
   datasetList,
@@ -152,4 +152,4 @@ export default function PieChart({
       {legendDisplay && <div id={UNIQUE_ID_FOR_LEGEND}></div>}
     </div>
   );
-}
+});

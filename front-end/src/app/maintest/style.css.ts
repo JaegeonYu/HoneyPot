@@ -13,7 +13,7 @@ export const mainWrapper = style({
 export const solganSection = style({
   display: 'flex',
   flexDirection: 'column',
-  height: '80vh',
+  height: '90vh',
   width: '100%',
   justifyContent: 'space-between',
   backgroundColor: `${vars.colors.service.MAIN_COLOR_20}`,
@@ -43,7 +43,7 @@ export const assembleWrapper = style({
   flexDirection: 'column',
   // alignItems: 'center',
   // height: '1230px',
-  rowGap: '23vh',
+  rowGap: '50vh',
   justifyContent: 'space-between',
   // alignItems: 'center',
   width: '100%',

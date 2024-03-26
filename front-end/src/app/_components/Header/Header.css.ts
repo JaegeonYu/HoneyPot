@@ -9,10 +9,17 @@ export const headerContainer = style({
   width: '100vw',
   display: 'flex',
   alignItems: 'center',
+  justifyContent: 'space-between',
   gap: 48,
-  paddingLeft: '5vw',
+  padding: '0px 5vw',
   position: 'sticky',
   zIndex: 10,
+
+  '@media': {
+    '(max-width: 768px)': {
+      gap: 0,
+    },
+  },
 });
 
 export const logo = style({

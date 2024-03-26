@@ -16,6 +16,9 @@ import { ToggleButtonProps } from './components/toggleButton';
 import { CategoryListProps } from './components/CategoryList';
 import { OriginalPanelProps } from './components/originalPanel';
 import { PledgeProps } from './components/pledge';
+import { HotBillProps } from './components/hotbill';
+import { SummaryPanelProps } from './components/summaryPanel';
+import { TooltipProps } from './components/tooltip';
 /** components */
 
 /** pages */
@@ -29,6 +32,7 @@ import {
   AssemblyTab3Props,
 } from './pages/assembly-detail';
 
+import { BillsLayoutProps } from './pages/bills';
 import {
   PartyDetailLayoutProps,
   PartyDetailChartsProps,
@@ -71,6 +75,10 @@ export type {
   PartyDetailChartsProps,
   PartyDetailTopBillCategoriesProps,
   PledgeProps,
+  HotBillProps,
+  BillsLayoutProps,
+  SummaryPanelProps,
   PartyDetailTab1Props,
   PartyDetailTab2Props,
+  TooltipProps,
 };

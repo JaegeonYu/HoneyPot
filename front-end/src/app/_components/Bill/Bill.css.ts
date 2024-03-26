@@ -129,8 +129,10 @@ export const billCardContentsHeaderSummarytBtn = style({
   alignItems: 'center',
   columnGap: 10,
   padding: '8px 14px',
-  border: '1px solid #E61E2B', // 정당 코드색?
+  // border: '1px solid #E61E2B', // 정당 코드색?
+  border: `1px solid ${vars.colors.service.MAIN_BLACK}`,
   borderRadius: 3,
+  // backgroundColor: `${vars.colors.party.PEOPLE_POWER_PARTY[20]}`,
 });
 
 export const billCardContentsHeaderLink = style({
