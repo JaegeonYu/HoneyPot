@@ -1,3 +1,4 @@
+'use client';
 import React, { useState } from 'react';
 import * as Comp from '@/components';
 import { useSuspenseQuery } from '@tanstack/react-query';
@@ -6,7 +7,7 @@ import * as API from '@/_apis/bill';
 import * as T from '@/types';
 import Pagination from '@/_components/Pagination/pagination';
 
-export default function HotBillPageTest() {
+export default function BillTab2() {
   const [page, setPage] = useState(0); // 페이지 상태 추가
   const [size, setSize] = useState(10); // 한 페이지에 보일 아이템 개수 상태 추가
 

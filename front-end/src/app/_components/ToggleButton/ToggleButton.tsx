@@ -15,7 +15,7 @@ export default function ToggleButton({ clicked, btncolor }: T.ToggleButtonProps)
   const bgc = clicked ? `${btncolor}` : `${vars.colors.service.HOVER_STROKE}`;
   return (
     <button className={S.btnWrapper}>
-      <div>요약</div>
+      <span className={S.createSummary}>요약</span>
 
       <div
         className={S.back}
