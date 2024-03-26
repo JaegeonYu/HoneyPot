@@ -7,6 +7,16 @@ export async function getPolyList() {
 export async function getPolyDetail({ polyId }: { polyId: string }) {
   return await instance.get(`/poly/${polyId}`);
 }
-export async function getPolyDetailMostCategories({ polyId }: { polyId: string }) {
-  return await instance.get(`/poly/${polyId}/most`);
+export async function getPolyDetailInfo({
+  polyId,
+  cmit,
+  page,
+  limit,
+}: {
+  polyId: string;
+  cmit: number;
+  page: number;
+  limit: number;
+}) {
+  return await instance.get(`/poly/${polyId}/bill?cmit=${cmit}&page=${page}&limit=${limit}`);
 }
