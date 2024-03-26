@@ -66,7 +66,7 @@ export default function AssemblyTab2({ params }: T.AssemblyTab2Props) {
         </h2>
         <Comp.CategoryList selectedIdx={selectedCategoryId} onCategoryClick={handleCategoryClick} />
         <section className={S.billListWithChartWrapper}>
-          <Comp.Poster posterwidth="280px" posterheight="268px">
+          <Comp.Poster posterwidth="280px" posterheight="360px">
             <div className={S.chartWrapper}>
               <Comp.PieChart
                 chartTitle="전체 법안 추진 현황"

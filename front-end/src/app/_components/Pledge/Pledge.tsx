@@ -25,7 +25,7 @@ export default function Pledge({
         [S.fontColor]: PALETTE.service.MAIN_WHITE,
       });
     }
-    if (fulfillmentRate === '추진 중') {
+    if (fulfillmentRate === '추진 중' || fulfillmentRate === '추진중') {
       return assignInlineVars({
         [S.bgColor]: PALETTE.party[polyName][80],
         [S.fontColor]: PALETTE.service.MAIN_WHITE,
