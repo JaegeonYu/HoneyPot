@@ -42,8 +42,8 @@ export const icon = style({
 });
 
 export const headerTitle = style({
-  width: '100%',
-  paddingRight: '6px',
+  width: '90%',
+  paddingRight: '16px',
   fontSize: '18px',
   fontWeight: 600,
   overflow: 'hidden',
@@ -52,8 +52,8 @@ export const headerTitle = style({
 });
 
 export const headerSummary = style({
-  width: '100%',
-  paddingRight: '6px',
+  width: '90%',
+  paddingRight: '16px',
   fontSize: '14px',
   overflow: 'hidden',
   whiteSpace: 'nowrap',

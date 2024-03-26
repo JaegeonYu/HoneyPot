@@ -30,12 +30,16 @@ import { PALETTE } from '@/_constants';
  */
 export default function Card({ ratio, imgUrl, children, badge, onClick }: T.CardProps) {
   return (
-    <li className={S.wrapper} style={assignInlineVars({ [S.aspectRatioProps]: ratio })} onClick={onClick}>
+    <li
+      className={S.wrapper}
+      style={assignInlineVars({ [S.aspectRatioProps]: ratio, [S.minWidth]: ratio === '4 / 7' ? '212px' : '276px' })}
+      onClick={onClick}
+    >
       <Image
         className={S.styledImage}
         style={assignInlineVars({
-          [S.imgHeight]: ratio === '4 / 6' ? '80%' : '70%',
           [S.imgPadding]: ratio === '1 / 1' ? '8px' : '0px',
+          [S.imgHeight]: ratio === '4 / 6' ? '80%' : '70%',
         })}
         src={imgUrl}
         width={100}

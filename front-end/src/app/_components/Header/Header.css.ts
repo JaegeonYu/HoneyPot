@@ -14,6 +14,12 @@ export const headerContainer = style({
   padding: '0px 5vw',
   position: 'sticky',
   zIndex: 10,
+
+  '@media': {
+    '(max-width: 768px)': {
+      gap: 0,
+    },
+  },
 });
 
 export const logo = style({

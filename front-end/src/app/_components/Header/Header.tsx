@@ -49,7 +49,7 @@ function Header() {
           </Link>
         </div>
         <div className={S.navTitle}>
-          <Link href="/candidates">
+          <Link href="/video-news">
             <span className={S.title}>뉴스</span>
           </Link>
         </div>

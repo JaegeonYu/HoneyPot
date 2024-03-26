@@ -66,11 +66,11 @@ export default function AssemblyTab2({ params }: T.AssemblyTab2Props) {
         </h2>
         <Comp.CategoryList selectedIdx={selectedCategoryId} onCategoryClick={handleCategoryClick} />
         <section className={S.billListWithChartWrapper}>
-          <Comp.Poster posterwidth="280px" posterheight="268px">
+          <Comp.Poster posterwidth="280px" posterheight="360px">
             <div className={S.chartWrapper}>
               <Comp.PieChart
                 chartTitle="전체 법안 추진 현황"
-                legendList={['가결', '진행중', '대안바영', '철회 또는 페기', '부결'].map((title: string, i) => {
+                legendList={['가결', '진행중', '대안반영', '철회 또는 페기', '부결'].map((title: string, i) => {
                   return {
                     title: title,
                     color: PALETTE.party[infoResponse.data.polyName][100 - i * 20],
