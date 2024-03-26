@@ -70,7 +70,7 @@ export default function AssemblyTab2({ params }: T.AssemblyTab2Props) {
             <div className={S.chartWrapper}>
               <Comp.PieChart
                 chartTitle="전체 법안 추진 현황"
-                legendList={['가결', '진행중', '대안바영', '철회 또는 페기', '부결'].map((title: string, i) => {
+                legendList={['가결', '진행중', '대안반영', '철회 또는 페기', '부결'].map((title: string, i) => {
                   return {
                     title: title,
                     color: PALETTE.party[infoResponse.data.polyName][100 - i * 20],

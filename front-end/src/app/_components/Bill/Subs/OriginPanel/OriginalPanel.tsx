@@ -4,7 +4,7 @@ import * as T from '@/types';
 
 export default function OriginalPanel({ data }: T.OriginalPanelProps) {
   const newstr = data ? data.replace('제안이유', '').replace('및 주요내용', '') : data;
-  console.log('DORIGIGIGN');
+  // console.log('DORIGIGIGN');
 
   return (
     <div className={S.billCardContentsMain}>

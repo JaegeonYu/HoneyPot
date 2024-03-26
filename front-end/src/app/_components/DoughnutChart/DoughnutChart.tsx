@@ -36,7 +36,7 @@ ChartJS.register(Legend, Tooltip, Title, CategoryScale, LinearScale, ArcElement)
  * 또한 높이도 width의 크기를 따라간다. 즉, 크기는 width x width
  */
 
-export default function DoughnutChart({
+export default React.memo(function DoughnutChart({
   chartTitle,
   legendList,
   datasetList,
@@ -124,4 +124,4 @@ export default function DoughnutChart({
       <div id={UNIQUE_ID_FOR_LEGEND}></div>
     </div>
   );
-}
+});

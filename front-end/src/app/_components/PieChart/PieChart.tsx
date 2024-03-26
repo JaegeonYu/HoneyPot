@@ -57,7 +57,7 @@ ChartJS.register(Legend, Tooltip, Title);
 
 // UNIQUE_ID_FOR_LEGEND:
 
-export default function PieChart({
+export default React.memo(function PieChart({
   chartTitle,
   legendList,
   datasetList,
@@ -152,4 +152,4 @@ export default function PieChart({
       {legendDisplay && <div id={UNIQUE_ID_FOR_LEGEND}></div>}
     </div>
   );
-}
+});

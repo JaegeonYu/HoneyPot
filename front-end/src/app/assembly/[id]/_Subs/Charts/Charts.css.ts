@@ -10,7 +10,7 @@ export const titleText = style({
   marginBottom: '12px',
 });
 
-export const chartsWrapper = style({
+export const wrapper = style({
   width: '100%',
   height: 'fit-content',
 });
@@ -18,9 +18,19 @@ export const chartsWrapper = style({
 export const chartsContainer = style({
   display: 'flex',
   justifyContent: 'space-between',
+
+  '@media': {
+    '(max-width: 940px)': {
+      flexDirection: 'column',
+      alignItems: 'center',
+      gap: '24px',
+    },
+  },
 });
 
 export const chartContainer = style({
+  display: 'flex',
+  justifyContent: 'center',
   width: '100%',
   height: '100%',
   padding: '0px 24px',
