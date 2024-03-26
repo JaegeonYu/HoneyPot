@@ -51,6 +51,7 @@ export const headerTitle = style({
   textOverflow: 'ellipsis',
 });
 
+export const visibility = createVar();
 export const headerSummary = style({
   width: '90%',
   paddingRight: '16px',
@@ -58,6 +59,7 @@ export const headerSummary = style({
   overflow: 'hidden',
   whiteSpace: 'nowrap',
   textOverflow: 'ellipsis',
+  visibility: visibility,
 });
 
 export const bgColor = createVar();
