@@ -1,10 +1,10 @@
 package com.honey.backend.response.poly;
 
-public record PolyResponse(
+public record PolyListResponse(
         Long polyId,
         String polyName,
         String logoUrl,
         PolySeatsResponse polySeatsResponse,
-        PolyAttendanceResponse polyAttendanceResponse
+        String leader
 ) {
 }

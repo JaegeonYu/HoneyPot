@@ -6,6 +6,7 @@ import com.honey.backend.response.bill.BillResponse;
 import com.honey.backend.response.bill.BillStatResponse;
 import com.honey.backend.response.committee.CommitteeResponse;
 import com.honey.backend.response.committee.MostCmitAssemblyResponse;
+import com.honey.backend.response.poly.PolyListResponse;
 import com.honey.backend.response.poly.PolyResponse;
 import com.honey.backend.service.BillService;
 import com.honey.backend.service.CommitteeService;
@@ -35,7 +36,7 @@ public class PolyController {
 
     @GetMapping()
     @Operation(summary = "정당 리스트 조회", description = "정당 리스트 API")
-    public ResponseEntity<List<PolyResponse>> findAll() {
+    public ResponseEntity<List<PolyListResponse>> findAll() {
 
         return ResponseEntity.status(HttpStatus.OK).body(polyService.findAll());
     }
@@ -43,8 +44,8 @@ public class PolyController {
     @GetMapping("/{poly_id}")
     @Operation(summary = "정당 상세 조회", description = "정당 상세 API")
     public ResponseEntity<PolyResponse> findById(@PathVariable(name = "poly_id") Long polyId) {
-
-        return ResponseEntity.status(HttpStatus.OK).body(polyService.findById(polyId));
+        PolyResponse polyResponse = polyService.findById(polyId);
+        return ResponseEntity.status(HttpStatus.OK).body(polyResponse);
     }
 
 
@@ -62,5 +63,4 @@ public class PolyController {
 
         return billResponseList.isEmpty() ? ResponseEntity.status(HttpStatus.NO_CONTENT).build() : ResponseEntity.status(HttpStatus.OK).body(billListResponse);
     }
-
 }

@@ -1,5 +1,6 @@
 package com.honey.backend.domain.assembly;
 
+import com.honey.backend.domain.attendance.QAttendance;
 import com.honey.backend.domain.bill.QBill;
 import com.honey.backend.domain.committee.QCommittee;
 import com.honey.backend.domain.poly.Poly;
@@ -12,6 +13,7 @@ import com.honey.backend.exception.BaseException;
 import com.honey.backend.exception.ElectionRegionErrorCode;
 import com.honey.backend.exception.PolyErrorCode;
 import com.querydsl.core.types.dsl.Expressions;
+import com.querydsl.core.types.dsl.NumberExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -31,7 +33,7 @@ public class AssemblyRepositoryImpl implements AssemblyRepositoryCustom {
     QSido sido = QSido.sido;
     QCommittee committee = QCommittee.committee;
     QBill bill = QBill.bill;
-
+    QAttendance attendance = QAttendance.attendance1;
 
     @Override
     public List<Assembly> findAllByRegion(String word, Long sidoId, Long sigunguId, Long dongId, Long polyId) {
@@ -133,6 +135,41 @@ public class AssemblyRepositoryImpl implements AssemblyRepositoryCustom {
                 .limit(3)
                 .fetch();
 
+    }
+
+    @Override
+    public List<Assembly> findAssemblyByPolyAttendanceRateDesc(Long polyId) {
+        NumberExpression<Double> attendanceRate = attendance.meetingDays.
+                subtract(attendance.absence).
+                divide(attendance.meetingDays).
+                doubleValue();
+
+        return queryFactory
+                .select(assembly)
+                .from(assembly)
+                .join(attendance).on(assembly.id.eq(attendance.assembly.id))
+                .where(assembly.poly.id.eq(polyId))
+                .groupBy(attendance)
+                .orderBy(attendanceRate.desc(),attendance.attendance.desc())
+                .limit(3)
+                .fetch();
+    }
+
+    @Override
+    public List<Assembly> findAssemblyByPolyAttendanceRateAsc(Long polyId) {
+        NumberExpression<Double> attendanceRate = attendance.meetingDays.
+                subtract(attendance.absence).
+                divide(attendance.meetingDays).
+                doubleValue();
+        return queryFactory
+                .select(assembly)
+                .from(assembly)
+                .join(attendance).on(assembly.id.eq(attendance.assembly.id))
+                .where(assembly.poly.id.eq(polyId))
+                .groupBy(attendance)
+                .orderBy(attendanceRate.asc(), attendance.attendance.asc())
+                .limit(3)
+                .fetch();
     }
 
 }
