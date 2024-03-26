@@ -10,7 +10,6 @@ export const sectionWrapper = style({
 export const mainSectionWrapper = style([
   sectionWrapper,
   {
-    // height: 'calc(642px + 124px)',
     alignItems: 'stretch',
     justifyContent: 'space-between',
     gap: '48px',
