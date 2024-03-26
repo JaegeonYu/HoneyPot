@@ -43,7 +43,7 @@ export default function AssembliesLayout({ children }: { children: React.ReactNo
   };
 
   const { data: partyList, isFetched: partyListFetched } = useQuery({
-    queryKey: [`party-list`],
+    queryKey: [{ assemblies: `party-list` }],
     queryFn: () =>
       API.poly.getPolyList().then(res => {
         return [

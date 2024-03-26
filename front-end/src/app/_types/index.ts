@@ -18,6 +18,7 @@ import { OriginalPanelProps } from './components/originalPanel';
 import { PledgeProps } from './components/pledge';
 import { HotBillProps } from './components/hotbill';
 import { SummaryPanelProps } from './components/summaryPanel';
+import { TooltipProps } from './components/tooltip';
 /** components */
 
 /** pages */
@@ -32,6 +33,14 @@ import {
 } from './pages/assembly-detail';
 
 import { BillsLayoutProps } from './pages/bills';
+import {
+  PartyDetailLayoutProps,
+  PartyDetailChartsProps,
+  PartyDetailTopBillCategoriesProps,
+  PartyDetailTab1Props,
+  PartyDetailTab2Props,
+} from './pages/party-detail';
+
 /** pages */
 
 export type {
@@ -62,8 +71,14 @@ export type {
   AssemblyTab1Props,
   AssemblyTab2Props,
   AssemblyTab3Props,
+  PartyDetailLayoutProps,
+  PartyDetailChartsProps,
+  PartyDetailTopBillCategoriesProps,
   PledgeProps,
   HotBillProps,
   BillsLayoutProps,
   SummaryPanelProps,
+  PartyDetailTab1Props,
+  PartyDetailTab2Props,
+  TooltipProps,
 };

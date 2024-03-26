@@ -32,10 +32,6 @@ export async function getAssemblyMostCategories({ assemblyId }: { assemblyId: st
   return await instance.get(`/assembly/${assemblyId}/most`);
 }
 
-export async function getAssemblyPledge({ assemblyId }: { assemblyId: string }) {
-  return await instance.get(`/assembly/${assemblyId}/pledge`);
-}
-
 export async function getAssemblyBill({
   assemblyId,
   cmit,
@@ -56,4 +52,12 @@ export async function getAssemblyVideoList({ assemblyId }: { assemblyId: string 
 
 export async function getAssemblyVideoDetail({ assemblyId, video_id }: { assemblyId: string; video_id: string }) {
   return await instance.get(`/assembly/${assemblyId}/video/${video_id}`);
+}
+
+export async function getPledgeRateInfo({ assemblyId }: { assemblyId: string }) {
+  return await instance.get(`/assembly/${assemblyId}/pledgeRateInfo`);
+}
+
+export async function getPledgeList({ assemblyId, page, take }: { assemblyId: string; page: number; take: number }) {
+  return await instance.get(`/assembly/${assemblyId}/pledgeList?page=${page}&limit=${take}`);
 }

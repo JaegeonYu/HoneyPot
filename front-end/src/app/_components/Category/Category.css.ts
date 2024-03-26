@@ -1,4 +1,3 @@
-import { vars } from '@/globalTheme.css';
 import { createVar, style } from '@vanilla-extract/css';
 
 export const cursor = createVar();
@@ -9,7 +8,6 @@ export const svgWrapper = style({
   cursor: cursor,
 });
 
-export const defaultColor = createVar();
 export const hoverColor = createVar();
 export const focusColor = createVar();
 
@@ -18,7 +16,7 @@ export const heightProps = createVar();
 export const styledSvg = style({
   width: widthProps,
   height: heightProps,
-  fill: defaultColor,
+  fill: focusColor,
 
   selectors: {
     [`${svgWrapper}:hover > &`]: {
@@ -35,12 +33,12 @@ export const hoverBorder = createVar();
 export const focusBorder = createVar();
 export const categoryName = style({
   width: '100%',
-  color: defaultColor,
   fontSize: fontSize,
   textAlign: 'center',
   textWrap: 'nowrap',
-  borderBottom: `2px solid transparent`,
   paddingBottom: '8px',
+  color: focusColor,
+  borderBottom: `2px solid ${focusBorder}`,
 
   selectors: {
     [`${svgWrapper}:hover > &`]: {

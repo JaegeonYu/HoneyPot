@@ -17,6 +17,8 @@ import CategoryList from './CategoryList/CategoryList';
 import HotBill from './HotBill/HotBIll';
 import HotBillPageTest from './HotBillPageTest/HotBillPageTest';
 import Pledge from './Pledge/Pledge';
+import Pagination from './Pagination/Pagination';
+import Tooltip from './Tooltip/Tooltip';
 
 export {
   Header,
@@ -36,4 +38,6 @@ export {
   HotBill,
   HotBillPageTest,
   Pledge,
+  Pagination,
+  Tooltip,
 };

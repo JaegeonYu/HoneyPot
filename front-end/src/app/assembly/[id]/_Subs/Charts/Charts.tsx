@@ -1,5 +1,6 @@
 import React from 'react';
 import * as API from '@/_apis/assembly';
+
 import * as S from './Charts.css';
 import * as T from '@/types';
 import * as Comp from '@/components';
@@ -7,30 +8,30 @@ import { PALETTE } from '@/_constants';
 import { useSuspenseQueries } from '@tanstack/react-query';
 
 export default function Charts({ params }: T.AssemblyChartsProps) {
-  const [
-    { data: infoResponse, isFetched: infoFetched },
-    //  { data: pledgeResponse, isFetched: pledgeFetched }
-  ] = useSuspenseQueries({
-    queries: [
-      {
-        queryKey: [{ assembly: `info-request-${params.id}` }],
-        queryFn: () => API.getAssemblyInfo({ assemblyId: params.id }),
-      },
-      // {
-      //   queryKey: [{ assembly: `pledge-request-${params.id}` }],
-      //   queryFn: () => API.getAssemblyPledge({ assemblyId: params.id }),
-      // },
-    ],
-  });
+  const [{ data: infoResponse, isFetched: infoFetched }, { data: pledgeRateResponse, isFetched: pledgeFetched }] =
+    useSuspenseQueries({
+      queries: [
+        {
+          queryKey: [{ assembly: `info-request-${params.id}` }],
+          queryFn: () => API.getAssemblyInfo({ assemblyId: params.id }),
+        },
+        {
+          queryKey: [{ assembly: `pledge-rate-request-${params.id}` }],
+          queryFn: () => API.getPledgeRateInfo({ assemblyId: params.id }),
+        },
+      ],
+    });
 
+  console.log(`공약 이행률 조회 :`, pledgeRateResponse.data);
   return (
     <article className={S.chartsWrapper}>
       <h3 className={S.titleText}>활동 현황</h3>
       <div className={S.chartsContainer}>
         <Comp.Poster posterwidth="360px" posterheight="360px">
           <div className={S.chartContainer}>
+            <p className={S.totalCount}>총 {pledgeRateResponse.data.pledgeFulfillmentStatus.totalPledges}개</p>
             <Comp.PieChart
-              chartTitle="공약 추진 현황"
+              chartTitle={'공약 추진 현황'}
               legendDisplay={true}
               legendList={[
                 { title: '완료', color: PALETTE.party[infoResponse.data.polyName][100] },
@@ -39,13 +40,31 @@ export default function Charts({ params }: T.AssemblyChartsProps) {
                 { title: '기타', color: PALETTE.party[infoResponse.data.polyName][40] },
                 { title: '폐기', color: PALETTE.party[infoResponse.data.polyName][20] },
               ]}
-              datasetList={[30, 20, 80, 12, 2]}
+              datasetList={[
+                pledgeRateResponse.data.pledgeFulfillmentStatus.completedPledges,
+                pledgeRateResponse.data.pledgeFulfillmentStatus.ongoingPledges,
+                pledgeRateResponse.data.pledgeFulfillmentStatus.pendingPledges,
+                pledgeRateResponse.data.pledgeFulfillmentStatus.otherPledges,
+                pledgeRateResponse.data.pledgeFulfillmentStatus.discardedPledges,
+              ]}
               UNIQUE_ID_FOR_LEGEND="assembly-member-promise-current-situation"
             />
           </div>
         </Comp.Poster>
         <Comp.Poster posterwidth="360px" posterheight="360px">
           <div className={S.chartContainer}>
+            <Comp.Tooltip>
+              <p>TOOLTIP TEST</p>
+              <p>TOOLTIP TEST</p>
+              <p>TOOLTIP TEST</p>
+              <p>TOOLTIP TEST</p>
+              <p>TOOLTIP TEST</p>
+              <p>TOOLTIP TEST</p>
+              <p>TOOLTIP TEST</p>
+              <p>TOOLTIP TEST</p>
+              <p>TOOLTIP TEST</p>
+              <p>TOOLTIP TEST</p>
+            </Comp.Tooltip>
             <Comp.DoughnutChart
               legendList={[
                 { title: '본회의', color: PALETTE.party[infoResponse.data.polyName][100] },

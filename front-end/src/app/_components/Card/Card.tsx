@@ -33,7 +33,10 @@ export default function Card({ ratio, imgUrl, children, badge, onClick }: T.Card
     <li className={S.wrapper} style={assignInlineVars({ [S.aspectRatioProps]: ratio })} onClick={onClick}>
       <Image
         className={S.styledImage}
-        style={assignInlineVars({ [S.imgHeight]: ratio === '4 / 6' ? '80%' : '70%' })}
+        style={assignInlineVars({
+          [S.imgHeight]: ratio === '4 / 6' ? '80%' : '70%',
+          [S.imgPadding]: ratio === '1 / 1' ? '8px' : '0px',
+        })}
         src={imgUrl}
         width={100}
         height={100}

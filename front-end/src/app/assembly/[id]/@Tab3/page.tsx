@@ -3,7 +3,7 @@
 import React from 'react';
 import * as T from '@/types';
 import * as API from '@/_apis/assembly';
-import * as S from './page.css';
+import { decode } from 'html-entities';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
 export default function AssemblyTab3({ params }: T.AssemblyTab3Props) {
@@ -15,7 +15,7 @@ export default function AssemblyTab3({ params }: T.AssemblyTab3Props) {
 
   return (
     <form>
-      <pre>{infoResponse.data.memTitle}</pre>
+      <pre>{decode(infoResponse.data.memTitle)}</pre>
     </form>
   );
 }

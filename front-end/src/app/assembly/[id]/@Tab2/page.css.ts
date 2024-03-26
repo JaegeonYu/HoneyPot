@@ -11,16 +11,35 @@ globalStyle(`${window}::-webkit-scrollbar`, {
   visibility: 'hidden',
 });
 
-export const totalCountText = style({
-  height: '28px',
-  fontSize: '16px',
-  textAlign: 'right',
-  paddingRight: '24px',
-  borderBottom: `2px solid ${vars.colors.service.STROKE_OR_BLUR}`,
+export const wrapper = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '24px',
+  overflow: 'hidden',
+  paddingBottom: '12px',
 });
 
-export const totalNumber = style({
-  fontWeight: 700,
+export const titleWrapper = style({
+  display: 'flex',
+  justifyContent: 'space-between',
+  height: '38px',
+  borderBottom: `1px solid ${vars.colors.service.STROKE_OR_BLUR}`,
+});
+
+export const title = style({
+  fontSize: '18px',
+  fontWeight: 600,
+  lineHeight: '38px',
+});
+
+export const totalContWrapper = style({
+  fontSize: '14px',
+  lineHeight: '38px',
+});
+
+export const number = style({
+  fontWeight: 600,
+  lineHeight: '38px',
 });
 
 export const arrowButtonPositionRigiht = createVar();
@@ -34,12 +53,15 @@ export const categoriesWrapper = style({
 
 export const billListWithChartWrapper = style({
   display: 'flex',
-  flexDirection: 'column',
   gap: '8px',
   justifyContent: 'space-between',
-  padding: '16px',
+  padding: '0px 4px',
+});
 
-  paddingTop: '36px',
+export const billswrapper = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '8px',
 });
 
 export const chartWrapper = style({

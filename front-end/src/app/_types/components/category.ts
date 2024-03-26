@@ -4,4 +4,5 @@ export interface CategoryProps {
   iconWidth: string;
   iconHeight: string;
   fontSize: string;
+  selected?: boolean;
 }
