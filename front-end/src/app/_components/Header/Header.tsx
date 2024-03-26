@@ -7,7 +7,7 @@ function Header() {
   return (
     <header className={S.headerContainer}>
       <Link href="/">
-        <Image src={'/yeouido-honeypot-logo.png'} width={52} height={50} alt="여의도 꿀통 로고" />
+        <Image src={'/yeouido-honeypot-logo.png'} width={68} height={66} alt="여의도 꿀통 로고" />
       </Link>
       <nav className={S.navWrapper}>
         <div className={S.navTitle}>

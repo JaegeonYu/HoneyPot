@@ -60,7 +60,9 @@ export default function Pledge({
           </div>
           <div className={S.textWrapper}>
             <h3 className={S.headerTitle}>{pledgeName}</h3>
-            <p className={S.headerSummary}>{pledgeSummary}</p>
+            <p className={S.headerSummary} style={assignInlineVars({ [S.visibility]: isOpen ? 'hidden' : 'visible' })}>
+              {pledgeSummary}
+            </p>
           </div>
         </div>
         <div className={S.currentState} style={dynamicColor()}>
@@ -74,6 +76,10 @@ export default function Pledge({
           [S.padding]: isOpen ? '36px 12px 24px 12px' : '0px 12px',
         })}
       >
+        <div className={S.detailsContainer}>
+          <p className={S.detailsTitle}>공약 요약</p>
+          <pre className={S.detailsDescriptions}>{pledgeSummary}</pre>
+        </div>
         <div className={S.detailsContainer}>
           <p className={S.detailsTitle}>어떠한 분야를 위한 공약인가?</p>
           <pre
