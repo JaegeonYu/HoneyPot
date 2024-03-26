@@ -9,8 +9,13 @@ export const btnWrapper = style({
   justifyContent: 'space-between',
   columnGap: 24,
   borderRadius: 90,
+
   // zIndex: 2,
   position: 'relative',
+});
+
+export const createSummary = style({
+  fontWeight: 600,
 });
 
 export const back = style({

@@ -17,6 +17,7 @@ import { CategoryListProps } from './components/CategoryList';
 import { OriginalPanelProps } from './components/originalPanel';
 import { PledgeProps } from './components/pledge';
 import { HotBillProps } from './components/hotbill';
+import { SummaryPanelProps } from './components/summaryPanel';
 /** components */
 
 /** pages */
@@ -64,4 +65,5 @@ export type {
   PledgeProps,
   HotBillProps,
   BillsLayoutProps,
+  SummaryPanelProps,
 };

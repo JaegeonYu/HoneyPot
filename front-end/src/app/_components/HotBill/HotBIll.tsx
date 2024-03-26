@@ -51,14 +51,15 @@ export default function HotBill({ id, title, summary, original, url, createdAt, 
             <LinkTo></LinkTo>
           </div>
         </div>
+
         <div className={S.billCardContentsMain}>
           <div className={S.billCardContentsProblem}>
             <div className={S.billCardContentsProblemText}>
-              <p className={S.fontHeader}>요약</p>
-              <p className={S.fontContent}>{original}</p>
+              <p className={S.fontTitle}>요약</p>
+              <pre className={S.fontContent}>{summary}</pre>
             </div>
             <div className={S.billCardContentsProblemText}>
-              <p className={S.fontHeader}>관련뉴스</p>
+              <p className={S.fontTitle}>관련뉴스</p>
               <p className={S.fontContent}>{url}</p>
             </div>
           </div>

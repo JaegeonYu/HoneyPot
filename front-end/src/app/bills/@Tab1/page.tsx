@@ -33,8 +33,6 @@ export default function BillTab1() {
     }
   }, [page]);
 
-  console.log(page, 'page');
-
   const { data: billResponse, isFetched: billFetched } = useSuspenseQuery({
     queryKey: [{ bill: `info-request-bill-list` }, { page, limit, selectedCategoryId }], // 쿼리 키에 page와 limit 추가
     queryFn: () => API.getBillInfo({ cmit: selectedCategoryId, page, limit, word: '' }), // API 호출 시 동적으로 page와 limit 전달
@@ -56,19 +54,6 @@ export default function BillTab1() {
 
   const handleCategoryClick = (categoryId: number) => {
     setSelectedCategoryId(categoryId);
-    console.log(selectedCategoryId, '========================');
-  };
-
-  const ddata = {
-    party: '더불어민주당',
-    attendance: 88,
-    average: 76,
-    top: ['김성제', '강건', '유잼건'],
-    topattendance: [112, 90, 88],
-    bottom: ['김가빈', '권준구', '조성규'],
-    bottomattendance: [30, 20, 10],
-    mostlaw: ['김성제', '강건', '유잼건'],
-    mostcategory: [1, 3, 5],
   };
 
   return (
@@ -136,19 +121,29 @@ export default function BillTab1() {
             </div>
 
             <div className={S.textWrapper}>
-              <p className={S.fontTitle}>분야 가장 많이 발의한 의원 </p>
+              <p className={S.fontTitle}>{CATEGORY_LIST[selectedCategoryId].name} 분야 발의 TOP3 </p>
             </div>
             <div className={S.textWrapper}>
-              <p className={S.fontContent}>{billResponse.data.mostCmitAssemblyResponseList[0].hgName}</p>
-              <p className={S.fontContent}>{billResponse.data.mostCmitAssemblyResponseList[1].hgName}</p>
-              <p className={S.fontContent}>{billResponse.data.mostCmitAssemblyResponseList[2].hgName}</p>
+              {billResponse.data.mostCmitAssemblyResponseList.map((res: any, idx: number) => (
+                <div className={S.mostAssembly} key={`most-${idx}`}>
+                  <Comp.Badge color={PALETTE.party[res.polyName][100]} isPositionAbsolute={false}>
+                    {res.polyName}
+                  </Comp.Badge>
+                  <p className={S.fontMostAssembly}>{res.hgName}</p>
+                </div>
+              ))}
+              {/* <p className={S.fontContent}>{billResponse.data.mostCmitAssemblyResponseList[1].hgName}</p>
+              <p className={S.fontContent}>{billResponse.data.mostCmitAssemblyResponseList[2].hgName}</p> */}
             </div>
           </Comp.Poster>
         </div>
-        <div className={S.headWrapper} ref={scrollToRef}>
-          <p className={S.fontHead}>발의한 국회운영 의안</p>
-          <p className={S.fontSub}>{billResponse.data.billStatResponse.totalCount}개의 검색결과</p>
-        </div>
+
+        <h2 className={S.titleWrapper} ref={scrollToRef}>
+          <span className={S.title}>발의한 의안</span>
+          <span className={S.totalContWrapper}>
+            총 <span className={S.number}>{billResponse.data.billStatResponse.totalCount || 0}</span>개
+          </span>
+        </h2>
         <div style={{ paddingTop: 4, backgroundColor: `${PALETTE.service.HOVER_BACKGROUND}` }}>
           <Comp.CategoryList onCategoryClick={handleCategoryClick} />
         </div>

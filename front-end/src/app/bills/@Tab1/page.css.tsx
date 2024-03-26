@@ -56,3 +56,46 @@ export const postWrapper = style({
   rowGap: 16,
   padding: '16px 16px',
 });
+
+export const mostAssembly = style({
+  //   height: 58,
+  display: 'flex',
+  flexDirection: 'row',
+
+  columnGap: 8,
+  // textAlign: 'center',
+  alignItems: 'center',
+  justifyContent: 'center',
+});
+
+export const fontMostAssembly = style({
+  //   height: 58,
+
+  fontSize: 15,
+  fontWeight: 500,
+  columnGap: 20,
+  // textAlign: 'center',
+});
+
+export const titleWrapper = style({
+  display: 'flex',
+  justifyContent: 'space-between',
+  height: '38px',
+  borderBottom: `1px solid ${vars.colors.service.STROKE_OR_BLUR}`,
+});
+
+export const title = style({
+  fontSize: '18px',
+  fontWeight: 600,
+  lineHeight: '38px',
+});
+
+export const totalContWrapper = style({
+  fontSize: '14px',
+  lineHeight: '38px',
+});
+
+export const number = style({
+  fontWeight: 600,
+  lineHeight: '38px',
+});
