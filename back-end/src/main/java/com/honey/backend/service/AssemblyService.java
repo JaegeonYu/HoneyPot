@@ -66,6 +66,7 @@ public class AssemblyService {
 
     }
 
+
     public AssemblyResponse findById(Long assemblyId) {
         Assembly assembly = assemblyRepository.findById(assemblyId).orElseThrow(
                 () -> new BaseException(AssemblyErrorCode.ASSEMBLY_NOT_FOUND)

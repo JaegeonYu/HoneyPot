@@ -1,6 +1,8 @@
 package com.honey.backend.controller;
 
+import com.honey.backend.request.AssemblyListRequest;
 import com.honey.backend.request.BillRequest;
+import com.honey.backend.response.assembly.AssemblyListResponse;
 import com.honey.backend.response.bill.BillListResponse;
 import com.honey.backend.response.bill.BillResponse;
 import com.honey.backend.response.bill.BillStatResponse;
@@ -8,6 +10,7 @@ import com.honey.backend.response.committee.CommitteeResponse;
 import com.honey.backend.response.committee.MostCmitAssemblyResponse;
 import com.honey.backend.response.poly.PolyListResponse;
 import com.honey.backend.response.poly.PolyResponse;
+import com.honey.backend.service.AssemblyService;
 import com.honey.backend.service.BillService;
 import com.honey.backend.service.CommitteeService;
 import com.honey.backend.service.PolyService;
@@ -17,12 +20,10 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -32,6 +33,7 @@ public class PolyController {
 
     private final PolyService polyService;
     private final BillService billService;
+    private final AssemblyService assemblyService;
     private final CommitteeService committeeService;
 
     @GetMapping()
@@ -48,6 +50,15 @@ public class PolyController {
         return ResponseEntity.status(HttpStatus.OK).body(polyResponse);
     }
 
+    @GetMapping("/{poly_id}/assembly")
+    @Operation(summary = "정당 소속 국회의원 리스트 조회", description = "정당 소속 국회의원 리스트 API")
+    public ResponseEntity<AssemblyListResponse> findAllAssemblyByPolyId(@PathVariable(name = "poly_id") Long polyId, @RequestParam Map<String, String> params) {
+        int page = params.get("page") != null ? Integer.parseInt(params.get("page")) : 0;
+        int limit = params.get("page") != null ? Integer.parseInt(params.get("limit")) : 10;
+
+        return ResponseEntity.status(HttpStatus.OK).body(assemblyService.findAll(new AssemblyListRequest(0L, 0L, 0L, polyId, page, limit, null)));
+    }
+
 
     @GetMapping("/{poly_id}/bill")
     @Operation(summary = "국회의원의 발의안 리스트 조회", description = "국회의원의 발의안 리스트 API")
@@ -57,7 +68,7 @@ public class PolyController {
         List<MostCmitAssemblyResponse> mostCmitAssemblyResponseList = polyService.findMostAssemblyByPoly(billRequest.cmit(), polyId);
         List<CommitteeResponse> committeeResponseList = committeeService.findMostCommitteeByPolyId(polyId);
 
-        int searchCount = billService.getCountPoly(billRequest,polyId);
+        int searchCount = billService.getCountPoly(billRequest, polyId);
 
         BillListResponse billListResponse = new BillListResponse(billStatResponse, searchCount, committeeResponseList, mostCmitAssemblyResponseList, billResponseList);
 

@@ -10,6 +10,7 @@ import com.honey.backend.exception.AttendanceErrorCode;
 import com.honey.backend.exception.BaseException;
 import com.honey.backend.exception.PolyErrorCode;
 import com.honey.backend.response.assembly.AssemblyAttendanceResponse;
+import com.honey.backend.response.assembly.AssemblyListResponse;
 import com.honey.backend.response.committee.MostCmitAssemblyResponse;
 import com.honey.backend.response.poly.PolyAttendanceResponse;
 import com.honey.backend.response.poly.PolyListResponse;
@@ -61,6 +62,9 @@ public class PolyService {
         );
 
     }
+
+
+
 
     public List<MostCmitAssemblyResponse> findMostAssemblyByPoly(Long cmitId, Long polyId) {
         List<Assembly> assemblyList = assemblyRepository.findMostAssemblyByPoly(cmitId, polyId);
