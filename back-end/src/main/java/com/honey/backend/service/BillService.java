@@ -146,6 +146,19 @@ public class BillService {
                 billRequest.word(), billRequest.cmit(), polyId).intValue();
     }
 
+    public List<BillResponse> getListByResult(BillRequest billRequest) {
+        int page = billRequest.page();
+        int limit = billRequest.limit();
+        Long cmitId = billRequest.cmit();
+        List<Bill> billList = billRepository.findAllByResultAndCmitId(PageRequest.of(page, limit), cmitId).getContent();
+        List<BillResponse> billResponseList = new ArrayList<>();
+        for (Bill bill : billList) {
+            billResponseList.add(insertToBillResponse(bill));
+        }
+        return billResponseList;
+    }
+
+
     private BillProgressResponse setStatus(Bill bill) {
 
         String procResult = bill.getProcResult();

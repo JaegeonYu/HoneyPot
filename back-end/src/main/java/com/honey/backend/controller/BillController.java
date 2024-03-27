@@ -44,6 +44,15 @@ public class BillController {
         return billResponseList.isEmpty() ? ResponseEntity.status(HttpStatus.NO_CONTENT).body(billListResponse) : ResponseEntity.status(HttpStatus.OK).body(billListResponse);
     }
 
+    @GetMapping("/accept")
+    @Operation(summary = "가결된 의안 리스트 조회", description = "가결된 의안의 이름 / 의안번호별 정보 API")
+    public ResponseEntity<List<BillResponse>> getBillAcceptList(@Valid BillRequest billRequest) {
+
+        List<BillResponse> billResponseList = billService.getListByResult(billRequest);
+        return billResponseList.isEmpty() ? ResponseEntity.status(HttpStatus.NO_CONTENT).body(billResponseList) : ResponseEntity.status(HttpStatus.OK).body(billResponseList);
+    }
+
+
     @GetMapping("/{bill_id}")
     @Operation(summary = "의안 상세 조회", description = "의안 상세 API")
     public ResponseEntity<BillResponse> findById(@PathVariable(name = "bill_id") Long billId) {

@@ -24,8 +24,11 @@ public class BillRepositoryImpl implements BillRepositoryCustom {
     QAssembly assembly = QAssembly.assembly;
     QCommittee committee = QCommittee.committee;
     QPoly poly = QPoly.poly;
+
     @Override
     public Page<Bill> findAllByAssemblyIdAndCmitId(Pageable pageable, String word, Long cmitId, Long assemblyId) {
+
+
         List<Bill> billList = queryFactory
                 .select(bill)
                 .from(bill)
@@ -232,6 +235,25 @@ public class BillRepositoryImpl implements BillRepositoryCustom {
                         word != null ? bill.billName.like("%" + word + "%") : null)
                 .orderBy(bill.billNo.desc())
                 .fetchOne();
+
+    }
+
+    @Override
+    public Page<Bill> findAllByResultAndCmitId(Pageable pageable, Long cmitId) {
+
+        List<Bill> billList = queryFactory
+                .select(bill)
+                .from(bill)
+                .leftJoin(assembly).on(bill.assembly.id.eq(assembly.id))
+                .leftJoin(poly).on(bill.assembly.poly.id.eq(poly.id))
+                .leftJoin(committee).on(bill.committee.id.eq(committee.id))
+                .where(cmitId != 0 ? committee.id.eq(cmitId) : null,
+                        bill.procResult.like("%" + "가결" + "%"))
+                .orderBy(bill.billNo.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+        return new PageImpl<>(billList);
 
     }
 
