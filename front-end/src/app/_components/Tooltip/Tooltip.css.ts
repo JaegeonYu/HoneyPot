@@ -20,7 +20,7 @@ export const tooltip = style({
   fontSize: '12px',
   backgroundColor: vars.colors.service.MAIN_WHITE,
   borderRadius: '6px',
-  zIndex: 9,
+  zIndex: 11,
 
   selectors: {
     [`${iconWrapper}:hover &`]: {

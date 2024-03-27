@@ -15,7 +15,7 @@ export default function AssemblyLayout({ Tab1, Tab2, Tab3, params }: T.AssemblyL
   return (
     <>
       <section className={S.mainSectionWrapper}>
-        <ul>
+        <ul className={S.cardWrapper}>
           <Suspense fallback={<AssemblyLoading width="276px" height="483px" />}>
             <SubComp.AssemblyCard params={params} />
           </Suspense>

@@ -8,8 +8,32 @@ export async function getPolyList() {
 export async function getPolyDetail({ polyId }: { polyId: string }) {
   return await instance.get(`/poly/${polyId}`);
 }
-export async function getPolyDetailMostCategories({ polyId }: { polyId: string }) {
-  return await instance.get(`/poly/${polyId}/most`);
+export async function getPolyDetailInfo({
+  polyId,
+  cmit,
+  page,
+  limit,
+}: {
+  polyId: string;
+  cmit: number;
+  page: number;
+  limit: number;
+}) {
+  return await instance.get(`/poly/${polyId}/bill?cmit=${cmit}&page=${page}&limit=${limit}`);
+}
+
+export async function getPolyBill({
+  polyId,
+  cmit,
+  page,
+  take,
+}: {
+  polyId: string;
+  cmit: number;
+  page: number;
+  take: number;
+}) {
+  return await instance.get(`/poly/${polyId}/bill?cmit=${cmit}&page=${page}&limit=${take}`);
 }
 
 export async function getNewsInPolyList() {

@@ -10,17 +10,37 @@ export const sectionWrapper = style({
 export const mainSectionWrapper = style([
   sectionWrapper,
   {
-    height: 'calc(642px + 124px)',
     alignItems: 'stretch',
     justifyContent: 'space-between',
+    gap: '48px',
     paddingBottom: '124px',
+
+    '@media': {
+      '(max-width: 640px)': {
+        flexDirection: 'column',
+      },
+    },
   },
 ]);
+
+export const cardWrapper = style({
+  width: '20%',
+  minWidth: 'fit-content',
+  '@media': {
+    '(max-width: 640px)': {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      width: '100%',
+    },
+  },
+});
 
 export const rightOfMainContent = style({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
+  gap: '128px',
   width: '100%',
   maxWidth: '806px',
 });

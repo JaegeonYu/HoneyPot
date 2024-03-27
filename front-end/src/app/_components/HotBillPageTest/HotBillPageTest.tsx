@@ -4,7 +4,7 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 
 import * as API from '@/_apis/bill';
 import * as T from '@/types';
-import Pagination from '@/_components/Pagination/pagination';
+import Pagination from '@/_components/Pagination/Pagination';
 
 export default function HotBillPageTest() {
   const [page, setPage] = useState(0); // 페이지 상태 추가
