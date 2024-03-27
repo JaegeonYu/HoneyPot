@@ -115,7 +115,8 @@ public class AssemblyRepositoryImpl implements AssemblyRepositoryCustom {
                 .innerJoin(assembly).on(assembly.id.eq(bill.assembly.id))
                 .innerJoin(committee).on(committee.id.eq(bill.committee.id))
                 .where(assembly.poly.id.eq(polyId),
-                        cmitId != 0 ? committee.id.eq(cmitId) : null)
+                        cmitId != 0 ? committee.id.eq(cmitId) : null,
+                        (assembly.hgName.notLike("UNKNOWN")))
                 .groupBy(assembly)
                 .orderBy(assembly.count().desc(), assembly.id.asc())
                 .limit(3)
@@ -129,7 +130,8 @@ public class AssemblyRepositoryImpl implements AssemblyRepositoryCustom {
                 .from(bill)
                 .innerJoin(committee).on(committee.id.eq(bill.committee.id))
                 .innerJoin(assembly).on(assembly.id.eq(bill.assembly.id))
-                .where(cmitId != 0 ? committee.id.eq(cmitId) : null)
+                .where(cmitId != 0 ? committee.id.eq(cmitId) : null,
+                        (assembly.hgName.notLike("UNKNOWN")))
                 .groupBy(assembly)
                 .orderBy(assembly.count().desc(), assembly.id.asc())
                 .limit(3)
@@ -148,7 +150,7 @@ public class AssemblyRepositoryImpl implements AssemblyRepositoryCustom {
                 .select(assembly)
                 .from(assembly)
                 .join(attendance).on(assembly.id.eq(attendance.assembly.id))
-                .where(assembly.poly.id.eq(polyId))
+                .where(assembly.poly.id.eq(polyId),(assembly.hgName.notLike("UNKNOWN")))
                 .groupBy(attendance)
                 .orderBy(attendanceRate.desc(),attendance.attendance.desc())
                 .limit(3)
@@ -165,7 +167,7 @@ public class AssemblyRepositoryImpl implements AssemblyRepositoryCustom {
                 .select(assembly)
                 .from(assembly)
                 .join(attendance).on(assembly.id.eq(attendance.assembly.id))
-                .where(assembly.poly.id.eq(polyId))
+                .where(assembly.poly.id.eq(polyId),(assembly.hgName.notLike("UNKNOWN")))
                 .groupBy(attendance)
                 .orderBy(attendanceRate.asc(), attendance.attendance.asc())
                 .limit(3)
