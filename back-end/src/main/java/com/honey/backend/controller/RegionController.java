@@ -1,8 +1,8 @@
 package com.honey.backend.controller;
 
 import com.honey.backend.request.RegionNameRequest;
-import com.honey.backend.response.RegionNameResponse;
-import com.honey.backend.response.RegionResponse;
+import com.honey.backend.response.region.RegionNameResponse;
+import com.honey.backend.response.region.RegionResponse;
 import com.honey.backend.service.RegionService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

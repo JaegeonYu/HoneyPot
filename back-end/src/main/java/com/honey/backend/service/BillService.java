@@ -4,15 +4,17 @@ import com.honey.backend.domain.assembly.AssemblyRepository;
 import com.honey.backend.domain.bill.Bill;
 import com.honey.backend.domain.bill.BillRepository;
 import com.honey.backend.domain.committee.CommitteeRepository;
+import com.honey.backend.domain.poly.Poly;
 import com.honey.backend.domain.poly.PolyRepository;
+import com.honey.backend.exception.AssemblyErrorCode;
 import com.honey.backend.exception.BaseException;
 import com.honey.backend.exception.BillErrorCode;
+import com.honey.backend.exception.CommitteeErrorCode;
 import com.honey.backend.request.BillRequest;
-import com.honey.backend.response.BillProgressResponse;
-import com.honey.backend.response.BillResponse;
-import com.honey.backend.response.BillStatResponse;
+import com.honey.backend.response.bill.BillProgressResponse;
+import com.honey.backend.response.bill.BillResponse;
+import com.honey.backend.response.bill.BillStatResponse;
 import lombok.RequiredArgsConstructor;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
@@ -38,7 +40,9 @@ public class BillService {
     private String pythonUrl;
 
     public BillResponse findById(Long billId) {
-        return insertToBillResponse(billRepository.findById(billId).orElseThrow());
+        return insertToBillResponse(billRepository.findById(billId).orElseThrow(
+                () -> new BaseException(BillErrorCode.BILL_NOT_FOUND)
+        ));
     }
 
     public List<BillResponse> getBillListAssembly(Long assemblyId, BillRequest billRequest) {
@@ -74,6 +78,7 @@ public class BillService {
     public BillStatResponse getBillStatPoly(Long polyId, Long cmitId) {
         return billRepository.findBillStatByPolyIdAndCmitId(polyId, cmitId);
     }
+
     @Transactional
     public String getSummary(Long billId) {
         Bill bill = billRepository.findById(billId).orElseThrow(
@@ -96,7 +101,9 @@ public class BillService {
     }
 
     public BillResponse insertToBillResponse(Bill bill) {
-
+        if (bill.getAssembly() == null) throw new BaseException(AssemblyErrorCode.ASSEMBLY_BAD_REQUEST);
+        Poly poly = polyRepository.findByAssemblyId(bill.getAssembly().getId());
+        if (poly == null) throw new BaseException(BillErrorCode.BILL_NOT_FOUND);
         return new BillResponse(
                 bill.getId(),
                 bill.getBillNo(),
@@ -105,9 +112,13 @@ public class BillService {
                 bill.getRstProposer(),
                 bill.getAssembly().getId(),
                 bill.getCommittee().getId(),
-                assemblyRepository.findById(bill.getAssembly().getId()).orElseThrow().getHgName(),
+                assemblyRepository.findById(bill.getAssembly().getId()).orElseThrow(
+                        () -> new BaseException(AssemblyErrorCode.ASSEMBLY_NOT_FOUND)
+                ).getHgName(),
                 bill.getPublProposer(),
-                committeeRepository.findById(bill.getCommittee().getId()).orElseThrow().getCmitName(),
+                committeeRepository.findById(bill.getCommittee().getId()).orElseThrow(
+                        () -> new BaseException(CommitteeErrorCode.COMMITTEE_NOT_FOUND)
+                ).getCmitName(),
                 bill.getProposeDt(),
                 bill.getCmtProcDt(),
                 bill.getLawProcDt(),
@@ -116,8 +127,8 @@ public class BillService {
                 bill.getDetailLink(),
                 bill.getTextBody(),
                 bill.getSummary(),
-                polyRepository.findByAssemblyId(bill.getAssembly().getId()).getId(),
-                polyRepository.findByAssemblyId(bill.getAssembly().getId()).getPolyName(),
+                poly.getId(),
+                poly.getPolyName(),
                 setStatus(bill)
         );
     }

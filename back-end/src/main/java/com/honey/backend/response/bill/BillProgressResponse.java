@@ -1,4 +1,4 @@
-package com.honey.backend.response;
+package com.honey.backend.response.bill;
 
 public record BillProgressResponse(
         String resultCd,
