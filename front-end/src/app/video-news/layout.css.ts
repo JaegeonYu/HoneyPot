@@ -1,28 +1,30 @@
-import { style } from '@vanilla-extract/css';
+import { globalStyle, style } from '@vanilla-extract/css';
 
-export const wrapper = style({});
-
-export const gridWrapper = style({
+export const wrapper = style({
+  display: 'flex',
+  justifyContent: 'space-between',
   width: '100%',
-  height: 'fit-content',
-  display: 'grid',
-  gridTemplateColumns: 'repeat(3, 1fr)',
-  alignItems: 'center',
-  justifyItems: 'center',
-  gap: 34,
-  padding: 16,
-  transition: 'padding 0.5s ease',
+  gap: '2%',
+});
 
-  '@media': {
-    '(max-width: 1360px)': {
-      gridTemplateColumns: 'repeat(2, 1fr)',
-    },
-    '(max-width: 1040px)': {
-      gridTemplateColumns: 'repeat(1, 1fr)',
-      padding: '16px 48px',
-    },
-    '(max-width: 690px)': {
-      gridTemplateColumns: 'repeat(1, 1fr)',
-    },
-  },
+export const keywordWindow = style({
+  width: 'calc(54% - 2%)',
+  height: '40px',
+  overflowY: 'hidden',
+  overflowX: 'scroll',
+  paddingBottom: '12px',
+});
+globalStyle(`${keywordWindow}::-webkit-scrollbar`, {
+  display: 'none',
+});
+
+export const keywordList = style({
+  display: 'flex',
+  gap: '12px',
+  width: 'fit-content',
+});
+
+export const inputWrapper = style({
+  width: 'calc(44% - 2%)',
+  height: '40px',
 });
