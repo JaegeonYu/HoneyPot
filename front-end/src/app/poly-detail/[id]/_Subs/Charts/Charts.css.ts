@@ -1,13 +1,24 @@
 import { vars } from '@/globalTheme.css';
 import { style } from '@vanilla-extract/css';
 
-export const chartsWrapper = style({});
-export const title = style({});
+export const chartsWrapper = style({
+  borderBottom: `1px solid ${vars.colors.service.STROKE_OR_BLUR}`,
+});
+export const title = style({
+  borderBottom: `1px solid ${vars.colors.service.STROKE_OR_BLUR}`,
+  textAlign: 'center',
+  padding: 10,
+});
 export const content = style({
   display: 'flex',
+  padding: 16,
 });
 
 export const leftContainer = style({});
+export const chartContent = style({
+  color: `${vars.colors.service.MAIN_BLACK}`,
+  textAlign: 'center',
+});
 
 export const midContainer = style({
   display: 'flex',

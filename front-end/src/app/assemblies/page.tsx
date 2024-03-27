@@ -122,7 +122,7 @@ export default function AssembliesPage() {
             })
           : Array.from({ length: 8 }).map((_, i) => <div className={S.skeletonCard} key={`skeleton-card-${i}`} />)}
       </Comp.GridWrapper>
-      <div ref={targetElement} />
+      <div ref={targetElement} id="1" />
       {/* <button></button> */}
     </section>
   );
