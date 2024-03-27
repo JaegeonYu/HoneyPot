@@ -87,4 +87,8 @@ public class S3Upload {
         }
     }
 
+
+    public String convertImageUrl(String imageName){
+        return url+"/images/"+imageName;
+    }
 }

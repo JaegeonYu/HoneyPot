@@ -14,6 +14,7 @@ import com.honey.backend.domain.poly.Poly;
 import com.honey.backend.domain.poly.PolyRepository;
 import com.honey.backend.domain.region.electionregion.ElectionRegion;
 import com.honey.backend.domain.region.electionregion.ElectionRegionRepository;
+import com.honey.backend.service.S3Upload;
 import jakarta.transaction.Transactional;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
@@ -28,7 +29,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 
-import java.io.StringReader;
+import java.io.*;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,13 +53,13 @@ public class AssemblyLoadService {
     private String imgKey;
 
 
+
     private final AssemblyRepository assemblyRepository;
     private final PolyRepository polyRepository;
     private final ElectionRegionRepository electionRegionRepository;
     private final CommitteeRepository committeeRepository;
-
     private final AssemblyCommitteeRepository assemblyAndCommitteeRepository;
-
+    private final S3Upload s3Upload;
     private List<AssemblyInfoResponse> infoResponseList;
 
 
@@ -211,4 +216,34 @@ public class AssemblyLoadService {
         return assemblyRepository.count() == 0;
     }
 
+//    public void imageDownload() throws IOException {
+//        String OUTPUT_FILE_PATH = "local resource";
+//
+//        List<Assembly> assemblies = assemblyRepository.findAll();
+//        for (Assembly assembly : assemblies) {
+//            String fileUrl = assembly.getAssemblyImgUrl();
+//            String imageUrl = fileUrl.replaceAll("http", "https");
+//
+//            try (InputStream in = new URL(imageUrl).openStream()) {
+//                Path imagePath = Paths.get(OUTPUT_FILE_PATH + File.separator + getImageName(fileUrl));
+//
+//                Files.copy(in, imagePath);
+//            }
+//        }
+//    }
+    
+//    @Transactional
+//    public void changeS3Url(){
+//        List<Assembly> assemblies = assemblyRepository.findAll();
+//        for(Assembly assembly : assemblies){
+//            if(assembly.getAssemblyImgUrl()==null)continue;
+//            String imageName = getImageName(assembly.getAssemblyImgUrl());
+//            assembly.updateImage(s3Upload.convertImageUrl(imageName));
+//        }
+//    }
+
+    private String getImageName(String url){
+        String[] urlSplit = url.split("/");
+        return urlSplit[4];
+    }
 }

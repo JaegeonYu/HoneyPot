@@ -1,5 +1,6 @@
 package com.honey.backend.controller;
 
+import com.honey.backend.load.assembly.AssemblyLoadService;
 import com.honey.backend.request.AssemblyListRequest;
 import com.honey.backend.request.BillRequest;
 import com.honey.backend.request.PledgeRequest;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -33,6 +35,7 @@ public class AssemblyController {
     private final BillService billService;
     private final CommitteeService committeeService;
     private final PledgeService pledgeService;
+    private final AssemblyLoadService assemblyLoadService;
 
     @GetMapping("")
     @Operation(summary = "국회의원 리스트 조회", description = "지역/ 이름 / 정당별 국회  의원 리스트 API")
@@ -87,5 +90,17 @@ public class AssemblyController {
 
         return ResponseEntity.status(HttpStatus.OK).body(pledgeService.getPledge(assemblyId));
     }
+
+//    @GetMapping("/load")
+//    public ResponseEntity<Void> loadImage() throws IOException {
+//        assemblyLoadService.imageDownload();
+//        return ResponseEntity.ok().build();
+//    }
+
+//    @GetMapping("/change")
+//    public ResponseEntity<Void> changeImageUrl(){
+//        assemblyLoadService.changeS3Url();
+//        return ResponseEntity.ok().build();
+//    }
 }
 
