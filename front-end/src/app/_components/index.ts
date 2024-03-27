@@ -19,6 +19,7 @@ import HotBillPageTest from './HotBillPageTest/HotBillPageTest';
 import Pledge from './Pledge/Pledge';
 import Pagination from './Pagination/Pagination';
 import Tooltip from './Tooltip/Tooltip';
+import FillterButton from './FillterButton/FillterButton';
 
 export {
   Header,
@@ -40,4 +41,5 @@ export {
   Pledge,
   Pagination,
   Tooltip,
+  FillterButton,
 };
