@@ -36,6 +36,9 @@ export default function VideoNewsLayout({ children }: { children: React.ReactNod
         </form>
       </section>
       {children}
+      <Comp.Modal width="120px" height="120px" isOpen={true} isOpenHandler={() => console.log(`HANDLER :`)}>
+        MODAL TEST
+      </Comp.Modal>
     </>
   );
 }
