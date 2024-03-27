@@ -1,22 +1,13 @@
 'use client';
 
 import React, { Suspense, useCallback, useState } from 'react';
+import * as T from '@/types';
 import * as S from './layout.css';
 import * as Comp from '@/components';
 import * as API from '@/apis';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import AssemblieslLoading from './loading';
 import { useQuery } from '@tanstack/react-query';
-import { assignInlineVars } from '@vanilla-extract/dynamic';
-import { PALETTE } from '@/_constants';
-
-interface Poly {
-  polyId: number;
-  polyName: string;
-  logoUrl: string;
-  seats: number;
-  leader: string;
-}
 
 export default function AssembliesLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -77,30 +68,14 @@ export default function AssembliesLayout({ children }: { children: React.ReactNo
       {partyListFetched ? (
         <div className={S.partyListWindow}>
           <div className={S.partySelectorWrapper}>
-            {partyList?.map((party: Poly, i: number) => (
-              <button
+            {partyList?.map((party: T.Poly, i: number) => (
+              <Comp.FillterButton
                 key={`party-${party.polyId}`}
-                className={S.partyItem}
                 onClick={() => handleQueryString('poly', party.polyId)}
-                style={assignInlineVars({
-                  [S.isSelectedBgColor]:
-                    Number(searchParams.get('poly')) === party.polyId
-                      ? PALETTE.service.MAIN_BLACK
-                      : PALETTE.service.SUB_WHITE,
-                })}
+                isSelected={Number(searchParams.get('poly')) === party.polyId}
               >
-                <span
-                  className={S.partyText}
-                  style={assignInlineVars({
-                    [S.isSelectedFontColor]:
-                      Number(searchParams.get('poly')) === party.polyId
-                        ? PALETTE.service.MAIN_WHITE
-                        : PALETTE.service.MAIN_BLACK,
-                  })}
-                >
-                  {party.polyName}
-                </span>
-              </button>
+                {party.polyName}
+              </Comp.FillterButton>
             ))}
           </div>
         </div>
