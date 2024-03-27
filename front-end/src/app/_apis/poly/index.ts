@@ -22,6 +22,20 @@ export async function getPolyDetailInfo({
   return await instance.get(`/poly/${polyId}/bill?cmit=${cmit}&page=${page}&limit=${limit}`);
 }
 
+export async function getPolyBill({
+  polyId,
+  cmit,
+  page,
+  take,
+}: {
+  polyId: string;
+  cmit: number;
+  page: number;
+  take: number;
+}) {
+  return await instance.get(`/poly/${polyId}/bill?cmit=${cmit}&page=${page}&limit=${take}`);
+}
+
 export async function getNewsInPolyList() {
   const API_KEY = '6bb43679068f4572b5a1d97d1115b209';
   const API_URL = `https://open.assembly.go.kr/portal/openapi/nbzyjjyoamdqqjorw?Key=${API_KEY}&REG_DATE=${2024}&Type=json&pSize=${6}`;

@@ -44,7 +44,7 @@ export default function Charts({ params }: T.AssemblyChartsProps) {
         <h3 className={S.titleText}>활동 현황</h3>
         <div className={S.chartsContainer}>
           <div className={S.posterWrapper}>
-            <Comp.Poster posterwidth="100%" posterheight="100%">
+            <Comp.Poster posterheight="360px" posterwidth="360px">
               <div className={S.chartContainer}>
                 <p className={S.totalCount}>총 {pledgeRateResponse.data.pledgeFulfillmentStatus.totalPledges}개</p>
                 <Comp.PieChart

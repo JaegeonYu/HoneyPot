@@ -1,41 +1,35 @@
 'use client';
 
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as S from './page.css';
 import * as T from '@/types';
-import * as API from '@/_apis/assembly';
-import { useIntersectionObserver } from '@/_customhooks';
+import * as API from '@/_apis';
 import * as Comp from '@/components';
 import Link from 'next/link';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
+import { useIntersectionObserver } from '@/_customhooks';
 
-export default function AssembliesPage() {
+interface Assembly {
+  assemblyId: number;
+  assemblyImgUrl: string;
+  hgName: string;
+  monaCd: string;
+  origName: string;
+  polyName: string;
+}
+
+export default function PolyDetailTab1({ params }: T.PartyDetailTab1Props) {
+  const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const handleQueryString = useCallback(
-    ({ sido, siGunGu, dong }: T.HandleQueryStringArgs) => {
-      const params = new URLSearchParams(searchParams.toString());
-
-      params.set('sido', String(sido));
-      params.set('sigungu', String(siGunGu));
-      params.set('dong', String(dong));
-
-      router.push(`${pathname}?${params.toString()}`);
-    },
-    [searchParams],
-  );
-
   const [totalCount, setTotalCount] = useState<null | number>(null);
+
+  //무한스크롤
   const queryKey = [
     {
-      assemblies: `member-list`,
-      areaCode: `${Number(searchParams.get('sido'))}-${Number(searchParams.get('sigungu'))}-${Number(
-        searchParams.get('dong'),
-      )}`,
-      poly: Number(searchParams.get('poly')),
-      work: searchParams.get('word') || '',
+      partyDetail: `member-list`,
+      poly: Number(params.id),
     },
   ];
 
@@ -46,18 +40,19 @@ export default function AssembliesPage() {
   } = useSuspenseInfiniteQuery({
     queryKey: queryKey,
     queryFn: ({ pageParam }) =>
-      API.getAssemblies({
-        sido: Number(searchParams.get('sido')),
-        sigungu: Number(searchParams.get('sigungu')),
-        dong: Number(searchParams.get('dong')),
-        poly: Number(searchParams.get('poly')),
-        word: searchParams.get('word') || '',
-        page: pageParam,
-        limit: 8,
-      })
+      API.assembly
+        .getAssemblies({
+          sido: 0,
+          sigungu: 0,
+          dong: 0,
+          poly: Number(params.id),
+          word: '',
+          page: pageParam,
+          limit: 8,
+        })
         .then(res => res)
         .catch(err => {
-          err.response.data.status === 400 && handleQueryString({ sido: 0, siGunGu: 0, dong: 0 });
+          err.response.data.status === 400;
         }),
     initialPageParam: 0,
     getNextPageParam: (lastPage, allPages, lastPageParam, allPageParams) => {
@@ -67,6 +62,7 @@ export default function AssembliesPage() {
     },
   });
 
+  //바닥이 보였을 때 실행될 함수
   const targetElement = useIntersectionObserver(async (entry, observer) => {
     observer.unobserve(entry.target);
     if (assembliesFetched) {
@@ -81,7 +77,7 @@ export default function AssembliesPage() {
   return (
     <section className={S.cardSection}>
       <h2 className={S.titleWrapper}>
-        <span className={S.title}>21대 국회의원</span>
+        <span className={S.title}>oo당 국회의원</span>
         <span className={S.totalContWrapper}>
           총 <span className={S.number}>{totalCount || 0}</span>명
         </span>
@@ -91,7 +87,7 @@ export default function AssembliesPage() {
           ? assembliesResponse.pages.map((page, pageIndex) => {
               return (
                 page?.data.assemblyCardResponseList !== undefined &&
-                page?.data.assemblyCardResponseList.map((res: T.Assembly, i: number) => (
+                page?.data.assemblyCardResponseList.map((res: Assembly, i: number) => (
                   <Link className={S.styledLink} key={res.monaCd} href={`/assembly/${res.assemblyId}`}>
                     <Comp.Card
                       key={res.monaCd}
@@ -114,7 +110,6 @@ export default function AssembliesPage() {
           : Array.from({ length: 8 }).map((_, i) => <div className={S.skeletonCard} key={`skeleton-card-${i}`} />)}
       </Comp.GridWrapper>
       <div ref={targetElement} id="1" />
-      {/* <button></button> */}
     </section>
   );
 }
