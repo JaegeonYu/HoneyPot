@@ -57,7 +57,6 @@ export default function Bill({
 
   useEffect(() => {
     // 데이터가 변경되면 isActive 상태를 false로 초기화
-    console.log(isToggled);
   }, [isToggled]);
 
   useEffect(() => {

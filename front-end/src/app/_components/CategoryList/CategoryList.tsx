@@ -9,7 +9,6 @@ import { CATEGORY_LIST } from '@/_constants';
 export default function CategoryList({ onCategoryClick, selectedIdx }: T.CategoryListProps) {
   const handleCategoryClick = (categoryId: number) => {
     onCategoryClick(categoryId);
-    console.log(categoryId, 'categoryId');
   };
   return (
     <div className={S.window}>
