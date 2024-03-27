@@ -28,17 +28,15 @@ export default function Charts({ params }: T.PartyDetailChartsProps) {
       </div>
       <div className={S.content}>
         <Comp.Poster posterheight="360px" posterwidth="360px">
-          <div className={S.leftContainer}>
+          <div className={S.leftContainer} style={{ width: '80%' }}>
             <Comp.PieChart
-              chartTitle={'의석수'}
+              chartTitle={<span style={{ fontSize: 18, fontWeight: 'bold' }}>의석수</span>}
               legendDisplay={false}
               legendList={[
                 { title: '참여', color: PALETTE.party[infoResponse.data.polyName][100] },
                 { title: '불참', color: PALETTE.party[infoResponse.data.polyName][20] },
               ]}
-              datasetList={[
-                (infoResponse.data.polySeatsResponse.seat / infoResponse.data.polySeatsResponse.totalSeats) * 100,
-              ]}
+              datasetList={[infoResponse.data.polySeatsResponse.seats, infoResponse.data.polySeatsResponse.totalSeats]}
               UNIQUE_ID_FOR_LEGEND="party-parliamentary-seat"
             />
             <div className={S.chartContent}>

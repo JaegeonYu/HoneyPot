@@ -17,8 +17,8 @@ export default function PolyDetailTab2({ params }: T.PartyDetailTab2Props) {
   const { data: billResponse } = useQuery({
     queryKey: [{ party: `detail-${params.id}`, page: pageParam, selectedCategoryId: selectedCategoryId }],
     queryFn: () =>
-      API.assembly
-        .getAssemblyBill({ assemblyId: params.id, cmit: selectedCategoryId, page: pageParam, take: 10 })
+      API.poly
+        .getPolyBill({ polyId: params.id, cmit: selectedCategoryId, page: pageParam, take: 10 })
         .then(res => res.data),
   });
 

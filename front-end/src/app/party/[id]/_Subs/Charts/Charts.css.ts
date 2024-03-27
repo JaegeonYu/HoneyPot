@@ -14,9 +14,14 @@ export const content = style({
   padding: 16,
 });
 
-export const leftContainer = style({});
+export const leftContainer = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 8,
+});
 export const chartContent = style({
   color: `${vars.colors.service.MAIN_BLACK}`,
+  fontWeight: 'bold',
   textAlign: 'center',
 });
 
