@@ -12,6 +12,7 @@ import { Category } from '@/components';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import Pagination from '@/_components/Pagination/Pagination';
 import BillLoading from './loading';
+import BillList from './_Subs/BillList/BillList';
 // import { fontName } from '@/_components/Bill/Bill.css';
 
 export default function BillTab1() {
@@ -147,6 +148,19 @@ export default function BillTab1() {
         <div style={{ paddingTop: 4, backgroundColor: `${PALETTE.service.HOVER_BACKGROUND}` }}>
           <Comp.CategoryList selectedIdx={selectedCategoryId} onCategoryClick={handleCategoryClick} />
         </div>
+        {/* <Suspense
+          fallback={
+            <>
+              {Array.from({ length: 10 }, (_, index) => (
+                <div key={index} style={{ margin: '10px' }}>
+                  <BillLoading width="100%" height="107px" />
+                </div>
+              ))}
+            </>
+          }
+        >
+          <BillList category={selectedCategoryId}></BillList>
+        </Suspense> */}
         <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '12px', padding: 16 }}>
           {billResponse.data.billResponse.map((res: T.BillProps, index: number) => (
             <Comp.Bill key={index} {...res} />
@@ -165,11 +179,11 @@ export default function BillTab1() {
   );
 }
 
-// <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '12px', padding: 16 }}>
-// {/* 로딩 중이면 스켈레톤을 보여줌 */}
-// {billFetched
-//   ? billResponse.data.billResponse.map((res: T.BillProps, index: number) => (
-//       <Comp.Bill key={index} {...res} />
-//     ))
-//   : Array.from({ length: 10 }, (_, index) => <BillLoading width="100%" height="30" key={index} />)}
-// </div>
+//<div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '12px', padding: 16 }}>
+//{/* 로딩 중이면 스켈레톤을 보여줌 */}
+//{billFetched
+//  ? billResponse.data.billResponse.map((res: T.BillProps, index: number) => (
+//      <Comp.Bill key={index} {...res} />
+//    ))
+//  : Array.from({ length: 10 }, (_, index) => <BillLoading width="100%" height="30" key={index} />)}
+//</div>

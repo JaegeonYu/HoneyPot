@@ -79,6 +79,19 @@ export default function Bill({
 
   useEffect(() => {
     // 데이터가 변경되면 isActive 상태를 false로 초기화
+    if (summary) {
+      setIsToggled(true);
+      // console.log(summary, 'summary');
+    }
+  }, [summary]);
+
+  useEffect(() => {
+    // 데이터가 변경되면 isActive 상태를 false로 초기화
+    // console.log(isToggled);
+  }, [isToggled]);
+
+  useEffect(() => {
+    // 데이터가 변경되면 isActive 상태를 false로 초기화
     if (summaryResponse) {
       // setIsToggled(true);
       console.log(summaryResponse);
@@ -168,10 +181,12 @@ export default function Bill({
         </div>
         <div className={S.billCardContentsMain}>
           {isToggled ? (
-            summaryFetched ? (
+            summary ? (
+              <SummaryPanel data={summary}></SummaryPanel>
+            ) : summaryFetched ? (
               <SummaryPanel data={summaryResponse}></SummaryPanel>
             ) : (
-              <div>로딩중</div>
+              <div>로딩</div>
             )
           ) : (
             <OriginalPanel data={textBody}></OriginalPanel>
