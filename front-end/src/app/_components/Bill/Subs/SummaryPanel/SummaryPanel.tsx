@@ -1,36 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as S from './SummaryPanel.css';
 import * as T from '@/types';
 
 export default function SummaryPanel({ data }: T.SummaryPanelProps) {
-  const parsedata = data ? JSON.parse(data) : '';
-  // const keys = Object.keys(parsedata.difficult_words[0]);
+  // const keys = Object.keys(data.difficult_words[0]);
 
-  const result = parsedata ? parsedata.difficult_words.flatMap(Object.keys) : '';
-  const values = parsedata ? parsedata.difficult_words.flatMap(Object.values) : '';
+  const result = data ? data.difficult_words.flatMap(Object.keys) : '';
+  const values = data ? data.difficult_words.flatMap(Object.values) : '';
 
   return (
     <>
-      {parsedata ? (
+      {data ? (
         <div className={S.billCardContentsMain}>
           <div className={S.billCardContentsProblem}>
             <div className={S.billCardContentsProblemText}>
               <p className={S.fontTitle}>주제</p>
-              <p className={S.fontContent}>{parsedata.title}</p>
+              <p className={S.fontContent}>{data.title}</p>
             </div>
             <div className={S.billCardContentsProblemText}>
               <p className={S.fontTitle}>핵심</p>
-              <p className={S.fontContent}>{parsedata.summary}</p>
+              <p className={S.fontContent}>{data.summary}</p>
             </div>
             <div className={S.billCardContentsProblemText}>
               <p className={S.fontTitle}>개요 및 목적</p>
               <p className={S.fontContent}>
-                {parsedata.overview} {parsedata.purpose}
+                {data.overview} {data.purpose}
               </p>
             </div>
             <div className={S.billCardContentsProblemText}>
               <p className={S.fontTitle}>예상 결과</p>
-              <p className={S.fontContent}>{parsedata.impact_and_expected_results}</p>
+              <p className={S.fontContent}>{data.impact_and_expected_results}</p>
             </div>
           </div>
 
