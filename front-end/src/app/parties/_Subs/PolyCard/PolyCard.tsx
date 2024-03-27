@@ -13,7 +13,7 @@ interface PolyCardProps {
 
 export default function PolyCard({ polyId, leader, polySeatsResponse }: PolyCardProps) {
   return (
-    <Link className={S.styledLink} href={`/poly-detail/${polyId}`}>
+    <Link className={S.styledLink} href={`/party/${polyId}`}>
       <Comp.Card ratio="1 / 1" badge={{ isBadgeNeed: false }} imgUrl={`/party/party-${polyId}.svg`}>
         <div className={S.cardInfoSection}>
           <div className={S.partyCntWrapper}>

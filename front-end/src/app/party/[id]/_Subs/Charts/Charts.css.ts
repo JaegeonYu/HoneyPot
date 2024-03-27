@@ -2,6 +2,7 @@ import { vars } from '@/globalTheme.css';
 import { style } from '@vanilla-extract/css';
 
 export const chartsWrapper = style({
+  width: '100%',
   borderBottom: `1px solid ${vars.colors.service.STROKE_OR_BLUR}`,
 });
 export const title = style({
@@ -11,7 +12,9 @@ export const title = style({
 });
 export const content = style({
   display: 'flex',
-  padding: 16,
+  justifyContent: 'space-between',
+  width: '100%',
+  padding: '24px',
 });
 
 export const leftContainer = style({
@@ -34,7 +37,6 @@ export const midContainer = style({
 export const attendanceRate = style({
   display: 'flex',
   flexDirection: 'column',
-  // gap: 3,
 });
 export const attendanceRateTitle = style({
   fontSize: 18,
