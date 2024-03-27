@@ -1,15 +1,17 @@
 import { vars } from '@/globalTheme.css';
-import { style } from '@vanilla-extract/css';
+import { createVar, style } from '@vanilla-extract/css';
 
 export const chartsWrapper = style({
   width: '100%',
   borderBottom: `1px solid ${vars.colors.service.STROKE_OR_BLUR}`,
 });
+
 export const title = style({
   borderBottom: `1px solid ${vars.colors.service.STROKE_OR_BLUR}`,
   textAlign: 'center',
   padding: 10,
 });
+
 export const content = style({
   display: 'flex',
   justifyContent: 'space-between',
@@ -17,51 +19,46 @@ export const content = style({
   padding: '24px',
 });
 
-export const leftContainer = style({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 8,
-});
 export const chartContent = style({
   color: `${vars.colors.service.MAIN_BLACK}`,
-  fontWeight: 'bold',
+  fontWeight: 700,
   textAlign: 'center',
 });
 
-export const midContainer = style({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 24,
-  textAlign: 'center',
-});
 export const attendanceRate = style({
   display: 'flex',
   flexDirection: 'column',
 });
-export const attendanceRateTitle = style({
-  fontSize: 18,
-  fontWeight: 'bold',
-});
-export const attendanceRateContent = style({});
 
-export const rightContainer = style({
+export const attendanceRateTitle = style({
+  fontSize: 'clamp(14px, 1.5vw ,18px)',
+  fontWeight: 700,
+  padding: '4px 0px',
+});
+
+export const memberName = style({
+  fontWeight: 500,
+});
+export const subText = style({
+  fontSize: 'clamp(12px, 1vw ,14px)',
+});
+
+export const containerWidth = createVar();
+export const container = style({
   display: 'flex',
   flexDirection: 'column',
+  justifyContent: 'space-between',
   gap: 24,
+  width: containerWidth,
+  height: '100%',
   textAlign: 'center',
 });
-export const mostCategory = style({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 12,
-});
-export const mostCategoryTitle = style({
-  fontSize: 18,
-  fontWeight: 'bold',
-});
+
 export const mostCategoryContent = style({
   display: 'flex',
+  justifyContent: 'space-between',
   gap: 12,
+  width: '100%',
 });
 
 export const mostAssembly = style({
@@ -69,8 +66,3 @@ export const mostAssembly = style({
   flexDirection: 'column',
   gap: 12,
 });
-export const mostAssemblyTitle = style({
-  fontSize: 18,
-  fontWeight: 'bold',
-});
-export const mostAssemblyContent = style({});
