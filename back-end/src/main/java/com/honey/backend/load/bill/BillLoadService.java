@@ -50,26 +50,27 @@ public class BillLoadService {
     private final AssemblyRepository assemblyRepository;
     private final CommitteeRepository committeeRepository;
 
-    @Transactional
+
     public void insert() {
-        if (initFlag()) {
-            insertBill();
-            updateTextBody();
-        }
+
+            saveAllBills();
+         //   updateTextBody();
+
     }
 
     @Scheduled(cron = "0 0 3 * * *", zone = "Asia/Seoul")
     public void updateWithSchedule() {
         if (!initFlag()) {
-            insertBill();
-            updateTextBody();
+            saveAllBills();
+         //   updateTextBody();
         }
     }
 
     @Transactional
-    public void insertBill() {
+    public List<Bill> insertBill() {
         List<Bill> billsToSave = new ArrayList<>();
         List<BillLoadResponse> infoResponseList = getBillList();
+        List<BillTextBodyResponse> textBodyResponseList = getTextBody();
         int count = 1;
         float size = infoResponseList.size();
         for (BillLoadResponse billLoadResponse : infoResponseList) {
@@ -79,24 +80,35 @@ public class BillLoadService {
             // ASSEMBLY와 연결
             String[] splitName = billLoadResponse.RST_PROPOSER().split(",");
             String[] splitCode = billLoadResponse.RST_MONA_CD().split(",");
+            for (BillTextBodyResponse billTextBodyResponse : textBodyResponseList) {
+                if (billLoadResponse.BILL_NO().equals(billTextBodyResponse.billNo())) {
+                    if(billRepository.existsByBillNo(billLoadResponse.BILL_NO())) break;
+                    for (int i = 0; i < splitCode.length; i++) {
+                        Assembly assembly = assemblyRepository.findByMonaCd(splitCode[i]).orElse(
+                                assemblyRepository.findByHgName("UNKNOWN").orElseThrow()
+                        );
+                        billsToSave.add(createBillInfo(committee, assembly, billLoadResponse, splitName[i], billTextBodyResponse.summary()));
 
-            for (int i = 0; i < splitCode.length; i++) {
-                Assembly assembly = assemblyRepository.findByMonaCd(splitCode[i]).orElse(
-                        assemblyRepository.findByHgName("UNKNOWN").orElseThrow()
-                );
-
-                billsToSave.add(createBillInfo(committee, assembly, billLoadResponse, splitName[i]));
-
+                    }
+                    break;
+                }
             }
-
             System.out.print("Bill Saving : " + String.format("%.2f", count++ / (size / 100)) + "% " + "\r");
+
         }
+        return billsToSave;
+
+    }
+
+    public void saveAllBills() {
+        List<Bill> billsToSave = insertBill();
         if (!billsToSave.isEmpty()) {
             billRepository.saveAll(billsToSave);
         }
         logger.info("Bill Saving : COMPLETE");
     }
 
+    @Transactional
     public void updateTextBody() {
 
         List<BillTextBodyResponse> billTextBodyResponseList = getTextBody();
@@ -148,7 +160,6 @@ public class BillLoadService {
                 ObjectMapper mapper = new ObjectMapper();
                 float size = (float) totalLength;
                 totalCount = (totalLength / limit) + 1;
-                totalCount =10;
                 for (int j = 0; j < list.length(); j++) {
                     JSONObject item = ((JSONObject) list.get(j));
                     BillLoadResponse billLoadResponse = mapper.readValue(item.toString(), BillLoadResponse.class);
@@ -201,7 +212,6 @@ public class BillLoadService {
                 Items items = apiResponse.getBody().getItems();
                 int totalLength = apiResponse.getBody().getTotalCount();
                 totalCount = (totalLength / limit) + 1;
-                totalCount= 10;
                 float size = (float) totalLength;
                 for (Item item : items.getItem()) {
                     System.out.print("Bill Body Api Call : " + String.format("%.2f", a++ / (size / 100)) + "% " + "\r");
@@ -241,7 +251,7 @@ public class BillLoadService {
     }
 
     private Bill createBillInfo(Committee committee, Assembly assembly, BillLoadResponse billLoadResponse, String
-            name) {
+            name, String textBody) {
 
         Bill bill = Bill.createBill(billLoadResponse.BILL_NO(),
                 billLoadResponse.BILL_NAME(), billLoadResponse.PROPOSER(),
@@ -258,7 +268,8 @@ public class BillLoadService {
                 billLoadResponse.PROPOSE_DT(),
                 billLoadResponse.PROC_DT(),
                 billLoadResponse.PROC_RESULT_CD(),
-                billLoadResponse.LINK_URL());
+                billLoadResponse.LINK_URL(),
+                textBody);
 
         return bill;
     }

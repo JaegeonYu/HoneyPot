@@ -8,11 +8,13 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
 @Getter
 @AllArgsConstructor
 @RequiredArgsConstructor
+@DynamicUpdate
 @Table(name = "bill")
 public class Bill {
 
@@ -55,7 +57,7 @@ public class Bill {
     @Column(length = 65535)
     private String summary;
 
-    private Bill(String billNo, String billName, String proposer, String rstProposer, Assembly assembly, String publProposer, Committee committee, String cmtProcDt, String cmtPresentDt, String committeeDt, String cmtProcResultCd, String lawProcDt, String lawPresentDt, String lawSubmitDt, String lawProcResultCd, String proposeDt, String procDt, String procResult, String detailLink) {
+    private Bill(String billNo, String billName, String proposer, String rstProposer, Assembly assembly, String publProposer, Committee committee, String cmtProcDt, String cmtPresentDt, String committeeDt, String cmtProcResultCd, String lawProcDt, String lawPresentDt, String lawSubmitDt, String lawProcResultCd, String proposeDt, String procDt, String procResult, String detailLink, String textBody) {
         this.billNo = billNo;
         this.billName = billName;
         this.proposer = proposer;
@@ -75,11 +77,12 @@ public class Bill {
         this.procDt = procDt;
         this.procResult = procResult;
         this.detailLink = detailLink;
+        this.textBody = textBody;
 
     }
 
-    public static Bill createBill(String billNo, String billName, String proposer, String rstProposer, Assembly assembly, String publProposer, Committee committee, String cmtProcDt, String cmtPresentDt, String committeeDt, String cmtProcResultCd, String lawProcDt, String lawPresentDt, String lawSubmitDt, String lawProcResultCd, String proposeDt, String procDt, String procResult, String detailLink) {
-        return new Bill(billNo, billName, proposer, rstProposer, assembly, publProposer, committee, cmtProcDt, cmtPresentDt, committeeDt, cmtProcResultCd, lawProcDt, lawPresentDt, lawSubmitDt, lawProcResultCd, proposeDt, procDt, procResult, detailLink);
+    public static Bill createBill(String billNo, String billName, String proposer, String rstProposer, Assembly assembly, String publProposer, Committee committee, String cmtProcDt, String cmtPresentDt, String committeeDt, String cmtProcResultCd, String lawProcDt, String lawPresentDt, String lawSubmitDt, String lawProcResultCd, String proposeDt, String procDt, String procResult, String detailLink, String textBody) {
+        return new Bill(billNo, billName, proposer, rstProposer, assembly, publProposer, committee, cmtProcDt, cmtPresentDt, committeeDt, cmtProcResultCd, lawProcDt, lawPresentDt, lawSubmitDt, lawProcResultCd, proposeDt, procDt, procResult, detailLink, textBody);
     }
 
     public void updateTextBody(String textBody) {

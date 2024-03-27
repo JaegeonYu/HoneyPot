@@ -17,9 +17,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Unmarshaller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
@@ -50,7 +50,7 @@ public class HotIssueLoadService {
         return htmlBody.toString();
     }
 
-    @PostConstruct
+
     public void getIssue() throws IOException, JAXBException {
         if(hotIssueRepository.count() == 0){
 
@@ -78,8 +78,9 @@ public class HotIssueLoadService {
                     .map(HotIssueXml::toIssue)
                     .toList();
 
-
+            int count = 0;
             for(HotIssue hot : hotIssues){
+                System.out.print("hotIssue Saving : " + String.format("%.2f", count++ / (hotIssues.size() / 100)) + "% " + "\r");
                 hot.addOriginal(getCrolling(hot.getUrl()));
             }
 
