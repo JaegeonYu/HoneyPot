@@ -37,37 +37,6 @@ export const partySelectorWrapper = style({
   height: '40px',
 });
 
-export const isSelectedBgColor = createVar();
-export const partyItem = style({
-  borderRadius: '6px',
-  overflow: 'hidden',
-  backgroundColor: isSelectedBgColor,
-});
-
-export const isSelectedFontColor = createVar();
-export const partyText = style({
-  display: 'inline-block',
-  width: 'fit-content',
-  height: '100%',
-  padding: '6px 16px',
-  fontWeight: 500,
-  fontSize: '14px',
-  lineHeight: '27px',
-  textWrap: 'nowrap',
-  color: isSelectedFontColor,
-
-  selectors: {
-    [`${partyItem}:hover &`]: {
-      backgroundColor: vars.colors.service.HOVER_BACKGROUND,
-    },
-    [`${partyItem}:focus &`]: {
-      fontWeight: 700,
-      color: vars.colors.service.MAIN_WHITE,
-      backgroundColor: vars.colors.service.MAIN_BLACK,
-    },
-  },
-});
-
 export const skeletonPartyWrapper = style({
   width: '100%',
   height: '40px',

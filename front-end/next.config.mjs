@@ -9,8 +9,8 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'http',
-        hostname: 'www.assembly.go.kr',
+        protocol: 'https',
+        hostname: 'd1x6bubco94kr4.cloudfront.net',
         port: '',
         pathname: '/**',
       },

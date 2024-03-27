@@ -10,15 +10,6 @@ import Link from 'next/link';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
-interface Assembly {
-  assemblyId: number;
-  assemblyImgUrl: string;
-  hgName: string;
-  monaCd: string;
-  origName: string;
-  polyName: string;
-}
-
 export default function AssembliesPage() {
   const router = useRouter();
   const pathname = usePathname();
@@ -100,7 +91,7 @@ export default function AssembliesPage() {
           ? assembliesResponse.pages.map((page, pageIndex) => {
               return (
                 page?.data.assemblyCardResponseList !== undefined &&
-                page?.data.assemblyCardResponseList.map((res: Assembly, i: number) => (
+                page?.data.assemblyCardResponseList.map((res: T.Assembly, i: number) => (
                   <Link className={S.styledLink} key={res.monaCd} href={`/assembly/${res.assemblyId}`}>
                     <Comp.Card
                       key={res.monaCd}

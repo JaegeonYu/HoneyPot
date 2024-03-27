@@ -73,14 +73,16 @@ export default function Charts({ params }: T.AssemblyChartsProps) {
             <Comp.Poster posterwidth="100%" posterheight="100%">
               <div className={S.chartContainer}>
                 <Comp.Tooltip>
+                  <p className={S.toolTipTitle}>출석률</p>
                   <p className={S.tooltipText}>
-                    국회에서 제공된 데이터 중 <b className={S.boldText}>출석과 결석만을 이용</b>해 계산하였습니다.
+                    - 국회에서 제공된 데이터 중 <b className={S.boldText}>출석과 결석만을 이용</b>해 계산하였습니다.
                   </p>
+                  <p className={S.toolTipTitle}>본회의</p>
+                  <p className={S.tooltipText}>- 본회의는 의안의 최종 결정 장소입니다.</p>
+                  <p className={S.toolTipTitle}>상임위</p>
                   <p className={S.tooltipText}>
-                    <b className={S.boldText}>본회의</b>란
-                  </p>
-                  <p className={S.tooltipText}>
-                    <b className={S.boldText}>상임위</b>란
+                    - 법률안을 본회의에서 상의하기 전에 그 <b className={S.boldText}>소관에 속하는 의안을 심사</b>하는
+                    곳입니다.
                   </p>
                 </Comp.Tooltip>
                 <Comp.DoughnutChart

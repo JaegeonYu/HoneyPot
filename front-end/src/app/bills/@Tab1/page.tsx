@@ -10,7 +10,7 @@ import { CATEGORY_LIST } from '@/_constants';
 import { PALETTE } from '@/_constants';
 import { Category } from '@/components';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import Pagination from '@/_components/Pagination/pagination';
+import Pagination from '@/_components/Pagination/Pagination';
 import BillLoading from './loading';
 // import { fontName } from '@/_components/Bill/Bill.css';
 
@@ -145,7 +145,7 @@ export default function BillTab1() {
           </span>
         </h2>
         <div style={{ paddingTop: 4, backgroundColor: `${PALETTE.service.HOVER_BACKGROUND}` }}>
-          <Comp.CategoryList onCategoryClick={handleCategoryClick} />
+          <Comp.CategoryList selectedIdx={selectedCategoryId} onCategoryClick={handleCategoryClick} />
         </div>
         <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '12px', padding: 16 }}>
           {billResponse.data.billResponse.map((res: T.BillProps, index: number) => (

@@ -10,7 +10,10 @@ interface Poly {
   polyId: number;
   polyName: string;
   logoUrl: string;
-  seats: number;
+  polySeatsResponse: {
+    seats: number;
+    totalSeats: number;
+  };
   leader: string;
 }
 
