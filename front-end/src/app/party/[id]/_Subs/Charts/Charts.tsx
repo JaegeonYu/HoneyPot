@@ -27,10 +27,16 @@ export default function Charts({ params }: T.PartyDetailChartsProps) {
               chartTitle={<span style={{ fontSize: 18, fontWeight: 'bold' }}>의석수</span>}
               legendDisplay={false}
               legendList={[
-                { title: '참여', color: PALETTE.party[infoResponse.data.polyName][100] },
-                { title: '불참', color: PALETTE.service.STROKE_OR_BLUR },
+                {
+                  title: `${infoResponse.data.polyName} 의석 수`,
+                  color: PALETTE.party[infoResponse.data.polyName][100],
+                },
+                { title: '그 외', color: PALETTE.service.STROKE_OR_BLUR },
               ]}
-              datasetList={[infoResponse.data.polySeatsResponse.seats, infoResponse.data.polySeatsResponse.totalSeats]}
+              datasetList={[
+                infoResponse.data.polySeatsResponse.seats,
+                infoResponse.data.polySeatsResponse.totalSeats - infoResponse.data.polySeatsResponse.seats,
+              ]}
               UNIQUE_ID_FOR_LEGEND="party-parliamentary-seat"
             />
             <div className={S.chartContent}>
