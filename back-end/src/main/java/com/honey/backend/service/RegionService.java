@@ -9,8 +9,8 @@ import com.honey.backend.domain.region.sigungu.SigunguRepository;
 import com.honey.backend.exception.BaseException;
 import com.honey.backend.exception.RegionErrorCode;
 import com.honey.backend.request.RegionNameRequest;
-import com.honey.backend.response.RegionNameResponse;
-import com.honey.backend.response.RegionResponse;
+import com.honey.backend.response.region.RegionNameResponse;
+import com.honey.backend.response.region.RegionResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -4,17 +4,28 @@ import com.honey.backend.domain.assembly.AssemblyRepository;
 import com.honey.backend.domain.bill.Bill;
 import com.honey.backend.domain.bill.BillRepository;
 import com.honey.backend.domain.committee.CommitteeRepository;
+import com.honey.backend.domain.poly.Poly;
 import com.honey.backend.domain.poly.PolyRepository;
+import com.honey.backend.exception.AssemblyErrorCode;
+import com.honey.backend.exception.BaseException;
+import com.honey.backend.exception.BillErrorCode;
+import com.honey.backend.exception.CommitteeErrorCode;
 import com.honey.backend.request.BillRequest;
-import com.honey.backend.response.BillProgressResponse;
-import com.honey.backend.response.BillResponse;
-import com.honey.backend.response.BillStatResponse;
+import com.honey.backend.response.bill.BillProgressResponse;
+import com.honey.backend.response.bill.BillResponse;
+import com.honey.backend.response.bill.BillStatResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -25,11 +36,16 @@ public class BillService {
     private final CommitteeRepository committeeRepository;
     private final PolyRepository polyRepository;
 
+    @Value("${PYTHON_URL}")
+    private String pythonUrl;
+
     public BillResponse findById(Long billId) {
-        return insertToBillResponse(billRepository.findById(billId).orElseThrow());
+        return insertToBillResponse(billRepository.findById(billId).orElseThrow(
+                () -> new BaseException(BillErrorCode.BILL_NOT_FOUND)
+        ));
     }
 
-    public List<BillResponse> getBillList(Long assemblyId, BillRequest billRequest) {
+    public List<BillResponse> getBillListAssembly(Long assemblyId, BillRequest billRequest) {
         int page = billRequest.page();
         int limit = billRequest.limit();
         String word = billRequest.word();
@@ -42,12 +58,52 @@ public class BillService {
         return billResponseList;
     }
 
-    public BillStatResponse getBillStat(Long assemblyId, Long cmitId) {
+    public BillStatResponse getBillStatAssembly(Long assemblyId, Long cmitId) {
         return billRepository.findBillStatByAssemblyIdAndCmitId(assemblyId, cmitId);
     }
 
-    public BillResponse insertToBillResponse(Bill bill) {
+    public List<BillResponse> getBillListPoly(Long polyId, BillRequest billRequest) {
+        int page = billRequest.page();
+        int limit = billRequest.limit();
+        String word = billRequest.word();
+        Long cmitId = billRequest.cmit();
+        List<Bill> billList = billRepository.findAllByPolyIdAndCmitId(PageRequest.of(page, limit), word, cmitId, polyId).getContent();
+        List<BillResponse> billResponseList = new ArrayList<>();
+        for (Bill bill : billList) {
+            billResponseList.add(insertToBillResponse(bill));
+        }
+        return billResponseList;
+    }
 
+    public BillStatResponse getBillStatPoly(Long polyId, Long cmitId) {
+        return billRepository.findBillStatByPolyIdAndCmitId(polyId, cmitId);
+    }
+
+    @Transactional
+    public String getSummary(Long billId) {
+        Bill bill = billRepository.findById(billId).orElseThrow(
+                () ->
+                        new BaseException(BillErrorCode.BILL_NOT_FOUND)
+
+        );
+        Map<String, String> bodyMap = new HashMap<>();
+        bodyMap.put("content", bill.getTextBody());
+        String reponseBody = WebClient.create()
+                .post()
+                .uri(pythonUrl + "bill")
+                .bodyValue(bodyMap)
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .bodyToMono(String.class).block();
+
+        bill.updateSummary(reponseBody);
+        return reponseBody;
+    }
+
+    public BillResponse insertToBillResponse(Bill bill) {
+        if (bill.getAssembly() == null) throw new BaseException(AssemblyErrorCode.ASSEMBLY_BAD_REQUEST);
+        Poly poly = polyRepository.findByAssemblyId(bill.getAssembly().getId());
+        if (poly == null) throw new BaseException(BillErrorCode.BILL_NOT_FOUND);
         return new BillResponse(
                 bill.getId(),
                 bill.getBillNo(),
@@ -56,9 +112,13 @@ public class BillService {
                 bill.getRstProposer(),
                 bill.getAssembly().getId(),
                 bill.getCommittee().getId(),
-                assemblyRepository.findById(bill.getAssembly().getId()).orElseThrow().getHgName(),
+                assemblyRepository.findById(bill.getAssembly().getId()).orElseThrow(
+                        () -> new BaseException(AssemblyErrorCode.ASSEMBLY_NOT_FOUND)
+                ).getHgName(),
                 bill.getPublProposer(),
-                committeeRepository.findById(bill.getCommittee().getId()).orElseThrow().getCmitName(),
+                committeeRepository.findById(bill.getCommittee().getId()).orElseThrow(
+                        () -> new BaseException(CommitteeErrorCode.COMMITTEE_NOT_FOUND)
+                ).getCmitName(),
                 bill.getProposeDt(),
                 bill.getCmtProcDt(),
                 bill.getLawProcDt(),
@@ -67,10 +127,23 @@ public class BillService {
                 bill.getDetailLink(),
                 bill.getTextBody(),
                 bill.getSummary(),
-                polyRepository.findByAssemblyId(bill.getAssembly().getId()).getId(),
-                polyRepository.findByAssemblyId(bill.getAssembly().getId()).getPolyName(),
+                poly.getId(),
+                poly.getPolyName(),
                 setStatus(bill)
         );
+    }
+
+
+    public int getCountAssembly(BillRequest billRequest, Long assemblyId) {
+
+        return billRepository.countByAssemblyIdAndCmitId(
+                billRequest.word(), billRequest.cmit(), assemblyId).intValue();
+    }
+
+    public int getCountPoly(BillRequest billRequest, Long polyId) {
+
+        return billRepository.countByPolyIdAndCmitId(
+                billRequest.word(), billRequest.cmit(), polyId).intValue();
     }
 
     private BillProgressResponse setStatus(Bill bill) {
@@ -96,14 +169,13 @@ public class BillService {
         } else if (procResult.contains("수정안반영")) {
             result = 5;
             resultName = "수정안반영";
-        }
-        else {
+        } else {
             result = 3;
             resultName = "철회/폐기";
         }
         if (1 <= result && result <= 2) present = 3;
 
-        else if ( result <= 5) present = 0;
+        else if (result <= 5) present = 0;
             // 미배정 0 , 상임위 1, 법사위 2, 본회의 3  (결과기준)
         else present = setPresent(bill);
 

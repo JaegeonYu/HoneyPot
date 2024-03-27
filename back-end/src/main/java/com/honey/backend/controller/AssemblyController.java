@@ -2,9 +2,20 @@ package com.honey.backend.controller;
 
 import com.honey.backend.request.AssemblyListRequest;
 import com.honey.backend.request.BillRequest;
-import com.honey.backend.response.*;
+import com.honey.backend.request.PledgeRequest;
+import com.honey.backend.response.assembly.AssemblyListResponse;
+import com.honey.backend.response.assembly.AssemblyResponse;
+import com.honey.backend.response.assembly.SnsResponse;
+import com.honey.backend.response.bill.BillListResponse;
+import com.honey.backend.response.bill.BillResponse;
+import com.honey.backend.response.bill.BillStatResponse;
+import com.honey.backend.response.committee.CommitteeResponse;
+import com.honey.backend.response.pledge.PledgeListResponse;
+import com.honey.backend.response.pledge.PledgeResponse;
 import com.honey.backend.service.AssemblyService;
 import com.honey.backend.service.BillService;
+import com.honey.backend.service.CommitteeService;
+import com.honey.backend.service.PledgeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -26,6 +37,8 @@ public class AssemblyController {
 
     private final AssemblyService assemblyService;
     private final BillService billService;
+    private final CommitteeService committeeService;
+    private final PledgeService pledgeService;
 
     @GetMapping("")
     @Operation(summary = "국회의원 리스트 조회", description = "지역/ 이름 / 정당별 국회  의원 리스트 API")
@@ -44,9 +57,11 @@ public class AssemblyController {
     @GetMapping("/{assembly_id}/bill")
     @Operation(summary = "국회의원의 발의안 리스트 조회", description = "국회의원의 발의안 리스트 API")
     public ResponseEntity<BillListResponse> findAllBillByAssemblyId(@PathVariable(name = "assembly_id") Long assemblyId, @Valid BillRequest billRequest) {
-        List<BillResponse> billResponseList = billService.getBillList(assemblyId, billRequest);
-        BillStatResponse billStatResponse = billService.getBillStat(assemblyId, billRequest.cmit());
-        BillListResponse billListResponse = new BillListResponse(billStatResponse, billResponseList);
+        List<BillResponse> billResponseList = billService.getBillListAssembly(assemblyId, billRequest);
+        BillStatResponse billStatResponse = billService.getBillStatAssembly(assemblyId, billRequest.cmit());
+        List<CommitteeResponse> committeeResponseList = committeeService.findMostCommitteeByAssemblyId(assemblyId);
+        int searchCount = billService.getCountAssembly(billRequest, assemblyId);
+        BillListResponse billListResponse = new BillListResponse(billStatResponse, searchCount, committeeResponseList, null, billResponseList);
         return billResponseList.isEmpty() ? ResponseEntity.status(HttpStatus.NO_CONTENT).build() : ResponseEntity.status(HttpStatus.OK).body(billListResponse);
     }
 
@@ -64,4 +79,19 @@ public class AssemblyController {
         return ResponseEntity.status(HttpStatus.OK).body(assemblyService.findMostCommitteeByAssemblyId(assemblyId));
     }
 
+    @GetMapping("/{assembly_id}/pledgeList")
+    @Operation(summary = "국회의원의 공약 리스트 조회", description = "국회의원의 공약 리스트 API")
+    public ResponseEntity<PledgeListResponse> findPledgeList(@PathVariable(name = ("assembly_id")) Long assemblyId, PledgeRequest pledgeRequest) {
+        PledgeResponse pledgeResponse = pledgeService.getPledge(assemblyId);
+        PledgeListResponse pledgeDetailResponseList = pledgeService.getPledgeDetailList(pledgeRequest, pledgeResponse.id());
+        return pledgeDetailResponseList.pledgeDetailResponse().isEmpty() ? ResponseEntity.status(HttpStatus.NO_CONTENT).body(pledgeDetailResponseList) : ResponseEntity.status(HttpStatus.OK).body(pledgeDetailResponseList);
+    }
+
+    @GetMapping("/{assembly_id}/pledgeRateInfo")
+    @Operation(summary = "국회의원의 공약 이행률 조회", description = "국회의원의 공약 이행률 API")
+    public ResponseEntity<PledgeResponse> findPledge(@PathVariable(name = ("assembly_id")) Long assemblyId) {
+
+        return ResponseEntity.status(HttpStatus.OK).body(pledgeService.getPledge(assemblyId));
+    }
 }
+

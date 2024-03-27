@@ -1,4 +1,4 @@
-package com.honey.backend.response;
+package com.honey.backend.response.assembly;
 
 import com.querydsl.core.annotations.QueryEntity;
 
@@ -18,7 +18,6 @@ public record AssemblyResponse(
         String gender,
         String memTitle,
         String email,
-        int plenaryAttendance,
-        int standingAttendance
+        AttendanceResponse attendanceResponse
 ) {
 }

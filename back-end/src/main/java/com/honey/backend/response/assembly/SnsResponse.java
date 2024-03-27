@@ -1,8 +1,7 @@
-package com.honey.backend.response;
+package com.honey.backend.response.assembly;
 
 public record SnsResponse(
         Long snsId,
-        Long assemblyId,
         String facebookUrl,
         String twitterUrl,
         String youtubeUrl,
