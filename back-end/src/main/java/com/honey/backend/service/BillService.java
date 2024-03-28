@@ -50,7 +50,8 @@ public class BillService {
         int limit = billRequest.limit();
         String word = billRequest.word();
         Long cmitId = billRequest.cmit();
-        List<Bill> billList = billRepository.findAllByAssemblyIdAndCmitId(PageRequest.of(page, limit), word, cmitId, assemblyId).getContent();
+        String accept = billRequest.accept();
+        List<Bill> billList = billRepository.findAllByAssemblyIdAndCmitId(PageRequest.of(page, limit), word, cmitId, assemblyId, accept).getContent();
         List<BillResponse> billResponseList = new ArrayList<>();
         for (Bill bill : billList) {
             billResponseList.add(insertToBillResponse(bill));

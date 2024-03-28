@@ -10,7 +10,7 @@ public interface BillRepositoryCustom {
 
 
 
-    Page<Bill> findAllByAssemblyIdAndCmitId(Pageable pageable, String word, Long cmitId, Long assemblyId);
+    Page<Bill> findAllByAssemblyIdAndCmitId(Pageable pageable, String word, Long cmitId, Long assemblyId, String accept);
 
     BillStatResponse findBillStatByAssemblyIdAndCmitId(Long assemblyId, Long cmitId);
 
