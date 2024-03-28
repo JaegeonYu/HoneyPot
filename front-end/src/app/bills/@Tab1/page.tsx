@@ -50,7 +50,6 @@ export default function BillTab1() {
     setLimit(newLimit);
   };
   ///////////////////////////////////////////////////
-  console.log(billResponse.data, 'INFO');
 
   const handleCategoryClick = (categoryId: number) => {
     setSelectedCategoryId(categoryId);

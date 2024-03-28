@@ -19,16 +19,8 @@ function Header() {
             <Link href="/parties">
               <li className={S.dropBoxItem}>정당</li>
             </Link>
-          </ul>
-        </div>
-        <div className={S.navTitle}>
-          <span className={S.title}>법안</span>
-          <ul className={S.dropBox}>
-            <Link href="/hot-issues">
-              <li className={S.dropBoxItem}>핫이슈</li>
-            </Link>
             <Link href="/bills">
-              <li className={S.dropBoxItem}>21대 법안</li>
+              <li className={S.dropBoxItem}>법안</li>
             </Link>
           </ul>
         </div>
@@ -59,20 +51,3 @@ function Header() {
 }
 
 export default Header;
-
-// 21대 국회 : {
-//   국회의원,
-//   정당
-// },
-// 법안 : {
-//   핫이슈,
-//   21대 법안
-// },
-// 22대 총선 : {
-//   후보자 확인,
-//   투표소 확인,
-// },
-// 햄버거 : {
-//   여의도 입문서,
-//   뉴스
-// }
