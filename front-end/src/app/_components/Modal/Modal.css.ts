@@ -45,6 +45,10 @@ export const icon = style({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
+
+  selectors: {
+    [`&:hover`]: {},
+  },
 });
 
 export const extendIcon = style([
