@@ -5,28 +5,19 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Getter
-public class Video {
+public class KeywordCategory {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "video_id")
+    @Column(name = "keyword_category_id")
     private Long id;
 
-    private String videoName;
+    private String categoryName;
 
-    @Column(length = 400)
-    private String videoUrl;
-    @Column(length = 400)
-    private String imageUrl;
-
-    private Long hits;
-    private LocalDateTime createdAt;
-
-    @OneToMany(mappedBy = "video")
+    @OneToMany(mappedBy = "keywordCategory")
     private List<VideoKeyword> videoKeywords;
 }
