@@ -46,7 +46,7 @@ import {
 /** pages */
 
 /** apis */
-import { Poly, Assembly } from './apis';
+import { Poly, PolyDetail, PolyMember, Assembly } from './apis';
 /** apis */
 
 export type {
@@ -91,4 +91,6 @@ export type {
   Poly,
   Assembly,
   BillListProps,
+  PolyDetail,
+  PolyMember,
 };
