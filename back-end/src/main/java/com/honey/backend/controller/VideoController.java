@@ -21,9 +21,10 @@ public class VideoController {
     public VideoPage searchVideo(@PageableDefault(size = 9, sort = "id",
             direction = Sort.Direction.DESC) Pageable pageable, @RequestParam(required = false)String keyword){
         if(keyword==null || keyword.length() == 0 ) {
-            new VideoPage(videoRepository.findAll(pageable));
+            new VideoPage(videoRepository.findAllWithKeywords(pageable));
         }
-        return new VideoPage(videoRepository.findAllByVideoName(pageable, keyword));
+        return new VideoPage(videoRepository.findAllByVideoNameWithKeywords(pageable, keyword));
     }
+
 
 }

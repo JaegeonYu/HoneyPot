@@ -27,7 +27,7 @@ public class VideoResponse {
         this.videoName = video.getVideoName();
         this.videoUrl = video.getVideoUrl();
         this.imageUrl = video.getImageUrl();
-        this.creatAt = video.getCreatAt().toString();
+        this.creatAt = video.getCreatedAt().toString();
         this.hits = video.getHits();
     }
 }
