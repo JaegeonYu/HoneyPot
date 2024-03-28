@@ -21,6 +21,7 @@ import { SummaryPanelProps } from './components/summaryPanel';
 import { TooltipProps } from './components/tooltip';
 import { FillterButtonProps } from './components/fillterButton';
 import { ModalProps } from './components/modal';
+import { BillListProps } from './components/billList';
 /** components */
 
 /** pages */
@@ -90,5 +91,6 @@ export type {
   FillterButtonProps,
   Poly,
   Assembly,
+  BillListProps,
   ModalProps,
 };

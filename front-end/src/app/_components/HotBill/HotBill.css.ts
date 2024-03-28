@@ -98,8 +98,8 @@ export const fontName = style({
 });
 export const fontHeader = style({
   //   height: 58,
-  fontSize: 24,
-  fontWeight: 800,
+  fontSize: 18,
+  fontWeight: 900,
 });
 
 export const fontSubHeader = style({

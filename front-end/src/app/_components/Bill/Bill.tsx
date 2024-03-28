@@ -3,6 +3,8 @@ import * as S from './Bill.css';
 import * as T from '@/types';
 import * as Comp from '@/components';
 
+import * as API from '@/_apis/bill';
+
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 import { ArrowBlack, HelpCircle, LinkTo } from '@/_assets/icon';
 import ProgressBar from './Subs/ProgressBar/ProgressBar';
@@ -12,6 +14,7 @@ import Category from '../Category/Category';
 import ToggleButton from '../ToggleButton/ToggleButton';
 import SummaryPanel from './Subs/SummaryPanel/SummaryPanel';
 import OriginalPanel from './Subs/OriginPanel/OriginalPanel';
+import { useQuery } from '@tanstack/react-query';
 
 /**
  *
@@ -47,6 +50,17 @@ export default function Bill({
   const [comm, setComm] = useState(cmitId);
   const [status, setStatus] = useState(billProgressResponse);
   const [dateList, setDateList] = useState([proposeDt, cmitProcDt, lawProcDt, procDt]);
+  const [initalflag, setInitialflag] = useState(0);
+  const { data: summaryResponse, isFetched: summaryFetched } = useQuery({
+    queryKey: [{ summarybill: `summary-request=${billId}` }],
+    queryFn: () =>
+      API.getSummaryBill({ billId: billId }).then(res => {
+        if (res.status === 204) return { summaryResponse: '' };
+        return res.data;
+      }),
+    retry: false,
+    enabled: !!initalflag,
+  });
 
   useEffect(() => {
     // 데이터가 변경되면 isActive 상태를 false로 초기화
@@ -56,13 +70,33 @@ export default function Bill({
   }, [assemblyId, billId, billNo, cmitId]);
 
   useEffect(() => {
+    if (isActive === true && initalflag == 0 && summary === null) {
+      setInitialflag(1);
+      console.log('CLICKED ONCE!', billId);
+      console.log(summaryResponse, 'summary');
+    }
+  }, [isActive, initalflag]);
+
+  useEffect(() => {
     // 데이터가 변경되면 isActive 상태를 false로 초기화
+    if (summary) {
+      setIsToggled(true);
+      // console.log(summary, 'summary');
+    }
+  }, [summary]);
+
+  useEffect(() => {
+    // 데이터가 변경되면 isActive 상태를 false로 초기화
+    // console.log(isToggled);
   }, [isToggled]);
 
   useEffect(() => {
     // 데이터가 변경되면 isActive 상태를 false로 초기화
-    if (summary) setIsToggled(true);
-  }, [summary]);
+    if (summaryResponse) {
+      // setIsToggled(true);
+      console.log(summaryResponse);
+    }
+  }, [summaryResponse]);
 
   const toggleAccordion = () => {
     setIsActive(!isActive);
@@ -146,7 +180,17 @@ export default function Bill({
           </div>
         </div>
         <div className={S.billCardContentsMain}>
-          {isToggled ? <SummaryPanel data={summary}></SummaryPanel> : <OriginalPanel data={textBody}></OriginalPanel>}
+          {isToggled ? (
+            summary ? (
+              <SummaryPanel data={summary} flag={false}></SummaryPanel>
+            ) : summaryFetched ? (
+              <SummaryPanel data={summaryResponse} flag={true}></SummaryPanel>
+            ) : (
+              <div>로딩</div>
+            )
+          ) : (
+            <OriginalPanel data={textBody}></OriginalPanel>
+          )}
         </div>
       </div>
     </div>
