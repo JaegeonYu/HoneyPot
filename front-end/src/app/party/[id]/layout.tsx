@@ -16,9 +16,9 @@ export default function PolyDetailLayout({ Tab1, Tab2, params }: T.PartyDetailLa
     <>
       <section className={S.chartSectionWrapper}>
         <div className={S.partyLogo}>
-          <Image src={`/party/party-${params.id}.svg`} alt="설명" width={200} height={100} layout="fixed" />
+          <Image src={`/party/party-${params.id}.svg`} alt="정당 로고" width={200} height={100} layout="fixed" />
         </div>
-        <SubComp.Charts params={params}></SubComp.Charts>
+        <SubComp.Charts params={params} />
       </section>
       <section className={S.tabSectionWrapper}>
         <Suspense>

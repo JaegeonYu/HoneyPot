@@ -38,6 +38,16 @@ export default function Charts({ params }: T.AssemblyChartsProps) {
     ];
   }, []);
 
+  const isPledgeRateEmpty = () => {
+    return (
+      pledgeRateResponse.data.pledgeFulfillmentStatus.completedPledges === 0 &&
+      pledgeRateResponse.data.pledgeFulfillmentStatus.ongoingPledges === 0 &&
+      pledgeRateResponse.data.pledgeFulfillmentStatus.pendingPledges === 0 &&
+      pledgeRateResponse.data.pledgeFulfillmentStatus.otherPledges === 0 &&
+      pledgeRateResponse.data.pledgeFulfillmentStatus.discardedPledges === 0
+    );
+  };
+
   return (
     <>
       <article className={S.wrapper}>
@@ -47,25 +57,29 @@ export default function Charts({ params }: T.AssemblyChartsProps) {
             <Comp.Poster posterheight="100%" posterwidth="100%">
               <div className={S.chartContainer}>
                 <p className={S.totalCount}>총 {pledgeRateResponse.data.pledgeFulfillmentStatus.totalPledges}개</p>
-                <Comp.PieChart
-                  chartTitle={'공약 추진 현황'}
-                  legendDisplay={true}
-                  legendList={[
-                    { title: '완료', color: PALETTE.party[infoResponse.data.polyName][100] },
-                    { title: '추진중', color: PALETTE.party[infoResponse.data.polyName][80] },
-                    { title: '보류', color: PALETTE.party[infoResponse.data.polyName][60] },
-                    { title: '기타', color: PALETTE.party[infoResponse.data.polyName][40] },
-                    { title: '폐기', color: PALETTE.party[infoResponse.data.polyName][20] },
-                  ]}
-                  datasetList={[
-                    pledgeRateResponse.data.pledgeFulfillmentStatus.completedPledges,
-                    pledgeRateResponse.data.pledgeFulfillmentStatus.ongoingPledges,
-                    pledgeRateResponse.data.pledgeFulfillmentStatus.pendingPledges,
-                    pledgeRateResponse.data.pledgeFulfillmentStatus.otherPledges,
-                    pledgeRateResponse.data.pledgeFulfillmentStatus.discardedPledges,
-                  ]}
-                  UNIQUE_ID_FOR_LEGEND="assembly-member-promise-current-situation"
-                />
+                {!isPledgeRateEmpty() ? (
+                  <Comp.PieChart
+                    chartTitle={'공약 추진 현황'}
+                    legendDisplay={true}
+                    legendList={[
+                      { title: '완료', color: PALETTE.party[infoResponse.data.polyName][100] },
+                      { title: '추진중', color: PALETTE.party[infoResponse.data.polyName][80] },
+                      { title: '보류', color: PALETTE.party[infoResponse.data.polyName][60] },
+                      { title: '기타', color: PALETTE.party[infoResponse.data.polyName][40] },
+                      { title: '폐기', color: PALETTE.party[infoResponse.data.polyName][20] },
+                    ]}
+                    datasetList={[
+                      pledgeRateResponse.data.pledgeFulfillmentStatus.completedPledges,
+                      pledgeRateResponse.data.pledgeFulfillmentStatus.ongoingPledges,
+                      pledgeRateResponse.data.pledgeFulfillmentStatus.pendingPledges,
+                      pledgeRateResponse.data.pledgeFulfillmentStatus.otherPledges,
+                      pledgeRateResponse.data.pledgeFulfillmentStatus.discardedPledges,
+                    ]}
+                    UNIQUE_ID_FOR_LEGEND="assembly-member-promise-current-situation"
+                  />
+                ) : (
+                  <div>대체 이미지 필요</div>
+                )}
               </div>
             </Comp.Poster>
           </div>

@@ -17,11 +17,11 @@ export const wrapper = style({
 
 export const chartsContainer = style({
   display: 'flex',
-  justifyContent: 'space-between',
+  justifyContent: 'center',
   gap: '24px',
 
   '@media': {
-    '(max-width: 940px)': {
+    '(max-width: 974px)': {
       flexDirection: 'column',
       alignItems: 'center',
     },
@@ -39,9 +39,10 @@ export const chartContainer = style({
 
 export const posterWrapper = style({
   width: '45%',
+  minWidth: '276px',
 
   '@media': {
-    '(max-width: 940px)': {
+    '(max-width: 974px)': {
       width: '80%',
     },
   },

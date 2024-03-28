@@ -3,6 +3,8 @@ import { Noto_Sans_KR } from 'next/font/google';
 import './globalTheme.css';
 import * as Comp from '@/_components';
 import ReactQueryProviders from './_lib-providers/ReactQueryProviders';
+import { GoogleTagManager } from '@next/third-parties/google';
+import { GA_TRACKING_ID } from '../lib/gtag';
 
 export const notoSansKr = Noto_Sans_KR({
   weight: ['100', '300', '400', '500', '700', '900'],
@@ -34,6 +36,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <link rel="icon" href="/favicon.ico" sizes="any" />
+      {GA_TRACKING_ID && <GoogleTagManager gtmId={GA_TRACKING_ID} />}
       <body className={`${notoSansKr.className}`}>
         <ReactQueryProviders>
           <Comp.Header />
