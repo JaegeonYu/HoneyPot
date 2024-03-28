@@ -12,12 +12,24 @@ import Summary from '../_assets/mainpageimg/imgs/summary.png';
 import Top3 from '../_assets/mainpageimg/imgs/top3.png';
 
 import { motion } from 'framer-motion';
+import Test from '@/_components/LoadingTest/test';
+import TextTest from '@/_components/LoadingTest/TextTest/texttest';
+// import TextSpinnerLoader from '@/_components/LoadingTest/TextSpinner/TextSpinner';
 
 export default function MainTest() {
   return (
     <>
       <div className={S.mainWrapper}>
         <section>
+          <div style={{ display: 'flex' }}>
+            <Test />
+          </div>
+          {/* <div style={{ display: 'flex', width: 300, height: 300, justifyContent: 'center', alignItems: 'center' }}>
+            <TextSpinnerLoader></TextSpinnerLoader>
+          </div> */}
+          <div className={S.test} id="1">
+            <TextTest contents=""></TextTest>
+          </div>
           <div className={S.solganSection}>
             <div className={S.solganWrapper}>
               <p className={S.solganFont}>

@@ -21,6 +21,7 @@ import { SummaryPanelProps } from './components/summaryPanel';
 import { TooltipProps } from './components/tooltip';
 import { FillterButtonProps } from './components/fillterButton';
 import { BillListProps } from './components/billList';
+import { TextAnimateProps } from './components/textAnimate';
 /** components */
 
 /** pages */
@@ -91,4 +92,5 @@ export type {
   Poly,
   Assembly,
   BillListProps,
+  TextAnimateProps,
 };

@@ -4,6 +4,7 @@ import * as T from '@/types';
 import * as Comp from '@/components';
 
 import * as API from '@/_apis/bill';
+import { motion } from 'framer-motion';
 
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 import { ArrowBlack, HelpCircle, LinkTo } from '@/_assets/icon';
@@ -131,6 +132,7 @@ export default function Bill({
             <ArrowBlack></ArrowBlack>
           </div>
         )}
+
         <div className={S.billTitle} style={{ width: 400 }}>
           <p className={S.fontHeader}>{billName}</p>
           <div className={S.billTitlePerson}>
@@ -186,7 +188,21 @@ export default function Bill({
             ) : summaryFetched ? (
               <SummaryPanel data={summaryResponse} flag={true}></SummaryPanel>
             ) : (
-              <div>로딩</div>
+              <motion.div
+                className="box"
+                animate={{
+                  scale: [1, 2, 2, 1, 1],
+                  rotate: [0, 0, 180, 180, 0],
+                  borderRadius: ['0%', '0%', '50%', '50%', '0%'],
+                }}
+                transition={{
+                  duration: 2,
+                  ease: 'easeInOut',
+                  times: [0, 0.2, 0.5, 0.8, 1],
+                  repeat: Infinity,
+                  repeatDelay: 1,
+                }}
+              />
             )
           ) : (
             <OriginalPanel data={textBody}></OriginalPanel>
