@@ -18,12 +18,12 @@ public class VideoController {
     private final VideoRepository videoRepository;
 
     @GetMapping
-    public VideoPage searchVideo(@PageableDefault(size = 9, sort = "id",
+    public VideoPage searchVideo(@PageableDefault(size = 9, sort = "createdAt",
             direction = Sort.Direction.DESC) Pageable pageable, @RequestParam(required = false)String keyword){
         if(keyword==null || keyword.length() == 0 ) {
-            new VideoPage(videoRepository.findAllWithKeywords(pageable));
+            return new VideoPage(videoRepository.findAllWithKeywords(pageable));
         }
-        return new VideoPage(videoRepository.findAllByVideoNameWithKeywords(pageable, keyword));
+        return new VideoPage(videoRepository.findAllWithKeywordsByVideoName(pageable, keyword));
     }
 
 

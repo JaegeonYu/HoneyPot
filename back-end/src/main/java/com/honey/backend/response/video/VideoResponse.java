@@ -4,6 +4,9 @@ import com.honey.backend.domain.video.Video;
 import jakarta.persistence.Column;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.joda.time.DateTime;
+
+import java.time.format.DateTimeFormatter;
 
 @Data
 @NoArgsConstructor
@@ -27,7 +30,7 @@ public class VideoResponse {
         this.videoName = video.getVideoName();
         this.videoUrl = video.getVideoUrl();
         this.imageUrl = video.getImageUrl();
-        this.creatAt = video.getCreatedAt().toString();
+        this.creatAt = video.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).toString();
         this.hits = video.getHits();
     }
 }
