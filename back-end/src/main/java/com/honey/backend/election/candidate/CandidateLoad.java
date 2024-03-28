@@ -2,7 +2,6 @@ package com.honey.backend.election.candidate;
 
 import com.honey.backend.election.region.TotalRegion;
 import com.honey.backend.election.region.TotalRegionRepository;
-import jakarta.annotation.PostConstruct;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
@@ -137,7 +136,6 @@ public class CandidateLoad {
 
 
     public String getImgUrl(Item item) {
-        System.out.println(item.getSggName() + " " + item.getWiwName() + " " + item.getHuboid());
         TotalRegion totalRegion = totalRegionRepository.findByElectionRegionAndSigunguAndSido(item.getSggName(), item.getWiwName(), item.getSdName()).orElseThrow(
         );
 

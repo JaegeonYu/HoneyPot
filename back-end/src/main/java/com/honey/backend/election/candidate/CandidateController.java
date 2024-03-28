@@ -24,4 +24,12 @@ public class CandidateController {
 
         return ResponseEntity.status(HttpStatus.OK).body(candidateService.getDetailCandidate(candidateId));
     }
+
+    @GetMapping()
+    public ResponseEntity<CandidateListResponse> CandidateList(CandidateRequest candidateRequest) {
+        CandidateListResponse candidateListResponse = candidateService.getList(candidateRequest);
+
+        return candidateListResponse.candidateResponseList().isEmpty() ? ResponseEntity.status(HttpStatus.NO_CONTENT).body(candidateListResponse) :
+                ResponseEntity.status(HttpStatus.OK).body(candidateService.getList(candidateRequest));
+    }
 }

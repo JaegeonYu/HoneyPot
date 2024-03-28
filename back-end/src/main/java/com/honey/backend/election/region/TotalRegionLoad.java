@@ -39,10 +39,6 @@ public class TotalRegionLoad {
         List<String> regionList = Files.readAllLines(resource.getFile().toPath(), StandardCharsets.UTF_8);
         float size = regionList.size();
         int a = 0;
-        String beforeSidoName = "서울특별시";
-        String beforeSigunguName = "종로구";
-        int num = 1;
-        List<SigunguResponse> sigunguResponseList = getSigunguCd();
         for (String region : regionList) {
             System.out.print("22-Region load : " + String.format("%.2f", a++ / (size / 100)) + "% " + "\r");
             String[] split = region.split(",");
@@ -54,25 +50,11 @@ public class TotalRegionLoad {
             for (int i = 5; i < length; i++) {
                 dong = dong + split[i];
             }
-            if (!beforeSidoName.equals(split[0])) {
-                totalRegionRepository.save(TotalRegion.createTotalRegion(split[0],
-                        Integer.parseInt(split[1]),
-                        split[2],
-                        1, split[4], dong));
-                num = 1;
-            } else if (beforeSigunguName.equals(split[2])) {
-                totalRegionRepository.save(TotalRegion.createTotalRegion(split[0],
-                        Integer.parseInt(split[1]),
-                        split[2],
-                        num, split[4], dong));
-            } else {
-                totalRegionRepository.save(TotalRegion.createTotalRegion(split[0],
-                        Integer.parseInt(split[1]),
-                        split[2],
-                        ++num, split[4], dong));
-            }
-            beforeSidoName = split[0];
-            beforeSigunguName = split[2];
+            totalRegionRepository.save(TotalRegion.createTotalRegion(split[0],
+                    Integer.parseInt(split[1]),
+                    split[2],
+                    Integer.parseInt(split[3]), split[4], dong));
+
         }
         System.out.println("22-Region load : COMPLETE");
     }
