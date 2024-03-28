@@ -31,7 +31,6 @@ export default function AssemblyTab1({ params }: T.AssemblyTab1Props) {
     if (target.current) target.current.scrollIntoView({ behavior: 'smooth' });
   };
 
-  // if (pledgeResponse) console.log(`공약 리스트 조회 :`, pledgeResponse);
   return (
     <section className={S.wrapper}>
       <h2 className={S.titleWrapper} ref={target}>
@@ -41,9 +40,13 @@ export default function AssemblyTab1({ params }: T.AssemblyTab1Props) {
         </span>
       </h2>
       <ul className={S.pledgeWrapper}>
-        {pledgeResponse?.pledgeDetailResponse.map((el: T.PledgeProps, i: number) => (
-          <Comp.Pledge key={`pledge-${el.id}`} {...el} polyName={infoResponse.data.polyName} />
-        ))}
+        {pledgeResponse?.totalCount !== 0 ? (
+          pledgeResponse?.pledgeDetailResponse.map((el: T.PledgeProps, i: number) => (
+            <Comp.Pledge key={`pledge-${el.id}`} {...el} polyName={infoResponse.data.polyName} />
+          ))
+        ) : (
+          <div>대체 이미지 필요</div>
+        )}
       </ul>
       <Comp.Pagination
         currentPage={pageParam}
