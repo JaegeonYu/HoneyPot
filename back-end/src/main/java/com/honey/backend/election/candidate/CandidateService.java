@@ -42,7 +42,7 @@ public class CandidateService {
         for (Candidate candidate : candidateList) {
             candidateResponseList.add(convertToCandidateResponse(candidate));
         }
-        return new CandidateListResponse(candidateList.getTotalPages(), candidateResponseList);
+        return new CandidateListResponse(candidateList.getNumberOfElements(), candidateResponseList);
     }
 
     private CandidateResponse convertToCandidateResponse(Candidate candidate) {
