@@ -5,6 +5,7 @@ import * as S from './layout.css';
 import * as T from '@/types';
 import * as Comp from '@/components';
 import * as SubComp from './_Subs';
+import Image from 'next/image';
 
 export default function PolyDetailLayout({ Tab1, Tab2, params }: T.PartyDetailLayoutProps) {
   useEffect(() => {
@@ -14,9 +15,10 @@ export default function PolyDetailLayout({ Tab1, Tab2, params }: T.PartyDetailLa
   return (
     <>
       <section className={S.chartSectionWrapper}>
-        <Suspense>
-          <SubComp.Charts params={params}></SubComp.Charts>
-        </Suspense>
+        <div className={S.partyLogo}>
+          <Image src={`/party/party-${params.id}.svg`} alt="설명" width={200} height={100} layout="fixed" />
+        </div>
+        <SubComp.Charts params={params}></SubComp.Charts>
       </section>
       <section className={S.tabSectionWrapper}>
         <Suspense>

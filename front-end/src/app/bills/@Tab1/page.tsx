@@ -9,9 +9,10 @@ import * as API from '@/_apis/bill';
 import { CATEGORY_LIST } from '@/_constants';
 import { PALETTE } from '@/_constants';
 import { Category } from '@/components';
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import Pagination from '@/_components/Pagination/Pagination';
 import BillLoading from './loading';
+import BillList from './_Subs/BillList/BillList';
 // import { fontName } from '@/_components/Bill/Bill.css';
 
 export default function BillTab1() {
@@ -21,11 +22,18 @@ export default function BillTab1() {
   const [limit, setLimit] = useState(10); // 한 페이지에 보일 아이템 개수 상태 추가
   const [selectedCategoryId, setSelectedCategoryId] = useState(0);
   const [scrollPosition, setScrollPosition] = useState<number>(); // 스크롤 위치 상태 추가
-
+  const [completeToggle, setCompleteToggle] = useState(false);
   const scrollToRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     setMounted(true);
   }, []);
+  useEffect(() => {
+    // 스크롤 위치 변경 시 특정 위치로 이동
+    if (scrollToRef.current) {
+      scrollToRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [page]);
+
   useEffect(() => {
     // 스크롤 위치 변경 시 특정 위치로 이동
     if (scrollToRef.current) {
@@ -38,6 +46,7 @@ export default function BillTab1() {
     queryFn: () => API.getBillInfo({ cmit: selectedCategoryId, page, limit, word: '' }), // API 호출 시 동적으로 page와 limit 전달
     retry: false,
   });
+
   ///////////////////////////////
   const handleIsSelectedIdx = (idx: number) => {
     setIsSelectedIdx(idx);
@@ -50,10 +59,14 @@ export default function BillTab1() {
     setLimit(newLimit);
   };
   ///////////////////////////////////////////////////
-  console.log(billResponse.data, 'INFO');
+  // console.log(billResponse.data, 'INFO');
 
   const handleCategoryClick = (categoryId: number) => {
     setSelectedCategoryId(categoryId);
+  };
+
+  const completeBill = () => {
+    setCompleteToggle(!completeToggle);
   };
 
   return (
@@ -140,14 +153,40 @@ export default function BillTab1() {
 
         <h2 className={S.titleWrapper} ref={scrollToRef}>
           <span className={S.title}>발의한 의안</span>
-          <span className={S.totalContWrapper}>
-            총 <span className={S.number}>{billResponse.data.billStatResponse.totalCount || 0}</span>개
-          </span>
+          <div style={{ display: 'flex', gap: 30 }}>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <input type="checkbox" id="check_btn" onClick={completeBill} />
+              <label>
+                <span style={{ fontSize: 12 }}>가결된 법안만 보기</span>
+              </label>
+            </div>
+
+            <span className={S.totalContWrapper}>
+              총 <span className={S.number}>{billResponse.data.billStatResponse.totalCount || 0}</span>개
+            </span>
+          </div>
         </h2>
         <div style={{ paddingTop: 4, backgroundColor: `${PALETTE.service.HOVER_BACKGROUND}` }}>
           <Comp.CategoryList selectedIdx={selectedCategoryId} onCategoryClick={handleCategoryClick} />
         </div>
-        <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '12px', padding: 16 }}>
+        <Suspense
+          fallback={
+            <>
+              {Array.from({ length: 10 }, (_, index) => (
+                <div key={index} style={{ margin: '10px' }}>
+                  <BillLoading width="100%" height="107px" />
+                </div>
+              ))}
+            </>
+          }
+        >
+          {completeToggle ? (
+            <BillList category={selectedCategoryId} toggled={true} />
+          ) : (
+            <BillList category={selectedCategoryId} toggled={false} />
+          )}
+        </Suspense>
+        {/* <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '12px', padding: 16 }}>
           {billResponse.data.billResponse.map((res: T.BillProps, index: number) => (
             <Comp.Bill key={index} {...res} />
           ))}
@@ -159,17 +198,17 @@ export default function BillTab1() {
           // limit={limit}
           // onLimitChange={handleLimitChange}
           totalItems={billResponse.data.billStatResponse.totalCount}
-        ></Pagination>
+        ></Pagination> */}
       </>
     )
   );
 }
 
-// <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '12px', padding: 16 }}>
-// {/* 로딩 중이면 스켈레톤을 보여줌 */}
-// {billFetched
-//   ? billResponse.data.billResponse.map((res: T.BillProps, index: number) => (
-//       <Comp.Bill key={index} {...res} />
-//     ))
-//   : Array.from({ length: 10 }, (_, index) => <BillLoading width="100%" height="30" key={index} />)}
-// </div>
+//<div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '12px', padding: 16 }}>
+//{/* 로딩 중이면 스켈레톤을 보여줌 */}
+//{billFetched
+//  ? billResponse.data.billResponse.map((res: T.BillProps, index: number) => (
+//      <Comp.Bill key={index} {...res} />
+//    ))
+//  : Array.from({ length: 10 }, (_, index) => <BillLoading width="100%" height="30" key={index} />)}
+//</div>

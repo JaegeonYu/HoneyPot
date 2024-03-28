@@ -20,6 +20,7 @@ import { HotBillProps } from './components/hotbill';
 import { SummaryPanelProps } from './components/summaryPanel';
 import { TooltipProps } from './components/tooltip';
 import { FillterButtonProps } from './components/fillterButton';
+import { BillListProps } from './components/billList';
 /** components */
 
 /** pages */
@@ -89,4 +90,5 @@ export type {
   FillterButtonProps,
   Poly,
   Assembly,
+  BillListProps,
 };

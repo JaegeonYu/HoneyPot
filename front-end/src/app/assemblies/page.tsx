@@ -4,8 +4,8 @@ import React, { useCallback, useEffect, useState } from 'react';
 import * as S from './page.css';
 import * as T from '@/types';
 import * as API from '@/_apis/assembly';
-import { useIntersectionObserver } from '@/_customhooks';
 import * as Comp from '@/components';
+import { useIntersectionObserver } from '@/_customhooks';
 import Link from 'next/link';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
@@ -24,7 +24,7 @@ export default function AssembliesPage() {
 
       router.push(`${pathname}?${params.toString()}`);
     },
-    [searchParams],
+    [pathname, router, searchParams],
   );
 
   const [totalCount, setTotalCount] = useState<null | number>(null);
@@ -113,8 +113,7 @@ export default function AssembliesPage() {
             })
           : Array.from({ length: 8 }).map((_, i) => <div className={S.skeletonCard} key={`skeleton-card-${i}`} />)}
       </Comp.GridWrapper>
-      <div ref={targetElement} id="1" />
-      {/* <button></button> */}
+      <div ref={targetElement} />
     </section>
   );
 }

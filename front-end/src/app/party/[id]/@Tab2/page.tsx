@@ -47,11 +47,9 @@ export default function PolyDetailTab2({ params }: T.PartyDetailTab2Props) {
     <div ref={target}>
       <Comp.CategoryList selectedIdx={selectedCategoryId} onCategoryClick={handleCategoryClick} />
       <section className={S.billListWithChartWrapper}>
-        <div>
-          {billResponse?.billResponse?.map((res: T.BillProps, i: number) => (
-            <Comp.Bill key={res.billId} {...res} />
-          ))}
-        </div>
+        {billResponse?.billResponse?.map((res: T.BillProps, i: number) => (
+          <Comp.Bill key={res.billId} {...res} />
+        ))}
         <Comp.Pagination currentPage={pageParam} totalItems={totalCount || 0} onPageChange={handlePaginationClick} />
       </section>
     </div>
