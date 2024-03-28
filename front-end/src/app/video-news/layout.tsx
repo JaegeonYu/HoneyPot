@@ -5,6 +5,7 @@ import * as S from './layout.css';
 import * as Comp from '@/components';
 
 export default function VideoNewsLayout({ children }: { children: React.ReactNode }) {
+  const [detailModal, setDetailModal] = useState(true);
   const [value, setValue] = useState('');
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
@@ -36,8 +37,8 @@ export default function VideoNewsLayout({ children }: { children: React.ReactNod
         </form>
       </section>
       {children}
-      <Comp.Modal width="120px" height="120px" isOpen={true} isOpenHandler={() => console.log(`HANDLER :`)}>
-        MODAL TEST
+      <Comp.Modal width="80vw" height="80vh" isOpen={detailModal} isOpenHandler={() => setDetailModal(prev => !prev)}>
+        <div style={{ width: '100%', height: '100%', backgroundColor: 'red' }}></div>
       </Comp.Modal>
     </>
   );
