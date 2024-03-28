@@ -20,7 +20,9 @@ public class VideoController {
     @GetMapping
     public VideoPage searchVideo(@PageableDefault(size = 9, sort = "id",
             direction = Sort.Direction.DESC) Pageable pageable, @RequestParam(required = false)String keyword){
-        if(keyword==null)new VideoPage(videoRepository.findAll(pageable));
+        if(keyword==null || keyword.length() == 0 ) {
+            new VideoPage(videoRepository.findAll(pageable));
+        }
         return new VideoPage(videoRepository.findAllByVideoName(pageable, keyword));
     }
 

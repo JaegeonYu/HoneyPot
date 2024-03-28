@@ -23,6 +23,7 @@ public class Video {
     @Column(length = 400)
     private String imageUrl;
 
+    private Long hits;
     private LocalDateTime creatAt;
 
 }

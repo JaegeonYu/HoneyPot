@@ -13,12 +13,13 @@ public class VideoResponse {
     private String videoUrl;
     private String imageUrl;
     private String creatAt;
-
-    public VideoResponse(Long id, String videoName, String videoUrl, String imageUrl) {
+    private Long hits;
+    public VideoResponse(Long id, String videoName, String videoUrl, String imageUrl, Long hits) {
         this.id = id;
         this.videoName = videoName;
         this.videoUrl = videoUrl;
         this.imageUrl = imageUrl;
+        this.hits = hits;
     }
 
     public VideoResponse(Video video) {
@@ -27,5 +28,6 @@ public class VideoResponse {
         this.videoUrl = video.getVideoUrl();
         this.imageUrl = video.getImageUrl();
         this.creatAt = video.getCreatAt().toString();
+        this.hits = video.getHits();
     }
 }
