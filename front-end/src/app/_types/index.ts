@@ -20,6 +20,7 @@ import { HotBillProps } from './components/hotbill';
 import { SummaryPanelProps } from './components/summaryPanel';
 import { TooltipProps } from './components/tooltip';
 import { FillterButtonProps } from './components/fillterButton';
+import { ModalProps } from './components/modal';
 import { BillListProps } from './components/billList';
 /** components */
 
@@ -91,6 +92,7 @@ export type {
   Poly,
   Assembly,
   BillListProps,
+  ModalProps,
   PolyDetail,
   PolyMember,
 };

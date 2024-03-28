@@ -37,7 +37,7 @@ export default function RootLayout({
     <html lang="ko">
       <link rel="icon" href="/favicon.ico" sizes="any" />
       {GA_TRACKING_ID && <GoogleTagManager gtmId={GA_TRACKING_ID} />}
-      <body className={`${notoSansKr.className}`}>
+      <body suppressHydrationWarning>
         <ReactQueryProviders>
           <Comp.Header />
           <main

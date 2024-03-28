@@ -2,6 +2,9 @@ import ArrowBlack from './svgs/arrow-black.svg';
 import ArrowGray from './svgs/arrow-gray.svg';
 import HelpCircle from './svgs/help-circle.svg';
 import LinkTo from './svgs/link-to.svg';
+import Extend from './svgs/extend.svg';
+import MiniPlayer from './svgs/mini-player.svg';
+import Close from './svgs/close.svg';
 import SearchIcon from './svgs/search-icon.svg';
 import HomePageLogo from './svgs/home-page-icon.svg';
 import FaceboookLogo from './svgs/facebook-icon.svg';
@@ -15,6 +18,9 @@ export {
   ArrowGray,
   HelpCircle,
   LinkTo,
+  Extend,
+  MiniPlayer,
+  Close,
   SearchIcon,
   HomePageLogo,
   FaceboookLogo,

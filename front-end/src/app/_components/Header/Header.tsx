@@ -36,7 +36,7 @@ function Header() {
           </ul>
         </div>
         <div className={S.navTitle}>
-          <Link href="/candidates">
+          <Link href="/introdution">
             <span className={S.title}>여의도 입문서</span>
           </Link>
         </div>
