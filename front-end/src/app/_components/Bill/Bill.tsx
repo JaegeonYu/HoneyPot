@@ -182,9 +182,9 @@ export default function Bill({
         <div className={S.billCardContentsMain}>
           {isToggled ? (
             summary ? (
-              <SummaryPanel data={summary}></SummaryPanel>
+              <SummaryPanel data={summary} flag={false}></SummaryPanel>
             ) : summaryFetched ? (
-              <SummaryPanel data={summaryResponse}></SummaryPanel>
+              <SummaryPanel data={summaryResponse} flag={true}></SummaryPanel>
             ) : (
               <div>로딩</div>
             )
