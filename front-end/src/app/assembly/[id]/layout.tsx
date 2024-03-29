@@ -24,9 +24,9 @@ export default function AssemblyLayout({ Tab1, Tab2, Tab3, params }: T.AssemblyL
           <Suspense fallback={<AssemblyLoading width="100%" height="360px" />}>
             <SubComp.Charts params={params} />
           </Suspense>
-          <Suspense fallback={<AssemblyLoading width="100%" height="74px" />}>
+          {/* <Suspense fallback={<AssemblyLoading width="100%" height="74px" />}>
             <SubComp.TopBillCategories params={params} />
-          </Suspense>
+          </Suspense> */}
         </section>
       </section>
       <Suspense fallback={<AssemblyLoading width="100%" height="678px" />}>

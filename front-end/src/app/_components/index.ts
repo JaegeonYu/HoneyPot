@@ -20,6 +20,7 @@ import Pledge from './Pledge/Pledge';
 import Pagination from './Pagination/Pagination';
 import Tooltip from './Tooltip/Tooltip';
 import FillterButton from './FillterButton/FillterButton';
+import Modal from './Modal/Modal';
 
 export {
   Header,
@@ -42,4 +43,5 @@ export {
   Pagination,
   Tooltip,
   FillterButton,
+  Modal,
 };

@@ -20,6 +20,7 @@ import { HotBillProps } from './components/hotbill';
 import { SummaryPanelProps } from './components/summaryPanel';
 import { TooltipProps } from './components/tooltip';
 import { FillterButtonProps } from './components/fillterButton';
+import { ModalProps } from './components/modal';
 import { BillListProps } from './components/billList';
 import { TextAnimateProps } from './components/textAnimate';
 /** components */
@@ -47,7 +48,7 @@ import {
 /** pages */
 
 /** apis */
-import { Poly, Assembly } from './apis';
+import { Poly, PolyDetail, PolyMember, Assembly } from './apis';
 /** apis */
 
 export type {
@@ -93,4 +94,7 @@ export type {
   Assembly,
   BillListProps,
   TextAnimateProps,
+  ModalProps,
+  PolyDetail,
+  PolyMember,
 };
