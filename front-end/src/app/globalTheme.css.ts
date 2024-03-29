@@ -2,7 +2,7 @@ import { createGlobalTheme, createGlobalThemeContract, globalStyle } from '@vani
 
 export const vars = createGlobalThemeContract({
   fontFamily: {
-    notoSansKR: 'noto-sans-kr',
+    ibmPlexSansKr: 'ibm-plex-sans-kr',
   },
   colors: {
     service: {
@@ -105,7 +105,7 @@ export const vars = createGlobalThemeContract({
 
 createGlobalTheme(':root', vars, {
   fontFamily: {
-    notoSansKR: `var(--noto-sans-kr)`,
+    ibmPlexSansKr: `var(--ibm-plex-sans-kr)`,
   },
   colors: {
     service: {
@@ -209,7 +209,7 @@ createGlobalTheme(':root', vars, {
 
 globalStyle('*', {
   boxSizing: 'border-box',
-  fontFamily: 'var(--noto-sans-kr)',
+  fontFamily: 'var(--ibm-plex-sans-kr)',
   fontWeight: 400,
   color: vars.colors.service.MAIN_BLACK,
 });

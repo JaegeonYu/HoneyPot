@@ -55,8 +55,14 @@ export default function Bill({
   const [comm, setComm] = useState(cmitId);
   const [status, setStatus] = useState(billProgressResponse);
   const [dateList, setDateList] = useState([proposeDt, cmitProcDt, lawProcDt, procDt]);
-  const [initalflag, setInitialflag] = useState(0);
-  const { data: summaryResponse, isFetched: summaryFetched } = useQuery({
+  const [initalflag, setInitialflag] = useState(false);
+  const [newPageFlag, setnewPageFlag] = useState(false);
+
+  const {
+    data: summaryResponse,
+    isFetched: summaryFetched,
+    isPending: summaryPending,
+  } = useQuery({
     queryKey: [{ summarybill: `summary-request=${billId}` }],
     queryFn: () =>
       API.getSummaryBill({ billId: billId }).then(res => {
@@ -69,18 +75,21 @@ export default function Bill({
 
   useEffect(() => {
     // 데이터가 변경되면 isActive 상태를 false로 초기화
+    setInitialflag(false);
     setIsActive(false);
     setIsToggled(false);
     setComm(cmitId);
+    console.log(initalflag, 'initalflag');
   }, [assemblyId, billId, billNo, cmitId]);
 
   useEffect(() => {
-    if (isActive === true && initalflag == 0 && summary === null) {
-      setInitialflag(1);
+    if (isActive === true && initalflag === false && summary === null && textBody !== null) {
+      setInitialflag(true);
       console.log('CLICKED ONCE!', billId);
       console.log(summaryResponse, 'summary');
+      // setInitialflag(false);
     }
-  }, [isActive, initalflag]);
+  }, [isActive]);
 
   useEffect(() => {
     // 데이터가 변경되면 isActive 상태를 false로 초기화
@@ -191,7 +200,7 @@ export default function Bill({
               <SummaryPanel data={summary} flag={false}></SummaryPanel>
             ) : summaryFetched ? (
               <SummaryPanel data={summaryResponse} flag={true}></SummaryPanel>
-            ) : (
+            ) : summaryPending ? (
               <div
                 style={{
                   display: 'flex',
@@ -218,9 +227,13 @@ export default function Bill({
                   <TextTest contents=""></TextTest>
                 </div>
               </div>
+            ) : (
+              <div>Error</div>
             )
-          ) : (
+          ) : textBody ? (
             <OriginalPanel data={textBody}></OriginalPanel>
+          ) : (
+            <OriginalPanel data={'원문데이터가 없습니다'}></OriginalPanel>
           )}
         </div>
       </div>

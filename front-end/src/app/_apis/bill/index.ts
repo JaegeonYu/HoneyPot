@@ -9,13 +9,15 @@ export async function getBillInfo({
   limit,
   cmit,
   word,
+  accept,
 }: {
   page: number;
   limit: number;
   cmit: number;
   word: string | undefined;
+  accept: boolean | undefined;
 }) {
-  return await instance.get(`/bill?page=${page}&limit=${limit}&cmit=${cmit}&word=${word}`);
+  return await instance.get(`/bill?page=${page}&limit=${limit}&cmit=${cmit}&word=${word}&accept=${accept}`);
 }
 export async function getSummaryBill({ billId }: { billId: number }) {
   return await instance.get(`bill/${billId}/summary`);

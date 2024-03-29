@@ -14,39 +14,35 @@ export default function BillList({ category, toggled }: T.BillListProps) {
   };
 
   const { data: billResponse, isFetched: billFetched } = useSuspenseQuery({
-    queryKey: [{ bill: `info-request-bill-list` }, { page, limit, category }], // 쿼리 키에 page와 limit 추가
-    queryFn: () => API.getBillInfo({ cmit: category, page, limit, word: '' }), // API 호출 시 동적으로 page와 limit 전달
+    queryKey: [{ bill: `info-request-bill-list` }, { page, limit, category, toggled }], // 쿼리 키에 page와 limit 추가
+    queryFn: () => API.getBillInfo({ cmit: category, page, limit, word: '', accept: toggled }), // API 호출 시 동적으로 page와 limit 전달
     retry: false,
   });
-  const { data: completeResponse, isFetched: completeFetched } = useQuery({
-    queryKey: [{ completebill: `complete-request`, category }],
-    queryFn: () =>
-      API.getCompleteBill({ page: page, limit: limit, cmit: category }).then(res => {
-        if (res.status === 204) return { completeResponse: '' };
-        return res.data;
-      }),
-    retry: false,
-    enabled: !!toggled,
-  });
+  //   const { data: billResponse, isFetched: billFetched } = useQuery({
+  //     queryKey: [{ bill: `info-request-bill-list`, category }],
+  //     queryFn: () =>
+  //       API.getBillInfo({ cmit: category, page, limit, word: '', accept: toggled }).then(res => {
+  //         if (res.status === 204) return { billResponse: '' };
+  //         return res.data;
+  //       }),
+  //     retry: false,
+  //     //   enabled: !!toggled,
+  //   });
 
   useEffect(() => {
-    console.log(completeResponse, 'completeResponse');
-  }, [completeResponse]);
+    console.log(billResponse, 'completeResponse', page, 'page');
+  }, [billResponse]);
 
   return (
     <>
-      {toggled && completeFetched ? (
-        <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '12px', padding: 16 }}>
-          {completeResponse.map((res: T.BillProps, index: number) => (
-            <Comp.Bill key={index} {...res} />
-          ))}
-        </div>
-      ) : (
+      {billFetched ? (
         <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '12px', padding: 16 }}>
           {billResponse.data.billResponse.map((res: T.BillProps, index: number) => (
             <Comp.Bill key={index} {...res} />
           ))}
         </div>
+      ) : (
+        <div></div>
       )}
 
       <Pagination

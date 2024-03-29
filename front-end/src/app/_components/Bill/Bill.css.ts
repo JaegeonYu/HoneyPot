@@ -34,13 +34,13 @@ export const fontHeader = style({
 
 export const fontTitle = style({
   //   height: 58,
-  fontSize: 15,
+  fontSize: 17,
   fontWeight: 700,
 });
 
 export const fontContent = style({
   //   height: 58,
-  fontSize: 12,
+  fontSize: 14,
   fontWeight: 500,
 });
 export const fontKeywordBold = style({
