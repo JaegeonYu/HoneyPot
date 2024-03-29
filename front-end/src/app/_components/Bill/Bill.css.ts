@@ -43,6 +43,20 @@ export const fontContent = style({
   fontSize: 14,
   fontWeight: 500,
 });
+
+export const Assembly = style({
+  //   height: 58,
+  fontSize: 14,
+  fontWeight: 500,
+  selectors: {
+    '&:hover': {
+      fontWeight: 800,
+      // backgroundColor: vars.colors.service.HOVER_BACKGROUND,
+      textDecorationLine: 'underline',
+    },
+  },
+});
+
 export const fontKeywordBold = style({
   //   height: 58,
   fontSize: 12,
@@ -81,6 +95,7 @@ export const billTitlePerson = style({
   flexDirection: 'row',
   alignItems: 'flex-start',
   columnGap: 12,
+  justifyContent: 'center',
 
   //   border: '1px solid red',
 });
