@@ -9,7 +9,7 @@ import { GA_TRACKING_ID } from '../lib/gtag';
 export const ibmPlexSansKR = IBM_Plex_Sans_KR({
   weight: ['100', '200', '300', '400', '500', '600', '700'],
   display: 'fallback',
-  subsets: ['latin'],
+  subsets: ['latin-ext'],
   variable: '--ibm-plex-sans-kr',
   fallback: [
     '-apple-system',
@@ -46,7 +46,7 @@ export default function RootLayout({
               width: '90%',
               maxWidth: '1240px',
               height: 'fit-content',
-              padding: '42px 0px',
+              padding: '122px 0px 42px 0px',
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',

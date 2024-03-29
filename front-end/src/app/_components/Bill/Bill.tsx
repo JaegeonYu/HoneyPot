@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import * as S from './Bill.css';
 import * as T from '@/types';
 import * as Comp from '@/components';
-
+import Link from 'next/link';
 import * as API from '@/_apis/bill';
 import { vars } from '@/globalTheme.css';
 import { motion } from 'framer-motion';
@@ -126,6 +126,10 @@ export default function Bill({
     event.stopPropagation();
   };
 
+  const navAssembly = (event: React.MouseEvent) => {
+    event.stopPropagation();
+  };
+
   return (
     <div
       className={S.billCardWrapper}
@@ -149,7 +153,12 @@ export default function Bill({
         <div className={S.billTitle} style={{ width: 400 }}>
           <p className={S.fontHeader}>{billName}</p>
           <div className={S.billTitlePerson}>
-            <p className={S.fontContent}>대표자 : {hgName}</p>
+            <p className={S.fontContent}>대표자 :</p>
+            <Link href={`assembly/${assemblyId}`}>
+              <p className={S.Assembly} onClick={navAssembly}>
+                {hgName}
+              </p>
+            </Link>
 
             <Badge color={PALETTE.party[polyName][100]} isPositionAbsolute={false}>
               {polyName}
