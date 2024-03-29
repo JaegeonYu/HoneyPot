@@ -25,7 +25,7 @@ export const gridWrapper = style({
     },
     '(max-width: 714px)': {
       gridTemplateColumns: 'repeat(1, 1fr)',
-      padding: '16px 104px',
+      padding: '16px 3vw',
     },
   },
 });

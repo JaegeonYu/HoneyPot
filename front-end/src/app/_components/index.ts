@@ -21,6 +21,7 @@ import Pagination from './Pagination/Pagination';
 import Tooltip from './Tooltip/Tooltip';
 import FillterButton from './FillterButton/FillterButton';
 import Modal from './Modal/Modal';
+import EmptyData from './EmptyData/EmptyData';
 
 export {
   Header,
@@ -44,4 +45,5 @@ export {
   Tooltip,
   FillterButton,
   Modal,
+  EmptyData,
 };

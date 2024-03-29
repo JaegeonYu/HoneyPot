@@ -76,8 +76,8 @@ export default function AssemblyTab2({ params }: T.AssemblyTab2Props) {
           </span>
         </h2>
         <Comp.CategoryList selectedIdx={selectedCategoryId} onCategoryClick={handleCategoryClick} />
-        <section className={S.billListWithChartWrapper}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+        <section className={S.contentSection}>
+          <div className={S.chartWithMostCategoryWrapper}>
             <Comp.Poster posterwidth="280px" posterheight="360px">
               <div className={S.chartWrapper}>
                 <Comp.PieChart

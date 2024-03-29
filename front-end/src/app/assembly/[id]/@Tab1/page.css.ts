@@ -38,3 +38,11 @@ export const pledgeWrapper = style({
   gap: '12px',
   padding: '16px',
 });
+
+export const emptyDataWrapper = style({
+  width: '100%',
+  height: '360px',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+});

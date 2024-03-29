@@ -51,22 +51,29 @@ export const categoriesWrapper = style({
   transition: 'transform 0.2s ease',
 });
 
-export const billListWithChartWrapper = style({
+export const contentSection = style({
   display: 'flex',
   gap: '8px',
   justifyContent: 'space-between',
   padding: '0px 4px',
 });
 
-export const billswrapper = style({
+export const chartWithMostCategoryWrapper = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: '8px',
+  gap: '24px',
 });
 
 export const chartWrapper = style({
   width: '100%',
   height: '100%',
+});
+
+export const billswrapper = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '8px',
+  width: 'calc(100% - 280px - 8px - 8px)',
 });
 
 export const titleText = style({

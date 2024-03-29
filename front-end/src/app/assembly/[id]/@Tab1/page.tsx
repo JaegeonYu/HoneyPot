@@ -45,7 +45,9 @@ export default function AssemblyTab1({ params }: T.AssemblyTab1Props) {
             <Comp.Pledge key={`pledge-${el.id}`} {...el} polyName={infoResponse.data.polyName} />
           ))
         ) : (
-          <div>대체 이미지 필요</div>
+          <div className={S.emptyDataWrapper}>
+            <Comp.EmptyData alt="공약 없음" width={200} height={134} maxWidth={200} maxHeight={134} />
+          </div>
         )}
       </ul>
       <Comp.Pagination

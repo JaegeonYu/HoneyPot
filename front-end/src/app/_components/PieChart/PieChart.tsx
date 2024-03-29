@@ -1,9 +1,9 @@
 import React from 'react';
 import * as S from './PieChart.css';
 import * as T from '@/types';
+import * as Comp from '@/components';
 import { Chart as ChartJS, Legend, Tooltip, Title } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
-import { PALETTE } from '@/_constants';
 
 ChartJS.register(Legend, Tooltip, Title);
 
@@ -133,22 +133,28 @@ export default React.memo(function PieChart({
       },
     },
   };
+
   return (
     <div className={S.chartWrapper}>
       <p className={S.chartTitle}>{chartTitle}</p>
-      <Pie
-        options={options}
-        plugins={[htmlLegendPlugin]}
-        data={{
-          labels: legendList.map(li => li.title),
-          datasets: [
-            {
-              data: datasetList,
-              backgroundColor: legendList.map(li => li.color),
-            },
-          ],
-        }}
-      />
+      {datasetList.filter(data => data).length ? (
+        <Pie
+          options={options}
+          plugins={[htmlLegendPlugin]}
+          data={{
+            labels: legendList.map(li => li.title),
+            datasets: [
+              {
+                data: datasetList,
+                backgroundColor: legendList.map(li => li.color),
+              },
+            ],
+          }}
+        />
+      ) : (
+        <Comp.EmptyData alt="공약 이행률 없음" width={200} height={134} maxWidth={200} maxHeight={134} />
+      )}
+
       {legendDisplay && <div id={UNIQUE_ID_FOR_LEGEND}></div>}
     </div>
   );
