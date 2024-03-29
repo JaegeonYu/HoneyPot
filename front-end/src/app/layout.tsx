@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Noto_Sans_KR, IBM_Plex_Sans_KR } from 'next/font/google';
+import { IBM_Plex_Sans_KR } from 'next/font/google';
 import './globalTheme.css';
 import * as Comp from '@/_components';
 import ReactQueryProviders from './_lib-providers/ReactQueryProviders';
