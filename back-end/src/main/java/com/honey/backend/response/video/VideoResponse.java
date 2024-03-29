@@ -1,12 +1,15 @@
 package com.honey.backend.response.video;
 
 import com.honey.backend.domain.video.Video;
+import com.honey.backend.domain.video.VideoKeyword;
 import jakarta.persistence.Column;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.joda.time.DateTime;
 
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
@@ -17,13 +20,7 @@ public class VideoResponse {
     private String imageUrl;
     private String creatAt;
     private Long hits;
-    public VideoResponse(Long id, String videoName, String videoUrl, String imageUrl, Long hits) {
-        this.id = id;
-        this.videoName = videoName;
-        this.videoUrl = videoUrl;
-        this.imageUrl = imageUrl;
-        this.hits = hits;
-    }
+    private List<String> keywords;
 
     public VideoResponse(Video video) {
         this.id = video.getId();
@@ -32,5 +29,6 @@ public class VideoResponse {
         this.imageUrl = video.getImageUrl();
         this.creatAt = video.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).toString();
         this.hits = video.getHits();
+        this.keywords = video.getVideoKeywords().stream().map(VideoKeyword::getKeywordName).collect(Collectors.toList());
     }
 }
