@@ -62,9 +62,9 @@ export const title = style({
 export const dropBox = style({
   visibility: 'hidden',
   position: 'absolute',
-  top: '40%',
+  top: '80px',
   left: '50%',
-  transform: 'translate(-50%, 50%)',
+  transform: 'translate(-50%, 0%)',
   height: 'fit-content',
   overflow: 'hidden',
   background: vars.colors.service.MAIN_WHITE,

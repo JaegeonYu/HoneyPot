@@ -168,3 +168,12 @@ export const billSubFont = style({
   fontWeight: 400,
   textAlign: 'center',
 });
+/////
+
+export const test = style({
+  display: 'flex',
+  height: 300,
+  backgroundColor: `${vars.colors.service.MAIN_COLOR_100}`,
+  justifyContent: 'center',
+  alignItems: 'center',
+});

@@ -2,7 +2,7 @@ import { createGlobalTheme, createGlobalThemeContract, globalStyle } from '@vani
 
 export const vars = createGlobalThemeContract({
   fontFamily: {
-    notoSansKR: 'noto-sans-kr',
+    ibmPlexSansKr: 'ibm-plex-sans-kr',
   },
   colors: {
     service: {
@@ -28,6 +28,13 @@ export const vars = createGlobalThemeContract({
         60: 'people-power-party-60',
         40: 'people-power-party-40',
         20: 'people-power-party-20',
+      },
+      PEOPLE_FUTURE_PARTY: {
+        100: 'people-future-party-100',
+        80: 'people-future-party-80',
+        60: 'people-future-party-60',
+        40: 'people-future-party-40',
+        20: 'people-future-party-20',
       },
       DEMOCRATIC_PARTY: {
         100: 'democratic-party-100',
@@ -105,7 +112,7 @@ export const vars = createGlobalThemeContract({
 
 createGlobalTheme(':root', vars, {
   fontFamily: {
-    notoSansKR: `var(--noto-sans-kr)`,
+    ibmPlexSansKr: `var(--ibm-plex-sans-kr)`,
   },
   colors: {
     service: {
@@ -127,31 +134,38 @@ createGlobalTheme(':root', vars, {
     party: {
       PEOPLE_POWER_PARTY: {
         100: 'rgba(230, 30, 43, 1)',
-        80: 'rgba(230, 30, 43, 0.8)',
-        60: 'rgba(230, 30, 43, 0.6)',
-        40: 'rgba(230, 30, 43, 0.4)',
-        20: 'rgba(230, 30, 43, 0.2)',
+        80: 'rgba(230, 30, 43, 0.55)',
+        60: 'rgba(230, 30, 43, 0.25)',
+        40: 'rgba(230, 30, 43, 0.05)',
+        20: 'rgba(211, 211, 211, 1)',
+      },
+      PEOPLE_FUTURE_PARTY: {
+        100: 'rgba(230, 30, 43, 1)',
+        80: 'rgba(230, 30, 43, 0.55)',
+        60: 'rgba(230, 30, 43, 0.25)',
+        40: 'rgba(230, 30, 43, 0.05)',
+        20: 'rgba(211, 211, 211, 1)',
       },
       DEMOCRATIC_PARTY: {
         100: 'rgba(21, 36, 132, 1)',
-        80: 'rgba(21, 36, 132, 0.8)',
-        60: 'rgba(21, 36, 132, 0.6)',
-        40: 'rgba(21, 36, 132, 0.4)',
-        20: 'rgba(21, 36, 132, 0.2)',
+        80: 'rgba(21, 36, 132, 0.55)',
+        60: 'rgba(21, 36, 132, 0.25)',
+        40: 'rgba(21, 36, 132, 0.05)',
+        20: 'rgba(211, 211, 211, 1)',
       },
       GREEN_JUSTICE_PARTY: {
         100: 'rgba(0, 124, 54, 1)',
-        80: 'rgba(0, 124, 54, 0.8)',
-        60: 'rgba(0, 124, 54, 0.6)',
-        40: 'rgba(0, 124, 54, 0.4)',
-        20: 'rgba(0, 124, 54, 0.2)',
+        80: 'rgba(0, 124, 54, 0.55)',
+        60: 'rgba(0, 124, 54, 0.25)',
+        40: 'rgba(0, 124, 54, 0.05)',
+        20: 'rgba(211, 211, 211, 1)',
       },
       REFORM_PARTY: {
         100: 'rgba(255, 121, 32, 1)',
-        80: 'rgba(255, 121, 32, 0.8)',
-        60: 'rgba(255, 121, 32, 0.6)',
-        40: 'rgba(255, 121, 32, 0.4)',
-        20: 'rgba(255, 121, 32, 0.2)',
+        80: 'rgba(255, 121, 32, 0.55)',
+        60: 'rgba(255, 121, 32, 0.25)',
+        40: 'rgba(255, 121, 32, 0.05)',
+        20: 'rgba(211, 211, 211, 1)',
       },
 
       NEW_FUTURE_PARTY: {
@@ -209,7 +223,7 @@ createGlobalTheme(':root', vars, {
 
 globalStyle('*', {
   boxSizing: 'border-box',
-  fontFamily: 'var(--noto-sans-kr)',
+  fontFamily: 'var(--ibm-plex-sans-kr)',
   fontWeight: 400,
   color: vars.colors.service.MAIN_BLACK,
 });

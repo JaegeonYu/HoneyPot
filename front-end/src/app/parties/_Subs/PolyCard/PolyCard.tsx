@@ -23,6 +23,7 @@ export default function PolyCard({ polyId, leader, polySeatsResponse }: PolyCard
           </div>
           <div className={S.leaderName}>당대표 : {leader}</div>
         </div>
+        <></>
       </Comp.Card>
     </Link>
   );

@@ -30,15 +30,13 @@ export default function PolyDetailTab1({ params }: T.PartyDetailTab1Props) {
           poly: Number(params.id),
           word: '',
           page: pageParam,
-          limit: 8,
+          limit: 10,
         })
-        .then(res => res)
-        .catch(err => {
-          err.response.data.status === 400;
-        }),
+        .then(res => res),
     initialPageParam: 0,
     getNextPageParam: (lastPage, allPages, lastPageParam, allPageParams) => {
       if (lastPage?.status === 204 && lastPageParam === 0) return null;
+      else if (allPages[0].data.count !== null && lastPageParam * 10 > allPages[0].data.count) return null;
       return lastPageParam + 1;
     },
   });
@@ -77,7 +75,7 @@ export default function PolyDetailTab1({ params }: T.PartyDetailTab1Props) {
                 ))
               );
             })
-          : Array.from({ length: 8 }).map((_, i) => <div className={S.skeletonCard} key={`skeleton-card-${i}`} />)}
+          : Array.from({ length: 10 }).map((_, i) => <div className={S.skeletonCard} key={`skeleton-card-${i}`} />)}
       </Comp.GridWrapper>
       <div ref={targetElement} />
     </section>
