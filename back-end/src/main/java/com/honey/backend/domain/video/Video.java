@@ -29,4 +29,8 @@ public class Video {
 
     @OneToMany(mappedBy = "video")
     private List<VideoKeyword> videoKeywords;
+
+    public void updateHits(){
+        this.hits++;
+    }
 }
