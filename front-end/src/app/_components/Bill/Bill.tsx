@@ -17,7 +17,7 @@ import ToggleButton from '../ToggleButton/ToggleButton';
 import SummaryPanel from './Subs/SummaryPanel/SummaryPanel';
 import OriginalPanel from './Subs/OriginPanel/OriginalPanel';
 import { useQuery } from '@tanstack/react-query';
-import TextSpinnerLoader from '../LoadingTest/TextSpinner/TextSpinner';
+// import TextSpinnerLoader from '../LoadingTest/TextSpinner/TextSpinner';
 import TextTest from '../LoadingTest/TextTest/texttest';
 import DotLoading from './Subs/DotLoading/DotLoading';
 

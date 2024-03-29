@@ -36,8 +36,9 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <link rel="icon" href="/favicon.ico" sizes="any" />
+
       {GA_TRACKING_ID && <GoogleTagManager gtmId={GA_TRACKING_ID} />}
-      <body suppressHydrationWarning>
+      <body suppressHydrationWarning className={`${ibmPlexSansKR.className}`}>
         <ReactQueryProviders>
           <Comp.Header />
           <main
