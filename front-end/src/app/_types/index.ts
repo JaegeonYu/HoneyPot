@@ -23,6 +23,7 @@ import { FillterButtonProps } from './components/fillterButton';
 import { ModalProps } from './components/modal';
 import { BillListProps } from './components/billList';
 import { TextAnimateProps } from './components/textAnimate';
+import { EmptyDataProps } from './components/emptyData';
 /** components */
 
 /** pages */
@@ -97,4 +98,5 @@ export type {
   ModalProps,
   PolyDetail,
   PolyMember,
+  EmptyDataProps,
 };

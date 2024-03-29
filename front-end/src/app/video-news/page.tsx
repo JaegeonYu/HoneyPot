@@ -1,14 +1,47 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import * as S from './page.css';
+import * as T from '@/types';
+import * as API from '@/apis';
 import * as Comp from '@/components';
+import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { useIntersectionObserver } from '@/_customhooks';
 
 export default function VideoNewsPage() {
+  const [detailModal, setDetailModal] = useState(true);
+  const {
+    data: videoListResponse,
+    isFetched: videoListFetched,
+    fetchNextPage: fetchNextVideo,
+  } = useSuspenseInfiniteQuery({
+    queryKey: [{ videoNews: `video-new-list` }],
+    queryFn: ({ pageParam }) => API.video.getVideoList({ page: pageParam, size: 6 }),
+    initialPageParam: 0,
+    getNextPageParam(lastPage, allPages, lastPageParam, allPageParams) {
+      // console.log(`lastPage :`, lastPage);
+      // console.log(`allPages :`, allPages);
+      // console.log(`lastPageParam :`, lastPageParam);
+      // console.log(`allPageParams :`, allPageParams);
+
+      return null;
+    },
+  });
+
+  const target = useIntersectionObserver(async () => {});
+  console.log(`videoListResponse :`, videoListResponse.pages[0].data);
+
   return (
-    <section className={S.gridWrapper}>
-      {DUMMY.map((el, i) => (
-        <Comp.VideoCard key={`video-news-${i}`} {...el} />
-      ))}
-    </section>
+    <>
+      <section className={S.gridWrapper}>
+        {videoListResponse.pages.map((page, i) =>
+          page.data.videos.map((res: T.VideoCardProps) => <Comp.VideoCard key={`video-news-${res.id}`} {...res} />),
+        )}
+      </section>
+      <Comp.Modal width="80vw" height="80vh" isOpen={detailModal} isOpenHandler={() => setDetailModal(prev => !prev)}>
+        <div style={{ width: '100%', height: '100%', backgroundColor: 'red' }}></div>
+      </Comp.Modal>
+    </>
   );
 }
 

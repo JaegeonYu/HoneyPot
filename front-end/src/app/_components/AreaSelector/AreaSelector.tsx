@@ -104,7 +104,12 @@ export default function AreaSelector() {
 
   return (
     <div className={S.wrapper}>
-      <button className={S.areaContainer} ref={siDoButton}>
+      <button
+        className={S.areaContainer}
+        ref={siDoButton}
+        onClick={() => siDoButton.current?.focus()}
+        onTouchStart={() => siDoButton.current?.focus()}
+      >
         {placeholders?.data.sido || '시/도 선택'}
         <ul className={S.ulContainer}>
           {siDoListResponse?.map((sido: T.ResponseRegion, i: number) => (
@@ -115,7 +120,12 @@ export default function AreaSelector() {
         </ul>
       </button>
       <hr className={S.styledHr} />
-      <button className={S.areaContainer} ref={siGunGuButton}>
+      <button
+        className={S.areaContainer}
+        ref={siGunGuButton}
+        onClick={() => siGunGuButton.current?.focus()}
+        onTouchStart={() => siGunGuButton.current?.focus()}
+      >
         {placeholders?.data.sigungu || '시/군/구 선택'}
         <ul className={S.ulContainer}>
           {siGunGuListResponse?.map((siGunGu: T.ResponseRegion, i: number) => (
@@ -126,7 +136,12 @@ export default function AreaSelector() {
         </ul>
       </button>
       <hr className={S.styledHr} />
-      <button className={S.areaContainer} ref={dongButton}>
+      <button
+        className={S.areaContainer}
+        ref={dongButton}
+        onClick={() => dongButton.current?.focus()}
+        onTouchStart={() => dongButton.current?.focus()}
+      >
         {placeholders?.data.dong || '동 선택'}
         <ul className={S.ulContainer}>
           {dongListResponse?.map((dong: T.ResponseRegion, i: number) => (
