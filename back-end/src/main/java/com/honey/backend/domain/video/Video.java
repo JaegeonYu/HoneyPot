@@ -27,6 +27,9 @@ public class Video {
     private Long hits;
     private LocalDateTime createdAt;
 
+    @Column(length = 1000)
+    private String videoSummary;
+
     @OneToMany(mappedBy = "video")
     private List<VideoKeyword> videoKeywords;
 

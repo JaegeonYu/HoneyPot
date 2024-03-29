@@ -16,7 +16,7 @@ public class VideoService {
 
     public void updateHits(Long videoId){
         Video video = videoRepository.findById(videoId).orElseThrow(() ->
-                new IllegalArgumentException("video not found");
+                new IllegalArgumentException("video not found"));
         video.updateHits();
     }
 }

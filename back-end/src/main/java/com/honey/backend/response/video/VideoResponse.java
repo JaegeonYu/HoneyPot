@@ -21,6 +21,7 @@ public class VideoResponse {
     private String creatAt;
     private Long hits;
     private List<String> keywords;
+    private String videoSummary;
 
     public VideoResponse(Video video) {
         this.id = video.getId();
@@ -30,5 +31,6 @@ public class VideoResponse {
         this.creatAt = video.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).toString();
         this.hits = video.getHits();
         this.keywords = video.getVideoKeywords().stream().map(VideoKeyword::getKeywordName).collect(Collectors.toList());
+        this.videoSummary = video.getVideoSummary();
     }
 }
