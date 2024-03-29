@@ -57,7 +57,7 @@ public class CommitteeRepositoryImpl implements CommitteeRepositoryCustom {
                 .leftJoin(committee).on(bill.committee.id.eq(committee.id))
                 .leftJoin(assembly).on(bill.assembly.id.eq(assembly.id))
                 .leftJoin(poly).on(bill.assembly.poly.id.eq(poly.id))
-                .where(poly.id.eq(bill.assembly.poly.id))
+                .where(poly.id.eq(polyId))
                 .groupBy(committee)
                 .orderBy(committee.count().desc(), committee.id.asc())
                 .limit(3)

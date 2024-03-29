@@ -64,8 +64,6 @@ public class PolyService {
     }
 
 
-
-
     public List<MostCmitAssemblyResponse> findMostAssemblyByPoly(Long cmitId, Long polyId) {
         List<Assembly> assemblyList = assemblyRepository.findMostAssemblyByPoly(cmitId, polyId);
 
@@ -91,8 +89,8 @@ public class PolyService {
         int[] polyAttendance = getAverageAttendance(attendanceList);
         int[] totalAttendance = getAverageAttendance(totalAttendanceList);
 
-        int polyAverageAttendance = (polyAttendance[0] * 100 / polyAttendance[2]);
-        int totalAverageAttendance = (totalAttendance[0] * 100 / totalAttendance[2]);
+        int polyAverageAttendance = ((polyAttendance[2] - polyAttendance[1]) * 100 / polyAttendance[2]);
+        int totalAverageAttendance = ((totalAttendance[2] - totalAttendance[1]) * 100 / totalAttendance[2]);
 
         List<Assembly> descAssemblyList = assemblyRepository.findAssemblyByPolyAttendanceRateDesc(polyId);
         List<AssemblyAttendanceResponse> assemblyAttendanceDescList = new ArrayList<>();

@@ -68,7 +68,8 @@ public class BillService {
         int limit = billRequest.limit();
         String word = billRequest.word();
         Long cmitId = billRequest.cmit();
-        List<Bill> billList = billRepository.findAllByPolyIdAndCmitId(PageRequest.of(page, limit), word, cmitId, polyId).getContent();
+        String accept = billRequest.accept();
+        List<Bill> billList = billRepository.findAllByPolyIdAndCmitId(PageRequest.of(page, limit), word, cmitId, polyId, accept).getContent();
         List<BillResponse> billResponseList = new ArrayList<>();
         for (Bill bill : billList) {
             billResponseList.add(insertToBillResponse(bill));

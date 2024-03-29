@@ -131,7 +131,7 @@ public class BillRepositoryImpl implements BillRepositoryCustom {
     }
 
     @Override
-    public Page<Bill> findAllByPolyIdAndCmitId(Pageable pageable, String word, Long cmitId, Long polyId) {
+    public Page<Bill> findAllByPolyIdAndCmitId(Pageable pageable, String word, Long cmitId, Long polyId, String accept) {
 
         List<Bill> billList = queryFactory
                 .select(bill)
@@ -141,7 +141,8 @@ public class BillRepositoryImpl implements BillRepositoryCustom {
                 .leftJoin(committee).on(bill.committee.id.eq(committee.id))
                 .where(polyId != null ? bill.assembly.poly.id.eq(polyId) : null,
                         cmitId != 0 ? committee.id.eq(cmitId) : null,
-                        word != null ? bill.billName.like("%" + word + "%") : null)
+                        word != null ? bill.billName.like("%" + word + "%") : null,
+                        accept != null && accept.equals("true") ? bill.procResult.like("%" + "가결" + "%") : null)
                 .orderBy(bill.billNo.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
