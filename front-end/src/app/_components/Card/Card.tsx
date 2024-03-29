@@ -32,7 +32,7 @@ export default function Card({ ratio, imgUrl, children, badge, onClick }: T.Card
   return (
     <li
       className={S.wrapper}
-      style={assignInlineVars({ [S.aspectRatioProps]: ratio, [S.minWidth]: ratio === '4 / 7' ? '212px' : '276px' })}
+      style={assignInlineVars({ [S.aspectRatioProps]: ratio, [S.minWidth]: ratio === '4 / 7' ? '212px' : '212px' })}
       onClick={onClick}
     >
       <Image
@@ -47,12 +47,12 @@ export default function Card({ ratio, imgUrl, children, badge, onClick }: T.Card
         alt={imgUrl}
         quality={100}
       />
+      {children}
       {badge.isBadgeNeed && badge.text && (
         <Badge isPositionAbsolute={true} color={PALETTE.party[badge.text][100]}>
           {badge.text}
         </Badge>
       )}
-      {children}
     </li>
   );
 }

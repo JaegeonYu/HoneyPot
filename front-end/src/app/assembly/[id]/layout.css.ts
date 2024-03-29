@@ -10,9 +10,10 @@ export const sectionWrapper = style({
 export const mainSectionWrapper = style([
   sectionWrapper,
   {
+    width: '100%',
     alignItems: 'stretch',
-    justifyContent: 'space-between',
-    gap: '48px',
+    justifyContent: 'center',
+    gap: '24px',
     paddingBottom: '124px',
 
     '@media': {
@@ -27,6 +28,10 @@ export const cardWrapper = style({
   width: '20%',
   minWidth: 'fit-content',
   '@media': {
+    '(max-width: 974px)': {
+      width: '35%',
+    },
+
     '(max-width: 640px)': {
       display: 'flex',
       flexDirection: 'column',
@@ -41,8 +46,21 @@ export const rightOfMainContent = style({
   flexDirection: 'column',
   justifyContent: 'space-between',
   gap: '128px',
-  width: '100%',
+  width: '60%',
   maxWidth: '806px',
+
+  '@media': {
+    '(max-width: 974px)': {
+      width: '40%',
+    },
+
+    '(max-width: 640px)': {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      width: '100%',
+    },
+  },
 });
 
 export const tabSectionWrapper = style([

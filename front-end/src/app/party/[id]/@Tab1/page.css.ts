@@ -38,7 +38,7 @@ export const cardArticle = style({
   alignItems: 'center',
   justifyContent: 'center',
   flexDirection: 'column',
-  height: '18%',
+  height: '16%',
   padding: '0px 16px',
 });
 
@@ -61,7 +61,7 @@ export const areaName = style({
 });
 
 export const skeletonCard = style({
-  minWidth: 276,
+  minWidth: 212,
   width: '100%',
   maxWidth: 402,
   aspectRatio: '4 / 6',

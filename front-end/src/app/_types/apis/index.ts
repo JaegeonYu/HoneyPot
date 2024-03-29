@@ -6,7 +6,20 @@ export interface Poly {
     seats: number;
     totalSeats: number;
   };
-  leader: string;
+  leader?: string;
+}
+export interface PolyMember {
+  assemblyId: number;
+  hgName: string;
+  attendance: number;
+}
+export interface PolyDetail extends Poly {
+  polyAttendanceResponse: {
+    averageAttendance: number;
+    totalAverageAttendance: number;
+    topAttendanceRate: PolyMember[];
+    bottomAttendanceRate: PolyMember[];
+  };
 }
 
 export interface Assembly {
