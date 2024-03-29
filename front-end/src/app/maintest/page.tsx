@@ -14,22 +14,23 @@ import Top3 from '../_assets/mainpageimg/imgs/top3.png';
 import { motion } from 'framer-motion';
 import Test from '@/_components/LoadingTest/test';
 import TextTest from '@/_components/LoadingTest/TextTest/texttest';
-// import TextSpinnerLoader from '@/_components/LoadingTest/TextSpinner/TextSpinner';
+import TextSpinnerLoader from '@/_components/LoadingTest/TextSpinner/TextSpinner';
+import DotLoading from '@/_components/Bill/Subs/DotLoading/DotLoading';
 
 export default function MainTest() {
   return (
     <>
       <div className={S.mainWrapper}>
         <section>
-          <div style={{ display: 'flex' }}>
-            <Test />
-          </div>
-          {/* <div style={{ display: 'flex', width: 300, height: 300, justifyContent: 'center', alignItems: 'center' }}>
+          <Test />
+
+          <div style={{ display: 'flex', width: 300, height: 300, justifyContent: 'center', alignItems: 'center' }}>
             <TextSpinnerLoader></TextSpinnerLoader>
-          </div> */}
+          </div>
           <div className={S.test} id="1">
             <TextTest contents=""></TextTest>
           </div>
+          <DotLoading></DotLoading>
           <div className={S.solganSection}>
             <div className={S.solganWrapper}>
               <p className={S.solganFont}>

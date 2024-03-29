@@ -4,6 +4,7 @@ import * as T from '@/types';
 import * as Comp from '@/components';
 
 import * as API from '@/_apis/bill';
+import { vars } from '@/globalTheme.css';
 import { motion } from 'framer-motion';
 
 import { assignInlineVars } from '@vanilla-extract/dynamic';
@@ -16,6 +17,9 @@ import ToggleButton from '../ToggleButton/ToggleButton';
 import SummaryPanel from './Subs/SummaryPanel/SummaryPanel';
 import OriginalPanel from './Subs/OriginPanel/OriginalPanel';
 import { useQuery } from '@tanstack/react-query';
+import TextSpinnerLoader from '../LoadingTest/TextSpinner/TextSpinner';
+import TextTest from '../LoadingTest/TextTest/texttest';
+import DotLoading from './Subs/DotLoading/DotLoading';
 
 /**
  *
@@ -188,21 +192,32 @@ export default function Bill({
             ) : summaryFetched ? (
               <SummaryPanel data={summaryResponse} flag={true}></SummaryPanel>
             ) : (
-              <motion.div
-                className="box"
-                animate={{
-                  scale: [1, 2, 2, 1, 1],
-                  rotate: [0, 0, 180, 180, 0],
-                  borderRadius: ['0%', '0%', '50%', '50%', '0%'],
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  height: '100%',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: '100%',
+                  backgroundColor: `${vars.colors.service.HOVER_BACKGROUND}`,
+                  borderRadius: 8,
                 }}
-                transition={{
-                  duration: 2,
-                  ease: 'easeInOut',
-                  times: [0, 0.2, 0.5, 0.8, 1],
-                  repeat: Infinity,
-                  repeatDelay: 1,
-                }}
-              />
+              >
+                <div
+                  style={{
+                    display: 'flex',
+                    width: 300,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  <DotLoading></DotLoading>
+                </div>
+                <div className={S.textRandom} id="1">
+                  <TextTest contents=""></TextTest>
+                </div>
+              </div>
             )
           ) : (
             <OriginalPanel data={textBody}></OriginalPanel>

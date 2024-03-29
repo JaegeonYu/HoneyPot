@@ -17,3 +17,13 @@ export const text = style({
   whiteSpace: 'nowrap',
   mixBlendMode: 'difference',
 });
+
+export const wrapper = style({
+  display: 'flex',
+  height: '100%',
+  width: '400px',
+  margin: 0,
+  justifyContent: 'center',
+  alignItems: 'center',
+  backgroundColor: 'white',
+});

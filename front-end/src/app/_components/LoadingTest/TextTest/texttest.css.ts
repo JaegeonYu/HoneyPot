@@ -7,5 +7,5 @@ export const text = style({
   letterSpacing: '-1px',
   lineHeight: 1.2,
   margin: '100px 0 40px',
-  color: `${vars.colors.service.MAIN_WHITE}`,
+  color: `${vars.colors.service.MAIN_BLACK}`,
 });

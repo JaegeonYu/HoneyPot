@@ -149,3 +149,10 @@ export const billCardContentsMain = style({
   columnGap: 4,
   padding: '10px 16px',
 });
+export const textRandom = style({
+  display: 'flex',
+  height: '100%',
+  // backgroundColor: `${vars.colors.service.MAIN_COLOR_100}`,
+  justifyContent: 'center',
+  alignItems: 'center',
+});

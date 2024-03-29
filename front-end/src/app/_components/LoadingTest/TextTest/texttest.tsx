@@ -24,7 +24,7 @@ export default function TextTest({ contents }: T.TextAnimateProps) {
     const interval = setInterval(() => {
       const randomContent = getRandomContent();
       setText(randomContent.split(' '));
-    }, 1500);
+    }, 1800);
 
     return () => clearInterval(interval);
   }, [text]);
