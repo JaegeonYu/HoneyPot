@@ -12,7 +12,7 @@ export const headerContainer = style({
   justifyContent: 'space-between',
   gap: 48,
   padding: '0px 5vw',
-  position: 'sticky',
+  position: 'fixed',
   zIndex: 10,
 
   '@media': {

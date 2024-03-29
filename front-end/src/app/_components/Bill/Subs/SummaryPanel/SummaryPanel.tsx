@@ -3,21 +3,7 @@ import * as S from './SummaryPanel.css';
 import * as T from '@/types';
 
 export default function SummaryPanel({ data, flag }: T.SummaryPanelProps) {
-  // console.log(data, 'data in summary');
-  // console.log(typeof data, 'what is type ?');
-  // console.log(flag, 'flag=====');
   const parsedata = flag ? data : data ? JSON.parse(data) : '';
-  // console.log(parsedata.difficult_words, 'parsedata');
-
-  // if (flag) {
-  //   setParsedata(data);
-  // } else {
-  //   const temp = data ? JSON.parse(data) : '';
-  //   setParsedata(temp);
-  // }
-
-  // const parsedata = data ? JSON.parse(data) : '';
-  // const keys = Object.keys(parsedata.difficult_words[0]);
 
   const result = parsedata ? parsedata.difficult_words.flatMap(Object.keys) : '';
   const values = parsedata ? parsedata.difficult_words.flatMap(Object.values) : '';
