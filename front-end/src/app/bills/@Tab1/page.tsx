@@ -34,13 +34,6 @@ export default function BillTab1() {
     }
   }, [page]);
 
-  useEffect(() => {
-    // 스크롤 위치 변경 시 특정 위치로 이동
-    if (scrollToRef.current) {
-      scrollToRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [page]);
-
   const { data: billResponse, isFetched: billFetched } = useSuspenseQuery({
     queryKey: [{ bill: `info-request-bill-list` }, { page, limit, selectedCategoryId }], // 쿼리 키에 page와 limit 추가
     queryFn: () => API.getBillInfo({ cmit: selectedCategoryId, page, limit, word: '', accept: undefined }), // API 호출 시 동적으로 page와 limit 전달

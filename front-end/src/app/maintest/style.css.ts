@@ -5,7 +5,7 @@ export const mainWrapper = style({
   display: 'flex',
   flexDirection: 'column',
   // alignItems: 'center',
-  width: '110%',
+  width: '100vw',
   overflow: 'hidden',
   position: 'relative',
 });
@@ -16,7 +16,7 @@ export const solganSection = style({
   height: '90vh',
   width: '100%',
   justifyContent: 'space-between',
-  backgroundColor: `${vars.colors.service.MAIN_COLOR_20}`,
+  backgroundColor: `${vars.colors.service.MAIN_COLOR_100}`,
 });
 
 export const solganWrapper = style({
@@ -124,6 +124,47 @@ export const testclay2 = style({
 
 /////////////////////////////
 
+export const shadow1 = style({
+  height: '100%',
+  backgroundColor: `${vars.colors.service.MAIN_WHITE}`,
+  borderRadius: 26,
+  boxShadow: `0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)`,
+});
+
+export const shadowhover = style({
+  width: '40%',
+  height: 'fit-content',
+
+  padding: '32px',
+  backgroundColor: `${vars.colors.service.MAIN_WHITE}`,
+  borderRadius: 26,
+  // box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  boxShadow: `0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)`,
+  transition: `all 0.3s cubic-bezier(.25,.8,.25,1)`,
+  selectors: {
+    '&:hover': {
+      boxShadow: `0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)`,
+    },
+  },
+});
+
+export const shadowhover2 = style({
+  // width: '40%',
+  height: '100%',
+
+  // padding: '32px',
+  backgroundColor: `${vars.colors.service.MAIN_WHITE}`,
+  borderRadius: 26,
+  // box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  boxShadow: `0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)`,
+  transition: `all 0.3s cubic-bezier(.25,.8,.25,1)`,
+  selectors: {
+    '&:hover': {
+      boxShadow: `0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)`,
+    },
+  },
+});
+
 ////////////////////////////////////////FONT STYLE/////////////////
 
 export const solganFont = style({
@@ -155,12 +196,12 @@ export const assembleFont = style({
 
 export const billFont = style({
   fontSize: 36,
-  fontWeight: 500,
+  fontWeight: 400,
   textAlign: 'center',
 });
 export const billBoldFont = style({
   fontSize: 36,
-  fontWeight: 900,
+  fontWeight: 800,
   textAlign: 'center',
 });
 export const billSubFont = style({
