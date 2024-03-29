@@ -34,15 +34,29 @@ export const fontHeader = style({
 
 export const fontTitle = style({
   //   height: 58,
-  fontSize: 15,
+  fontSize: 17,
   fontWeight: 700,
 });
 
 export const fontContent = style({
   //   height: 58,
-  fontSize: 12,
+  fontSize: 14,
   fontWeight: 500,
 });
+
+export const Assembly = style({
+  //   height: 58,
+  fontSize: 14,
+  fontWeight: 500,
+  selectors: {
+    '&:hover': {
+      fontWeight: 800,
+      // backgroundColor: vars.colors.service.HOVER_BACKGROUND,
+      textDecorationLine: 'underline',
+    },
+  },
+});
+
 export const fontKeywordBold = style({
   //   height: 58,
   fontSize: 12,
@@ -81,6 +95,7 @@ export const billTitlePerson = style({
   flexDirection: 'row',
   alignItems: 'flex-start',
   columnGap: 12,
+  justifyContent: 'center',
 
   //   border: '1px solid red',
 });
@@ -148,4 +163,11 @@ export const billCardContentsMain = style({
   justifyContent: 'flex-start',
   columnGap: 4,
   padding: '10px 16px',
+});
+export const textRandom = style({
+  display: 'flex',
+  height: '100%',
+  // backgroundColor: `${vars.colors.service.MAIN_COLOR_100}`,
+  justifyContent: 'center',
+  alignItems: 'center',
 });

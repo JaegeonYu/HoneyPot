@@ -1,16 +1,16 @@
 import type { Metadata } from 'next';
-import { Noto_Sans_KR } from 'next/font/google';
+import { Noto_Sans_KR, IBM_Plex_Sans_KR } from 'next/font/google';
 import './globalTheme.css';
 import * as Comp from '@/_components';
 import ReactQueryProviders from './_lib-providers/ReactQueryProviders';
 import { GoogleTagManager } from '@next/third-parties/google';
 import { GA_TRACKING_ID } from '../lib/gtag';
 
-export const notoSansKr = Noto_Sans_KR({
-  weight: ['100', '300', '400', '500', '700', '900'],
+export const ibmPlexSansKR = IBM_Plex_Sans_KR({
+  weight: ['100', '200', '300', '400', '500', '600', '700'],
   display: 'fallback',
-  subsets: ['latin'],
-  variable: '--noto-sans-kr',
+  subsets: ['latin-ext'],
+  variable: '--ibm-plex-sans-kr',
   fallback: [
     '-apple-system',
     'Malgun Gothic',
@@ -36,8 +36,9 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <link rel="icon" href="/favicon.ico" sizes="any" />
+
       {GA_TRACKING_ID && <GoogleTagManager gtmId={GA_TRACKING_ID} />}
-      <body suppressHydrationWarning>
+      <body suppressHydrationWarning className={`${ibmPlexSansKR.className}`}>
         <ReactQueryProviders>
           <Comp.Header />
           <main
@@ -45,7 +46,7 @@ export default function RootLayout({
               width: '90%',
               maxWidth: '1240px',
               height: 'fit-content',
-              padding: '42px 0px',
+              padding: '122px 0px 42px 0px',
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
