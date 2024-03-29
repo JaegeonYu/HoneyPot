@@ -43,7 +43,7 @@ export default function BillTab1() {
 
   const { data: billResponse, isFetched: billFetched } = useSuspenseQuery({
     queryKey: [{ bill: `info-request-bill-list` }, { page, limit, selectedCategoryId }], // 쿼리 키에 page와 limit 추가
-    queryFn: () => API.getBillInfo({ cmit: selectedCategoryId, page, limit, word: '' }), // API 호출 시 동적으로 page와 limit 전달
+    queryFn: () => API.getBillInfo({ cmit: selectedCategoryId, page, limit, word: '', accept: undefined }), // API 호출 시 동적으로 page와 limit 전달
     retry: false,
   });
 

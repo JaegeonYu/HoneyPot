@@ -38,13 +38,13 @@ export const billCardContentsProblemText = style({
 
 export const fontTitle = style({
   //   height: 58,
-  fontSize: 15,
+  fontSize: 18,
   fontWeight: 700,
 });
 
 export const fontContent = style({
   //   height: 58,
-  fontSize: 12,
+  fontSize: 16,
   fontWeight: 500,
 });
 

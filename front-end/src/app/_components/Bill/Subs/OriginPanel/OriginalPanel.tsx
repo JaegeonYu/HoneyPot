@@ -11,7 +11,7 @@ export default function OriginalPanel({ data }: T.OriginalPanelProps) {
       <div className={S.billCardContentsProblem}>
         <div className={S.billCardContentsProblemText}>
           <p className={S.fontTitle}>제안이유 및 주요사항</p>
-          <p className={S.fontContent}>{newstr}</p>
+          <pre className={S.fontContent}>{newstr}</pre>
         </div>
       </div>
     </div>
