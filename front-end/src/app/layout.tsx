@@ -46,7 +46,7 @@ export default function RootLayout({
               width: '90%',
               maxWidth: '1240px',
               height: 'fit-content',
-              padding: '42px 0px',
+              padding: '122px 0px 42px 0px',
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
