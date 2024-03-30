@@ -35,7 +35,7 @@ export default function AssembliesPage() {
         searchParams.get('dong'),
       )}`,
       poly: Number(searchParams.get('poly')),
-      work: searchParams.get('word') || '',
+      word: searchParams.get('word') || '',
     },
   ];
 

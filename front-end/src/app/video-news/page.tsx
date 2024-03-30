@@ -1,163 +1,99 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import * as S from './page.css';
 import * as T from '@/types';
 import * as API from '@/apis';
 import * as Comp from '@/components';
-import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import * as SubComp from './Subs';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { useIntersectionObserver } from '@/_customhooks';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 export default function VideoNewsPage() {
-  const [detailModal, setDetailModal] = useState(true);
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const [detail, setDetail] = useState<T.Video | null>(null);
+
   const {
-    data: videoListResponse,
+    data: videoList,
     isFetched: videoListFetched,
     fetchNextPage: fetchNextVideo,
-  } = useSuspenseInfiniteQuery({
-    queryKey: [{ videoNews: `video-new-list` }],
-    queryFn: ({ pageParam }) => API.video.getVideoList({ page: pageParam, size: 6 }),
+  } = useInfiniteQuery({
+    queryKey: [
+      {
+        videoNews: `video-new-list`,
+        categoryId: Number(searchParams.get('category')),
+        keyword: searchParams.get('word') || '',
+      },
+    ],
+    queryFn: ({ pageParam }) =>
+      API.video
+        .getVideoList({
+          page: pageParam,
+          size: 3,
+          categoryId: Number(searchParams.get('category')),
+          keyword: searchParams.get('word') || '',
+        })
+        .then(res => res),
     initialPageParam: 0,
     getNextPageParam(lastPage, allPages, lastPageParam, allPageParams) {
-      // console.log(`lastPage :`, lastPage);
-      // console.log(`allPages :`, allPages);
-      // console.log(`lastPageParam :`, lastPageParam);
-      // console.log(`allPageParams :`, allPageParams);
-
-      return null;
+      if (lastPage?.status === 204 && lastPageParam === 0) return null;
+      if (lastPage.data.page === lastPage.data.totalPage) return null;
+      return lastPageParam + 1;
     },
   });
 
-  const target = useIntersectionObserver(async () => {});
-  console.log(`videoListResponse :`, videoListResponse.pages[0].data);
+  const target = useIntersectionObserver(async (entry, observer) => {
+    observer.unobserve(entry.target);
+    if (videoListFetched) {
+      fetchNextVideo();
+    }
+  });
+
+  const handleQueryString = useCallback(
+    ({ videoId }: { videoId: number }) => {
+      const params = new URLSearchParams(searchParams.toString());
+
+      params.set('detail', String(videoId));
+
+      router.push(`${pathname}?${params.toString()}`);
+    },
+    [searchParams],
+  );
+
+  const handleModalView = ({ isOpen, value }: { isOpen: boolean; value: T.Video | null }) => {
+    if (isOpen && value) {
+      handleQueryString({ videoId: value.id });
+      setDetail({ ...value });
+    } else {
+      router.back();
+      setDetail(null);
+    }
+  };
 
   return (
     <>
-      <section className={S.gridWrapper}>
-        {videoListResponse.pages.map((page, i) =>
-          page.data.videos.map((res: T.VideoCardProps) => <Comp.VideoCard key={`video-news-${res.id}`} {...res} />),
-        )}
-      </section>
-      <Comp.Modal width="80vw" height="80vh" isOpen={detailModal} isOpenHandler={() => setDetailModal(prev => !prev)}>
-        <div style={{ width: '100%', height: '100%', backgroundColor: 'red' }}></div>
-      </Comp.Modal>
+      <ul className={S.gridWrapper}>
+        {videoList?.pages.map((page, i) => {
+          return (
+            page.data?.videos !== undefined &&
+            page.data.videos.map((res: T.Video) => (
+              <Comp.VideoCard
+                key={`video-news/${res.id}`}
+                {...res}
+                onClick={() => handleModalView({ isOpen: true, value: res })}
+              />
+            ))
+          );
+        })}
+        <div ref={target} />
+      </ul>
+      {Number(searchParams.get('detail')) > 0 && detail && (
+        <SubComp.DetailModal viewHandler={() => handleModalView({ isOpen: true, value: null })} {...detail} />
+      )}
     </>
   );
 }
-
-const DUMMY = [
-  {
-    id: '1',
-    title: 'Big Buck Bunny',
-    thumbnailUrl:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Big_Buck_Bunny_thumbnail_vlc.png/1200px-Big_Buck_Bunny_thumbnail_vlc.png',
-    duration: '8:18',
-    uploadTime: 'May 9, 2011',
-    views: '24,969,123',
-    author: 'Vlc Media Player',
-    videoUrl: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-    description:
-      "Big Buck Bunny tells the story of a giant rabbit with a heart bigger than himself. When one sunny day three rodents rudely harass him, something snaps... and the rabbit ain't no bunny anymore! In the typical cartoon tradition he prepares the nasty rodents a comical revenge.\n\nLicensed under the Creative Commons Attribution license\nhttp://www.bigbuckbunny.org",
-    subscriber: '25254545 Subscribers',
-    isLive: true,
-  },
-  {
-    id: '2',
-    title: 'The first Blender Open Movie from 2006',
-    thumbnailUrl: 'https://i.ytimg.com/vi_webp/gWw23EYM9VM/maxresdefault.webp',
-    duration: '12:18',
-    uploadTime: 'May 9, 2011',
-    views: '24,969,123',
-    author: 'Blender Inc.',
-    videoUrl: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
-    description:
-      'Song : Raja Raja Kareja Mein Samaja\nAlbum : Raja Kareja Mein Samaja\nArtist : Radhe Shyam Rasia\nSinger : Radhe Shyam Rasia\nMusic Director : Sohan Lal, Dinesh Kumar\nLyricist : Vinay Bihari, Shailesh Sagar, Parmeshwar Premi\nMusic Label : T-Series',
-    subscriber: '25254545 Subscribers',
-    isLive: true,
-  },
-  {
-    id: '3',
-    title: 'For Bigger Blazes',
-    thumbnailUrl: 'https://i.ytimg.com/vi/Dr9C2oswZfA/maxresdefault.jpg',
-    duration: '8:18',
-    uploadTime: 'May 9, 2011',
-    views: '24,969,123',
-    author: 'T-Series Regional',
-    videoUrl: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
-    description:
-      'Song : Raja Raja Kareja Mein Samaja\nAlbum : Raja Kareja Mein Samaja\nArtist : Radhe Shyam Rasia\nSinger : Radhe Shyam Rasia\nMusic Director : Sohan Lal, Dinesh Kumar\nLyricist : Vinay Bihari, Shailesh Sagar, Parmeshwar Premi\nMusic Label : T-Series',
-    subscriber: '25254545 Subscribers',
-    isLive: true,
-  },
-  {
-    id: '4',
-    title: 'For Bigger Escape',
-    thumbnailUrl: 'https://img.jakpost.net/c/2019/09/03/2019_09_03_78912_1567484272._large.jpg',
-    duration: '8:18',
-    uploadTime: 'May 9, 2011',
-    views: '24,969,123',
-    author: 'T-Series Regional',
-    videoUrl: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
-    description:
-      " Introducing Chromecast. The easiest way to enjoy online video and music on your TV—for when Batman's escapes aren't quite big enough. For $35. Learn how to use Chromecast with Google Play Movies and more at google.com/chromecast.",
-    subscriber: '25254545 Subscribers',
-    isLive: false,
-  },
-  {
-    id: '5',
-    title: 'Big Buck Bunny',
-    thumbnailUrl:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Big_Buck_Bunny_thumbnail_vlc.png/1200px-Big_Buck_Bunny_thumbnail_vlc.png',
-    duration: '8:18',
-    uploadTime: 'May 9, 2011',
-    views: '24,969,123',
-    author: 'Vlc Media Player',
-    videoUrl: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-    description:
-      "Big Buck Bunny tells the story of a giant rabbit with a heart bigger than himself. When one sunny day three rodents rudely harass him, something snaps... and the rabbit ain't no bunny anymore! In the typical cartoon tradition he prepares the nasty rodents a comical revenge.\n\nLicensed under the Creative Commons Attribution license\nhttp://www.bigbuckbunny.org",
-    subscriber: '25254545 Subscribers',
-    isLive: true,
-  },
-  {
-    id: '6',
-    title: 'For Bigger Blazes',
-    thumbnailUrl: 'https://i.ytimg.com/vi/Dr9C2oswZfA/maxresdefault.jpg',
-    duration: '8:18',
-    uploadTime: 'May 9, 2011',
-    views: '24,969,123',
-    author: 'T-Series Regional',
-    videoUrl: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
-    description:
-      'Song : Raja Raja Kareja Mein Samaja\nAlbum : Raja Kareja Mein Samaja\nArtist : Radhe Shyam Rasia\nSinger : Radhe Shyam Rasia\nMusic Director : Sohan Lal, Dinesh Kumar\nLyricist : Vinay Bihari, Shailesh Sagar, Parmeshwar Premi\nMusic Label : T-Series',
-    subscriber: '25254545 Subscribers',
-    isLive: false,
-  },
-  {
-    id: '7',
-    title: 'For Bigger Escape',
-    thumbnailUrl: 'https://img.jakpost.net/c/2019/09/03/2019_09_03_78912_1567484272._large.jpg',
-    duration: '8:18',
-    uploadTime: 'May 9, 2011',
-    views: '24,969,123',
-    author: 'T-Series Regional',
-    videoUrl: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
-    description:
-      " Introducing Chromecast. The easiest way to enjoy online video and music on your TV—for when Batman's escapes aren't quite big enough. For $35. Learn how to use Chromecast with Google Play Movies and more at google.com/chromecast.",
-    subscriber: '25254545 Subscribers',
-    isLive: true,
-  },
-  {
-    id: '8',
-    title: 'The first Blender Open Movie from 2006',
-    thumbnailUrl: 'https://i.ytimg.com/vi_webp/gWw23EYM9VM/maxresdefault.webp',
-    duration: '12:18',
-    uploadTime: 'May 9, 2011',
-    views: '24,969,123',
-    author: 'Blender Inc.',
-    videoUrl: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
-    description:
-      'Song : Raja Raja Kareja Mein Samaja\nAlbum : Raja Kareja Mein Samaja\nArtist : Radhe Shyam Rasia\nSinger : Radhe Shyam Rasia\nMusic Director : Sohan Lal, Dinesh Kumar\nLyricist : Vinay Bihari, Shailesh Sagar, Parmeshwar Premi\nMusic Label : T-Series',
-    subscriber: '25254545 Subscribers',
-    isLive: false,
-  },
-];

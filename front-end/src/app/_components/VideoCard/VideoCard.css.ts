@@ -16,20 +16,22 @@ export const wrapper = style({
 export const resouceContentWrapper = style({
   width: '100%',
   height: '70%',
+  position: 'relative',
 });
 
 export const toggleVisible = createVar();
 export const styledThumbnail = style({
   width: '100%',
-  maxHeight: '70%',
+  maxHeight: '100%',
   borderRadius: '16px',
   opacity: toggleVisible,
   transition: '0.3s',
 });
 
+export const borderRadius = createVar();
 export const styledVideo = style({
   width: '100%',
-  borderRadius: '16px',
+  borderRadius: borderRadius,
   backgroundColor: vars.colors.service.MAIN_BLACK,
   opacity: toggleVisible,
   transition: '0.3s',
@@ -63,6 +65,7 @@ export const keywordsWrapper = style({
   height: 'fit-content',
   padding: '0px 12px',
 });
+
 export const keywordItem = style({
   fontSize: '12px',
   color: vars.colors.service.SUB_BLACK,
@@ -91,9 +94,17 @@ export const durationContainer = style({
   padding: '2px 8px',
 });
 
+export const skeletonResouceContentWrapper = style({
+  width: '100%',
+  height: '70%',
+  backgroundColor: vars.colors.service.SUB_WHITE,
+  borderRadius: '16px',
+});
+
 export const skeletonResouce = style({
   width: '100%',
   height: '70%',
+  maxHeight: '70%',
   backgroundColor: vars.colors.service.SUB_WHITE,
   borderRadius: '16px',
 });

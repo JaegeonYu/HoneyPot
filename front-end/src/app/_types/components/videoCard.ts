@@ -6,4 +6,5 @@ export interface VideoCardProps {
   keywords: string[];
   videoName: string;
   videoUrl: string;
+  onClick: ([...args]: any) => void;
 }

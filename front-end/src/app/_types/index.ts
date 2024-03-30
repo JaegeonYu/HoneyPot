@@ -49,7 +49,7 @@ import {
 /** pages */
 
 /** apis */
-import { Poly, PolyDetail, PolyMember, Assembly } from './apis';
+import { Poly, PolyDetail, PolyMember, Assembly, Video } from './apis';
 /** apis */
 
 export type {
@@ -99,4 +99,5 @@ export type {
   PolyDetail,
   PolyMember,
   EmptyDataProps,
+  Video,
 };
