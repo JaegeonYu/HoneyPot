@@ -53,10 +53,8 @@ public class AssemblyRepositoryImpl implements AssemblyRepositoryCustom {
                         (dongId != 0 ? dong.id.eq(dongId) : null),
                         (polyId != 0 ? poly.id.eq(polyId) : null),
                         (word != null ? assembly.hgName.like("%" + word + "%") : null)
-
                 )
                 .fetch().stream().distinct().collect(Collectors.toList());
-
     }
 
     @Override
