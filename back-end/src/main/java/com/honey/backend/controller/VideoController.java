@@ -28,11 +28,12 @@ public class VideoController {
 
     @GetMapping
     public ResponseEntity<VideoPage> searchVideos(@PageableDefault(size = 9, sort = "createdAt",
-            direction = Sort.Direction.DESC) Pageable pageable, @RequestParam(required = false)String keyword){
-        if(keyword==null || keyword.length() == 0 ) {
-            return convertVideoPage(videoRepository.findAllWithKeywords(pageable));
+            direction = Sort.Direction.DESC) Pageable pageable, @RequestParam(defaultValue = "")String keyword,
+                                                  @RequestParam(defaultValue = "0") Long categoryId){
+        if(categoryId == 0L){
+            return convertVideoPage(videoRepository.findAllWithKeywordsByVideoName(pageable, keyword));
         }
-        return convertVideoPage(videoRepository.findAllWithKeywordsByVideoName(pageable, keyword));
+        return convertVideoPage(videoRepository.findAllWithKeywordsByCategoryAndVideoName(pageable, keyword, categoryId));
     }
 
     private ResponseEntity<VideoPage> convertVideoPage(Page<Video> videos){

@@ -7,7 +7,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public interface VideoRepositoryCustom {
 
-    Page<Video> findAllWithKeywords(Pageable pageable);
+//    Page<Video> findAllWithKeywords(Pageable pageable);
 
     Page<Video> findAllWithKeywordsByVideoName(Pageable pageable, String videoName);
+
+    Page<Video> findAllWithKeywordsByCategoryAndVideoName(Pageable pageable, String videoName, Long CategoryId);
 }
