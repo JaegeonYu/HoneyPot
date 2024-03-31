@@ -1,13 +1,12 @@
 package com.honey.backend.controller;
 
-import com.honey.backend.domain.video.KeywordCategoryRepository;
-import com.honey.backend.domain.video.Video;
-import com.honey.backend.domain.video.VideoRepository;
+import com.honey.backend.domain.video.*;
 import com.honey.backend.response.video.KeywordCategoryResponse;
 import com.honey.backend.response.video.VideoPage;
 import com.honey.backend.service.VideoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -25,6 +24,7 @@ public class VideoController {
     private final VideoRepository videoRepository;
     private final VideoService videoService;
     private final KeywordCategoryRepository keywordCategoryRepository;
+    private final VideoKeywordRepository videoKeywordRepository;
 
     @GetMapping
     public ResponseEntity<VideoPage> searchVideos(@PageableDefault(size = 9, sort = "createdAt",
@@ -53,5 +53,17 @@ public class VideoController {
                 .stream()
                 .map(KeywordCategoryResponse::new)
                 .collect(Collectors.toList()));
+    }
+
+    @GetMapping("/keyword/{keywordId}")
+    public ResponseEntity<VideoPage> findByKeyword(@PathVariable Long keywordId){
+        // keyword -> category
+        VideoKeyword videoKeyword = videoKeywordRepository.findWithCategoryById(keywordId);
+        if(videoKeyword == null)throw new IllegalArgumentException("Not found keyword");
+
+        // category 반환
+        PageRequest page = PageRequest.of(0, 9);
+        return convertVideoPage(videoRepository
+                .findAllWithKeywordsByCategoryAndVideoName(page, "", videoKeyword.getKeywordCategory().getId()));
     }
 }
