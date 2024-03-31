@@ -20,8 +20,10 @@ public class VideoResponse {
     private String imageUrl;
     private String creatAt;
     private Long hits;
-    private List<String> keywords;
+    private List<KeywordResponse> keywords;
     private String videoSummary;
+    private String videoTime;
+
 
     public VideoResponse(Video video) {
         this.id = video.getId();
@@ -30,7 +32,8 @@ public class VideoResponse {
         this.imageUrl = video.getImageUrl();
         this.creatAt = video.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).toString();
         this.hits = video.getHits();
-        this.keywords = video.getVideoKeywords().stream().map(VideoKeyword::getKeywordName).collect(Collectors.toList());
+        this.keywords = video.getVideoKeywords().stream().map(KeywordResponse::new).collect(Collectors.toList());
         this.videoSummary = video.getVideoSummary();
+        this.videoTime = video.getVideoTime();
     }
 }

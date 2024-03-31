@@ -30,6 +30,8 @@ public class Video {
     @Column(length = 1000)
     private String videoSummary;
 
+    private String videoTime;
+
     @OneToMany(mappedBy = "video")
     private List<VideoKeyword> videoKeywords;
 

@@ -14,7 +14,4 @@ public class KeywordCategoryResponse {
         this.id = keywordCategory.getId();
         this.categoryName = keywordCategory.getCategoryName();
     }
-
-    public KeywordCategoryResponse(Long aLong) {
-    }
 }
