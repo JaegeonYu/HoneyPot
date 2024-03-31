@@ -24,7 +24,10 @@ export const ibmPlexSansKR = IBM_Plex_Sans_KR({
 });
 
 export const metadata: Metadata = {
-  title: '여의도 꿀통',
+  title: {
+    default: '여의도 꿀통',
+    template: '%s - 여의도 꿀통',
+  },
   description: '당신의 꿀벌들은 열심히 일하고 있나요?',
 };
 

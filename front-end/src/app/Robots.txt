@@ -1,4 +1,10 @@
-User-agent: *
-Disallow: /not-for-never/
-Allow: /not-for-naver/only-allow-here/
-Sitemap: https://yeouido-honeypot.com/sitemap.xml
+import { MetadataRoute } from 'next';
+
+export default function robots(): MetadataRoute.Robots {
+  return {
+    rules: {
+      userAgent: '*',
+      allow: '/',
+    },
+  };
+}
