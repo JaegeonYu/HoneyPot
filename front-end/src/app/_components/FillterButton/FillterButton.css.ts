@@ -1,25 +1,9 @@
 import { vars } from '@/globalTheme.css';
-import { createVar, globalStyle, style } from '@vanilla-extract/css';
-
-export const partyListWindow = style({
-  width: '100%',
-  height: '40px',
-  overflowX: 'scroll',
-  overflowY: 'hidden',
-});
-globalStyle(`${partyListWindow}::-webkit-scrollbar`, {
-  display: 'none',
-});
-
-export const partySelectorWrapper = style({
-  display: 'flex',
-  gap: '16px',
-  width: 'fit-content',
-  height: '40px',
-});
+import { createVar, style } from '@vanilla-extract/css';
 
 export const isSelectedBgColor = createVar();
 export const item = style({
+  width: 'fit-content',
   borderRadius: '6px',
   overflow: 'hidden',
   backgroundColor: isSelectedBgColor,

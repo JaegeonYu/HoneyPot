@@ -32,6 +32,7 @@ export const fontSize = createVar();
 export const hoverBorder = createVar();
 export const focusBorder = createVar();
 export const categoryName = style({
+  display: 'inline-block',
   width: '100%',
   fontSize: fontSize,
   textAlign: 'center',
