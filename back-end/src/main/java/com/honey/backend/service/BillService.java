@@ -50,7 +50,8 @@ public class BillService {
         int limit = billRequest.limit();
         String word = billRequest.word();
         Long cmitId = billRequest.cmit();
-        List<Bill> billList = billRepository.findAllByAssemblyIdAndCmitId(PageRequest.of(page, limit), word, cmitId, assemblyId).getContent();
+        String accept = billRequest.accept();
+        List<Bill> billList = billRepository.findAllByAssemblyIdAndCmitId(PageRequest.of(page, limit), word, cmitId, assemblyId, accept).getContent();
         List<BillResponse> billResponseList = new ArrayList<>();
         for (Bill bill : billList) {
             billResponseList.add(insertToBillResponse(bill));
@@ -67,7 +68,8 @@ public class BillService {
         int limit = billRequest.limit();
         String word = billRequest.word();
         Long cmitId = billRequest.cmit();
-        List<Bill> billList = billRepository.findAllByPolyIdAndCmitId(PageRequest.of(page, limit), word, cmitId, polyId).getContent();
+        String accept = billRequest.accept();
+        List<Bill> billList = billRepository.findAllByPolyIdAndCmitId(PageRequest.of(page, limit), word, cmitId, polyId, accept).getContent();
         List<BillResponse> billResponseList = new ArrayList<>();
         for (Bill bill : billList) {
             billResponseList.add(insertToBillResponse(bill));
@@ -145,6 +147,19 @@ public class BillService {
         return billRepository.countByPolyIdAndCmitId(
                 billRequest.word(), billRequest.cmit(), polyId).intValue();
     }
+
+    public List<BillResponse> getListByResult(BillRequest billRequest) {
+        int page = billRequest.page();
+        int limit = billRequest.limit();
+        Long cmitId = billRequest.cmit();
+        List<Bill> billList = billRepository.findAllByResultAndCmitId(PageRequest.of(page, limit), cmitId).getContent();
+        List<BillResponse> billResponseList = new ArrayList<>();
+        for (Bill bill : billList) {
+            billResponseList.add(insertToBillResponse(bill));
+        }
+        return billResponseList;
+    }
+
 
     private BillProgressResponse setStatus(Bill bill) {
 

@@ -38,7 +38,6 @@ public class AssemblyService {
     private final StandingAttendanceRepository standingAttendanceRepository;
 
 
-
     public AssemblyListResponse findAll(AssemblyListRequest assemblyListRequest) {
         Long sido = assemblyListRequest.sido();
         Long sigungu = assemblyListRequest.sigungu();
@@ -81,7 +80,7 @@ public class AssemblyService {
         for (Assembly assembly : assemblyList) {
             Poly poly = polyRepository.findByAssemblyId(assembly.getId());
             mostCmitAssemblyResponseList.add(new MostCmitAssemblyResponse(
-                    assembly.getId(), assembly.getHgName(), poly.getId(), poly.getPolyName()));
+                    assembly.getId(), assembly.getAssemblyImgUrl(), assembly.getHgName(), poly.getId(), poly.getPolyName()));
         }
         return mostCmitAssemblyResponseList;
     }
@@ -158,6 +157,7 @@ public class AssemblyService {
         );
 
     }
+
     public AttendanceResponse getAttendanceInfo(Long assemblyId) {
         Attendance attendance = attendanceRepository.findByAssemblyId(assemblyId).orElse(null);
         StandingAttendance standingAttendance = standingAttendanceRepository.findByAssemblyId(assemblyId).orElse(null);

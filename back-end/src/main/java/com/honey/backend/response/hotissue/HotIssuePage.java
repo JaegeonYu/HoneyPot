@@ -1,6 +1,6 @@
-package com.honey.backend.domain.hotissue;
+package com.honey.backend.response.hotissue;
 
-import lombok.AllArgsConstructor;
+import com.honey.backend.domain.hotissue.HotIssue;
 import lombok.Data;
 import org.springframework.data.domain.Page;
 

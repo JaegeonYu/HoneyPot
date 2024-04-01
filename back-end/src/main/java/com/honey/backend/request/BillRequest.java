@@ -10,7 +10,9 @@ public record BillRequest(
 
         Long cmit,
         @Nullable
-        String word
+        String word,
+        @Nullable
+        String accept
 ) {
 
 }

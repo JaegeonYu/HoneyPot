@@ -1,5 +1,6 @@
-package com.honey.backend.domain.hotissue;
+package com.honey.backend.response.hotissue;
 
+import com.honey.backend.domain.hotissue.HotIssue;
 import jakarta.persistence.Column;
 import lombok.Data;
 import lombok.NoArgsConstructor;

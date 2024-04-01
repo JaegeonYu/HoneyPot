@@ -10,7 +10,6 @@ import com.honey.backend.exception.AttendanceErrorCode;
 import com.honey.backend.exception.BaseException;
 import com.honey.backend.exception.PolyErrorCode;
 import com.honey.backend.response.assembly.AssemblyAttendanceResponse;
-import com.honey.backend.response.assembly.AssemblyListResponse;
 import com.honey.backend.response.committee.MostCmitAssemblyResponse;
 import com.honey.backend.response.poly.PolyAttendanceResponse;
 import com.honey.backend.response.poly.PolyListResponse;
@@ -64,8 +63,6 @@ public class PolyService {
     }
 
 
-
-
     public List<MostCmitAssemblyResponse> findMostAssemblyByPoly(Long cmitId, Long polyId) {
         List<Assembly> assemblyList = assemblyRepository.findMostAssemblyByPoly(cmitId, polyId);
 
@@ -73,7 +70,7 @@ public class PolyService {
         for (Assembly assembly : assemblyList) {
             Poly poly = polyRepository.findByAssemblyId(assembly.getId());
             mostCmitAssemblyResponseList.add(new MostCmitAssemblyResponse(
-                    assembly.getId(), assembly.getHgName(), poly.getId(), poly.getPolyName()));
+                    assembly.getId(), assembly.getAssemblyImgUrl(), assembly.getHgName(), poly.getId(), poly.getPolyName()));
         }
         return mostCmitAssemblyResponseList;
     }
@@ -91,8 +88,8 @@ public class PolyService {
         int[] polyAttendance = getAverageAttendance(attendanceList);
         int[] totalAttendance = getAverageAttendance(totalAttendanceList);
 
-        int polyAverageAttendance = (polyAttendance[0] * 100 / polyAttendance[2]);
-        int totalAverageAttendance = (totalAttendance[0] * 100 / totalAttendance[2]);
+        int polyAverageAttendance = ((polyAttendance[2] - polyAttendance[1]) * 100 / polyAttendance[2]);
+        int totalAverageAttendance = ((totalAttendance[2] - totalAttendance[1]) * 100 / totalAttendance[2]);
 
         List<Assembly> descAssemblyList = assemblyRepository.findAssemblyByPolyAttendanceRateDesc(polyId);
         List<AssemblyAttendanceResponse> assemblyAttendanceDescList = new ArrayList<>();
@@ -102,7 +99,7 @@ public class PolyService {
                     () -> new BaseException(AttendanceErrorCode.ATTENDANCE_NOT_FOUND)
             );
             int rate = (attendance.getMeetingDays() - attendance.getAbsence()) * 100 / attendance.getMeetingDays();
-            assemblyAttendanceDescList.add(new AssemblyAttendanceResponse(assembly.getId(), assembly.getHgName(), rate));
+            assemblyAttendanceDescList.add(new AssemblyAttendanceResponse(assembly.getId(), assembly.getAssemblyImgUrl(), assembly.getHgName(), assembly.getPoly().getId(), rate));
 
         }
         List<Assembly> ascAssemblyList = assemblyRepository.findAssemblyByPolyAttendanceRateAsc(polyId);
@@ -113,7 +110,7 @@ public class PolyService {
             );
             int rate = (attendance.getMeetingDays() - attendance.getAbsence()) * 100 / attendance.getMeetingDays();
 
-            assemblyAttendanceAscList.add(new AssemblyAttendanceResponse(assembly.getId(), assembly.getHgName(), rate));
+            assemblyAttendanceAscList.add(new AssemblyAttendanceResponse(assembly.getId(), assembly.getAssemblyImgUrl(), assembly.getHgName(), assembly.getPoly().getId(), rate));
 
         }
         return new PolyAttendanceResponse(polyAverageAttendance, totalAverageAttendance, assemblyAttendanceDescList, assemblyAttendanceAscList);
