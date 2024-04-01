@@ -29,7 +29,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RequestMapping("/poly")
 @Tag(name = "Poly Info", description = "Poly Info(정당 정보) API")
-public class PolyController {
+public class    PolyController {
 
     private final PolyService polyService;
     private final BillService billService;

@@ -10,7 +10,6 @@ import com.honey.backend.exception.AttendanceErrorCode;
 import com.honey.backend.exception.BaseException;
 import com.honey.backend.exception.PolyErrorCode;
 import com.honey.backend.response.assembly.AssemblyAttendanceResponse;
-import com.honey.backend.response.assembly.AssemblyListResponse;
 import com.honey.backend.response.committee.MostCmitAssemblyResponse;
 import com.honey.backend.response.poly.PolyAttendanceResponse;
 import com.honey.backend.response.poly.PolyListResponse;
@@ -71,7 +70,7 @@ public class PolyService {
         for (Assembly assembly : assemblyList) {
             Poly poly = polyRepository.findByAssemblyId(assembly.getId());
             mostCmitAssemblyResponseList.add(new MostCmitAssemblyResponse(
-                    assembly.getId(), assembly.getHgName(), poly.getId(), poly.getPolyName()));
+                    assembly.getId(), assembly.getAssemblyImgUrl(), assembly.getHgName(), poly.getId(), poly.getPolyName()));
         }
         return mostCmitAssemblyResponseList;
     }
@@ -100,7 +99,7 @@ public class PolyService {
                     () -> new BaseException(AttendanceErrorCode.ATTENDANCE_NOT_FOUND)
             );
             int rate = (attendance.getMeetingDays() - attendance.getAbsence()) * 100 / attendance.getMeetingDays();
-            assemblyAttendanceDescList.add(new AssemblyAttendanceResponse(assembly.getId(), assembly.getHgName(), rate));
+            assemblyAttendanceDescList.add(new AssemblyAttendanceResponse(assembly.getId(), assembly.getAssemblyImgUrl(), assembly.getHgName(), assembly.getPoly().getId(), rate));
 
         }
         List<Assembly> ascAssemblyList = assemblyRepository.findAssemblyByPolyAttendanceRateAsc(polyId);
@@ -111,7 +110,7 @@ public class PolyService {
             );
             int rate = (attendance.getMeetingDays() - attendance.getAbsence()) * 100 / attendance.getMeetingDays();
 
-            assemblyAttendanceAscList.add(new AssemblyAttendanceResponse(assembly.getId(), assembly.getHgName(), rate));
+            assemblyAttendanceAscList.add(new AssemblyAttendanceResponse(assembly.getId(), assembly.getAssemblyImgUrl(), assembly.getHgName(), assembly.getPoly().getId(), rate));
 
         }
         return new PolyAttendanceResponse(polyAverageAttendance, totalAverageAttendance, assemblyAttendanceDescList, assemblyAttendanceAscList);
