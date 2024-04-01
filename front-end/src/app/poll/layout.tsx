@@ -1,6 +1,17 @@
 import React, { Suspense } from 'react';
 
-export default function PollLayout({ children }: { children: React.ReactNode }) {
+export default function PollLayout({
+  UserInteractionSection,
+  children,
+}: {
+  UserInteractionSection: React.ReactNode;
+  children: React.ReactNode;
+}) {
   //   return <Suspense>{children}</Suspense>;
-  return <>{children}</>;
+  return (
+    <>
+      <Suspense>{UserInteractionSection}</Suspense>
+      {children}
+    </>
+  );
 }
