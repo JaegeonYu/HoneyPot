@@ -15,7 +15,7 @@ import { PALETTE } from '@/_constants';
  *
  * @param aspectRatio
  * Card의 크기 비율을 설정할 수 있음 [type: string]
- * (ex. 정당 리스트 페이지: 1 / 1, 의원 리스트 페이지: 4 / 6, 의원 상세 조회: 4 / 7)
+ * (ex. 정당 리스트 페이지: 2 / 1, 의원 리스트 페이지: 4 / 6, 의원 상세 조회: 4 / 7)
  *
  * @param onClick
  * Card를 눌렀을 때 실행할 함수 [type: ([...args]:any) => any]
@@ -25,20 +25,23 @@ import { PALETTE } from '@/_constants';
  * (ex. 만약 뱃지가 필요 없다면 badge={{isBadgeNeed: false}})
  *
  * @description
- * 정당 카드로 즉, aspectRatio를 '1 / 1'로 설정할 경우 하단에 사용 가능한 height는 30%
+ * 정당 카드로 즉, aspectRatio를 '2 / 1'로 설정할 경우 하단에 사용 가능한 height는 30%
  * 의원 카드로 즉, aspectRatio를 '4 / 5'로 설정할 경우 하단에 사용 가능한 height는 20%
  */
 export default function Card({ ratio, imgUrl, children, badge, onClick }: T.CardProps) {
   return (
     <li
       className={S.wrapper}
-      style={assignInlineVars({ [S.aspectRatioProps]: ratio, [S.minWidth]: ratio === '4 / 7' ? '212px' : '212px' })}
+      style={assignInlineVars({
+        [S.aspectRatioProps]: ratio,
+        [S.minWidth]: ratio === '4 / 7' ? '212px' : '212px',
+      })}
       onClick={onClick}
     >
       <Image
         className={S.styledImage}
         style={assignInlineVars({
-          [S.imgPadding]: ratio === '1 / 1' ? '8px' : '0px',
+          [S.imgPadding]: ratio === '2 / 1' ? '8px' : '0px',
           [S.imgHeight]: ratio === '4 / 6' ? '80%' : '70%',
         })}
         src={imgUrl}

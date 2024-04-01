@@ -19,6 +19,8 @@ export const itemContent = style({
 
 export const itemDate = style({
   width: '86px',
+  fontSize: '12px',
+  lineHeight: '24px',
   fontWeight: 400,
   color: `${vars.colors.service.SUB_BLACK}`,
 });

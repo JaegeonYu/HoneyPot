@@ -3,6 +3,9 @@ import { createVar, style } from '@vanilla-extract/css';
 export const minWidth = createVar();
 export const aspectRatioProps = createVar();
 export const wrapper = style({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
   minWidth: minWidth,
   width: '100%',
   maxWidth: 402,
