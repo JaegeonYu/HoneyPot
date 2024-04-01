@@ -1,8 +1,11 @@
 export interface VideoCardProps {
-  title: string;
-  uploadTime: string;
-  duration: string;
-  views: string;
+  creatAt: string;
+  hits: number;
+  id: number;
+  imageUrl: string;
+  keywords: { id: number; keyword: string }[];
+  videoName: string;
   videoUrl: string;
-  thumbnailUrl: string;
+  videoTime: string;
+  onClick: ([...args]: any) => void;
 }

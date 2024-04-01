@@ -20,7 +20,6 @@ import TextTest from '@/_components/LoadingTest/TextTest/texttest';
 import TextSpinnerLoader from '@/_components/LoadingTest/TextSpinner/TextSpinner';
 import DotLoading from '@/_components/Bill/Subs/DotLoading/DotLoading';
 import Slogan from './Slogan';
-import { width } from '@/_components/Modal/Modal.css';
 import Image from 'next/image';
 import Link from 'next/link';
 

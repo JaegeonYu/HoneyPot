@@ -20,7 +20,9 @@ import Pledge from './Pledge/Pledge';
 import Pagination from './Pagination/Pagination';
 import Tooltip from './Tooltip/Tooltip';
 import FillterButton from './FillterButton/FillterButton';
-import Modal from './Modal/Modal';
+import FlexableModal from './FlexableModal/FlexableModal';
+import EmptyData from './EmptyData/EmptyData';
+import * as Controller from './VideoControllers';
 
 export {
   Header,
@@ -43,5 +45,7 @@ export {
   Pagination,
   Tooltip,
   FillterButton,
-  Modal,
+  FlexableModal,
+  EmptyData,
+  Controller,
 };

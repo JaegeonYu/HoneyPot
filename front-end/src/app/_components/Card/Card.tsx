@@ -46,6 +46,7 @@ export default function Card({ ratio, imgUrl, children, badge, onClick }: T.Card
         height={100}
         alt={imgUrl}
         quality={100}
+        priority={true}
       />
       {children}
       {badge.isBadgeNeed && badge.text && (

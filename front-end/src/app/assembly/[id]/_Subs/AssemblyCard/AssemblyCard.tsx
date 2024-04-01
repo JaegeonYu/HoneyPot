@@ -6,6 +6,7 @@ import * as Comp from '@/components';
 import * as Icon from '@/_assets/icon';
 import { PALETTE } from '@/_constants';
 import { useSuspenseQueries } from '@tanstack/react-query';
+import { useDateFormat } from '@/_customhooks';
 
 export default function AssemblyCard({ params }: T.AssemblyCardProps) {
   const [{ data: infoResponse, isFetched: infoFetched }, { data: snsResponse, isFetched: snsFetched }] =
@@ -24,10 +25,7 @@ export default function AssemblyCard({ params }: T.AssemblyCardProps) {
       ],
     });
 
-  const formatBirthDate = (date: string) => {
-    const newDate = date.split('-');
-    return `${newDate[0]}년 ${newDate[1]}월 ${newDate[2]}일생`;
-  };
+  const updateDate = useDateFormat({ date: infoResponse.data.birthDate, isFullYear: true });
   const calcAgeWithBirthDate = (date: string) => {
     const yearOfBirthDate = date.split('-')[0];
     const currentYear = new Date().getFullYear();
@@ -60,8 +58,7 @@ export default function AssemblyCard({ params }: T.AssemblyCardProps) {
           </div>
           <p className={S.areaName}>{infoResponse.data.origName}</p>
           <p className={S.birthDate}>
-            {formatBirthDate(infoResponse.data.birthDate)}
-            <span className={S.subText}>{calcAgeWithBirthDate(infoResponse.data.birthDate)}</span>
+            {updateDate}생<span className={S.subText}>{calcAgeWithBirthDate(infoResponse.data.birthDate)}</span>
           </p>
         </article>
       </Comp.Card>

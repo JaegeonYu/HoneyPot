@@ -3,6 +3,7 @@ import { style } from '@vanilla-extract/css';
 
 export const styledLink = style({
   width: '100%',
+  maxWidth: '402px',
   cursor: 'pointer',
 });
 
@@ -38,7 +39,7 @@ export const cardArticle = style({
   alignItems: 'center',
   justifyContent: 'center',
   flexDirection: 'column',
-  height: '16%',
+  height: '18%',
   padding: '4px 16px',
 });
 
