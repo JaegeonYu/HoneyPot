@@ -3,7 +3,9 @@ export interface VideoCardProps {
   hits: number;
   id: number;
   imageUrl: string;
-  keywords: string[];
+  keywords: { id: number; keyword: string }[];
   videoName: string;
   videoUrl: string;
+  videoTime: string;
+  onClick: ([...args]: any) => void;
 }

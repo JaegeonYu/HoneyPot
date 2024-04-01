@@ -3,6 +3,7 @@ import { style } from '@vanilla-extract/css';
 
 export const styledLink = style({
   width: '100%',
+  maxWidth: '402px',
   cursor: 'pointer',
 });
 
