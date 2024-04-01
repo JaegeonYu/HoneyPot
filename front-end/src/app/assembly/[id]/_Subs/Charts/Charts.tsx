@@ -49,7 +49,11 @@ export default function Charts({ params }: T.AssemblyChartsProps) {
               <div className={S.chartContainer}>
                 <p className={S.totalCount}>총 {pledgeRateResponse.data.pledgeFulfillmentStatus.totalPledges}개</p>
                 <Comp.PieChart
-                  chartTitle={'공약 추진 현황'}
+                  chartTitle={
+                    <>
+                      공약 추진 현황 <p className={S.infomationGivenDate}>(22년 6월 기준)</p>
+                    </>
+                  }
                   legendDisplay={true}
                   legendList={[
                     { title: '완료', color: PALETTE.party[infoResponse.data.polyName][100] },

@@ -58,6 +58,13 @@ export const totalCount = style({
   lineHeight: '20px',
 });
 
+export const infomationGivenDate = style({
+  width: '100%',
+  textAlign: 'center',
+  fontSize: '10px',
+  color: vars.colors.service.SUB_BLACK,
+});
+
 export const toolTipTitle = style({
   fontSize: '12px',
   fontWeight: 600,
