@@ -3896,6 +3896,11 @@ react-kakao-maps-sdk@^1.1.26:
     "@babel/runtime" "^7.22.15"
     kakao.maps.d.ts "^0.1.39"
 
+react-xml-parser@^1.1.8:
+  version "1.1.8"
+  resolved "https://registry.yarnpkg.com/react-xml-parser/-/react-xml-parser-1.1.8.tgz#e0fd3a5aa3c6e50197eed72a05fe110a5df64307"
+  integrity sha512-yX9k9LNCRzzNnFWoyo9cWEjtor6n6VD0Uh7z1ww5rIP6h5vdhJKEmowsm9RumEJMRdr7akcT4mMBScpsz573qQ==
+
 react@^18:
   version "18.2.0"
   resolved "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
@@ -4136,6 +4141,11 @@ signal-exit@^4.0.1:
   version "4.1.0"
   resolved "https://registry.npmjs.org/signal-exit/-/signal-exit-4.1.0.tgz"
   integrity sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==
+
+simple-xml-to-json@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/simple-xml-to-json/-/simple-xml-to-json-1.2.0.tgz#e59a3e4bb6abc299eef9d6d90fd100a8f3587893"
+  integrity sha512-SelHJsW0p2xnBs//1eZVzt/nLWkYn7hR2cjbZZqKbpYqN2OgmjZwRHMVhYe7eNUepvNv1tnPSiQbz60DtU5omw==
 
 slash@^3.0.0:
   version "3.0.0"

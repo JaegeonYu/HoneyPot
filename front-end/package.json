@@ -22,7 +22,9 @@
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18",
     "react-kakao-maps-sdk": "^1.1.26",
+    "react-xml-parser": "^1.1.8",
     "recoil": "^0.7.7",
+    "simple-xml-to-json": "^1.2.0",
     "three-dots": "^0.3.2"
   },
   "devDependencies": {
