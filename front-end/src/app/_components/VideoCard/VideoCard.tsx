@@ -14,6 +14,7 @@ export default function VideoCard({
   imageUrl,
   keywords,
   id,
+  videoTime,
   onClick,
 }: T.VideoCardProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -115,6 +116,7 @@ export default function VideoCard({
             />
             <Comp.Controller.ProgressBar
               isHover={isHover}
+              position="bottom"
               currentTime={currentVideo.progress}
               onScrubPostionHandler={handleScrubPosition}
               ref={fullProgressRef}
@@ -123,19 +125,24 @@ export default function VideoCard({
         )}
       </div>
       <article className={S.textContentWrapper}>
-        <p className={isLoad.img ? S.styledTitle : S.skeletonArticle} style={assignInlineVars({ [S.height]: '24px' })}>
-          {isLoad.img && videoName}
-        </p>
-        <div
-          className={isLoad.img ? S.keywordsWrapper : S.skeletonArticle}
-          style={assignInlineVars({ [S.height]: '12px' })}
-        >
-          {isLoad.img &&
-            keywords.map((keyword, i) => (
-              <p className={S.keywordItem} key={`${videoName}-keyword-${i}`}>
-                #{keyword}
-              </p>
-            ))}
+        <div>
+          <h3
+            className={isLoad.img ? S.styledTitle : S.skeletonArticle}
+            style={assignInlineVars({ [S.height]: '24px' })}
+          >
+            {isLoad.img && videoName}
+          </h3>
+          <div
+            className={isLoad.img ? S.keywordsWrapper : S.skeletonArticle}
+            style={assignInlineVars({ [S.height]: '12px' })}
+          >
+            {isLoad.img &&
+              keywords.map((keyword, i) => (
+                <p className={S.keywordItem} key={`${videoName}-keyword-${keyword.id}`}>
+                  #{keyword.keyword}
+                </p>
+              ))}
+          </div>
         </div>
         <p
           className={isLoad.img ? S.styledMetadata : S.skeletonArticle}
@@ -144,9 +151,9 @@ export default function VideoCard({
           {isLoad.img && `${updateDate} • ${hits} 조회`}
         </p>
       </article>
-      {/* <div className={S.durationContainer} style={assignInlineVars({ [S.toggleVisible]: isHover ? '0' : '0.99' })}>
-        {duration}
-      </div> */}
+      <div className={S.durationContainer} style={assignInlineVars({ [S.toggleVisible]: isHover ? '0' : '0.99' })}>
+        {videoTime}
+      </div>
     </li>
   );
 }

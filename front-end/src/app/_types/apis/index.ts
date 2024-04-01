@@ -38,6 +38,7 @@ export interface Video {
   imageUrl: string;
   creatAt: string;
   hits: number;
-  keywords: string[];
+  keywords: { id: number; keyword: string }[];
   videoSummary: string;
+  videoTime: string;
 }

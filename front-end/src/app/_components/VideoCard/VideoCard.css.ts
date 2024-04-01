@@ -87,9 +87,9 @@ export const durationContainer = style({
   right: '12px',
   borderRadius: 4,
   width: 'fit-content',
-  fontSize: '10px',
+  fontSize: '12px',
   color: vars.colors.service.MAIN_WHITE,
-  backgroundColor: vars.colors.service.SUB_BLACK,
+  backgroundColor: vars.colors.service.MAIN_BLACK,
   opacity: toggleVisible,
   padding: '2px 8px',
 });
