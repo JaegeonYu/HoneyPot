@@ -34,7 +34,7 @@ public class ElectionController {
                 ResponseEntity.status(HttpStatus.OK).body(candidateService.getList(candidateRequest));
     }
 
-    @GetMapping("candidate/{candidate_id}/pledge")
+    @GetMapping("/candidate/{candidate_id}/pledge")
     public ResponseEntity<PdfConversionResponse> convertPdfToImages(@PathVariable(name = "candidate_id") Long candidateId) {
         List<byte[]> pageImages = candidateService.convertPdfToImages(candidateId);
         PdfConversionResponse response = new PdfConversionResponse(pageImages);
