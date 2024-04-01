@@ -60,7 +60,7 @@ export default function AssembliesPage() {
       })
         .then(res => res)
         .catch(err => {
-          err.response.data.status === 400 && handleQueryString({ sido: 0, siGunGu: 0, dong: 0 });
+          err.response.data.status === 400 && handleQueryString({ sido: 0, siGunGu: 0, dong: 0, poly: 0, word: '' });
         }),
     initialPageParam: 0,
     getNextPageParam: (lastPage, allPages, lastPageParam, allPageParams) => {

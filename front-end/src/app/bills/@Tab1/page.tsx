@@ -147,19 +147,16 @@ export default function BillTab1() {
         <h2 className={S.titleWrapper} ref={scrollToRef}>
           <span className={S.title}>발의한 의안</span>
           <div style={{ display: 'flex', gap: 30 }}>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
+            <label style={{ display: 'flex', alignItems: 'center' }}>
               <input type="checkbox" id="check_btn" onClick={completeBill} />
-              <label>
-                <span style={{ fontSize: 12 }}>가결된 법안만 보기</span>
-              </label>
-            </div>
-
+              <span style={{ fontSize: 12 }}>가결된 법안만 보기</span>
+            </label>
             <span className={S.totalContWrapper}>
               총 <span className={S.number}>{billResponse.data.billStatResponse.totalCount || 0}</span>개
             </span>
           </div>
         </h2>
-        <div style={{ paddingTop: 4, backgroundColor: `${PALETTE.service.HOVER_BACKGROUND}` }}>
+        <div style={{ paddingTop: 4 }}>
           <Comp.CategoryList selectedIdx={selectedCategoryId} onCategoryClick={handleCategoryClick} />
         </div>
         <Suspense

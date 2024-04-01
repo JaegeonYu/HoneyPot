@@ -13,14 +13,14 @@ export default function FillterButtonList({ children, isSelected, onClick }: T.F
         [S.isSelectedBgColor]: isSelected ? PALETTE.service.MAIN_BLACK : PALETTE.service.SUB_WHITE,
       })}
     >
-      <span
+      <p
         className={S.text}
         style={assignInlineVars({
           [S.isSelectedFontColor]: isSelected ? PALETTE.service.MAIN_WHITE : PALETTE.service.MAIN_BLACK,
         })}
       >
         {children}
-      </span>
+      </p>
     </button>
   );
 }

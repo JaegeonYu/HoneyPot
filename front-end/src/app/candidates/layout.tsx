@@ -1,5 +1,16 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 
-export default function CandidatesLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+export default function CandidatesLayout({
+  UserInteractionSection,
+  children,
+}: {
+  UserInteractionSection: React.ReactNode;
+  children: React.ReactNode;
+}) {
+  return (
+    <Suspense>
+      {UserInteractionSection}
+      {children}
+    </Suspense>
+  );
 }
