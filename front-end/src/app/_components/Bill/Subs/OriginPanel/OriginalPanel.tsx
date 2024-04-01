@@ -7,7 +7,7 @@ export default function OriginalPanel({ data }: T.OriginalPanelProps) {
   // console.log('DORIGIGIGN');
 
   return (
-    <div className={S.billCardContentsMain}>
+    <div className={S.billCardContentsMain} id="2">
       <div className={S.billCardContentsProblem}>
         <div className={S.billCardContentsProblemText}>
           <p className={S.fontTitle}>제안이유 및 주요사항</p>

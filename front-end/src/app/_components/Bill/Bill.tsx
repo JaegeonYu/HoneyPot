@@ -79,14 +79,14 @@ export default function Bill({
     setIsActive(false);
     setIsToggled(false);
     setComm(cmitId);
-    console.log(initalflag, 'initalflag');
+    // console.log(initalflag, 'initalflag');
   }, [assemblyId, billId, billNo, cmitId]);
 
   useEffect(() => {
     if (isActive === true && initalflag === false && summary === null && textBody !== null) {
       setInitialflag(true);
-      console.log('CLICKED ONCE!', billId);
-      console.log(summaryResponse, 'summary');
+      // console.log('CLICKED ONCE!', billId);
+      // console.log(summaryResponse, 'summary');
       // setInitialflag(false);
     }
   }, [isActive]);
@@ -240,7 +240,9 @@ export default function Bill({
               <div>Error</div>
             )
           ) : textBody ? (
-            <OriginalPanel data={textBody}></OriginalPanel>
+            <div style={{ width: '100%' }}>
+              <OriginalPanel data={textBody}></OriginalPanel>
+            </div>
           ) : (
             <OriginalPanel data={'원문데이터가 없습니다'}></OriginalPanel>
           )}
