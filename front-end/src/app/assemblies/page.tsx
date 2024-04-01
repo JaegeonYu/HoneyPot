@@ -9,6 +9,7 @@ import { useIntersectionObserver } from '@/_customhooks';
 import Link from 'next/link';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { sendGAEvent } from '@next/third-parties/google';
 
 export default function AssembliesPage() {
   const router = useRouter();
@@ -92,7 +93,12 @@ export default function AssembliesPage() {
               return (
                 page?.data.assemblyCardResponseList !== undefined &&
                 page?.data.assemblyCardResponseList.map((res: T.Assembly, i: number) => (
-                  <Link className={S.styledLink} key={res.monaCd} href={`/assembly/${res.assemblyId}`}>
+                  <Link
+                    className={S.styledLink}
+                    key={res.monaCd}
+                    href={`/assembly/${res.assemblyId}`}
+                    onClick={() => sendGAEvent({ event: 'buttonClicked', value: `${res.hgName}` })}
+                  >
                     <Comp.Card
                       key={res.monaCd}
                       ratio="4 / 6"
