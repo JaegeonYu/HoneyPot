@@ -6,6 +6,9 @@ import * as T from '@/types';
 import * as Comp from '@/components';
 import * as SubComp from './_Subs';
 import Image from 'next/image';
+import { GoogleTagManager } from '@next/third-parties/google';
+import { GA_TRACKING_ID } from '../../../lib/gtag';
+import Script from 'next/script';
 
 export default function PolyDetailLayout({ Tab1, Tab2, params }: T.PartyDetailLayoutProps) {
   useEffect(() => {

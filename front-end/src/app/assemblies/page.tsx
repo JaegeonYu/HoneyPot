@@ -83,7 +83,9 @@ export default function AssembliesPage() {
 
   return (
     <section className={S.cardSection}>
-      {GA_TRACKING_ID && <GoogleTagManager gtmId={GA_TRACKING_ID} dataLayerName="dataLayerName : 국회의원 페이지" />}
+      {GA_TRACKING_ID && (
+        <GoogleTagManager gtmId={GA_TRACKING_ID} dataLayerName="dataLayerName : 국회의원 페이지입니다" />
+      )}
       <h2 className={S.titleWrapper}>
         <span className={S.title}>21대 국회의원</span>
         <span className={S.totalContWrapper}>
