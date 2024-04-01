@@ -22,6 +22,14 @@ export const title = style({
   lineHeight: '38px',
 });
 
+export const infomationGivenDate = style({
+  width: '100%',
+  textAlign: 'center',
+  paddingLeft: '8px',
+  fontSize: '12px',
+  color: vars.colors.service.SUB_BLACK,
+});
+
 export const totalContWrapper = style({
   fontSize: '14px',
   lineHeight: '38px',
