@@ -13,7 +13,7 @@ export const headerContainer = style({
   gap: 48,
   padding: '0px 5vw',
   position: 'fixed',
-  zIndex: 10,
+  zIndex: 10000000,
 
   '@media': {
     '(max-width: 768px)': {

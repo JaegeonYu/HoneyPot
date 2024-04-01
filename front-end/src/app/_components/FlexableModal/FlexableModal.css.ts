@@ -7,7 +7,7 @@ export const overlay = style({
   position: 'fixed',
   top: '0px',
   left: '0px',
-  zIndex: 9999999,
+  zIndex: 10000001,
   backgroundColor: vars.colors.service.SUB_BLACK,
   opacity: '0.5',
 });
@@ -26,16 +26,15 @@ export const wrapper = style({
   bottom: bottom,
   right: right,
   transform: transform,
-  zIndex: 10000000,
-
+  zIndex: 10000002,
   transition: 'all 0.3s ease',
 });
 
-export const padding = createVar();
+export const paddingTop = createVar();
 export const container = style({
   width: '100%',
   height: '100%',
-  padding: padding,
+  paddingTop: paddingTop,
   position: 'relative',
 });
 
@@ -47,15 +46,21 @@ export const icon = style({
   alignItems: 'center',
 
   selectors: {
-    [`&:hover`]: {},
+    [`&:hover`]: {
+      backgroundColor: vars.colors.service.HOVER_STROKE,
+    },
   },
 });
 
 export const extendIcon = style([
   icon,
   {
-    top: '4px',
+    width: '28px',
+    height: '28px',
+    top: '2px',
     left: '6px',
+    padding: '4px',
+    borderRadius: '100%',
   },
 ]);
 
@@ -65,9 +70,8 @@ export const arrowIcon = style([
     width: '28px',
     height: '28px',
     padding: '8px',
-    top: '4px',
+    top: '2px',
     left: '6px',
-    border: `1px solid ${vars.colors.service.SUB_BLACK}`,
     borderRadius: '100%',
   },
 ]);
@@ -79,10 +83,9 @@ export const closeIcon = style([
   {
     width: '28px',
     height: '28px',
-    top: '4px',
+    top: '2px',
     right: '4px',
     padding: '8px',
-    border: `1px solid ${vars.colors.service.SUB_BLACK}`,
     borderRadius: '100%',
   },
 ]);

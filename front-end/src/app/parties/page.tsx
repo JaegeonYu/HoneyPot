@@ -40,7 +40,6 @@ export default function PolyListPage() {
           queryKey: [`party-list-news`],
           queryFn: () =>
             API.poly.getNewsInPolyList().then(res => {
-              console.log(`res.data :`, res.data);
               return res.data.nbzyjjyoamdqqjorw[1].row.map((item: any, index: number) => ({
                 id: index,
                 title: item.COMP_MAIN_TITLE,

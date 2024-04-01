@@ -30,3 +30,15 @@ export interface Assembly {
   origName: string;
   polyName: string;
 }
+
+export interface Video {
+  id: number;
+  videoName: string;
+  videoUrl: string;
+  imageUrl: string;
+  creatAt: string;
+  hits: number;
+  keywords: { id: number; keyword: string }[];
+  videoSummary: string;
+  videoTime: string;
+}
