@@ -19,14 +19,14 @@ export default function PolyCard({ polyId, leader, polySeatsResponse }: PolyCard
       href={`/party/${polyId}`}
       onClick={() => sendGAEvent({ event: 'buttonClicked', value: `${polyId}클릭` })}
     >
-      <Comp.Card ratio="1 / 1" badge={{ isBadgeNeed: false }} imgUrl={`/party/party-${polyId}.svg`}>
-        <div className={S.cardInfoSection}>
+      <Comp.Card ratio="2 / 1" badge={{ isBadgeNeed: false }} imgUrl={`/party/party-${polyId}.svg`}>
+        {/* <div className={S.cardInfoSection}>
           <div className={S.partyCntWrapper}>
             <span className={S.partySeat}>{polySeatsResponse.seats} 명</span>
             <span className={S.totalSeat}> / {polySeatsResponse.totalSeats} 명</span>
           </div>
           <div className={S.leaderName}>당대표 : {leader}</div>
-        </div>
+        </div> */}
         <></>
       </Comp.Card>
     </Link>
