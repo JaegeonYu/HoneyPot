@@ -1,10 +1,11 @@
 import { vars } from '@/globalTheme.css';
 import { createVar, style } from '@vanilla-extract/css';
 
+export const postion = createVar();
 export const toggleVisible = createVar();
 export const progressBarTrack = style({
   position: 'absolute',
-  top: '0px',
+  top: postion,
   left: '0px',
   width: '100%',
   height: '4px',

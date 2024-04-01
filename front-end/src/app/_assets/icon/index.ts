@@ -14,6 +14,8 @@ import YoutubeLogo from './svgs/youtube-icon.svg';
 import ArrowMain from './svgs/arrow-main.svg';
 import Play from './svgs/play.svg';
 import Pause from './svgs/pause.svg';
+import VolumeFull from './svgs/volume-full.svg';
+import VolumeMute from './svgs/volume-mute.svg';
 
 export {
   ArrowBlack,
@@ -32,4 +34,6 @@ export {
   ArrowMain,
   Play,
   Pause,
+  VolumeFull,
+  VolumeMute,
 };

@@ -6,10 +6,12 @@ function ProgressBar(
   {
     isHover,
     currentTime,
+    position,
     onScrubPostionHandler,
   }: {
     isHover: boolean;
     currentTime: number;
+    position: 'top' | 'bottom';
     onScrubPostionHandler: (e: React.MouseEvent<HTMLDivElement>) => void;
   },
   ref: React.ForwardedRef<HTMLDivElement>,
@@ -19,7 +21,10 @@ function ProgressBar(
   return (
     <div
       className={S.progressBarTrack}
-      style={assignInlineVars({ [S.toggleVisible]: isHover ? '0.99' : '0' })}
+      style={assignInlineVars({
+        [S.toggleVisible]: isHover ? '0.99' : '0',
+        [S.postion]: position === 'top' ? '0%' : '99%',
+      })}
       ref={ref}
       onMouseDown={() => setIsMouseDown(true)}
       onMouseUp={() => setIsMouseDown(false)}
