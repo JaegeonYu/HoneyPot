@@ -69,7 +69,6 @@ export default function DetailModal({
     if (fullProgressRef.current && videoRef.current) {
       const scrubTime = (e.nativeEvent.offsetX / fullProgressRef.current.offsetWidth) * videoRef.current.duration;
       videoRef.current.currentTime = scrubTime;
-      console.log(`scrubTime :`, scrubTime);
       // TODO : 상황은 그냥 track에서 막 시간 움직였을 때 이슈가 있음
       // 여기랑 calcCurrentTimePercent이게 문제인 거 같기도 하고?
     }
@@ -98,8 +97,8 @@ export default function DetailModal({
     let curMin = String(Math.floor((currentVideo.time & 60) / 60));
     let curSec = String(Math.floor(currentVideo.time % 60));
 
-    console.log(`curMin :`, Math.floor((currentVideo.time & 60) / 60));
-    console.log(`curSec :`, Math.floor(currentVideo.time % 60));
+    // console.log(`curMin :`, Math.floor((currentVideo.time & 60) / 60));
+    // console.log(`curSec :`, Math.floor(currentVideo.time % 60));
 
     if (curMin.length === 1) curMin = '0' + curMin;
 

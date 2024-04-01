@@ -64,3 +64,9 @@ export const partyTitle = style({
   borderBottom: `1px solid ${vars.colors.service.STROKE_OR_BLUR}`,
   padding: '48px 0px 8px 0px',
 });
+
+export const skeletonNews = style({
+  width: '100%',
+  height: '24px',
+  backgroundColor: vars.colors.service.HOVER_BACKGROUND,
+});

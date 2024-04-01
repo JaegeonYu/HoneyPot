@@ -30,7 +30,8 @@ export const logo = style({
 });
 
 export const navWrapper = style({
-  width: '388px',
+  // width: '388px',
+  width: '288px',
   height: '100%',
   display: 'flex',
   justifyContent: 'space-between',

@@ -4,6 +4,13 @@ import { vars } from '@/globalTheme.css';
 export const styledLink = style({
   width: '100%',
   cursor: 'pointer',
+  transition: 'all 0.3s ease',
+
+  selectors: {
+    [`&:hover`]: {
+      transform: 'translate(-4px, -4px)',
+    },
+  },
 });
 
 export const cardInfoSection = style({

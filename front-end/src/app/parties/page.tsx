@@ -60,15 +60,19 @@ export default function PolyListPage() {
           <div className={S.newsHeader}>최근 국회 뉴스</div>
           <div className={S.newsContent}>
             <article className={S.itemsWrapper}>
-              {newsList?.slice(0, 3).map((item: NewsProps, i: number) => (
-                <SubComp.News key={`party-list-news-${item.id}`} {...item} />
-              ))}
+              {newsList
+                ? newsList
+                    .slice(0, 3)
+                    .map((item: NewsProps, i: number) => <SubComp.News key={`party-list-news-${item.id}`} {...item} />)
+                : Array.from({ length: 3 }).map((el, i) => <div key={i} className={S.skeletonNews} />)}
             </article>
             <div className={S.line} />
             <article className={S.itemsWrapper}>
-              {newsList?.slice(3).map((item: NewsProps, i: number) => (
-                <SubComp.News key={`party-list-news-${item.id}`} {...item} />
-              ))}
+              {newsList
+                ? newsList
+                    .slice(3)
+                    .map((item: NewsProps, i: number) => <SubComp.News key={`party-list-news-${item.id}`} {...item} />)
+                : Array.from({ length: 3 }).map((el, i) => <div key={i + 3} className={S.skeletonNews} />)}
             </article>
           </div>
         </div>
