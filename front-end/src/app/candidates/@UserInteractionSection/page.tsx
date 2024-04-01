@@ -8,19 +8,19 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 export default function UserInteractionSection() {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
+  // const router = useRouter();
+  // const pathname = usePathname();
+  // const searchParams = useSearchParams();
 
-  const handleQueryString = useCallback(() => {
-    const params = new URLSearchParams(searchParams.toString());
-  }, [searchParams]);
+  // const handleQueryString = useCallback(() => {
+  //   const params = new URLSearchParams(searchParams.toString());
+  // }, [searchParams]);
 
-  const { data: siDoListResponse, isFetched: siDoListFetched } = useSuspenseQuery({
-    queryKey: [{ candidate: `si-do-list` }],
-    queryFn: () => API.cantidate.getCandianteSiDoList(),
-    retry: false,
-  });
+  // const { data: siDoListResponse, isFetched: siDoListFetched } = useSuspenseQuery({
+  //   queryKey: [{ candidate: `si-do-list` }],
+  //   queryFn: () => API.cantidate.getCandianteSiDoList(),
+  //   retry: false,
+  // });
 
   //   const { data: siGunGuListResponse, isFetched: siGunGuListFetched } = useSuspenseQuery({
   //     queryKey: [{ candidate: `si-gun-gu-list` }],
