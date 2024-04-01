@@ -7,7 +7,7 @@ import com.honey.backend.response.bill.BillListResponse;
 import com.honey.backend.response.bill.BillResponse;
 import com.honey.backend.response.bill.BillStatResponse;
 import com.honey.backend.response.committee.CommitteeResponse;
-import com.honey.backend.response.committee.MostCmitAssemblyResponse;
+import com.honey.backend.response.assembly.MostCmitAssemblyResponse;
 import com.honey.backend.response.poly.PolyListResponse;
 import com.honey.backend.response.poly.PolyResponse;
 import com.honey.backend.service.AssemblyService;

@@ -15,7 +15,8 @@ public interface AssemblyRepositoryCustom {
     List<Assembly> findMostAssemblyByPoly(Long cmitId, Long polyId);
 
     List<Assembly> findMostAssembly(Long cmitId);
-
+    List<Long> countMostAssembly(Long cmitId, Long polyId);
     List<Assembly> findAssemblyByPolyAttendanceRateDesc(Long polyId);
+
     List<Assembly> findAssemblyByPolyAttendanceRateAsc(Long polyId);
 }

@@ -17,7 +17,7 @@ import com.honey.backend.exception.*;
 import com.honey.backend.request.AssemblyListRequest;
 import com.honey.backend.response.assembly.*;
 import com.honey.backend.response.committee.CommitteeResponse;
-import com.honey.backend.response.committee.MostCmitAssemblyResponse;
+import com.honey.backend.response.assembly.MostCmitAssemblyResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -75,12 +75,14 @@ public class AssemblyService {
 
     public List<MostCmitAssemblyResponse> findMostAssembly(Long cmitId) {
         List<Assembly> assemblyList = assemblyRepository.findMostAssembly(cmitId);
-
+        List<Long> countList = assemblyRepository.countMostAssembly(cmitId,null);
         List<MostCmitAssemblyResponse> mostCmitAssemblyResponseList = new ArrayList<>();
-        for (Assembly assembly : assemblyList) {
+        for (int i = 0 ; i < assemblyList.size() ; i++) {
+            Assembly assembly = assemblyList.get(i);
+            Long count = countList.get(i);
             Poly poly = polyRepository.findByAssemblyId(assembly.getId());
             mostCmitAssemblyResponseList.add(new MostCmitAssemblyResponse(
-                    assembly.getId(), assembly.getAssemblyImgUrl(), assembly.getHgName(), poly.getId(), poly.getPolyName()));
+                    assembly.getId(), assembly.getAssemblyImgUrl(), assembly.getHgName(), poly.getId(), poly.getPolyName(), count.intValue()));
         }
         return mostCmitAssemblyResponseList;
     }

@@ -10,7 +10,7 @@ import com.honey.backend.exception.AttendanceErrorCode;
 import com.honey.backend.exception.BaseException;
 import com.honey.backend.exception.PolyErrorCode;
 import com.honey.backend.response.assembly.AssemblyAttendanceResponse;
-import com.honey.backend.response.committee.MostCmitAssemblyResponse;
+import com.honey.backend.response.assembly.MostCmitAssemblyResponse;
 import com.honey.backend.response.poly.PolyAttendanceResponse;
 import com.honey.backend.response.poly.PolyListResponse;
 import com.honey.backend.response.poly.PolyResponse;
@@ -65,12 +65,14 @@ public class PolyService {
 
     public List<MostCmitAssemblyResponse> findMostAssemblyByPoly(Long cmitId, Long polyId) {
         List<Assembly> assemblyList = assemblyRepository.findMostAssemblyByPoly(cmitId, polyId);
-
+        List<Long> countList = assemblyRepository.countMostAssembly(cmitId, polyId);
         List<MostCmitAssemblyResponse> mostCmitAssemblyResponseList = new ArrayList<>();
-        for (Assembly assembly : assemblyList) {
+        for (int i = 0; i < assemblyList.size(); i++) {
+            Assembly assembly = assemblyList.get(i);
+            Long count = countList.get(i);
             Poly poly = polyRepository.findByAssemblyId(assembly.getId());
             mostCmitAssemblyResponseList.add(new MostCmitAssemblyResponse(
-                    assembly.getId(), assembly.getAssemblyImgUrl(), assembly.getHgName(), poly.getId(), poly.getPolyName()));
+                    assembly.getId(), assembly.getAssemblyImgUrl(), assembly.getHgName(), poly.getId(), poly.getPolyName(), count.intValue()));
         }
         return mostCmitAssemblyResponseList;
     }
