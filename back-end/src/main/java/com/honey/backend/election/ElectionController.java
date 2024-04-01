@@ -1,9 +1,6 @@
 package com.honey.backend.election;
 
-import com.honey.backend.election.candidate.CandidateListResponse;
-import com.honey.backend.election.candidate.CandidateRequest;
-import com.honey.backend.election.candidate.CandidateResponse;
-import com.honey.backend.election.candidate.CandidateService;
+import com.honey.backend.election.candidate.*;
 import com.honey.backend.election.region.TotalRegionService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +32,13 @@ public class ElectionController {
 
         return candidateListResponse.candidateResponseList().isEmpty() ? ResponseEntity.status(HttpStatus.NO_CONTENT).body(candidateListResponse) :
                 ResponseEntity.status(HttpStatus.OK).body(candidateService.getList(candidateRequest));
+    }
+
+    @GetMapping("candidate/{candidate_id}/pledge")
+    public ResponseEntity<PdfConversionResponse> convertPdfToImages(@PathVariable(name = "candidate_id") Long candidateId) {
+        List<byte[]> pageImages = candidateService.convertPdfToImages(candidateId);
+        PdfConversionResponse response = new PdfConversionResponse(pageImages);
+        return ResponseEntity.ok().body(response);
     }
 
     @GetMapping("/region/sido")

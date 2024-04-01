@@ -88,7 +88,6 @@ public class CandidateLoad {
                     .uri(candUrl + uri)
                     .retrieve()
                     .bodyToMono(String.class).block();
-            System.out.println(candUrl + uri);
             try {
                 JAXBContext jaxbContext = JAXBContext.newInstance(Response.class);
                 Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();

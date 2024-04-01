@@ -17,7 +17,7 @@ public class ElectionLoad {
     private final CandidateLoad candidateLoad;
     private final TotalRegionLoad totalRegionLoad;
 
-   // @PostConstruct
+//    @PostConstruct
     public void load() throws IOException {
         totalRegionLoad.insertRegion();
         candidateLoad.saveCandidate();
