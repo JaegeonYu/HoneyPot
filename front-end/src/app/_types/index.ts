@@ -35,7 +35,7 @@ import {
   AssemblyTab1Props,
   AssemblyTab2Props,
   AssemblyTab3Props,
-} from './pages/assembly-detail';
+} from './pages/assembly';
 
 import { BillsLayoutProps } from './pages/bills';
 import {
@@ -44,7 +44,8 @@ import {
   PartyDetailTopBillCategoriesProps,
   PartyDetailTab1Props,
   PartyDetailTab2Props,
-} from './pages/party-detail';
+} from './pages/party';
+import { DetailModalProps } from './pages/videoNews';
 
 /** pages */
 
@@ -100,4 +101,5 @@ export type {
   PolyMember,
   EmptyDataProps,
   Video,
+  DetailModalProps,
 };
