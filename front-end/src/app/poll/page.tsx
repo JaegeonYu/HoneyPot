@@ -45,7 +45,7 @@ export default function Poll() {
   }, [pollResponse, size]);
   return (
     <div>
-      <button>dd</button>
+      <div style={{ fontSize: 38, fontWeight: 700, textAlign: 'center' }}>우리 지역 투표소를 찾아보세요</div>
       <KakaoMap pollList={pollList || []}></KakaoMap>{' '}
     </div>
   );
