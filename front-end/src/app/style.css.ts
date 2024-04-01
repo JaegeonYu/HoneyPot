@@ -91,7 +91,7 @@ export const billWrapper = style({
 export const btn = style({
   width: '15vw',
   height: '7vh',
-  backgroundColor: `${vars.colors.service.MAIN_COLOR_60}`,
+  backgroundColor: `${vars.colors.service.MAIN_COLOR_100}`,
   alignItems: 'center',
   justifyContent: 'center',
   display: 'flex',
