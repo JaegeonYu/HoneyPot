@@ -10,6 +10,8 @@ import Link from 'next/link';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { sendGAEvent } from '@next/third-parties/google';
+import { GA_TRACKING_ID } from '../../lib/gtag';
+import { GoogleTagManager } from '@next/third-parties/google';
 
 export default function AssembliesPage() {
   const router = useRouter();
@@ -81,6 +83,7 @@ export default function AssembliesPage() {
 
   return (
     <section className={S.cardSection}>
+      {GA_TRACKING_ID && <GoogleTagManager gtmId={GA_TRACKING_ID} dataLayerName="dataLayerName : 국회의원 페이지" />}
       <h2 className={S.titleWrapper}>
         <span className={S.title}>21대 국회의원</span>
         <span className={S.totalContWrapper}>
