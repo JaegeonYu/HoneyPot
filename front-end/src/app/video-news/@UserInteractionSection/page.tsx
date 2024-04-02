@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import * as S from './page.css';
 import * as Comp from '@/components';
 import * as API from '@/_apis/video';
+import * as Icon from '@/_assets/icon';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 
@@ -11,6 +12,9 @@ export default function UserInteractionSection() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+
+  const translateRef = useRef<HTMLDivElement>(null);
+  const listContainerRef = useRef<HTMLDivElement>(null);
 
   const [value, setValue] = useState('');
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,21 +43,59 @@ export default function UserInteractionSection() {
     handleQueryString({ category: Number(searchParams.get('category')), word: value });
   };
 
+  const handleCaluseolClick = (dir: 'L' | 'R') => {
+    if (translateRef.current && listContainerRef.current) {
+      const movingSize = translateRef.current.offsetWidth / 2;
+      const currentMoved = translateRef.current.scrollLeft;
+      const limitSize = listContainerRef.current.offsetWidth;
+
+      if (dir === 'L') {
+        if (currentMoved < movingSize) {
+          translateRef.current.scrollLeft = 0;
+        } else if (currentMoved - movingSize >= 0) {
+          translateRef.current.scrollLeft = translateRef.current.scrollLeft - movingSize;
+        }
+      } else if (dir === 'R') {
+        if (limitSize - currentMoved < movingSize) {
+          translateRef.current.scrollLeft = limitSize;
+        } else if (limitSize - currentMoved > movingSize) {
+          translateRef.current.scrollLeft = translateRef.current.scrollLeft + movingSize;
+        }
+      }
+    }
+  };
+
   return (
     <section className={S.wrapper}>
-      <div className={S.keywordWindow}>
-        <div className={S.keywordList}>
-          {categoryList?.map((res, i) => (
-            <Comp.FillterButton
-              key={`category-${res.id}`}
-              isSelected={Number(searchParams.get('category')) === i}
-              onClick={() => handleQueryString({ category: res.id, word: searchParams.get('word') || '' })}
-            >
-              {res.categoryName}
-            </Comp.FillterButton>
-          ))}
+      {categoryListFetched ? (
+        <div className={S.relativeWrapper}>
+          <div className={S.keywordWindow} ref={translateRef}>
+            <div className={S.keywordList} ref={listContainerRef}>
+              {categoryList?.map((res, i) => (
+                <Comp.FillterButton
+                  key={`category-${res.id}`}
+                  isSelected={Number(searchParams.get('category')) === i}
+                  onClick={() => handleQueryString({ category: res.id, word: searchParams.get('word') || '' })}
+                >
+                  {res.categoryName}
+                </Comp.FillterButton>
+              ))}
+            </div>
+          </div>
+          <Icon.ArrowBlack
+            className={S.toLeftIcon}
+            onClick={() => handleCaluseolClick('L')}
+            onTouchStart={() => handleCaluseolClick('L')}
+          />
+          <Icon.ArrowBlack
+            className={S.toRightIcon}
+            onClick={() => handleCaluseolClick('R')}
+            onTouchStart={() => handleCaluseolClick('R')}
+          />
         </div>
-      </div>
+      ) : (
+        <div className={S.skeletonWrapper} />
+      )}
       <form className={S.inputWrapper} onSubmit={handleSubmit}>
         <span className={S.givenInfomation}>
           영상 출처 :

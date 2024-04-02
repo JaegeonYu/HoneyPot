@@ -4,7 +4,7 @@ import * as T from '@/types';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 import { PALETTE } from '@/_constants';
 
-export default function FillterButtonList({ children, isSelected, onClick }: T.FillterButtonProps) {
+export default function FilterButton({ children, isSelected, onClick }: T.FillterButtonProps) {
   return (
     <button
       className={S.item}
@@ -13,14 +13,14 @@ export default function FillterButtonList({ children, isSelected, onClick }: T.F
         [S.isSelectedBgColor]: isSelected ? PALETTE.service.MAIN_BLACK : PALETTE.service.SUB_WHITE,
       })}
     >
-      <p
+      <div
         className={S.text}
         style={assignInlineVars({
           [S.isSelectedFontColor]: isSelected ? PALETTE.service.MAIN_WHITE : PALETTE.service.MAIN_BLACK,
         })}
       >
         {children}
-      </p>
+      </div>
     </button>
   );
 }
