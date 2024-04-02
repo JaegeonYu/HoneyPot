@@ -49,16 +49,28 @@ export const exceptionText = style({
   textAlign: 'center',
 });
 
-export const cardArticle = style({
-  display: 'flex',
+export const gridWrapper = style({
+  width: '100%',
+  height: 'fit-content',
+  display: 'grid',
+  gridTemplateColumns: 'repeat(4, 1fr)',
   alignItems: 'center',
-  justifyContent: 'center',
-  flexDirection: 'column',
-  height: '20%',
-  padding: '4px 16px',
-});
+  justifyItems: 'center',
+  gap: 34,
+  padding: 16,
+  transition: 'padding 0.5s ease',
 
-export const hgName = style({
-  fontSize: '18px',
-  fontWeight: 600,
+  '@media': {
+    '(max-width: 1372px)': {
+      gridTemplateColumns: 'repeat(3, 1fr)',
+    },
+    '(max-width: 1024px)': {
+      gridTemplateColumns: 'repeat(2, 1fr)',
+      padding: '16px 2vw',
+    },
+    '(max-width: 668px)': {
+      gridTemplateColumns: 'repeat(1, 1fr)',
+      padding: '16px 4vw',
+    },
+  },
 });
