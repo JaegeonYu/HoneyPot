@@ -42,3 +42,26 @@ export interface Video {
   videoSummary: string;
   videoTime: string;
 }
+
+export interface Candidate {
+  addr: string;
+  age: number;
+  birthday: string;
+  candidateImgUrl: string;
+  career1: string;
+  career2: string;
+  edu: string;
+  gender: string;
+  giho: number;
+  hgname: string;
+  hjName: string;
+  huboid: number;
+  jdName: string;
+  job: string;
+  sdName: string;
+  sgDate: string;
+  sgTypeCode: number;
+  sggName: string;
+  status: string;
+  wiwName: string;
+}
