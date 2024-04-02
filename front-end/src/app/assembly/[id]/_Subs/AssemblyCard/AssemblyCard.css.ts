@@ -67,7 +67,7 @@ export const snsWrapper = style({
   display: 'flex',
   justifyContent: 'space-between',
   width: '100%',
-  maxWidth: 402,
+  maxWidth: '276px',
   padding: '12px 8px',
 });
 
