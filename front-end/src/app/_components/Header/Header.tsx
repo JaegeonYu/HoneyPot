@@ -49,7 +49,7 @@ function Header() {
             </Link>
             <Link
               className={S.styledLink}
-              href="/polling-places"
+              href="/poll"
               onClick={() => sendGAEvent({ event: 'buttonClicked', value: '[투표소 확인] 클릭]' })}
             >
               <li className={S.dropBoxItem}>투표소 확인</li>

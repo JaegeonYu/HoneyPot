@@ -34,7 +34,7 @@ export default function Poll() {
     queryKey: [{ bill: `info-request-poll-list` }, { page, size, sido, gugun }], // 쿼리 키에 page와 limit 추가
     queryFn: () =>
       API.getPoll({ sido, gugun, page, size }).then(res => {
-        console.log(res.data.response.body.totalCount, 'total');
+        // console.log(res.data.response.body.totalCount, 'total');
 
         // setPage(2);
         return res.data;
@@ -50,7 +50,7 @@ export default function Poll() {
     // 데이터가 변경되면 isActive 상태를 false로 초기화
     if (pollFetched && pollResponse && gugun) {
       // console.log(pollResponse.data.response.body.totalCount, 'pollResponse');
-      console.log(pollResponse, 'pollResponse');
+      // console.log(pollResponse, 'pollResponse');
       let data = pollResponse.response.body.items.item;
       let temparr: any = [];
       data.forEach(function (res: any) {
