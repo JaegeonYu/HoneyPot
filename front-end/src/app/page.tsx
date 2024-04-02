@@ -18,6 +18,7 @@ import Slogan from './Slogan';
 import Image from 'next/image';
 import Link from 'next/link';
 import TextTest from './_components/LoadingTest/TextTest/texttest';
+import KakaoMap from './_components/KakaoMap/KakaoMap';
 
 export default function MainTest() {
   const scrollToRef = useRef<HTMLDivElement>(null);

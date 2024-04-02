@@ -1,4 +1,4 @@
-import { instance } from '../instance';
+import { instance, pollinstance } from '../instance';
 
 // GET
 export async function getCandidateList({
@@ -38,4 +38,21 @@ export async function getCandianteDongList({ siDo, siGunGu }: { siDo: string; si
 export async function getCandianteDetail({ id }: { id: number }) {
   // return await instance.get(`/election/candidate/${id}/pledge`);
   return await instance.get(`/election/candidate/${1}/pledge`);
+}
+
+// GET
+export async function getPoll({
+  page,
+  size,
+  sido,
+  gugun,
+}: {
+  page: number;
+  size: number;
+  sido: string;
+  gugun: string;
+}) {
+  return await pollinstance.get(
+    `getPolplcOtlnmapTrnsportInfoInqire?ServiceKey=${process.env.NEXT_PUBLIC_POLL_KEY}&pageNo=${page}&numOfRows=${size}&sgId=20240410&sdName=${sido}&wiwName=${gugun}`,
+  );
 }
