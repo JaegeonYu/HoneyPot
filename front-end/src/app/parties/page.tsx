@@ -77,7 +77,19 @@ export default function PolyListPage() {
           </div>
         </div>
       </section>
-      <div className={S.partyTitle}>21대 국회 정당</div>
+      <div className={S.partyTitle}>
+        21대 국회 정당
+        <span className={S.givenInfomation}>
+          정당 정보 출처 :{' '}
+          <a
+            className={S.givenInfomationLink}
+            href="https://open.assembly.go.kr/portal/data/service/selectAPIServicePage.do/OJ24FX001003FD16907#none"
+            target="_black"
+          >
+            국회사무처
+          </a>
+        </span>
+      </div>
       <Comp.GridWrapper>
         {partyList?.map((party: Poly, i: number) => (
           <SubComp.PolyCard key={`party-${party.polyId}`} {...party} />

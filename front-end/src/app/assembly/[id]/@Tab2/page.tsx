@@ -70,7 +70,19 @@ export default function AssemblyTab2({ params }: T.AssemblyTab2Props) {
     <>
       <section className={S.wrapper}>
         <h2 className={S.titleWrapper} ref={target}>
-          <span className={S.title}>법안</span>
+          <span className={S.title}>
+            법안
+            <span className={S.givenInfomation}>
+              정보 출처 :{' '}
+              <a
+                className={S.givenInfomationLink}
+                href="https://open.assembly.go.kr/portal/data/service/selectAPIServicePage.do/O4K6HM0012064I15889"
+                target="_black"
+              >
+                국회사무처
+              </a>
+            </span>
+          </span>
           <span className={S.totalContWrapper}>
             총 <span className={S.number}>{totalCount || 0}</span>개
           </span>

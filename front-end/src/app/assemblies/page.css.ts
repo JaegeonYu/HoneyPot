@@ -24,6 +24,21 @@ export const title = style({
   lineHeight: '38px',
 });
 
+export const givenInfomation = style({
+  textAlign: 'right',
+  fontSize: '12px',
+  color: vars.colors.service.SUB_BLACK,
+  padding: '0px 8px',
+  lineHeight: '26px',
+});
+
+export const givenInfomationLink = style({
+  fontSize: '12px',
+  color: vars.colors.service.SUB_BLACK,
+  textDecoration: 'underline',
+  paddingLeft: '4px',
+});
+
 export const totalContWrapper = style({
   fontSize: '14px',
   lineHeight: '38px',

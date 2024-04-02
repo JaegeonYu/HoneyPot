@@ -23,7 +23,6 @@ export const title = style({
 });
 
 export const infomationGivenDate = style({
-  width: '100%',
   textAlign: 'center',
   paddingLeft: '8px',
   fontSize: '12px',

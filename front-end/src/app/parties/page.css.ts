@@ -58,11 +58,26 @@ export const line = style({
 });
 
 export const partyTitle = style({
+  display: 'flex',
+  justifyContent: 'space-between',
   width: '100%',
   fontSize: 18,
   fontWeight: 'bold',
   borderBottom: `1px solid ${vars.colors.service.STROKE_OR_BLUR}`,
   padding: '48px 0px 8px 0px',
+});
+
+export const givenInfomation = style({
+  fontSize: '12px',
+  color: vars.colors.service.SUB_BLACK,
+  padding: '0px 8px',
+  lineHeight: '26px',
+});
+
+export const givenInfomationLink = style({
+  fontSize: '12px',
+  color: vars.colors.service.SUB_BLACK,
+  textDecoration: 'underline',
 });
 
 export const skeletonNews = style({
