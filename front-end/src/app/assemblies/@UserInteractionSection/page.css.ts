@@ -1,5 +1,5 @@
 import { vars } from '@/globalTheme.css';
-import { createVar, globalStyle, style } from '@vanilla-extract/css';
+import { globalStyle, style } from '@vanilla-extract/css';
 
 export const userInteractionSection = style({
   width: '100%',
@@ -20,13 +20,21 @@ export const areaSelectorWrapper = style({
   width: '100%',
 });
 
-export const partyListWindow = style({
+export const relativeWrapper = style({
+  width: '100%',
+  position: 'relative',
+  overflow: 'hidden',
+  padding: '0px 16px',
+});
+
+export const scrollAblePartyList = style({
   width: '100%',
   height: '40px',
   overflowX: 'scroll',
-  overflowY: 'hidden',
+  padding: '0px 16px',
+  scrollBehavior: 'smooth',
 });
-globalStyle(`${partyListWindow}::-webkit-scrollbar`, {
+globalStyle(`${scrollAblePartyList}::-webkit-scrollbar`, {
   display: 'none',
 });
 
@@ -42,4 +50,24 @@ export const skeletonPartyWrapper = style({
   height: '40px',
   borderRadius: '32px',
   backgroundColor: vars.colors.service.SUB_WHITE,
+});
+
+export const toLeftIcon = style({
+  borderRadius: '50%',
+  boxShadow: '0 2px 12px 0 rgba(0,0,0,0.16)',
+  backgroundColor: vars.colors.service.MAIN_WHITE,
+  position: 'absolute',
+  top: '25%',
+  left: '16px',
+  transform: 'rotate(-90deg)',
+});
+
+export const toRightIcon = style({
+  borderRadius: '50%',
+  boxShadow: '0 2px 12px 0 rgba(0,0,0,0.16)',
+  backgroundColor: vars.colors.service.MAIN_WHITE,
+  position: 'absolute',
+  top: '25%',
+  right: '16px',
+  transform: 'rotate(90deg)',
 });

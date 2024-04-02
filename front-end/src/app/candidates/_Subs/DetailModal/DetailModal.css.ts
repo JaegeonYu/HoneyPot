@@ -50,14 +50,16 @@ export const headingTitle = style({
 export const pdfSection = style({
   display: 'flex',
   flexDirection: 'column',
+  justifyContent: 'center',
   gap: '12px',
   position: 'relative',
 
-  width: 'calc(428px * 2)',
+  width: 'calc(448px * 2)',
+  height: '100%',
   // width: '458px',
   '@media': {
     '(max-width: 1220px)': {
-      width: '428px',
+      width: '448px',
     },
   },
 });
@@ -67,11 +69,11 @@ export const pledgePdfWindow = style({
   // aspectRatio: '538 / 737',
   overflow: 'hidden',
 
-  width: 'calc(428px * 2)',
+  width: 'calc(448px * 2)',
   // width: '458px',
   '@media': {
     '(max-width: 1220px)': {
-      width: '428px',
+      width: '448px',
     },
   },
 });
@@ -85,7 +87,7 @@ export const pledgePdfContainer = style({
 });
 
 export const pledgePdfItem = style({
-  width: '428px',
+  width: '448px',
   height: '100%',
   aspectRatio: '538 / 737',
   userSelect: 'none',
@@ -116,11 +118,11 @@ export const skeletonCarousel = style({
   backgroundColor: vars.colors.service.HOVER_BACKGROUND,
   borderRadius: '12px',
 
-  width: 'calc(428px * 2)',
-  // width: '458px',
+  width: 'calc(448px * 2)',
+  height: '70%',
   '@media': {
     '(max-width: 1220px)': {
-      width: '428px',
+      width: '448px',
     },
   },
 });
