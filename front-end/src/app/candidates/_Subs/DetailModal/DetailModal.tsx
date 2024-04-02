@@ -50,7 +50,6 @@ export default function DetailModal({
       }
     }
   };
-  console.log(`currentIdx :`, currentIdx);
 
   return (
     <>
