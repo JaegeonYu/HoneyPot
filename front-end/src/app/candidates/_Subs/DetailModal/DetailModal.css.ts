@@ -19,12 +19,12 @@ export const wrapper = style({
   flexDirection: 'column',
   gap: '24px',
   width: '80vw',
-  height: '90vh',
+  height: '95vh',
   padding: '24px',
   backgroundColor: vars.colors.service.MAIN_WHITE,
   borderRadius: '12px',
   position: 'fixed',
-  bottom: '-35%',
+  bottom: '-40%',
   right: '-30.5%',
   transform: 'translate(-50%, -45%)',
   zIndex: 10000002,
@@ -54,6 +54,7 @@ export const pdfSection = style({
   position: 'relative',
 
   width: 'calc(428px * 2)',
+  // width: '458px',
   '@media': {
     '(max-width: 1220px)': {
       width: '428px',
@@ -67,6 +68,7 @@ export const pledgePdfWindow = style({
   overflow: 'hidden',
 
   width: 'calc(428px * 2)',
+  // width: '458px',
   '@media': {
     '(max-width: 1220px)': {
       width: '428px',
@@ -115,6 +117,7 @@ export const skeletonCarousel = style({
   borderRadius: '12px',
 
   width: 'calc(428px * 2)',
+  // width: '458px',
   '@media': {
     '(max-width: 1220px)': {
       width: '428px',
