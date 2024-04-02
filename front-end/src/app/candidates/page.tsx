@@ -5,7 +5,7 @@ import * as S from './page.css';
 import * as T from '@/types';
 import * as API from '@/apis';
 import * as Comp from '@/components';
-import * as SubComp from './_Sub';
+import * as SubComp from './_Subs';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { PALETTE } from '@/_constants';
@@ -55,9 +55,8 @@ export default function CandidatesPage() {
   );
 
   const handleModalView = ({ isOpen, value }: { isOpen: boolean; value: T.Candidate | null }) => {
-    console.log(`value :`, value);
     if (isOpen && value) {
-      handleQueryString({ candianteId: value.huboid });
+      handleQueryString({ candianteId: value.candidateId });
       setDetail({ ...value });
     } else {
       router.back();

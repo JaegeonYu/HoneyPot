@@ -51,6 +51,7 @@ export interface Candidate {
   career1: string;
   career2: string;
   edu: string;
+  candidateId: number;
   gender: string;
   giho: number;
   hgname: string;
