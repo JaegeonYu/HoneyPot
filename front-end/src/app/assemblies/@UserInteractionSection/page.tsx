@@ -1,10 +1,11 @@
 'use client';
 
-import React, { Suspense, useCallback, useState } from 'react';
+import React, { Suspense, useCallback, useRef, useState } from 'react';
 import * as T from '@/types';
 import * as S from './page.css';
 import * as Comp from '@/components';
 import * as API from '@/apis';
+import * as Icon from '@/_assets/icon';
 import AssemblieslLoading from '../loading';
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
@@ -13,6 +14,9 @@ export default function UserInteractionSection() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+
+  const translateRef = useRef<HTMLDivElement>(null);
+  const listContainerRef = useRef<HTMLDivElement>(null);
 
   const handleQueryString = useCallback(
     ({ sido, siGunGu, dong, poly, word }: T.HandleQueryStringArgs) => {
@@ -129,6 +133,28 @@ export default function UserInteractionSection() {
     });
   };
 
+  const handleCarouselClick = (dir: 'L' | 'R') => {
+    if (translateRef.current && listContainerRef.current) {
+      const movingSize = translateRef.current.offsetWidth / 2;
+      const currentMoved = translateRef.current.scrollLeft;
+      const limitSize = listContainerRef.current.offsetWidth;
+
+      if (dir === 'L') {
+        if (currentMoved < movingSize) {
+          translateRef.current.scrollLeft = 0;
+        } else if (currentMoved - movingSize >= 0) {
+          translateRef.current.scrollLeft = translateRef.current.scrollLeft - movingSize;
+        }
+      } else if (dir === 'R') {
+        if (limitSize - currentMoved < movingSize) {
+          translateRef.current.scrollLeft = limitSize;
+        } else if (currentMoved + movingSize < limitSize) {
+          translateRef.current.scrollLeft = translateRef.current.scrollLeft + movingSize;
+        }
+      }
+    }
+  };
+
   return (
     <>
       <section className={S.userInteractionSection}>
@@ -162,18 +188,30 @@ export default function UserInteractionSection() {
         </div>
       </section>
       {partyListFetched ? (
-        <div className={S.partyListWindow}>
-          <div className={S.partySelectorWrapper}>
-            {partyList?.map((party: T.Poly, i: number) => (
-              <Comp.FillterButton
-                key={`party-${party.polyId}`}
-                onClick={() => handlePartyClick(party.polyId)}
-                isSelected={Number(searchParams.get('poly')) === party.polyId}
-              >
-                {party.polyName}
-              </Comp.FillterButton>
-            ))}
+        <div className={S.relativeWrapper} id="window">
+          <div className={S.scrollAblePartyList} ref={translateRef} id="X-scroll">
+            <div className={S.partySelectorWrapper} ref={listContainerRef} id="container">
+              {partyList?.map((party: T.Poly, i: number) => (
+                <Comp.FillterButton
+                  key={`party-${party.polyId}`}
+                  onClick={() => handlePartyClick(party.polyId)}
+                  isSelected={Number(searchParams.get('poly')) === party.polyId}
+                >
+                  {party.polyName}
+                </Comp.FillterButton>
+              ))}
+            </div>
           </div>
+          <Icon.ArrowBlack
+            className={S.toLeftIcon}
+            onClick={() => handleCarouselClick('L')}
+            onTouchStart={() => handleCarouselClick('L')}
+          />
+          <Icon.ArrowBlack
+            className={S.toRightIcon}
+            onClick={() => handleCarouselClick('R')}
+            onTouchStart={() => handleCarouselClick('R')}
+          />
         </div>
       ) : (
         <div className={S.skeletonPartyWrapper} />
