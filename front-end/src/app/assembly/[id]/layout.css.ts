@@ -14,7 +14,7 @@ export const mainSectionWrapper = style([
     alignItems: 'stretch',
     justifyContent: 'center',
     gap: '24px',
-    paddingBottom: '124px',
+    paddingBottom: '4vh',
 
     '@media': {
       '(max-width: 640px)': {
