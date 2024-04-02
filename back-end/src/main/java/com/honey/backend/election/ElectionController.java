@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 
@@ -19,6 +20,7 @@ public class ElectionController {
 
     private final CandidateService candidateService;
     private final TotalRegionService totalRegionService;
+    private final CandidateLoad candidateLoad;
 
     @GetMapping("/candidate/{candidate_id}")
     public ResponseEntity<CandidateResponse> detailCandidate(@PathVariable(name = "candidate_id") Long candidateId) {
@@ -58,4 +60,10 @@ public class ElectionController {
 
         return ResponseEntity.status(HttpStatus.OK).body(totalRegionService.getDong(sido, sigungu));
     }
+
+//    @GetMapping("/load")
+//    public ResponseEntity<?> getLoad() throws IOException {
+//        candidateLoad.imageDownload();
+//        return ResponseEntity.ok().build();
+//    }
 }
