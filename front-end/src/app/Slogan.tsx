@@ -16,7 +16,7 @@ export default function Slogan() {
             duration: 0.25,
             delay: i / 10,
           }}
-          style={{ fontSize: 60, fontWeight: 700, textAlign: 'center' }}
+          style={{ display: 'inline', fontSize: 60, fontWeight: 700, textAlign: 'center' }}
         >
           {el}{' '}
         </motion.span>
