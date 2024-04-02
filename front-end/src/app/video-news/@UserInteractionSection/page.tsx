@@ -55,6 +55,15 @@ export default function UserInteractionSection() {
         </div>
       </div>
       <form className={S.inputWrapper} onSubmit={handleSubmit}>
+        <span className={S.givenInfomation}>
+          영상 출처 :
+          <a className={S.givenInfomationLink} href="https://www.youtube.com/@NATV_korea" target="_black">
+            NATV,
+          </a>
+          <a className={S.givenInfomationLink} href="https://www.natv.go.kr/natv/info/natvCopyright.do" target="_black">
+            국회방송
+          </a>
+        </span>
         <Comp.SearchInput
           value={value}
           inputId="video-news-input"

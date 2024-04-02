@@ -87,7 +87,19 @@ export default function AssembliesPage() {
         <GoogleTagManager gtmId={GA_TRACKING_ID} dataLayerName="dataLayerName : 국회의원 페이지입니다" />
       )}
       <h2 className={S.titleWrapper}>
-        <span className={S.title}>21대 국회의원</span>
+        <span className={S.title}>
+          21대 국회의원
+          <span className={S.givenInfomation}>
+            의원 정보 출처 :{' '}
+            <a
+              className={S.givenInfomationLink}
+              href="https://open.assembly.go.kr/portal/data/service/selectAPIServicePage.do/OWSSC6001134T516707"
+              target="_black"
+            >
+              국회사무처
+            </a>
+          </span>
+        </span>
         <span className={S.totalContWrapper}>
           총 <span className={S.number}>{totalCount || 0}</span>명
         </span>

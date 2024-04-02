@@ -6,9 +6,6 @@ import * as T from '@/types';
 import * as Comp from '@/components';
 import * as SubComp from './_Subs';
 import Image from 'next/image';
-import { GoogleTagManager } from '@next/third-parties/google';
-import { GA_TRACKING_ID } from '../../../lib/gtag';
-import Script from 'next/script';
 
 export default function PolyDetailLayout({ Tab1, Tab2, params }: T.PartyDetailLayoutProps) {
   useEffect(() => {
@@ -20,6 +17,16 @@ export default function PolyDetailLayout({ Tab1, Tab2, params }: T.PartyDetailLa
       <section className={S.chartSectionWrapper}>
         <div className={S.partyLogo}>
           <Image src={`/party/party-${params.id}.svg`} alt="정당 로고" width={200} height={100} layout="fixed" />
+          <span className={S.givenInfomation}>
+            정당 정보 출처 :{' '}
+            <a
+              className={S.givenInfomationLink}
+              href="https://open.assembly.go.kr/portal/data/service/selectAPIServicePage.do/OJ24FX001003FD16907#none"
+              target="_black"
+            >
+              국회사무처
+            </a>
+          </span>
         </div>
         <SubComp.Charts params={params} />
       </section>
