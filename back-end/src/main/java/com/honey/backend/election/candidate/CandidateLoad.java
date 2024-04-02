@@ -2,6 +2,7 @@ package com.honey.backend.election.candidate;
 
 import com.honey.backend.election.region.TotalRegion;
 import com.honey.backend.election.region.TotalRegionRepository;
+import com.honey.backend.service.S3Upload;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
@@ -13,8 +14,18 @@ import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringReader;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -27,6 +38,7 @@ public class CandidateLoad {
     private String candUrl;
     @Value("${CAND_KEY}")
     private String candKey;
+    private final S3Upload s3Upload;
 
     @Transactional
     public void saveCandidate() {
@@ -148,5 +160,74 @@ public class CandidateLoad {
 
         return basicUrl + "/" + gsg + "/" + hb + "/" + gicho + "/" + name;
     }
+
+    public void changeS3Url(){
+        List<Candidate> all = candidateRepository.findAll();
+        for(Candidate candidate : all){
+            if(candidate.getCandidateImgUrl() == null)continue;
+            String[] split = candidate.getCandidateImgUrl().split("/");
+            System.out.println(candidate.getCandidateImgUrl());
+            for(String s: split){
+                System.out.println(s);
+            }
+            break;
+        }
+    }
+
+//    @Transactional
+//        public void imageDownload() throws IOException {
+//        String OUTPUT_FILE_PATH = "C:\\can";
+//
+//        List<Candidate> candidates = candidateRepository.findAll();
+//        for (Candidate candidate : candidates) {
+////            String fileUrl = candidate.getCandidateImgUrl();
+//            String fileUrl = "http://info.nec.go.kr/photo_20240410/Gsg1101/Hb100151444/gicho/100151444.JPG";
+//            String imageName = null;
+//            try {
+//                InputStream in = new URL(fileUrl).openStream();
+//                imageName = getImageName(fileUrl);
+//                Path imagePath = Paths.get(OUTPUT_FILE_PATH + File.separator + imageName);
+//
+//                Files.copy(in, imagePath);
+//                BufferedImage image = ImageIO.read(imagePath.toFile());
+//                if (image == null) {
+//                    // 이미지가 유효하지 않다고 판단되는 경우 처리합니다.
+//
+//                    System.out.println("다운로드된 이미지 파일이 유효하지 않습니다.");
+//                    Files.deleteIfExists(imagePath); // 손상된 파일 삭제
+//                    System.out.println("after file delete");
+//
+//
+//                    imageName = changeJPEG(getImageName(fileUrl));
+//                    imagePath = Paths.get(OUTPUT_FILE_PATH + File.separator + imageName);
+//                    System.out.println(imagePath);
+//                    in = new URL(changeJPEG(fileUrl)).openStream();
+//                    Files.copy(in, imagePath);
+//                } else {
+//                    System.out.println("다운로드된 이미지 파일이 유효합니다.");
+//                }
+//            }catch (Exception e){
+//                e.printStackTrace();
+//            }
+//            break;
+////            candidate.updateImageUrl(s3Upload.convertImageUrl(imageName));
+//
+//        }
+//    }
+
+    private String changeJPEG(String imageName) {
+        return imageName.replaceAll("JPG", "JPEG");
+    }
+
+    private String getImageName(String fileUrl) {
+        String[] split = fileUrl.split("/");
+        System.out.println(fileUrl);
+        for(String s : split){
+            System.out.println(s);
+        }
+        System.out.println(split[7]);
+        return split[7];
+    }
+
 
 }

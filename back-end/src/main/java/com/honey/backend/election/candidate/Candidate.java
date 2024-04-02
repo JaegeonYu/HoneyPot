@@ -71,4 +71,8 @@ public class Candidate {
     public static Candidate createCandidate(String candidateImgUrl, String sgDate, int sgTypeCode, Long huboid, String sggName, String sdName, String wiwName, int giho, String jdName, String hgname, String hjName, String gender, String birthday, int age, String addr, String job, String edu, String career1, String career2, String status) {
         return new Candidate(candidateImgUrl, sgDate, sgTypeCode, huboid, sggName, sdName, wiwName, giho, jdName, hgname, hjName, gender, birthday, age, addr, job, edu, career1, career2, status);
     }
+
+    public void updateImageUrl(String url){
+        this.candidateImgUrl = url;
+    }
 }

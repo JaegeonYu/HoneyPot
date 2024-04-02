@@ -5,6 +5,7 @@ import com.honey.backend.election.exception.ElectionErrorCode;
 import com.honey.backend.election.region.TotalRegion;
 import com.honey.backend.election.region.TotalRegionRepository;
 import com.honey.backend.exception.BaseException;
+import com.honey.backend.service.S3Upload;
 import lombok.RequiredArgsConstructor;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
@@ -21,6 +22,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -30,6 +32,7 @@ public class CandidateService {
     private final CandidateRepository candidateRepository;
     private final TotalRegionRepository totalRegionRepository;
     private final AmazonS3 s3Client;
+
 
     public CandidateResponse getDetailCandidate(Long candidateId) {
         Candidate candidate = candidateRepository.findById(candidateId).orElseThrow();
@@ -117,5 +120,6 @@ public class CandidateService {
                 candidate.getStatus()
         );
     }
+
 
 }
