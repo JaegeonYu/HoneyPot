@@ -152,18 +152,37 @@ export default function Bill({
 
         <div className={S.billTitle} style={{ width: 400 }}>
           <p className={S.fontHeader}>{billName}</p>
-          <div className={S.billTitlePerson}>
-            <p className={S.fontContent}>대표자 :</p>
-            <Link href={`assembly/${assemblyId}`}>
-              <p className={S.Assembly} onClick={navAssembly}>
-                {hgName}
-              </p>
-            </Link>
 
-            <Badge color={PALETTE.party[polyName][100]} isPositionAbsolute={false}>
+          {assemblyId === 298 ? (
+            <>
+              <div className={S.billTitlePerson}>
+                <p className={S.fontContent}>대표자 :</p>
+
+                <p className={S.AssemblyNoHover} onClick={navAssembly}>
+                  {rstProposer}
+                </p>
+
+                {/* <Badge color={PALETTE.party[polyName][100]} isPositionAbsolute={false}>
               {polyName}
-            </Badge>
-          </div>
+            </Badge> */}
+              </div>
+            </>
+          ) : (
+            <>
+              <div className={S.billTitlePerson}>
+                <p className={S.fontContent}>대표자 :</p>
+                <Link href={`assembly/${assemblyId}`}>
+                  <p className={S.Assembly} onClick={navAssembly}>
+                    {rstProposer}
+                  </p>
+                </Link>
+
+                <Badge color={PALETTE.party[polyName][100]} isPositionAbsolute={false}>
+                  {polyName}
+                </Badge>
+              </div>
+            </>
+          )}
         </div>
         <div className={S.billTitleCommittee}>
           <Category
