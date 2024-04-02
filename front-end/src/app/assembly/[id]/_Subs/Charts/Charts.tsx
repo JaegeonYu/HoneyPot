@@ -6,6 +6,7 @@ import * as Comp from '@/components';
 import { PALETTE } from '@/_constants';
 import { useSuspenseQueries } from '@tanstack/react-query';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Charts({ params }: T.AssemblyChartsProps) {
   const [{ data: infoResponse, isFetched: infoFetched }, { data: pledgeRateResponse, isFetched: pledgeFetched }] =
@@ -42,7 +43,19 @@ export default function Charts({ params }: T.AssemblyChartsProps) {
   return (
     <>
       <article className={S.wrapper}>
-        <h3 className={S.titleText}>활동 현황</h3>
+        <h3 className={S.titleText}>
+          활동 현황
+          <span className={S.givenInfomation}>
+            의원 정보 출처 :{' '}
+            <a
+              className={S.givenInfomationLink}
+              href="https://open.assembly.go.kr/portal/data/service/selectAPIServicePage.do/OWSSC6001134T516707"
+              target="_black"
+            >
+              국회사무처
+            </a>
+          </span>
+        </h3>
         <div className={S.chartsContainer}>
           <div className={S.posterWrapper}>
             <Comp.Poster posterheight="100%" posterwidth="100%">
@@ -83,9 +96,13 @@ export default function Charts({ params }: T.AssemblyChartsProps) {
                   <p className={S.tooltipText}>
                     - 국회에서 제공된 데이터 중 <b className={S.boldText}>출석과 결석만을 이용</b>해 계산하였습니다.
                   </p>
-                  <p className={S.toolTipTitle}>본회의</p>
+                  <p className={S.toolTipTitle}>
+                    본회의 <span className={S.givenInfomation}>{`(2023년 12월 제공)`}</span>
+                  </p>
                   <p className={S.tooltipText}>- 본회의는 의안의 최종 결정 장소입니다.</p>
-                  <p className={S.toolTipTitle}>상임위</p>
+                  <p className={S.toolTipTitle}>
+                    상임위 <span className={S.givenInfomation}>{`(2024년 1월 제공)`}</span>
+                  </p>
                   <p className={S.tooltipText}>
                     - 법률안을 본회의에서 상의하기 전에 그 <b className={S.boldText}>소관에 속하는 의안을 심사</b>하는
                     곳입니다.

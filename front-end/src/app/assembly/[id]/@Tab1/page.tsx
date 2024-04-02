@@ -34,9 +34,10 @@ export default function AssemblyTab1({ params }: T.AssemblyTab1Props) {
   return (
     <section className={S.wrapper}>
       <h2 className={S.titleWrapper} ref={target}>
-        <span className={S.title}>
-          공약<span className={S.infomationGivenDate}>(22년 6월 기준)</span>
-        </span>
+        <p className={S.title}>
+          공약
+          <span className={S.infomationGivenDate}>(22년 6월 기준)</span>
+        </p>
         <span className={S.totalContWrapper}>
           총 <span className={S.number}>{pledgeResponse?.totalCount}</span>개
         </span>
