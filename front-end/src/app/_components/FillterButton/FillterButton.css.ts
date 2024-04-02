@@ -3,6 +3,7 @@ import { createVar, style } from '@vanilla-extract/css';
 
 export const isSelectedBgColor = createVar();
 export const item = style({
+  display: 'inline-block',
   width: 'fit-content',
   borderRadius: '6px',
   overflow: 'hidden',
@@ -11,7 +12,6 @@ export const item = style({
 
 export const isSelectedFontColor = createVar();
 export const text = style({
-  // display: 'inline-block',
   width: 'fit-content',
   height: '100%',
   padding: '6px 16px',
