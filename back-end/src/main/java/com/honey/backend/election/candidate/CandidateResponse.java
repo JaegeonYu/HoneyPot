@@ -1,6 +1,7 @@
 package com.honey.backend.election.candidate;
 
 public record CandidateResponse(
+        Long candidateId,
         String candidateImgUrl,
 
         String sgDate,

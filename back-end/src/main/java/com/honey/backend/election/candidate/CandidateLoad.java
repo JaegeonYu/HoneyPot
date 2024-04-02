@@ -110,6 +110,7 @@ public class CandidateLoad {
 
     public CandidateResponse mapToCandidateResponse(Item item) {
         return new CandidateResponse(// id는 Item에 해당하는 정보가 없으므로 null로 설정
+                null,
                 getImgUrl(item),
                 item.getSggName(),
                 item.getSgTypecode(),

@@ -26,7 +26,7 @@ public class ElectionController {
         return ResponseEntity.status(HttpStatus.OK).body(candidateService.getDetailCandidate(candidateId));
     }
 
-    @GetMapping()
+    @GetMapping("/candidate")
     public ResponseEntity<CandidateListResponse> CandidateList(CandidateRequest candidateRequest) {
         CandidateListResponse candidateListResponse = candidateService.getList(candidateRequest);
 

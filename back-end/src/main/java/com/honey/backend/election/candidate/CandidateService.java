@@ -95,6 +95,7 @@ public class CandidateService {
 
     private CandidateResponse convertToCandidateResponse(Candidate candidate) {
         return new CandidateResponse(
+                candidate.getId(),
                 candidate.getCandidateImgUrl(),
                 candidate.getSgDate(),
                 candidate.getSgTypeCode(),
