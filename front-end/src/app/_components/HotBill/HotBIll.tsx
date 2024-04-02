@@ -8,7 +8,6 @@ import { ArrowBlack, LinkTo } from '@/_assets/icon';
 export default function HotBill({ id, title, summary, original, url, createdAt, updatedAt }: T.HotBillProps) {
   const [isActive, setIsActive] = useState(false);
   const toggleAccordion = () => {
-    console.log(isActive, 'isActive');
     setIsActive(!isActive);
   };
 
@@ -57,10 +56,6 @@ export default function HotBill({ id, title, summary, original, url, createdAt, 
             <div className={S.billCardContentsProblemText}>
               <p className={S.fontTitle}>요약</p>
               <pre className={S.fontContent}>{summary}</pre>
-            </div>
-            <div className={S.billCardContentsProblemText}>
-              <p className={S.fontTitle}>관련뉴스</p>
-              <p className={S.fontContent}>{url}</p>
             </div>
           </div>
         </div>

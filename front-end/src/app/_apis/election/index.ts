@@ -42,10 +42,10 @@ export async function getPoll({
 }: {
   page: number;
   size: number;
-  sido: string;
-  gugun: string;
+  sido: string | null;
+  gugun: string | null;
 }) {
   return await pollinstance.get(
-    `getPolplcOtlnmapTrnsportInfoInqire?ServiceKey=${process.env.NEXT_PUBLIC_POLL_KEY}&pageNo=${page}&numOfRows=${size}&sgId=20240410&sdName=${sido}&wiwName=${gugun}`,
+    `getPolplcOtlnmapTrnsportInfoInqire?ServiceKey=${process.env.NEXT_PUBLIC_POLL_KEY}&pageNo=${page}&numOfRows=${size}&sgId=20240410&sdName=${sido}&wiwName=${gugun}&resultType=json`,
   );
 }

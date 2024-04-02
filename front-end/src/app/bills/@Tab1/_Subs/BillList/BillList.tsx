@@ -18,20 +18,10 @@ export default function BillList({ category, toggled }: T.BillListProps) {
     queryFn: () => API.getBillInfo({ cmit: category, page, limit, word: '', accept: toggled }), // API 호출 시 동적으로 page와 limit 전달
     retry: false,
   });
-  //   const { data: billResponse, isFetched: billFetched } = useQuery({
-  //     queryKey: [{ bill: `info-request-bill-list`, category }],
-  //     queryFn: () =>
-  //       API.getBillInfo({ cmit: category, page, limit, word: '', accept: toggled }).then(res => {
-  //         if (res.status === 204) return { billResponse: '' };
-  //         return res.data;
-  //       }),
-  //     retry: false,
-  //     //   enabled: !!toggled,
-  //   });
 
-  useEffect(() => {
-    console.log(billResponse, 'completeResponse', page, 'page');
-  }, [billResponse]);
+  // useEffect(() => {
+  //   console.log(billResponse, 'completeResponse', page, 'page');
+  // }, [billResponse]);
 
   return (
     <>

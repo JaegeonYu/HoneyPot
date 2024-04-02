@@ -104,14 +104,6 @@ export default function Bill({
     // console.log(isToggled);
   }, [isToggled]);
 
-  useEffect(() => {
-    // 데이터가 변경되면 isActive 상태를 false로 초기화
-    if (summaryResponse) {
-      // setIsToggled(true);
-      console.log(summaryResponse);
-    }
-  }, [summaryResponse]);
-
   const toggleAccordion = () => {
     setIsActive(!isActive);
   };
@@ -152,18 +144,37 @@ export default function Bill({
 
         <div className={S.billTitle} style={{ width: 400 }}>
           <p className={S.fontHeader}>{billName}</p>
-          <div className={S.billTitlePerson}>
-            <p className={S.fontContent}>대표자 :</p>
-            <Link href={`assembly/${assemblyId}`}>
-              <p className={S.Assembly} onClick={navAssembly}>
-                {hgName}
-              </p>
-            </Link>
 
-            <Badge color={PALETTE.party[polyName][100]} isPositionAbsolute={false}>
+          {assemblyId === 298 ? (
+            <>
+              <div className={S.billTitlePerson}>
+                <p className={S.fontContent}>대표자 :</p>
+
+                <p className={S.AssemblyNoHover} onClick={navAssembly}>
+                  {rstProposer}
+                </p>
+
+                {/* <Badge color={PALETTE.party[polyName][100]} isPositionAbsolute={false}>
               {polyName}
-            </Badge>
-          </div>
+            </Badge> */}
+              </div>
+            </>
+          ) : (
+            <>
+              <div className={S.billTitlePerson}>
+                <p className={S.fontContent}>대표자 :</p>
+                <Link href={`assembly/${assemblyId}`}>
+                  <p className={S.Assembly} onClick={navAssembly}>
+                    {rstProposer}
+                  </p>
+                </Link>
+
+                <Badge color={PALETTE.party[polyName][100]} isPositionAbsolute={false}>
+                  {polyName}
+                </Badge>
+              </div>
+            </>
+          )}
         </div>
         <div className={S.billTitleCommittee}>
           <Category

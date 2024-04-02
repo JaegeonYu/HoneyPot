@@ -57,6 +57,12 @@ export const Assembly = style({
   },
 });
 
+export const AssemblyNoHover = style({
+  //   height: 58,
+  fontSize: 14,
+  fontWeight: 500,
+});
+
 export const fontKeywordBold = style({
   //   height: 58,
   fontSize: 12,
