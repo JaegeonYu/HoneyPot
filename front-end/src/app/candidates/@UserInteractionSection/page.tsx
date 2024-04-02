@@ -31,7 +31,7 @@ export default function UserInteractionSection() {
     isFetched: siDoListFetched,
   } = useSuspenseQuery({
     queryKey: [{ candidate: `si-do-list` }],
-    queryFn: () => API.cantidate.getCandianteSiDoList(),
+    queryFn: () => API.cantidate.getCandidateSiDoList(),
     retry: false,
   });
 
@@ -41,7 +41,7 @@ export default function UserInteractionSection() {
     isFetched: siGunGuListFetched,
   } = useSuspenseQuery({
     queryKey: [{ candidate: `si-gun-gu-list-${searchParams.get('sido')}` }],
-    queryFn: () => API.cantidate.getCandianteSiGunGuList({ siDo: searchParams.get('sido') || '' }),
+    queryFn: () => API.cantidate.getCandidateSiGunGuList({ siDo: searchParams.get('sido') || '' }),
     retry: false,
   });
 
@@ -52,7 +52,7 @@ export default function UserInteractionSection() {
   } = useSuspenseQuery({
     queryKey: [{ candidate: `dong-list-${searchParams.get('sigungu')}` }],
     queryFn: () =>
-      API.cantidate.getCandianteDongList({
+      API.cantidate.getCandidateDongList({
         siDo: searchParams.get('sido') || '',
         siGunGu: searchParams.get('sigungu') || '',
       }),
