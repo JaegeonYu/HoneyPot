@@ -34,7 +34,7 @@ export default function Card({ ratio, imgUrl, children, badge, onClick }: T.Card
       className={S.wrapper}
       style={assignInlineVars({
         [S.aspectRatioProps]: ratio,
-        [S.minWidth]: ratio === '4 / 7' ? '212px' : '212px',
+        [S.maxWidth]: ratio === '4 / 7' ? '276px' : '402px',
       })}
       onClick={onClick}
     >
