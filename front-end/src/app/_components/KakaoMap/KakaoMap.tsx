@@ -19,15 +19,10 @@ function KakaoMap({ pollList }: { pollList: { name: string; address: string }[] 
   const searchParams = useSearchParams();
   // console.log(pollList, 'poLLLIST');
 
-  const [windowDefine, setWindowDefine] = useState(false);
-
   // var dongvalue= searchParams.get('dong')
-  useEffect(() => {
-    if (typeof window !== undefined) setWindowDefine(true);
-  }, []);
 
   useEffect(() => {
-    if (windowDefine && window.kakao) {
+    if (window.kakao) {
       const script = window.kakao.maps.load(() => {
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div
           mapOption = {
@@ -92,19 +87,11 @@ function KakaoMap({ pollList }: { pollList: { name: string; address: string }[] 
         });
       });
     }
-  }, [windowDefine, pollList]);
+  }, [pollList]);
 
   return (
     <>
-      <Script
-        strategy="afterInteractive"
-        src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_APP_JS_KEY}&autoload=false&libraries=services`}
-      />
-      {windowDefine && (
-        <>
-          <div id="map" style={{ width: '80vw', height: '60vh' }}></div>
-        </>
-      )}
+      <div id="map" style={{ width: '80vw', height: '60vh' }}></div>
     </>
   );
 }
