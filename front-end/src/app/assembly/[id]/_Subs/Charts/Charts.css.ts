@@ -2,12 +2,25 @@ import { vars } from '@/globalTheme.css';
 import { style } from '@vanilla-extract/css';
 
 export const titleText = style({
+  display: 'flex',
+  justifyContent: 'space-between',
   lineHeight: '18px',
   fontSize: '18px',
   fontWeight: 700,
   padding: '4px 0px',
   borderBottom: `1px solid ${vars.colors.service.STROKE_OR_BLUR}`,
   marginBottom: '12px',
+});
+
+export const givenInfomation = style({
+  fontSize: '12px',
+  color: vars.colors.service.SUB_BLACK,
+});
+
+export const givenInfomationLink = style({
+  fontSize: '12px',
+  color: vars.colors.service.SUB_BLACK,
+  textDecoration: 'underline',
 });
 
 export const wrapper = style({

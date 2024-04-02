@@ -8,7 +8,6 @@ import * as Comp from '@/components';
 import * as SubComp from './_Subs';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { PALETTE } from '@/_constants';
 
 export default function CandidatesPage() {
   const router = useRouter();
@@ -64,12 +63,6 @@ export default function CandidatesPage() {
     }
   };
 
-  const isHavePartyColorInService = (responsePartyName: string) => {
-    const [filtered] = Object.keys(PALETTE.party).filter((partyName, idx) => responsePartyName === partyName);
-
-    return filtered ? PALETTE.party[filtered][100] : PALETTE.party['무소속'][100];
-  };
-
   return (
     <>
       <section className={S.pageSection}>
@@ -86,28 +79,17 @@ export default function CandidatesPage() {
         </h2>
         {candidateList.pages.map((page, pageIdx) => {
           return page ? (
-            <Comp.GridWrapper key={pageIdx}>
+            <div className={S.gridWrapper} key={pageIdx}>
               {page.data.candidateResponseList.map((res: T.Candidate, i: number) => {
-                isHavePartyColorInService(res.jdName);
                 return (
-                  <Comp.Card
-                    key={res.hgname}
-                    ratio="4 / 6"
-                    imgUrl={res.candidateImgUrl}
-                    badge={{ isBadgeNeed: false }}
+                  <SubComp.CandidatesCard
+                    key={`${res.huboid}`}
+                    {...res}
                     onClick={() => handleModalView({ isOpen: true, value: res })}
-                  >
-                    <div className={S.cardArticle}>
-                      <p className={S.hgName}>{res.hgname}</p>
-                      <p>{res.sggName}</p>
-                    </div>
-                    <Comp.Badge isPositionAbsolute={true} color={isHavePartyColorInService(res.jdName)}>
-                      {res.jdName}
-                    </Comp.Badge>
-                  </Comp.Card>
+                  />
                 );
               })}
-            </Comp.GridWrapper>
+            </div>
           ) : (
             <div className={S.emptyDataWrapper} key={pageIdx}>
               <Comp.EmptyData alt="후보자 없음" width={200} height={134} maxWidth={200} maxHeight={134} />

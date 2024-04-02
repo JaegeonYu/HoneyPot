@@ -13,82 +13,111 @@ export const overlay = style({
 });
 
 export const wrapper = style({
+  display: 'flex',
+  justifyContent: 'space-around',
+  alignItems: 'center',
+  flexDirection: 'column',
+  gap: '24px',
   width: '80vw',
-  height: '75vh',
+  height: '90vh',
+  padding: '24px',
   backgroundColor: vars.colors.service.MAIN_WHITE,
   borderRadius: '12px',
   position: 'fixed',
-  bottom: '-20%',
+  bottom: '-35%',
   right: '-30.5%',
   transform: 'translate(-50%, -45%)',
   zIndex: 10000002,
   transition: 'all 0.3s ease',
+
+  '@media': {
+    '(max-width: 984px)': {
+      height: 'fit-content',
+      flexDirection: 'column',
+    },
+  },
 });
 
-export const profileImgWrapper = style({
-  maxWidth: '276px',
-  aspectRatio: '1 / 1.4',
-  borderRadius: '12px',
+export const headingTitle = style({
+  width: '100%',
+  textAlign: 'left',
+  paddingLeft: '8px',
+  margin: '0px 6px',
+  borderBottom: `1px solid ${vars.colors.service.SUB_BLACK}`,
+  fontWeight: 600,
+});
+
+export const pdfSection = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '12px',
+  position: 'relative',
+
+  width: 'calc(428px * 2)',
+  '@media': {
+    '(max-width: 1220px)': {
+      width: '428px',
+    },
+  },
+});
+
+export const pledgePdfWindow = style({
+  display: 'flex',
+  // aspectRatio: '538 / 737',
   overflow: 'hidden',
-  position: 'relative',
+
+  width: 'calc(428px * 2)',
+  '@media': {
+    '(max-width: 1220px)': {
+      width: '428px',
+    },
+  },
 });
 
-export const profileImg = style({
-  width: '100%',
+export const translateX = createVar();
+export const pledgePdfContainer = style({
+  display: 'flex',
+  width: 'fit-content',
+  transform: translateX,
+  transition: 'transform 0.3s ease',
+});
+
+export const pledgePdfItem = style({
+  width: '428px',
   height: '100%',
-  borderRadius: '12px',
+  aspectRatio: '538 / 737',
+  userSelect: 'none',
 });
 
-export const cardWrapper = style({
-  maxWidth: '276px',
-  aspectRatio: '1 / 1.4',
-});
-
-export const flipCardFlag = createVar();
-export const flipCard = style({
-  position: 'relative',
-  width: '100%',
-  height: '100%',
-  borderRadius: '12px',
-
-  textAlign: 'center',
-  transition: 'transform 0.6s',
-  transformStyle: 'preserve-3d',
-  boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
-
-  transform: flipCardFlag,
-});
-
-export const flipCardInner = style({
-  position: 'relative',
-  width: '100%',
-  height: '100%',
-  textAlign: 'center',
-  transition: 'transform 0.6s',
-  transformStyle: 'preserve-3d',
-  boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
-  borderRadius: '12px',
-});
-
-export const flipCardFront = style({
+export const toLeftIcon = style({
+  borderRadius: '50%',
+  boxShadow: '0 2px 12px 0 rgba(0,0,0,0.16)',
+  backgroundColor: vars.colors.service.MAIN_WHITE,
   position: 'absolute',
-  width: '100%',
-  height: '100%',
-  WebkitBackfaceVisibility: 'hidden',
-  backfaceVisibility: 'hidden',
-  // backgroundColor: '#bbb',
-  color: 'black',
-  borderRadius: '12px',
+  top: '50%',
+  left: '-16px',
+  transform: 'rotate(-90deg)',
 });
 
-export const flipCardBack = style({
+export const toRightIcon = style({
+  borderRadius: '50%',
+  boxShadow: '0 2px 12px 0 rgba(0,0,0,0.16)',
+  backgroundColor: vars.colors.service.MAIN_WHITE,
   position: 'absolute',
-  width: '100%',
-  height: '100%',
-  WebkitBackfaceVisibility: 'hidden',
-  backfaceVisibility: 'hidden',
-  // backgroundColor: '#2980b9',
-  color: 'white',
-  transform: 'rotateY(180deg)',
+  top: '50%',
+  right: '-16px',
+  transform: 'rotate(90deg)',
+});
+
+export const skeletonCarousel = style({
+  // aspectRatio: '538 / 737',
+  backgroundColor: vars.colors.service.HOVER_BACKGROUND,
   borderRadius: '12px',
+
+  width: 'calc(428px * 2)',
+  '@media': {
+    '(max-width: 1220px)': {
+      width: '428px',
+    },
+  },
 });

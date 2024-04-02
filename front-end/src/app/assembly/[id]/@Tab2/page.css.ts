@@ -26,6 +26,18 @@ export const titleWrapper = style({
   borderBottom: `1px solid ${vars.colors.service.STROKE_OR_BLUR}`,
 });
 
+export const givenInfomation = style({
+  fontSize: '12px',
+  color: vars.colors.service.SUB_BLACK,
+  padding: '0px 8px',
+});
+
+export const givenInfomationLink = style({
+  fontSize: '12px',
+  color: vars.colors.service.SUB_BLACK,
+  textDecoration: 'underline',
+});
+
 export const title = style({
   fontSize: '18px',
   fontWeight: 600,

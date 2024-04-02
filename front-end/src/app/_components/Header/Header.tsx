@@ -37,7 +37,7 @@ function Header() {
             </Link>
           </ul>
         </div>
-        {/* <div className={S.navTitle}>
+        <div className={S.navTitle}>
           <span className={S.title}>22대 총선</span>
           <ul className={S.dropBox}>
             <Link
@@ -49,13 +49,13 @@ function Header() {
             </Link>
             <Link
               className={S.styledLink}
-              href="/polling-places"
+              href="/poll"
               onClick={() => sendGAEvent({ event: 'buttonClicked', value: '[투표소 확인] 클릭]' })}
             >
               <li className={S.dropBoxItem}>투표소 확인</li>
             </Link>
           </ul>
-        </div> */}
+        </div>
         <div className={S.navTitle}>
           <Link href="/introdution" onClick={() => sendGAEvent({ event: 'buttonClicked', value: '[입문서] 클릭' })}>
             <span className={S.title}>여의도 입문서</span>
