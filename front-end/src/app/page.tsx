@@ -119,6 +119,7 @@ export default function MainTest() {
                   y: 0,
                   transition: { delay: 0.3 },
                 }}
+                style={{ justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column' }}
               >
                 <p className={S.assembleMainFont} style={{ textAlign: 'center' }}>
                   우리 지역 꿀벌은 열심히 하고 있을까요?
