@@ -238,7 +238,7 @@ globalStyle('body', {
   overflowX: 'hidden',
 });
 
-globalStyle('a, span, buttonm input', {
+globalStyle('a, span, button, input', {
   display: 'inline-block',
 });
 

@@ -46,6 +46,7 @@ export default function TextTest({ contents }: T.TextAnimateProps) {
             delay: i / 10,
           }}
           className={S.text}
+          style={{ display: 'inline' }}
         >
           {el}{' '}
         </motion.span>
