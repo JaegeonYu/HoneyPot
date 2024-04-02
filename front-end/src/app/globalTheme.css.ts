@@ -238,6 +238,10 @@ globalStyle('body', {
   overflowX: 'hidden',
 });
 
+globalStyle('a, span, buttonm input', {
+  display: 'inline-block',
+});
+
 globalStyle('a', {
   textDecoration: 'none',
   color: 'inherit',

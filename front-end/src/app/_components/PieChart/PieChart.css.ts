@@ -9,6 +9,8 @@ export const chartWrapper = style({
 });
 
 export const chartTitle = style({
+  display: 'flex',
+  flexDirection: 'column',
   width: '100%',
   fontSize: '14px',
   fontWeight: 600,

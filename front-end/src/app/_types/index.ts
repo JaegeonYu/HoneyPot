@@ -50,7 +50,7 @@ import { DetailModalProps } from './pages/videoNews';
 /** pages */
 
 /** apis */
-import { Poly, PolyDetail, PolyMember, Assembly, Video } from './apis';
+import { Poly, PolyDetail, PolyMember, Assembly, Video, Candidate } from './apis';
 /** apis */
 
 export type {
@@ -102,4 +102,5 @@ export type {
   EmptyDataProps,
   Video,
   DetailModalProps,
+  Candidate,
 };

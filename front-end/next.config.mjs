@@ -6,12 +6,17 @@ const withVanillaExtract = createVanillaExtractPlugin({
 });
 
 const nextConfig = {
-  reactStrictMode: false,
   images: {
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'd1x6bubco94kr4.cloudfront.net',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'http',
+        hostname: 'info.nec.go.kr',
         port: '',
         pathname: '/**',
       },

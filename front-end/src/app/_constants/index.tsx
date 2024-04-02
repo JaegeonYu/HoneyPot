@@ -22,10 +22,10 @@ export const CATEGORY_LIST = [
 interface PALETTE_TYPE {
   service: {
     MAIN_COLOR_100: 'rgba(243, 185, 26, 1)';
-    MAIN_COLOR_80: 'rgba(243, 185, 26, 0.8)';
-    MAIN_COLOR_60: 'rgba(243, 185, 26, 0.6)';
-    MAIN_COLOR_40: 'rgba(243, 185, 26, 0.4)';
-    MAIN_COLOR_20: 'rgba(243, 185, 26, 0.2)';
+    MAIN_COLOR_80: 'rgba(243, 185, 26, 0.55)';
+    MAIN_COLOR_60: 'rgba(243, 185, 26, 0.25)';
+    MAIN_COLOR_40: 'rgba(243, 185, 26, 0.05)';
+    MAIN_COLOR_20: 'rgba(211, 211, 211, 1)';
 
     MAIN_BLACK: '#222222';
     SUB_BLACK: '#717171';
@@ -56,10 +56,10 @@ interface PALETTE_TYPE {
 export const PALETTE: PALETTE_TYPE = {
   service: {
     MAIN_COLOR_100: 'rgba(243, 185, 26, 1)',
-    MAIN_COLOR_80: 'rgba(243, 185, 26, 0.8)',
-    MAIN_COLOR_60: 'rgba(243, 185, 26, 0.6)',
-    MAIN_COLOR_40: 'rgba(243, 185, 26, 0.4)',
-    MAIN_COLOR_20: 'rgba(243, 185, 26, 0.2)',
+    MAIN_COLOR_80: 'rgba(243, 185, 26, 0.55)',
+    MAIN_COLOR_60: 'rgba(243, 185, 26, 0.25)',
+    MAIN_COLOR_40: 'rgba(243, 185, 26, 0.05)',
+    MAIN_COLOR_20: 'rgba(211, 211, 211, 1)',
 
     MAIN_BLACK: '#222222',
     SUB_BLACK: '#717171',

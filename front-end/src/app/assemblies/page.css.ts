@@ -39,7 +39,7 @@ export const cardArticle = style({
   alignItems: 'center',
   justifyContent: 'center',
   flexDirection: 'column',
-  height: '18%',
+  height: '20%',
   padding: '4px 16px',
 });
 

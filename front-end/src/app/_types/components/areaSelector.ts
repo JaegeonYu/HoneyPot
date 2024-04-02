@@ -2,7 +2,7 @@ export interface AreaSelectorProps {
   onSidoItemClick: (value: any) => void;
   onSiGunGuItemClick: (value: any) => void;
   onDongItemClick: (value: any) => void;
-  placeholders: { sido: string; sigungu: string; dong: string };
+  placeholders: { sido: string | null; sigungu: string | null; dong: string | null };
   siDoList: any[];
   siGunGuList: any[];
   dongList: any[];
