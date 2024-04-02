@@ -34,10 +34,10 @@ export default function PolyDetailTab1({ params }: T.PartyDetailTab1Props) {
         })
         .then(res => res),
     initialPageParam: 0,
-    getNextPageParam: (lastPage, allPages, lastPageParam, allPageParams) => {
-      if (lastPage?.status === 204 && lastPageParam === 0) return null;
-      else if (allPages[0].data.count !== null && lastPageParam * 10 > allPages[0].data.count) return null;
-      return lastPageParam + 1;
+    getNextPageParam: (lastPage, allPages, lastPageParams, allPageParams) => {
+      if (lastPage?.status === 204 && lastPageParams === 0) return null;
+      else if (allPages[0].data.count !== null && lastPageParams * 10 > allPages[0].data.count) return null;
+      return lastPageParams + 1;
     },
   });
 

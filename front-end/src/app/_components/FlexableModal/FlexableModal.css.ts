@@ -19,6 +19,7 @@ export const right = createVar();
 export const transform = createVar();
 export const wrapper = style({
   width: width,
+  maxWidth: '90vw',
   height: height,
   backgroundColor: vars.colors.service.MAIN_WHITE,
   borderRadius: '12px',

@@ -47,13 +47,14 @@ export default function Charts({ params }: T.AssemblyChartsProps) {
           <div className={S.posterWrapper}>
             <Comp.Poster posterheight="100%" posterwidth="100%">
               <div className={S.chartContainer}>
-                <p className={S.totalCount}>총 {pledgeRateResponse.data.pledgeFulfillmentStatus.totalPledges}개</p>
+                <p className={S.infoWrapper}>
+                  <span className={S.totalCount}>
+                    총 {pledgeRateResponse.data.pledgeFulfillmentStatus.totalPledges}개
+                  </span>
+                  <span className={S.infomationGivenDate}>22년 6월 기준</span>
+                </p>
                 <Comp.PieChart
-                  chartTitle={
-                    <>
-                      공약 추진 현황 <p className={S.infomationGivenDate}>(22년 6월 기준)</p>
-                    </>
-                  }
+                  chartTitle={<>공약 추진 현황</>}
                   legendDisplay={true}
                   legendList={[
                     { title: '완료', color: PALETTE.party[infoResponse.data.polyName][100] },

@@ -42,9 +42,14 @@ export default function AreaSelector({
       >
         {placeholders.sido || '시/도 선택'}
         <ul className={S.ulContainer}>
-          {siDoList.map((sido: T.ResponseRegion, i: number) => (
-            <li key={`si-do-${i}`} className={S.optionsItem} onClick={() => handleSidoItemClick({ ...sido })}>
-              {sido.regionName}
+          {siDoList.map((sido: any, i: number) => (
+            <li
+              key={`si-do-${i}`}
+              className={S.optionsItem}
+              onClick={() => handleSidoItemClick(sido)}
+              onTouchStart={() => handleSidoItemClick(sido)}
+            >
+              {sido.regionName || sido}
             </li>
           ))}
         </ul>
@@ -58,9 +63,14 @@ export default function AreaSelector({
       >
         {placeholders.sigungu || '시/군/구 선택'}
         <ul className={S.ulContainer}>
-          {siGunGuList.map((siGunGu: T.ResponseRegion, i: number) => (
-            <li key={`si-gun-gu-${i}`} className={S.optionsItem} onClick={() => handleSiGunGuItemClick({ ...siGunGu })}>
-              {siGunGu.regionName}
+          {siGunGuList.map((siGunGu: any, i: number) => (
+            <li
+              key={`si-gun-gu-${i}`}
+              className={S.optionsItem}
+              onClick={() => handleSiGunGuItemClick(siGunGu)}
+              onTouchStart={() => handleSiGunGuItemClick(siGunGu)}
+            >
+              {siGunGu.regionName || siGunGu}
             </li>
           ))}
         </ul>
@@ -74,9 +84,14 @@ export default function AreaSelector({
       >
         {placeholders.dong || '동 선택'}
         <ul className={S.ulContainer}>
-          {dongList.map((dong: T.ResponseRegion, i: number) => (
-            <li key={`dong-${i}`} className={S.optionsItem} onClick={() => handleDongItemClick({ ...dong })}>
-              {dong.regionName}
+          {dongList.map((dong: any, i: number) => (
+            <li
+              key={`dong-${i}`}
+              className={S.optionsItem}
+              onClick={() => handleDongItemClick(dong)}
+              onTouchStart={() => handleDongItemClick(dong)}
+            >
+              {dong.regionName || dong}
             </li>
           ))}
         </ul>

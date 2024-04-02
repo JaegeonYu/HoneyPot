@@ -40,6 +40,10 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <link rel="icon" href="/favicon.ico" sizes="any" />
+      {/* <Script
+        strategy="beforeInteractive"
+        src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NEXT_PUBLIC_MAP_KEY}`}
+      ></Script> */}
 
       {GA_TRACKING_ID && <GoogleTagManager gtmId={GA_TRACKING_ID} />}
 

@@ -38,7 +38,7 @@ export const chartContainer = style({
 });
 
 export const posterWrapper = style({
-  width: '45%',
+  width: '47%',
   minWidth: '276px',
 
   '@media': {
@@ -48,18 +48,25 @@ export const posterWrapper = style({
   },
 });
 
-export const totalCount = style({
+export const infoWrapper = style({
+  display: 'flex',
+  flexDirection: 'column',
   position: 'absolute',
   top: 0,
   right: 0,
+});
+
+export const totalCount = style({
   color: vars.colors.service.SUB_BLACK,
+  textAlign: 'right',
   fontSize: '12px',
   height: '20px',
   lineHeight: '20px',
 });
 
 export const infomationGivenDate = style({
-  width: '100%',
+  height: '20px',
+  lineHeight: '20px',
   textAlign: 'center',
   fontSize: '10px',
   color: vars.colors.service.SUB_BLACK,

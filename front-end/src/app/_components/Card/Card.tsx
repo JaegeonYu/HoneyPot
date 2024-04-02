@@ -38,7 +38,7 @@ export default function Card({ ratio, imgUrl, children, badge, onClick }: T.Card
       })}
       onClick={onClick}
     >
-      <Image
+      <img
         className={S.styledImage}
         style={assignInlineVars({
           [S.imgPadding]: ratio === '2 / 1' ? '8px' : '0px',
@@ -48,8 +48,8 @@ export default function Card({ ratio, imgUrl, children, badge, onClick }: T.Card
         width={100}
         height={100}
         alt={imgUrl}
-        quality={100}
-        priority={true}
+        // quality={100}
+        // priority={true}
       />
       {children}
       {badge.isBadgeNeed && badge.text && (

@@ -46,10 +46,12 @@ export const navTitle = style({
 });
 
 export const title = style({
-  height: '100%',
+  height: '80%',
   fontSize: '14px',
   borderRadius: '8px',
   padding: '16px 12px',
+  lineHeight: '32px',
+  marginTop: '8px',
 
   selectors: {
     [`${navTitle}:hover > &, ${navTitle}:hover > a > &`]: {
@@ -60,6 +62,8 @@ export const title = style({
 });
 
 export const dropBox = style({
+  display: 'flex',
+  flexDirection: 'column',
   visibility: 'hidden',
   position: 'absolute',
   top: '80px',
@@ -77,6 +81,10 @@ export const dropBox = style({
       visibility: 'visible',
     },
   },
+});
+
+export const styledLink = style({
+  height: 'fit-content',
 });
 
 export const dropBoxItem = style({

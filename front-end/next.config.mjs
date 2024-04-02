@@ -5,6 +5,8 @@ const withVanillaExtract = createVanillaExtractPlugin({
   identifiers: ({ hash }) => `my_service_${hash}`,
 });
 
+// ('https://d1x6bubco94kr4.cloudfront.net/images/100153084.JPG');
+
 const nextConfig = {
   images: {
     remotePatterns: [
@@ -14,6 +16,12 @@ const nextConfig = {
         port: '',
         pathname: '/**',
       },
+      // {
+      //   protocol: 'http',
+      //   hostname: 'info.nec.go.kr',
+      //   port: '',
+      //   pathname: '/**',
+      // },
     ],
   },
   webpack(config) {
