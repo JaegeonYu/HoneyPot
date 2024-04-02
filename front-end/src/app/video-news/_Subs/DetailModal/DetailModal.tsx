@@ -132,7 +132,7 @@ export default function DetailModal({
           </div>
           <article className={S.articlesWrapper}>
             <div className={S.articleTopSection}>
-              <div className={S.textsColumWrapper}>
+              <div className={S.textsColumWrapper} style={assignInlineVars({ [S.justifyContent]: 'space-between' })}>
                 <h3 className={S.title}>{videoName}</h3>
                 <div className={S.keywordsWrapper}>
                   {keywords.map((keyword, i) => (
@@ -149,7 +149,7 @@ export default function DetailModal({
             </div>
             <div className={S.summaryContainer}>
               <h4 className={S.title}>영상 한줄 요약</h4>
-              <p>{videoSummary}</p>
+              <p className={S.summary}>{videoSummary}</p>
             </div>
           </article>
         </div>

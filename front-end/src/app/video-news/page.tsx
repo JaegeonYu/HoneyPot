@@ -5,8 +5,8 @@ import * as S from './page.css';
 import * as T from '@/types';
 import * as API from '@/apis';
 import * as Comp from '@/components';
-import * as SubComp from './Subs';
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import * as SubComp from './_Subs';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { useIntersectionObserver } from '@/_customhooks';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
@@ -92,7 +92,7 @@ export default function VideoNewsPage() {
         <div ref={target} />
       </ul>
       {Number(searchParams.get('detail')) > 0 && detail && (
-        <SubComp.DetailModal viewHandler={() => handleModalView({ isOpen: true, value: null })} {...detail} />
+        <SubComp.DetailModal viewHandler={() => handleModalView({ isOpen: false, value: null })} {...detail} />
       )}
     </>
   );
