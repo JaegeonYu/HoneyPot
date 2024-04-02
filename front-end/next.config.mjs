@@ -14,6 +14,12 @@ const nextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'http',
+        hostname: 'info.nec.go.kr',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
   webpack(config) {

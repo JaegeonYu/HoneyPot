@@ -8,38 +8,95 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 export default function UserInteractionSection() {
-  // const router = useRouter();
-  // const pathname = usePathname();
-  // const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
-  // const handleQueryString = useCallback(() => {
-  //   const params = new URLSearchParams(searchParams.toString());
-  // }, [searchParams]);
+  const handleQueryString = useCallback(
+    ({ siDo, siGunGu, dong }: { siDo: string; siGunGu: string; dong: string }) => {
+      const params = new URLSearchParams(searchParams.toString());
 
-  // const { data: siDoListResponse, isFetched: siDoListFetched } = useSuspenseQuery({
-  //   queryKey: [{ candidate: `si-do-list` }],
-  //   queryFn: () => API.cantidate.getCandianteSiDoList(),
-  //   retry: false,
-  // });
+      params.set('sido', siDo);
+      params.set('sigungu', siGunGu);
+      params.set('dong', dong);
 
-  //   const { data: siGunGuListResponse, isFetched: siGunGuListFetched } = useSuspenseQuery({
-  //     queryKey: [{ candidate: `si-gun-gu-list` }],
-  //     queryFn: () => API.cantidate.getCandianteSiGunGuList(),
-  //     retry: false,
-  //   });
+      router.push(`${pathname}?${params.toString()}`);
+    },
+    [searchParams],
+  );
 
-  //   const { data: dongListResponse, isFetched: dongListFetched } = useSuspenseQuery({
-  //     queryKey: [{ candidate: `dong-list` }],
-  //     queryFn: () => API.cantidate.getCandianteDongList(),
-  //     retry: false,
-  //   });
+  const {
+    data: siDoListResponse,
+    refetch: siDoListRefetch,
+    isFetched: siDoListFetched,
+  } = useSuspenseQuery({
+    queryKey: [{ candidate: `si-do-list` }],
+    queryFn: () => API.cantidate.getCandianteSiDoList(),
+    retry: false,
+  });
+
+  const {
+    data: siGunGuListResponse,
+    refetch: siGunGuListRefetch,
+    isFetched: siGunGuListFetched,
+  } = useSuspenseQuery({
+    queryKey: [{ candidate: `si-gun-gu-list-${searchParams.get('sido')}` }],
+    queryFn: () => API.cantidate.getCandianteSiGunGuList({ siDo: searchParams.get('sido') || '' }),
+    retry: false,
+  });
+
+  const {
+    data: dongListResponse,
+    refetch: dongListRefetch,
+    isFetched: dongListFetched,
+  } = useSuspenseQuery({
+    queryKey: [{ candidate: `dong-list-${searchParams.get('sigungu')}` }],
+    queryFn: () =>
+      API.cantidate.getCandianteDongList({
+        siDo: searchParams.get('sido') || '',
+        siGunGu: searchParams.get('sigungu') || '',
+      }),
+    retry: false,
+  });
+
+  const handleSiDoItemClick = (value: string) => {
+    handleQueryString({ siDo: value, siGunGu: '', dong: '' });
+    siGunGuListRefetch();
+  };
+
+  const handleSiGunGuItemClick = (value: string) => {
+    const curSiDo = searchParams.get('sido');
+    if (curSiDo !== null) {
+      handleQueryString({ siDo: curSiDo, siGunGu: value, dong: '' });
+    } else {
+      handleQueryString({ siDo: '', siGunGu: '', dong: '' });
+    }
+    dongListRefetch();
+  };
+
+  const handleDongItemClick = (value: string) => {
+    const curSiDo = searchParams.get('sido');
+    const curSiGunGu = searchParams.get('sigungu');
+    if (curSiDo !== null && curSiGunGu !== null) {
+      handleQueryString({ siDo: curSiDo, siGunGu: curSiGunGu, dong: value });
+    } else {
+      handleQueryString({ siDo: '', siGunGu: '', dong: '' });
+    }
+  };
 
   return (
-    // <Comp.AreaSelector>
-    //   UserInteractionSectionUserInteractionSectionUserInteractionSectionUserInteractionSectionUserInteractionSectionUserInteractionSection
-    // </Comp.AreaSelector>
-    <>
-      UserInteractionSectionUserInteractionSectionUserInteractionSectionUserInteractionSectionUserInteractionSectionUserInteractionSection
-    </>
+    <Comp.AreaSelector
+      onSidoItemClick={handleSiDoItemClick}
+      onSiGunGuItemClick={handleSiGunGuItemClick}
+      onDongItemClick={handleDongItemClick}
+      placeholders={{
+        sido: searchParams.get('sido'),
+        sigungu: searchParams.get('sigungu'),
+        dong: searchParams.get('dong'),
+      }}
+      siDoList={siDoListResponse.data}
+      siGunGuList={siGunGuListResponse.data}
+      dongList={dongListResponse.data}
+    />
   );
 }
