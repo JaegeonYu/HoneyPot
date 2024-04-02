@@ -31,7 +31,7 @@ function KakaoMap({ pollList }: { pollList: { name: string; address: string }[] 
       const script = window.kakao.maps.load(() => {
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div
           mapOption = {
-            center: new window.kakao.maps.LatLng(37.531804, 126.915121), // 지도의 중심좌표
+            center: new window.kakao.maps.LatLng(37.531804, 126.913121), // 지도의 중심좌표
             level: 3, // 지도의 확대 레벨
           };
 
@@ -97,7 +97,7 @@ function KakaoMap({ pollList }: { pollList: { name: string; address: string }[] 
   return (
     <>
       <Script
-        strategy="beforeInteractive"
+        strategy="afterInteractive"
         src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_APP_JS_KEY}&autoload=false&libraries=services`}
       />
       {windowDefine && (

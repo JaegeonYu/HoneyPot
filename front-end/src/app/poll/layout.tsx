@@ -1,3 +1,4 @@
+import Script from 'next/script';
 import React, { Suspense } from 'react';
 
 export default function PollLayout({
@@ -16,7 +17,7 @@ export default function PollLayout({
           {/* <div style={{ fontSize: 18, fontWeight: 400, textAlign: 'center', marginTop: '-30px' }}>
           시군구 단위부터 확인할 수 있어요.
         </div> */}
-          <Suspense>{UserInteractionSection}</Suspense>
+          {UserInteractionSection}
           {children}
         </div>
       </Suspense>
