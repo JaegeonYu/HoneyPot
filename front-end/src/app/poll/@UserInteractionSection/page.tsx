@@ -86,18 +86,29 @@ export default function UserInteractionSection() {
   };
 
   return (
-    <Comp.AreaSelector
-      onSidoItemClick={handleSiDoItemClick}
-      onSiGunGuItemClick={handleSiGunGuItemClick}
-      onDongItemClick={handleDongItemClick}
-      placeholders={{
-        sido: searchParams.get('sido'),
-        sigungu: searchParams.get('sigungu'),
-        dong: searchParams.get('dong'),
+    <div
+      style={{
+        zIndex: 2,
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
       }}
-      siDoList={siDoListResponse.data}
-      siGunGuList={siGunGuListResponse.data}
-      dongList={dongListResponse.data}
-    />
+    >
+      <Comp.AreaSelector
+        onSidoItemClick={handleSiDoItemClick}
+        onSiGunGuItemClick={handleSiGunGuItemClick}
+        onDongItemClick={handleDongItemClick}
+        placeholders={{
+          sido: searchParams.get('sido'),
+          sigungu: searchParams.get('sigungu'),
+          dong: searchParams.get('dong'),
+        }}
+        siDoList={siDoListResponse.data}
+        siGunGuList={siGunGuListResponse.data}
+        dongList={dongListResponse.data}
+      />
+    </div>
   );
 }

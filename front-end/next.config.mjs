@@ -8,6 +8,7 @@ const withVanillaExtract = createVanillaExtractPlugin({
 // ('https://d1x6bubco94kr4.cloudfront.net/images/100153084.JPG');
 
 const nextConfig = {
+  reactStrictMode: false,
   images: {
     remotePatterns: [
       {

@@ -4,6 +4,8 @@ import React from 'react';
 import Script from 'next/script';
 import { useEffect, useRef, useState } from 'react';
 
+import { useSearchParams } from 'next/navigation';
+
 // import styles from './map.module.scss';
 
 declare global {
@@ -14,10 +16,12 @@ declare global {
 
 function KakaoMap({ pollList }: { pollList: { name: string; address: string }[] }) {
   const mapRef = useRef<HTMLDivElement>(null);
+  const searchParams = useSearchParams();
   // console.log(pollList, 'poLLLIST');
 
   const [windowDefine, setWindowDefine] = useState(false);
 
+  // var dongvalue= searchParams.get('dong')
   useEffect(() => {
     if (typeof window !== undefined) setWindowDefine(true);
   }, []);
@@ -60,6 +64,7 @@ function KakaoMap({ pollList }: { pollList: { name: string; address: string }[] 
 
               // 인포윈도우로 장소에 대한 설명을 표시합니다
               //변경한 코드
+              // const infoWindow = document.
               var infowindow = new window.kakao.maps.InfoWindow({
                 content:
                   '<div style="display:flex;width:fit-content;justify-contents:center;text-align:center;align-items:center;padding:6px 0;">' +
@@ -85,28 +90,6 @@ function KakaoMap({ pollList }: { pollList: { name: string; address: string }[] 
             }
           });
         });
-
-        // pollList.forEach(function (position) {
-        //   geocoder.addressSearch(position, (result: any, status: any) => {
-        //     if (status === window.kakao.maps.services.Status.OK) {
-        //       var coords = new window.kakao.maps.LatLng(result[0].y, result[0].x);
-        //       console.log(result[0].y, result[0].x, 'whkvy');
-
-        //       var marker = new window.kakao.maps.Marker({
-        //         map: map,
-        //         position: coords,
-        //       });
-
-        //       var infowindow = new window.kakao.maps.InfoWindow({
-        //         content: '<div style="width:150px;text-align:center;padding:6px 0;">' + 'ds' + '</div>',
-        //       });
-        //       infowindow.open(map, marker);
-
-        //       // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-        //       map.setCenter(coords);
-        //     }
-        //   });
-        // });
       });
     }
   }, [windowDefine, pollList]);

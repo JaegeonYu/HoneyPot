@@ -104,14 +104,6 @@ export default function Bill({
     // console.log(isToggled);
   }, [isToggled]);
 
-  useEffect(() => {
-    // 데이터가 변경되면 isActive 상태를 false로 초기화
-    if (summaryResponse) {
-      // setIsToggled(true);
-      console.log(summaryResponse);
-    }
-  }, [summaryResponse]);
-
   const toggleAccordion = () => {
     setIsActive(!isActive);
   };
