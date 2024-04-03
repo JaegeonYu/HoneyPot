@@ -16,20 +16,26 @@ export default function AreaSelector({
   const dongButton = useRef<HTMLButtonElement>(null);
 
   const handleSidoItemClick = (value: any) => {
-    onSidoItemClick(value);
-    siDoButton.current?.blur();
-    siGunGuButton.current?.focus();
+    if (siDoButton.current && siGunGuButton.current) {
+      onSidoItemClick(value);
+      siDoButton.current.blur();
+      siGunGuButton.current.focus();
+    }
   };
 
   const handleSiGunGuItemClick = (value: any) => {
-    onSiGunGuItemClick(value);
-    siGunGuButton.current?.blur();
-    dongButton.current?.focus();
+    if (siGunGuButton.current && dongButton.current) {
+      onSiGunGuItemClick(value);
+      siGunGuButton.current.blur();
+      dongButton.current.focus();
+    }
   };
 
   const handleDongItemClick = (value: any) => {
-    onDongItemClick(value);
-    dongButton.current?.blur();
+    if (dongButton.current) {
+      onDongItemClick(value);
+      dongButton.current.blur();
+    }
   };
 
   return (
