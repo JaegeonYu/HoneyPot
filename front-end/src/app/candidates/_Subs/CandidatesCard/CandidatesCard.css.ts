@@ -5,6 +5,7 @@ export const infoSection = style({
   maxWidth: '276px',
   height: '424px',
   aspectRatio: '1 / 1.4',
+  cursor: 'pointer',
 });
 
 export const cardWrapper = style({

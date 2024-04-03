@@ -161,7 +161,7 @@ export default function BillTab1() {
             </span>
           </div>
         </h2>
-        <div style={{ paddingTop: 4 }}>
+        <div style={{ padding: '16px 0px 4px 0px' }}>
           <Comp.CategoryList selectedIdx={selectedCategoryId} onCategoryClick={handleCategoryClick} />
         </div>
         <Suspense

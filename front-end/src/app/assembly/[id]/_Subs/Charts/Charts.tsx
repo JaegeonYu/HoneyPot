@@ -1,12 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback } from 'react';
 import * as API from '@/_apis/assembly';
 import * as S from './Charts.css';
 import * as T from '@/types';
 import * as Comp from '@/components';
 import { PALETTE } from '@/_constants';
 import { useSuspenseQueries } from '@tanstack/react-query';
-import Image from 'next/image';
-import Link from 'next/link';
 
 export default function Charts({ params }: T.AssemblyChartsProps) {
   const [{ data: infoResponse, isFetched: infoFetched }, { data: pledgeRateResponse, isFetched: pledgeFetched }] =
@@ -33,7 +31,6 @@ export default function Charts({ params }: T.AssemblyChartsProps) {
 
     const totalMeeting = meetingAttendances + meetingAbsence;
     const totalStanding = standingAttendances + standingAbsence;
-
     return [
       [Math.floor((meetingAbsence / totalMeeting) * 100), Math.floor((meetingAttendances / totalMeeting) * 100)],
       [Math.floor((standingAbsence / totalStanding) * 100), Math.floor((standingAttendances / totalStanding) * 100)],

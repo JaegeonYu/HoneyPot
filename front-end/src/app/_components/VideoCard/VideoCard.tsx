@@ -102,6 +102,7 @@ export default function VideoCard({
               className={isLoad.img ? S.styledThumbnail : S.skeletonResouce}
               style={assignInlineVars({ [S.toggleVisible]: isHover ? '0' : '0.99' })}
               onLoad={() => setIsLoad(prev => ({ ...prev, img: true }))}
+              quality={40}
             />
             <video
               ref={videoRef}

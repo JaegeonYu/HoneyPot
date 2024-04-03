@@ -36,6 +36,12 @@ export default function AssemblyTab1({ params }: T.AssemblyTab1Props) {
       <h2 className={S.titleWrapper} ref={target}>
         <p className={S.title}>
           공약
+          <span style={{ paddingLeft: '8px' }} className={S.infomationGivenDate}>
+            정보 출처 :
+          </span>
+          <a target="_black" href="http://manifesto.or.kr/?page_id=3614" className={S.infomationGivenLink}>
+            한국매니페스토
+          </a>
           <span className={S.infomationGivenDate}>(22년 6월 기준)</span>
         </p>
         <span className={S.totalContWrapper}>
