@@ -1,6 +1,6 @@
 export interface DoughnutChartProps {
   chartTitle: string;
-  datasetList: number[][] | string[][];
+  datasetList: number[][];
   legendList: { title: string; color: string }[];
   UNIQUE_ID_FOR_LEGEND: 'assembly-member-attendance-rate';
 }

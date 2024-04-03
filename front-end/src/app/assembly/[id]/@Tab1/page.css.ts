@@ -22,9 +22,16 @@ export const title = style({
   lineHeight: '38px',
 });
 
+export const infomationGivenLink = style({
+  textAlign: 'center',
+  paddingLeft: '4px',
+  fontSize: '12px',
+  textDecoration: 'underline',
+  color: vars.colors.service.SUB_BLACK,
+});
+
 export const infomationGivenDate = style({
   textAlign: 'center',
-  paddingLeft: '8px',
   fontSize: '12px',
   color: vars.colors.service.SUB_BLACK,
 });
