@@ -13,6 +13,7 @@ import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import Pagination from '@/_components/Pagination/Pagination';
 import BillLoading from './loading';
 import BillList from './_Subs/BillList/BillList';
+import Link from 'next/link';
 // import { fontName } from '@/_components/Bill/Bill.css';
 
 export default function BillTab1() {
@@ -135,7 +136,9 @@ export default function BillTab1() {
                   <Comp.Badge color={PALETTE.party[res.polyName][100]} isPositionAbsolute={false}>
                     {res.polyName}
                   </Comp.Badge>
-                  <p className={S.fontMostAssembly}>{res.hgName}</p>
+                  <Link href={`assembly/${res.assemblyId}`}>
+                    <p className={S.fontMostAssembly}>{res.hgName}</p>
+                  </Link>
                 </div>
               ))}
               {/* <p className={S.fontContent}>{billResponse.data.mostCmitAssemblyResponseList[1].hgName}</p>
