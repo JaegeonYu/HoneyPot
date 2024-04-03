@@ -19,6 +19,8 @@ export default function Poll() {
   const [dong, setDong] = useState<string | null>();
   const [pollList, setPollList] = useState<{ name: string; address: string }[]>([]);
 
+  const [flag, setFlag] = useState(false);
+
   // console.log(searchParams.get('sido'), '==============');
   // let dong = searchParams.get('dong');
 
@@ -34,13 +36,28 @@ export default function Poll() {
     queryKey: [{ bill: `info-request-poll-list` }, { page, size, sido, gugun }], // 쿼리 키에 page와 limit 추가
     queryFn: () =>
       API.getPoll({ sido, gugun, page, size }).then(res => {
-        // console.log(res.data.response.body.totalCount, 'total');
-
-        // setPage(2);
+        console.log(res.data.response.body.totalCount, 'total');
+        console.log(res.data, 'first data');
+        setFlag(true);
         return res.data;
       }), // API 호출 시 동적으로 page와 limit 전달
     retry: false,
   });
+
+  // const { data: pollResponse2, isFetched: pollFetched2 } = useQuery({
+  //   queryKey: [{ bill: `info-request-poll-list` }, { page, size, sido, gugun }], // 쿼리 키에 page와 limit 추가
+  //   queryFn: () =>
+  //     API.getPoll({ sido, gugun, page: page + 1, size }).then(res => {
+  //       console.log(res.data.response.body.totalCount, '222total2');
+  //       console.log(res.data, '2 data');
+  //       setFlag(false);
+  //       console.log(flag, 'flag!@#');
+  //       return res.data;
+  //     }), // API 호출 시 동적으로 page와 limit 전달
+  //   retry: false,
+  //   enabled: !!flag,
+  // });
+
   // console.log(pollResponse?.data);
   // const {convertXML, createAST} = require("simple-xml-to-json")
 

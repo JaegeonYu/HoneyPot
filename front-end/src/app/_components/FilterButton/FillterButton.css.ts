@@ -9,6 +9,7 @@ export const item = style({
   borderRadius: '6px',
   overflow: 'hidden',
   backgroundColor: isSelectedBgColor,
+  cursor: 'pointer',
 });
 
 export const isSelectedFontColor = createVar();
@@ -21,7 +22,6 @@ export const text = style({
   fontSize: '14px',
   lineHeight: '27px',
   textWrap: 'nowrap',
-  color: isSelectedFontColor,
 
   selectors: {
     [`${item}:hover &`]: {
@@ -33,4 +33,5 @@ export const text = style({
       backgroundColor: vars.colors.service.MAIN_BLACK,
     },
   },
+  color: isSelectedFontColor,
 });

@@ -74,6 +74,13 @@ export const fontMostAssembly = style({
   fontSize: 15,
   fontWeight: 500,
   columnGap: 20,
+  selectors: {
+    '&:hover': {
+      fontWeight: 800,
+      // backgroundColor: vars.colors.service.HOVER_BACKGROUND,
+      textDecorationLine: 'underline',
+    },
+  },
   // textAlign: 'center',
 });
 

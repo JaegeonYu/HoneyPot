@@ -1,6 +1,7 @@
 import React from 'react';
 import * as S from './DoughnutChart.css';
 import * as T from '@/types';
+import * as Comp from '@/components';
 import { Chart as ChartJS, Legend, Title, CategoryScale, LinearScale, Tooltip, ArcElement } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 import { PALETTE } from '@/_constants';
@@ -35,6 +36,11 @@ ChartJS.register(Legend, Tooltip, Title, CategoryScale, LinearScale, ArcElement)
  * 차트의 크기는 width: 100%로 설정이 되어 있어서 한 번 감싸서 사용해줘야 한다.
  * 또한 높이도 width의 크기를 따라간다. 즉, 크기는 width x width
  */
+
+const EMPTY_DATA_LIST = [
+  [0, 0],
+  [0, 0],
+];
 
 export default React.memo(function DoughnutChart({
   chartTitle,
@@ -107,20 +113,40 @@ export default React.memo(function DoughnutChart({
     },
   };
 
+  const datasetListSafeCheck = () => {
+    let dataAllSafe = false;
+    datasetList.forEach((data, i) => {
+      if (data.includes(NaN)) dataAllSafe = true;
+    });
+
+    return dataAllSafe;
+  };
+
   return (
     <div className={S.chartWrapper}>
       <p className={S.chartTitle}>{chartTitle}</p>
-      <Doughnut
-        options={option}
-        plugins={[htmlLegendPlugin]}
-        data={{
-          labels: legendList.map(li => li.title),
-          datasets: datasetList.map((data, i) => ({
-            data: data,
-            backgroundColor: [PALETTE.service.STROKE_OR_BLUR, legendList[i].color],
-          })),
-        }}
-      />
+      {!datasetListSafeCheck() ? (
+        <>
+          <Doughnut
+            options={option}
+            plugins={[htmlLegendPlugin]}
+            data={{
+              labels: legendList.map(li => li.title),
+              datasets: datasetList.map((data, i) => ({
+                data: data,
+                backgroundColor: [PALETTE.service.STROKE_OR_BLUR, legendList[i].color],
+              })),
+            }}
+          />
+          <p className={S.percentInCenter}>
+            {datasetList.map((data, i) => (
+              <span className={S.percentInCenterText} key={i}>{`${legendList[i].title} : ${datasetList[i][1]}%`}</span>
+            ))}
+          </p>
+        </>
+      ) : (
+        <Comp.EmptyData alt="출석률 정보 미제공" width={200} height={134} maxWidth={200} maxHeight={134} />
+      )}
       <div id={UNIQUE_ID_FOR_LEGEND}></div>
     </div>
   );
