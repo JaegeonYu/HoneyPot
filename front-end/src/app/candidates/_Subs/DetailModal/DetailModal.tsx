@@ -1,9 +1,9 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as S from './DetailModal.css';
 import * as T from '@/types';
 import * as API from '@/apis';
 import * as Icon from '@/_assets/icon';
-import { useQuery } from '@tanstack/react-query';
+import { useQueries, useQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
@@ -38,6 +38,10 @@ export default function DetailModal({
     retry: false,
   });
 
+  // const [] = useQueries({
+  //   queries: [{ queryKey: [candianteDetailResponse?.data.imageList] }],
+  // });
+
   const handleCarouselIdx = (dir: 'L' | 'R') => {
     if (pdfWindowRef.current && pdfsContainerRef.current) {
       const movingSize = pdfWindowRef.current.offsetWidth;
@@ -51,6 +55,7 @@ export default function DetailModal({
     }
   };
 
+  // console.log(`candianteDetailResponse :`, candianteDetailResponse);
   return (
     <>
       <div className={S.overlay} onClick={viewHandler} />
@@ -69,14 +74,15 @@ export default function DetailModal({
                     }px)`,
                   })}
                 >
-                  {candianteDetailResponse?.data.imageList.map((img: string, i: number) => (
-                    <Image
+                  {candianteDetailResponse.data.imageList.map((img: string, i: number) => (
+                    <img
                       className={S.pledgePdfItem}
                       alt={`${hgname} 공약집`}
                       width={100}
                       height={100}
                       key={i}
                       src={`data:image/png;base64,${img}`}
+                      // src={img}
                     />
                   ))}
                 </div>
