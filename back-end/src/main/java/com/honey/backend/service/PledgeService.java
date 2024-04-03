@@ -142,7 +142,7 @@ public class PledgeService {
                 fulfillmentRate,
                 pledge.getRequiredBudgetAmount(),
                 pledge.getSecuredBudgetAmount(),
-                deleteTitle(pledge.getOtherImplementationBasis(), "기타 이행 근거")
+                pledge.getOtherImplementationBasis()
         );
 
     }
@@ -177,7 +177,7 @@ public class PledgeService {
                 fulfillmentRate,
                 pledge.getRequiredBudgetAmount(),
                 pledge.getSecuredBudgetAmount(),
-                deleteTitle(pledge.getOtherImplementationBasis(), "기타 이행 근거")
+                pledge.getOtherImplementationBasis()
         );
 
     }
