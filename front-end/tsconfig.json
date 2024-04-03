@@ -11,14 +11,22 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
+    "typeRoots": ["./@types", "./node_modules/@types"],
     "incremental": true,
     "plugins": [
       {
         "name": "next"
       }
     ],
+    "baseUrl": "./src/app",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["*"],
+      "@/components": ["_components/"],
+      "@/apis": ["_apis/"],
+      "@/assets": ["_assets/"],
+      "@/types": ["_types/"],
+      "@/store": ["_store/"],
+      "@/customhooks": ["_customhooks/"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
