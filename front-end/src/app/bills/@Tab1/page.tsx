@@ -36,10 +36,12 @@ export default function BillTab1() {
   }, [page]);
 
   const { data: billResponse, isFetched: billFetched } = useSuspenseQuery({
-    queryKey: [{ bill: `info-request-bill-list` }, { page, limit, selectedCategoryId }], // 쿼리 키에 page와 limit 추가
-    queryFn: () => API.getBillInfo({ cmit: selectedCategoryId, page, limit, word: '', accept: undefined }), // API 호출 시 동적으로 page와 limit 전달
+    queryKey: [{ bill: `info-request-bill-list` }, { page, limit, selectedCategoryId, completeToggle }], // 쿼리 키에 page와 limit 추가
+    queryFn: () => API.getBillInfo({ cmit: selectedCategoryId, page, limit, word: '', accept: completeToggle }), // API 호출 시 동적으로 page와 limit 전달
     retry: false,
   });
+
+  // console.log(billResponse, 'billResponse');
 
   ///////////////////////////////
   const handleIsSelectedIdx = (idx: number) => {
@@ -155,7 +157,7 @@ export default function BillTab1() {
               <span style={{ fontSize: 12 }}>가결된 법안만 보기</span>
             </label>
             <span className={S.totalContWrapper}>
-              총 <span className={S.number}>{billResponse.data.billStatResponse.totalCount || 0}</span>개
+              총 <span className={S.number}>{billResponse.data.searchCount || 0}</span>개
             </span>
           </div>
         </h2>

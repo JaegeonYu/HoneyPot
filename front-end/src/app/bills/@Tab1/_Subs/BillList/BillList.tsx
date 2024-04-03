@@ -40,7 +40,7 @@ export default function BillList({ category, toggled }: T.BillListProps) {
         onPageChange={handlePageChange}
         // limit={limit}
         // onLimitChange={handleLimitChange}
-        totalItems={billResponse.data.billStatResponse.totalCount}
+        totalItems={billResponse.data.searchCount}
       ></Pagination>
     </>
   );

@@ -19,6 +19,7 @@ function KakaoMap({ pollList }: { pollList: { name: string; address: string }[] 
   const searchParams = useSearchParams();
   const [flag, setFlag] = useState<boolean>(false);
   const [map, setMap] = useState<any>(null);
+  const [markers, setMarkers] = useState();
 
   // console.log(pollList, 'poLLLIST');
 
@@ -49,6 +50,14 @@ function KakaoMap({ pollList }: { pollList: { name: string; address: string }[] 
         var bounds = new window.kakao.maps.LatLngBounds(); //추가한 코드
 
         // console.log(map, '이거 몇번해 ?', flag);
+        let markerlist: any = [];
+        // console.log(markers, 'markerssss');
+        let delmarker: any = markers;
+        if (delmarker !== null && delmarker !== undefined) {
+          delmarker.forEach(function (t: any) {
+            t.setMap(null);
+          });
+        }
 
         pollList.forEach(function (position) {
           //추가한 코드
@@ -63,6 +72,7 @@ function KakaoMap({ pollList }: { pollList: { name: string; address: string }[] 
                 map: map,
                 position: coords,
               });
+              markerlist.push(marker); // 마커들 저장
               marker.setMap(map); //추가한 코드
 
               // LatLngBounds 객체에 좌표를 추가합니다
@@ -96,13 +106,14 @@ function KakaoMap({ pollList }: { pollList: { name: string; address: string }[] 
             }
           });
         });
+        setMarkers(markerlist);
       });
     }
   }, [pollList, map]);
 
   return (
     <>
-      <div id="map" style={{ width: '80vw', height: '60vh' }}></div>
+      <div id="map" style={{ width: '80vw', height: '60vh', borderRadius: 30 }}></div>
     </>
   );
 }
