@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Getter
 @NoArgsConstructor
@@ -45,6 +47,8 @@ public class Candidate {
     private String career2;
     private String status;
 
+    @OneToMany(mappedBy = "candidate")
+    private List<CandidateImage> candidateImages;
     public Candidate(String candidateImgUrl, String sgDate, int sgTypeCode, Long huboid, String sggName, String sdName, String wiwName, int giho, String jdName, String hgname, String hjName, String gender, String birthday, int age, String addr, String job, String edu, String career1, String career2, String status) {
         this.candidateImgUrl = candidateImgUrl;
         this.sgDate = sgDate;
