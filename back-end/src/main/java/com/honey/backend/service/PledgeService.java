@@ -128,15 +128,17 @@ public class PledgeService {
         } else {
             fulfillmentRate = "기타";
         }
-        String summary = pledge.getPledgeSummary();
-        if (pledge.getPledgeSummary().contains("공약내용요약") || pledge.getPledgeSummary().contains("공약내용 요약")) {
-            summary = "공약내용요약 :";
+        String summary = "공약내용요약 :";
+        if (pledge.getPledgeSummary().contains("공약내용 요약")) {
+            summary = "공약내용 요약 :";
+        } else if (pledge.getPledgeSummary().contains("공약내용요약-")) {
+            summary = "공약내용요약-";
         }
         return new PledgeDetailResponse(
                 pledge.getId(),
                 pledge.getTurn(),
-                deleteTitle(pledge.getPledgeName(), "공약명 :"),
-                deleteTitle(pledge.getPledgeSummary(), summary),
+                deleteTitle(pledge.getPledgeName(), "공약명 :").trim(),
+                deleteTitle(pledge.getPledgeSummary(), summary).trim(),
                 pledge.getNatureDivisionNationalRegional(),
                 pledge.getNatureDivisionLegislationFinance(),
                 fulfillmentRate,
@@ -163,15 +165,17 @@ public class PledgeService {
         } else {
             fulfillmentRate = "기타";
         }
-        String summary = pledge.getPledgeSummary();
-        if (pledge.getPledgeSummary().contains("공약내용요약") || pledge.getPledgeSummary().contains("공약내용 요약")) {
-            summary = "공약내용요약 :";
+        String summary = "공약내용요약 :";
+        if (pledge.getPledgeSummary().contains("공약내용 요약")) {
+            summary = "공약내용 요약 :";
+        } else if (pledge.getPledgeSummary().contains("공약내용요약-")) {
+            summary = "공약내용요약-";
         }
         return new PledgeDetailResponse(
                 pledge.getId(),
                 pledge.getTurn(),
-                deleteTitle(pledge.getPledgeName(), "공약명 :"),
-                deleteTitle(pledge.getPledgeSummary(), summary),
+                deleteTitle(pledge.getPledgeName(), "공약명 :").trim(),
+                deleteTitle(pledge.getPledgeSummary(), summary).trim(),
                 pledge.getNatureDivisionNationalRegional(),
                 pledge.getNatureDivisionLegislationFinance(),
                 fulfillmentRate,
