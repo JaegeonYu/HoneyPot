@@ -4,8 +4,6 @@ import com.honey.backend.domain.pledge.Pledge;
 import com.honey.backend.domain.pledge.PledgeFulfillmentRate;
 import com.honey.backend.domain.pledge.PledgeFulfillmentRateRepository;
 import com.honey.backend.domain.pledge.PledgeRepository;
-import com.honey.backend.exception.BaseException;
-import com.honey.backend.exception.PledgeErrorCode;
 import com.honey.backend.request.PledgeRequest;
 import com.honey.backend.response.pledge.PledgeDetailResponse;
 import com.honey.backend.response.pledge.PledgeFulfillmentStatus;
@@ -31,8 +29,8 @@ public class PledgeService {
         PledgeFulfillmentRate pledgeFulfillmentRate = pledgeFulfillmentRateRepository.findByAssemblyId(assemblyId)
                 .orElse(null);
 
-        if(pledgeFulfillmentRate == null) {
-            return new PledgeResponse(-1L,new PledgeFulfillmentStatus(0,0,0,0,0,0));
+        if (pledgeFulfillmentRate == null) {
+            return new PledgeResponse(-1L, new PledgeFulfillmentStatus(0, 0, 0, 0, 0, 0));
         }
         return new PledgeResponse(
                 pledgeFulfillmentRate.getId(),
@@ -41,15 +39,15 @@ public class PledgeService {
     }
 
     public PledgeListResponse getPledgeDetailList(PledgeRequest pledgeRequest, Long pledgeFulfilmentRateId) {
-        Page<Pledge> pledgeList = pledgeRepository.findAllByPledgeFulfillmentRateId(PageRequest.of(pledgeRequest.page(),pledgeRequest.limit()),pledgeFulfilmentRateId)
+        Page<Pledge> pledgeList = pledgeRepository.findAllByPledgeFulfillmentRateId(PageRequest.of(pledgeRequest.page(), pledgeRequest.limit()), pledgeFulfilmentRateId)
                 .orElse(null);
-        if(pledgeList == null)
+        if (pledgeList == null)
             return null;
         List<PledgeDetailResponse> pledgeDetailResponseList = new ArrayList<>();
         for (Pledge pledge : pledgeList) {
             pledgeDetailResponseList.add(getPledgeDetail(pledge));
         }
-        return new PledgeListResponse((int)pledgeList.getTotalElements(),pledgeDetailResponseList);
+        return new PledgeListResponse((int) pledgeList.getTotalElements(), pledgeDetailResponseList);
     }
 
     private PledgeFulfillmentStatus getPledgeFulfillmentStatus(PledgeFulfillmentRate pledgeFulfillmentRate) {
@@ -70,14 +68,33 @@ public class PledgeService {
     }
 
     private PledgeDetailResponse getPledgeDetail(Pledge pledge) {
+        String fulfillmentRate = "";
+        if (pledge.getFulfillmentRate().contains("추진중") || pledge.getFulfillmentRate().contains("추진 중")) {
+            fulfillmentRate = "추진중";
+            if (pledge.getFulfillmentRate().contains("완료")) {
+                fulfillmentRate = "기타";
+            }
+        } else if (pledge.getFulfillmentRate().contains("완료")) {
+            fulfillmentRate = "완료";
+        } else if (pledge.getFulfillmentRate().contains("폐기")) {
+            fulfillmentRate = "폐기";
+        } else if (pledge.getFulfillmentRate().contains("보류")) {
+            fulfillmentRate = "보류";
+        } else {
+            fulfillmentRate = "기타";
+        }
+        String summary = pledge.getPledgeSummary();
+        if (pledge.getPledgeSummary().contains("공약내용요약") || pledge.getPledgeSummary().contains("공약내용 요약")) {
+            summary = "공약내용요약";
+        }
         return new PledgeDetailResponse(
                 pledge.getId(),
                 pledge.getTurn(),
                 deleteTitle(pledge.getPledgeName(), "공약명"),
-                deleteTitle(pledge.getPledgeSummary(), "공약내용요약"),
+                deleteTitle(pledge.getPledgeSummary(), summary),
                 pledge.getNatureDivisionNationalRegional(),
                 pledge.getNatureDivisionLegislationFinance(),
-                pledge.getFulfillmentRate(),
+                fulfillmentRate,
                 pledge.getRequiredBudgetAmount(),
                 pledge.getSecuredBudgetAmount(),
                 deleteTitle(pledge.getOtherImplementationBasis(), "기타 이행 근거")
@@ -105,8 +122,9 @@ public class PledgeService {
 
     private String deleteTitle(String src, String tool) {
         if (src.startsWith(tool)) {
-            String[] split = src.split(":");
-            return  split.length == 1 ? null : split[1].trim();
+            String[] split = src.split(tool);
+            return split[1];
+
         } else return src;
 
     }

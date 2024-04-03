@@ -139,7 +139,7 @@ public class BillService {
     public int getCountAssembly(BillRequest billRequest, Long assemblyId) {
 
         return billRepository.countByAssemblyIdAndCmitId(
-                billRequest.word(), billRequest.cmit(), assemblyId).intValue();
+                billRequest.word(), billRequest.cmit(), assemblyId, billRequest.accept()).intValue();
     }
 
     public int getCountPoly(BillRequest billRequest, Long polyId) {
@@ -149,6 +149,7 @@ public class BillService {
     }
 
     public List<BillResponse> getListByResult(BillRequest billRequest) {
+
         int page = billRequest.page();
         int limit = billRequest.limit();
         Long cmitId = billRequest.cmit();
