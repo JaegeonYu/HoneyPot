@@ -42,7 +42,7 @@ export default function AssemblyTab1({ params }: T.AssemblyTab1Props) {
           <a target="_black" href="http://manifesto.or.kr/?page_id=3614" className={S.infomationGivenLink}>
             한국매니페스토
           </a>
-          <span className={S.infomationGivenDate}>(22년 6월 기준)</span>
+          <span className={S.infomationGivenDate}>(24년 4월 기준)</span>
         </p>
         <span className={S.totalContWrapper}>
           총 <span className={S.number}>{pledgeResponse?.totalCount}</span>개

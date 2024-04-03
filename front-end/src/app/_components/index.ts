@@ -23,6 +23,7 @@ import FillterButton from './FilterButton/FillterButton';
 import FlexableModal from './FlexableModal/FlexableModal';
 import EmptyData from './EmptyData/EmptyData';
 import * as Controller from './VideoControllers';
+import KakaoMap from './KakaoMap/KakaoMap';
 
 export {
   Header,
@@ -48,4 +49,5 @@ export {
   FlexableModal,
   EmptyData,
   Controller,
+  KakaoMap,
 };
