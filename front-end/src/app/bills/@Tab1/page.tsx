@@ -13,6 +13,7 @@ import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import Pagination from '@/_components/Pagination/Pagination';
 import BillLoading from './loading';
 import BillList from './_Subs/BillList/BillList';
+import Link from 'next/link';
 // import { fontName } from '@/_components/Bill/Bill.css';
 
 export default function BillTab1() {
@@ -35,10 +36,12 @@ export default function BillTab1() {
   }, [page]);
 
   const { data: billResponse, isFetched: billFetched } = useSuspenseQuery({
-    queryKey: [{ bill: `info-request-bill-list` }, { page, limit, selectedCategoryId }], // 쿼리 키에 page와 limit 추가
-    queryFn: () => API.getBillInfo({ cmit: selectedCategoryId, page, limit, word: '', accept: undefined }), // API 호출 시 동적으로 page와 limit 전달
+    queryKey: [{ bill: `info-request-bill-list` }, { page, limit, selectedCategoryId, completeToggle }], // 쿼리 키에 page와 limit 추가
+    queryFn: () => API.getBillInfo({ cmit: selectedCategoryId, page, limit, word: '', accept: completeToggle }), // API 호출 시 동적으로 page와 limit 전달
     retry: false,
   });
+
+  // console.log(billResponse, 'billResponse');
 
   ///////////////////////////////
   const handleIsSelectedIdx = (idx: number) => {
@@ -135,7 +138,9 @@ export default function BillTab1() {
                   <Comp.Badge color={PALETTE.party[res.polyName][100]} isPositionAbsolute={false}>
                     {res.polyName}
                   </Comp.Badge>
-                  <p className={S.fontMostAssembly}>{res.hgName}</p>
+                  <Link href={`assembly/${res.assemblyId}`}>
+                    <p className={S.fontMostAssembly}>{res.hgName}</p>
+                  </Link>
                 </div>
               ))}
               {/* <p className={S.fontContent}>{billResponse.data.mostCmitAssemblyResponseList[1].hgName}</p>
@@ -152,7 +157,7 @@ export default function BillTab1() {
               <span style={{ fontSize: 12 }}>가결된 법안만 보기</span>
             </label>
             <span className={S.totalContWrapper}>
-              총 <span className={S.number}>{billResponse.data.billStatResponse.totalCount || 0}</span>개
+              총 <span className={S.number}>{billResponse.data.searchCount || 0}</span>개
             </span>
           </div>
         </h2>

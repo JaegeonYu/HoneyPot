@@ -17,27 +17,47 @@ declare global {
 function KakaoMap({ pollList }: { pollList: { name: string; address: string }[] }) {
   const mapRef = useRef<HTMLDivElement>(null);
   const searchParams = useSearchParams();
+  const [flag, setFlag] = useState<boolean>(false);
+  const [map, setMap] = useState<any>(null);
+  const [markers, setMarkers] = useState();
+
   // console.log(pollList, 'poLLLIST');
 
   // var dongvalue= searchParams.get('dong')
 
   useEffect(() => {
+    const script = window.kakao.maps.load(() => {
+      var mapContainer = document.getElementById('map'); // 지도를 표시할 div
+      let mapOption = {
+        center: new window.kakao.maps.LatLng(37.531804, 126.913121), // 지도의 중심좌표
+        level: 3, // 지도의 확대 레벨
+      };
+
+      // 지도를 생성합니다
+      let map = new window.kakao.maps.Map(mapContainer, mapOption);
+      setMap(map);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (map === null) return;
     if (window.kakao) {
       const script = window.kakao.maps.load(() => {
-        var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-          mapOption = {
-            center: new window.kakao.maps.LatLng(37.531804, 126.913121), // 지도의 중심좌표
-            level: 3, // 지도의 확대 레벨
-          };
-
-        // 지도를 생성합니다
-        var map = new window.kakao.maps.Map(mapContainer, mapOption);
-
         // 주소-좌표 변환 객체를 생성합니다
         var geocoder = new window.kakao.maps.services.Geocoder();
         // console.log(pollList, 'pl');
         // 주소로 좌표를 검색합니다
         var bounds = new window.kakao.maps.LatLngBounds(); //추가한 코드
+
+        // console.log(map, '이거 몇번해 ?', flag);
+        let markerlist: any = [];
+        // console.log(markers, 'markerssss');
+        let delmarker: any = markers;
+        if (delmarker !== null && delmarker !== undefined) {
+          delmarker.forEach(function (t: any) {
+            t.setMap(null);
+          });
+        }
 
         pollList.forEach(function (position) {
           //추가한 코드
@@ -52,6 +72,7 @@ function KakaoMap({ pollList }: { pollList: { name: string; address: string }[] 
                 map: map,
                 position: coords,
               });
+              markerlist.push(marker); // 마커들 저장
               marker.setMap(map); //추가한 코드
 
               // LatLngBounds 객체에 좌표를 추가합니다
@@ -85,13 +106,14 @@ function KakaoMap({ pollList }: { pollList: { name: string; address: string }[] 
             }
           });
         });
+        setMarkers(markerlist);
       });
     }
-  }, [pollList]);
+  }, [pollList, map]);
 
   return (
     <>
-      <div id="map" style={{ width: '80vw', height: '60vh' }}></div>
+      <div id="map" style={{ width: '80vw', height: '60vh', borderRadius: 30 }}></div>
     </>
   );
 }
