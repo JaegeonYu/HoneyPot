@@ -85,12 +85,12 @@ public class PledgeService {
         }
         String summary = pledge.getPledgeSummary();
         if (pledge.getPledgeSummary().contains("공약내용요약") || pledge.getPledgeSummary().contains("공약내용 요약")) {
-            summary = "공약내용요약";
+            summary = "공약내용요약 :";
         }
         return new PledgeDetailResponse(
                 pledge.getId(),
                 pledge.getTurn(),
-                deleteTitle(pledge.getPledgeName(), "공약명"),
+                deleteTitle(pledge.getPledgeName(), "공약명 :"),
                 deleteTitle(pledge.getPledgeSummary(), summary),
                 pledge.getNatureDivisionNationalRegional(),
                 pledge.getNatureDivisionLegislationFinance(),
