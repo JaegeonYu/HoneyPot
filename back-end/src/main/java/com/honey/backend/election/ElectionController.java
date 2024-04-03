@@ -9,7 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -17,7 +19,7 @@ import java.util.List;
 @RequestMapping("/election")
 @Tag(name = "22Election Info", description = "22Election Info API")
 public class ElectionController {
-
+    private final CandidateRepository candidateRepository;
     private final CandidateService candidateService;
     private final TotalRegionService totalRegionService;
     private final CandidateLoad candidateLoad;
@@ -37,11 +39,17 @@ public class ElectionController {
     }
 
     @GetMapping("/candidate/{candidate_id}/pledge")
-    public ResponseEntity<PdfConversionResponse> convertPdfToImages(@PathVariable(name = "candidate_id") Long candidateId) {
-        List<byte[]> pageImages = candidateService.convertPdfToImages(candidateId);
-        PdfConversionResponse response = new PdfConversionResponse(pageImages);
-        return ResponseEntity.ok().body(response);
+    public ResponseEntity<PdfConversionImagesResponse> convertPdfToImages(@PathVariable(name = "candidate_id") Long candidateId) {
+//        candidateService.convertPdfToImages(candidateId);
+        Candidate candidate = candidateRepository.findById(candidateId).orElseThrow(() -> new IllegalArgumentException("not found candidate"));
+
+
+        return ResponseEntity.ok(new PdfConversionImagesResponse(candidate.getCandidateImages()
+                .stream()
+                .sorted(Comparator.comparingInt(CandidateImage::getNum))
+                .map(CandidateImage::getUrl).collect(Collectors.toList())));
     }
+
 
     @GetMapping("/region/sido")
     public ResponseEntity<List<String>> getSido() {

@@ -2,6 +2,7 @@ package com.honey.backend.service;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -31,6 +33,14 @@ public class S3Upload {
         File uploadFile = convert(multipartFile)
                 .orElseThrow(() -> new IllegalArgumentException("MultipartFile -> File 전환 실패"));
         return Optional.of(putS3AndReturnURL(uploadFile));
+    }
+
+    public Optional<String> uploadImageInput(InputStream in, ObjectMetadata objectMetadata) throws IOException {
+        String uuid = UUID.randomUUID().toString();
+        String fileName = uuid +".jpg";
+
+        s3.putObject(bucket, "images/"+fileName, in, objectMetadata);
+        return Optional.of(fileName);
     }
 
 
@@ -76,7 +86,6 @@ public class S3Upload {
         );
         return url + "/" + fileName;
     }
-
 
     // 로컬에 생성된 File 삭제 (MultipartFile -> File 전환 하며 로컬에 파일 생성)
     private void removeNewFile(File targetFile) {
