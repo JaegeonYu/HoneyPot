@@ -81,8 +81,8 @@ export default function DetailModal({
                       width={100}
                       height={100}
                       key={i}
-                      src={`data:image/png;base64,${img}`}
-                      // src={img}
+                      // src={`data:image/png;base64,${img}`}
+                      src={img}
                     />
                   ))}
                 </div>
