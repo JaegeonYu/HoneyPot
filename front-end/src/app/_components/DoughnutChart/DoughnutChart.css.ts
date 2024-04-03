@@ -6,6 +6,7 @@ export const chartWrapper = style({
   display: 'flex',
   flexDirection: 'column',
   gap: 12,
+  position: 'relative',
 });
 
 export const chartTitle = style({
@@ -45,4 +46,19 @@ export const legendTitle = style({
   color: vars.colors.service.MAIN_BLACK,
   paddingBottom: 2,
   lineHeight: '16px',
+});
+
+export const percentInCenter = style({
+  display: 'flex',
+  flexDirection: 'column',
+  position: 'absolute',
+  top: '49%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+});
+
+export const percentInCenterText = style({
+  fontSize: '13px',
+  fontWeight: 600,
+  textAlign: 'center',
 });
