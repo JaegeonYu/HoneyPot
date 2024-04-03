@@ -26,26 +26,26 @@ public class PledgeService {
 
     public PledgeResponse getPledge(Long assemblyId) {
         PledgeResponse pledgeResponse;
-        if (pledgeRepository24.existsByAssemblyId(assemblyId)) {
+        if (pledgeFulfillmentRateRepository24.existsByAssemblyId(assemblyId)) {
             PledgeFulfillmentRate24 pledgeFulfillmentRate = pledgeFulfillmentRateRepository24.findByAssemblyId(assemblyId)
                     .orElse(null);
             if (pledgeFulfillmentRate == null) {
-                pledgeResponse = new PledgeResponse(-1L, null, new PledgeFulfillmentStatus(0, 0, 0, 0, 0, 0));
+                pledgeResponse = new PledgeResponse(-1L, "", new PledgeFulfillmentStatus(0, 0, 0, 0, 0, 0));
             } else {
                 // 이 위치에 날짜
                 pledgeResponse = new PledgeResponse(
-                        pledgeFulfillmentRate.getId(), null,
+                        pledgeFulfillmentRate.getId(), pledgeFulfillmentRate.getImportDate(),
                         getPledgeFulfillmentStatus24(pledgeFulfillmentRate));
             }
         } else {
             PledgeFulfillmentRate22 pledgeFulfillmentRate = pledgeFulfillmentRateRepository22.findByAssemblyId(assemblyId)
                     .orElse(null);
             if (pledgeFulfillmentRate == null) {
-                pledgeResponse = new PledgeResponse(-1L, null, new PledgeFulfillmentStatus(0, 0, 0, 0, 0, 0));
+                pledgeResponse = new PledgeResponse(-1L, "", new PledgeFulfillmentStatus(0, 0, 0, 0, 0, 0));
             } else {
                 // 이 위치에 날짜
                 pledgeResponse = new PledgeResponse(
-                        pledgeFulfillmentRate.getId(), null,
+                        pledgeFulfillmentRate.getId(), pledgeFulfillmentRate.getImportDate(),
                         getPledgeFulfillmentStatus22(pledgeFulfillmentRate));
             }
         }
@@ -54,7 +54,7 @@ public class PledgeService {
 
     public PledgeListResponse getPledgeDetailList(PledgeRequest pledgeRequest, Long pledgeFulfilmentRateId, String date) {
         List<PledgeDetailResponse> pledgeDetailResponseList = new ArrayList<>();
-        if (date.equals("2024.04")) {
+        if (date.equals("2024-04")) {
             Page<Pledge24> pledgeList = pledgeRepository24.findAllByPledgeFulfillmentRateId(PageRequest.of(pledgeRequest.page(), pledgeRequest.limit()), pledgeFulfilmentRateId)
                     .orElse(null);
             if (pledgeList == null)
@@ -113,33 +113,73 @@ public class PledgeService {
     }
 
     private PledgeDetailResponse getPledgeDetail24(Pledge24 pledge) {
+        String fulfillmentRate = "";
+        if (pledge.getFulfillmentRate().contains("추진중") || pledge.getFulfillmentRate().contains("추진 중")) {
+            fulfillmentRate = "추진중";
+            if (pledge.getFulfillmentRate().contains("완료")) {
+                fulfillmentRate = "기타";
+            }
+        } else if (pledge.getFulfillmentRate().contains("완료")) {
+            fulfillmentRate = "완료";
+        } else if (pledge.getFulfillmentRate().contains("폐기")) {
+            fulfillmentRate = "폐기";
+        } else if (pledge.getFulfillmentRate().contains("보류")) {
+            fulfillmentRate = "보류";
+        } else {
+            fulfillmentRate = "기타";
+        }
+        String summary = pledge.getPledgeSummary();
+        if (pledge.getPledgeSummary().contains("공약내용요약") || pledge.getPledgeSummary().contains("공약내용 요약")) {
+            summary = "공약내용요약 :";
+        }
         return new PledgeDetailResponse(
                 pledge.getId(),
                 pledge.getTurn(),
-                deleteTitle(pledge.getPledgeName(), "공약명"),
-                deleteTitle(pledge.getPledgeSummary(), "공약내용요약"),
+                deleteTitle(pledge.getPledgeName(), "공약명 :"),
+                deleteTitle(pledge.getPledgeSummary(), summary),
                 pledge.getNatureDivisionNationalRegional(),
                 pledge.getNatureDivisionLegislationFinance(),
-                pledge.getFulfillmentRate(),
+                fulfillmentRate,
                 pledge.getRequiredBudgetAmount(),
                 pledge.getSecuredBudgetAmount(),
                 deleteTitle(pledge.getOtherImplementationBasis(), "기타 이행 근거")
         );
+
     }
 
     private PledgeDetailResponse getPledgeDetail22(Pledge22 pledge) {
+        String fulfillmentRate = "";
+        if (pledge.getFulfillmentRate().contains("추진중") || pledge.getFulfillmentRate().contains("추진 중")) {
+            fulfillmentRate = "추진중";
+            if (pledge.getFulfillmentRate().contains("완료")) {
+                fulfillmentRate = "기타";
+            }
+        } else if (pledge.getFulfillmentRate().contains("완료")) {
+            fulfillmentRate = "완료";
+        } else if (pledge.getFulfillmentRate().contains("폐기")) {
+            fulfillmentRate = "폐기";
+        } else if (pledge.getFulfillmentRate().contains("보류")) {
+            fulfillmentRate = "보류";
+        } else {
+            fulfillmentRate = "기타";
+        }
+        String summary = pledge.getPledgeSummary();
+        if (pledge.getPledgeSummary().contains("공약내용요약") || pledge.getPledgeSummary().contains("공약내용 요약")) {
+            summary = "공약내용요약 :";
+        }
         return new PledgeDetailResponse(
                 pledge.getId(),
                 pledge.getTurn(),
-                deleteTitle(pledge.getPledgeName(), "공약명"),
-                deleteTitle(pledge.getPledgeSummary(), "공약내용요약"),
+                deleteTitle(pledge.getPledgeName(), "공약명 :"),
+                deleteTitle(pledge.getPledgeSummary(), summary),
                 pledge.getNatureDivisionNationalRegional(),
                 pledge.getNatureDivisionLegislationFinance(),
-                pledge.getFulfillmentRate(),
+                fulfillmentRate,
                 pledge.getRequiredBudgetAmount(),
                 pledge.getSecuredBudgetAmount(),
                 deleteTitle(pledge.getOtherImplementationBasis(), "기타 이행 근거")
         );
+
     }
 
     private int extractFirstNumber(String value, int defaultValue) {
@@ -163,9 +203,11 @@ public class PledgeService {
 
     private String deleteTitle(String src, String tool) {
         if (src.startsWith(tool)) {
-            String[] split = src.split(":");
-            return split.length == 1 ? null : split[1].trim();
+            String[] split = src.split(tool);
+            return split[1];
+
         } else return src;
 
     }
+
 }

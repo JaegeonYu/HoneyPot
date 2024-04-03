@@ -46,5 +46,5 @@ public class PledgeFulfillmentRate24 {
     private String totalRequiredBudget;
     private String totalSecuredBudget;
     private String totalExecutedBudget;
-
+    private String importDate;
 }

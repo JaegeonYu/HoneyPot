@@ -8,5 +8,6 @@ public interface PledgeFulfillmentRateRepository24 extends JpaRepository<PledgeF
 
     Optional<PledgeFulfillmentRate24> findByAssemblyId(Long assemblyId);
 
+    boolean existsByAssemblyId(Long assemblyId);
 
 }
