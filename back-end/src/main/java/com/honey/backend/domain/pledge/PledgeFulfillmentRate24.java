@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @Entity
@@ -13,8 +12,8 @@ import lombok.RequiredArgsConstructor;
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Transactional
-@Table(name = "pledge_fulfillment_rate")
-public class PledgeFulfillmentRate {
+@Table(name = "pledge_fulfillment_rate_24")
+public class PledgeFulfillmentRate24 {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,5 +46,5 @@ public class PledgeFulfillmentRate {
     private String totalRequiredBudget;
     private String totalSecuredBudget;
     private String totalExecutedBudget;
-
+    private String importDate;
 }

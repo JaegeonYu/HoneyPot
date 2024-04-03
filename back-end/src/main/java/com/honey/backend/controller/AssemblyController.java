@@ -86,7 +86,7 @@ public class AssemblyController {
     @Operation(summary = "국회의원의 공약 리스트 조회", description = "국회의원의 공약 리스트 API")
     public ResponseEntity<PledgeListResponse> findPledgeList(@PathVariable(name = ("assembly_id")) Long assemblyId, PledgeRequest pledgeRequest) {
         PledgeResponse pledgeResponse = pledgeService.getPledge(assemblyId);
-        PledgeListResponse pledgeDetailResponseList = pledgeService.getPledgeDetailList(pledgeRequest, pledgeResponse.id());
+        PledgeListResponse pledgeDetailResponseList = pledgeService.getPledgeDetailList(pledgeRequest, pledgeResponse.id(), pledgeResponse.date());
         return pledgeDetailResponseList.pledgeDetailResponse().isEmpty() ? ResponseEntity.status(HttpStatus.NO_CONTENT).body(pledgeDetailResponseList) : ResponseEntity.status(HttpStatus.OK).body(pledgeDetailResponseList);
     }
 
