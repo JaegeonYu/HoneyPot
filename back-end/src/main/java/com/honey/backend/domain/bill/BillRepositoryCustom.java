@@ -9,12 +9,11 @@ import org.springframework.stereotype.Repository;
 public interface BillRepositoryCustom {
 
 
-
     Page<Bill> findAllByAssemblyIdAndCmitId(Pageable pageable, String word, Long cmitId, Long assemblyId, String accept);
 
     BillStatResponse findBillStatByAssemblyIdAndCmitId(Long assemblyId, Long cmitId);
 
-    Long countByAssemblyIdAndCmitId(String word, Long cmitId, Long assemblyId);
+    Long countByAssemblyIdAndCmitId(String word, Long cmitId, Long assemblyId, String accept);
 
     Page<Bill> findAllByPolyIdAndCmitId(Pageable pageable, String word, Long cmitId, Long polyId, String accpet);
 

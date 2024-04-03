@@ -116,7 +116,7 @@ public class BillRepositoryImpl implements BillRepositoryCustom {
     }
 
     @Override
-    public Long countByAssemblyIdAndCmitId(String word, Long cmitId, Long assemblyId) {
+    public Long countByAssemblyIdAndCmitId(String word, Long cmitId, Long assemblyId, String accept) {
         return queryFactory
                 .select(bill.count())
                 .from(bill)
@@ -124,7 +124,8 @@ public class BillRepositoryImpl implements BillRepositoryCustom {
                 .leftJoin(committee).on(bill.committee.id.eq(committee.id))
                 .where(assemblyId != null ? bill.assembly.id.eq(assemblyId) : null,
                         cmitId != 0 ? committee.id.eq(cmitId) : null,
-                        word != null ? bill.billName.like("%" + word + "%") : null)
+                        word != null ? bill.billName.like("%" + word + "%") : null,
+                        accept != null && accept.equals("true") ? bill.procResult.like("%" + "가결" + "%") : null)
                 .orderBy(bill.billNo.desc())
                 .fetchOne();
 

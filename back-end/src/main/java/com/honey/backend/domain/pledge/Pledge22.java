@@ -11,8 +11,8 @@ import lombok.RequiredArgsConstructor;
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Transactional
-@Table(name = "detailed_pledge_execution_status")
-public class Pledge {
+@Table(name = "detailed_pledge_execution_status_22")
+public class Pledge22 {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,7 +42,7 @@ public class Pledge {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "pledge_fulfillment_rate_id")
-    private PledgeFulfillmentRate pledgeFulfillmentRate;
+    private PledgeFulfillmentRate22 pledgeFulfillmentRate;
 
-    // 생성자, getter, setter 등 필요한 코드는 생략
+    //JOIN 에 관해서 테이블 ID 도 수정해야 할 수도 있음.
 }
