@@ -127,13 +127,12 @@
 
 - 후보자들의 약력과 공약을 볼 수 있다.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/369d45e6-9d3a-4c10-b6a8-7fd0008df5c2/4164a9bf-365c-4192-97fb-9924476e15e1/Untitled.png)
+![총선정보](images/22대-총선-후보자-확인.gif)
 
 ### 7. 선거구 위치
 
 - 내가 살고 있는 곳에서 가까운 선거구를 찾을 수 있다.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/369d45e6-9d3a-4c10-b6a8-7fd0008df5c2/7a4f8051-e874-4925-9ac3-2e4cdce6d128/Untitled.png)
 
 ## 👨‍👩‍👧‍👧팀 구성
 
