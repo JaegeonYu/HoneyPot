@@ -90,34 +90,38 @@
 - 지역 별로 국회의원을 검색할 수 있다.
 - 국회의원에 대한 정보를 알 수 있다 (공약, 발의한 법안, 약력, 출석률)
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/369d45e6-9d3a-4c10-b6a8-7fd0008df5c2/50c28307-5da7-46d5-aa50-dbaea948e444/Untitled.png)
+![공약이행률](images/공약이행률.gif)
+![발의법률안](images/발의법률안.gif)
+![발의법률안-카테고리](images/발의법률안-카테고리.gif)
 
 ### 2. 정당 별 정보
 
 - 정당 평균 출석률을 확인할 수 있고, 정당에 속해 있는 국회의원 출석률을 비교할 수 있다.
 - 정당에서 가장 많이 발의한 분야를 알 수 있다.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/369d45e6-9d3a-4c10-b6a8-7fd0008df5c2/6d5ff107-c279-4b6e-9b9b-9cd9cd7682e1/Untitled.png)
+![정당-상세조회]](images/정당-상세조회.gif)
+![정당-뉴스](images/정당-뉴스.gif)
 
 ### 3. 법안 별 정보
 
 - 내가 보고 싶은 법안의 추진 현황을 볼 수 있다.
 - 분야 별로 법안을 볼 수 있고, 읽기 어려운 법안 내용을 요약해서 볼 수 있다.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/369d45e6-9d3a-4c10-b6a8-7fd0008df5c2/88f7452a-434d-40ea-a128-c77b6d6fb392/Untitled.png)
+![법안-조회](images/법안-조회.gif)
+![주목받았던-법안](images/주목받았던-법안.gif)
 
 ### 4. 입문서
 
 - 어렵고 복잡한 용어를 이해하기 쉽게
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/369d45e6-9d3a-4c10-b6a8-7fd0008df5c2/641f8374-a249-4094-9507-3c3bd4a25b18/Untitled.png)
+![여의도-입문서](images/여의도-입문서.gif)
 
 ### 5. 뉴스
 
 - 국회에 대한 최신 뉴스를 볼 수 있습니다.
 - 국회 라이브 영상을 주제 별로 요약 영상을 볼 수 있습니다.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/369d45e6-9d3a-4c10-b6a8-7fd0008df5c2/f9001b40-6b1c-43a1-a912-6a1f1c8f7c30/Untitled.png)
+![뉴스](images/뉴스.gif)
 
 ### 6. 22대 총선 정보
 
